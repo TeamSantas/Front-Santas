@@ -1,6 +1,8 @@
 import styles from '../styles/Home.module.css'
 import Seo from "../component/common/Seo";
 import styled from "styled-components";
+import {NextPage} from "next";
+import {useRouter} from "next/router";
 
 //styled components 작동되나 확인용 임시코드
 //추후 index.js에서 제거할 예정
@@ -13,7 +15,8 @@ const Button = styled.button`
 `;
 
 
-export default function Home() {
+const Home: NextPage = () => {
+  const router = useRouter();
   return (
     <div className={styles.container}>
         <Seo title='Home'/>
@@ -24,8 +27,10 @@ export default function Home() {
             <p className={styles.description}>
               지금부터 프론트엔드 개복수술 들어갑니다
             </p>
-            <Button>임시버튼</Button>
+            <Button onClick={() => router.push('mypage')}>마이페이지가기</Button>
           </main>
     </div>
   )
 }
+
+export default Home;
