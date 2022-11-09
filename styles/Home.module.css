@@ -1,6 +1,9 @@
 .container {
   padding: 0 2rem;
-  background-color: gray;
+  
+  /* TODO : 디자이너님께 받아서 수정 */
+  /* background-image: url("/asset/image/main.png"); */
+  background-color: #191C21;
 }
 
 .main {
@@ -14,7 +17,7 @@
 }
 
 .title a {
-  color: #0070f3;
+  color: brown;
   text-decoration: none;
 }
 
