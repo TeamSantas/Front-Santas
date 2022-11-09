@@ -14,6 +14,7 @@ const Logo = styled.button`
 `;
 const MyPage = styled(Icons)`
     width: 40px;
+    height: auto;
     background-image: url("/asset/image/favicon.png");
 `;
 
