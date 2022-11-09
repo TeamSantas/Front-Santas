@@ -10,6 +10,7 @@ body {
   max-width: 768px;
   width: 100%;
   margin: 0 auto;
+  box-shadow: 0 5px 20px 5px gray;
 }
 
 a {
@@ -21,12 +22,12 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}
+/*@media (prefers-color-scheme: dark) {*/
+/*  html {*/
+/*    color-scheme: dark;*/
+/*  }*/
+/*  body {*/
+/*    color: white;*/
+/*    background: black;*/
+/*  }*/
+/*}*/

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {NextPage} from "next";
 import {useRouter} from "next/router";
 import html2canvas from 'html2canvas';
+import {useGetAllPosts} from "../api/hooks/useGetAllPosts";
 
 //styled components 작동되나 확인용 임시코드
 //추후 index.js에서 제거할 예정
@@ -54,6 +55,7 @@ const Home: NextPage = () => {
               <b>🎅팀 산타즈🎄️</b>
             </p>
             <Button onClick={() => router.push('mypage')}>마이페이지가기</Button>
+            <Button onClick={useGetAllPosts}>API연결테스트</Button>
             <SantaImage alt="santa" src="/asset/image/santa.png"/>
             <Button onClick={screenCaptureHandler}>화면캡쳐하기</Button>
           </main>
