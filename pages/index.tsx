@@ -2,65 +2,89 @@ import styles from '../styles/Home.module.css'
 import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import {NextPage} from "next";
-import {useRouter} from "next/router";
-import html2canvas from 'html2canvas';
-import {useGetAllPosts} from "../api/hooks/useGetAllPosts";
+import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
+import html2canvas from "html2canvas";
 
-//styled components 작동되나 확인용 임시코드
-//추후 index.js에서 제거할 예정
-const Button = styled.button`
-  width: 300px;
-  height: 50px;
-  border-radius: 30px;
-  border: none;
-  background-color: brown;
-  color: white;
-  font-size: 20px;
+const Friends = styled(Icons)`
+    background-image: url("/asset/image/Users.png");
 `;
 
-const SantaImage = styled.img`
-  width: 250px;
+const LinkCopy = styled(Icons)`
+    margin-right: 24px;
+    background-image: url("/asset/image/Link.png");
 `;
 
+const Bgm = styled(Icons)`
+    background-image: url("/asset/image/SpeakerHigh.png");
+`;
+
+const Share = styled(Icons)`
+    width: 312px;
+    height: 72px;
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 48px;
+    background: #ac473d;
+    border-radius: 12px;
+`;
+
+const Calendar = styled.div`
+    background-image: url("/asset/image/Calendar.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    justify-content: center;
+    margin-bottom: 24px;
+    align-items: center;
+    width: 316px;
+    height: 316px;
+`;
 
 const Home: NextPage = () => {
-  const router = useRouter();
-  const screenCaptureHandler = () => {
-    console.log("캡쳐됨");
-    html2canvas(document.getElementById('home')).then(function(canvas) {
-      const url = canvas.toDataURL("my_calendar/png");
-      onDownloadAs(url,'my_calendar.png');
-    });
-  }
+    const screenCaptureHandler = () => {
+        console.log("캡쳐됨");
+        html2canvas(document.getElementById("home")).then(function (canvas) {
+            const url = canvas.toDataURL("my_calendar/png");
+            onDownloadAs(url, "my_calendar.png");
+        });
+    };
 
-  const onDownloadAs = (uri: string, filename: string) => {
-    console.log("다운됨");
-    const link = document.createElement('a');
-    document.body.appendChild(link);
-    link.href = uri;
-    link.download = filename;
-    link.click();
-    document.body.removeChild(link);
-  };
+    const onDownloadAs = (uri: string, filename: string) => {
+        console.log("다운됨");
+        const link = document.createElement("a");
+        document.body.appendChild(link);
+        link.href = uri;
+        link.download = filename;
+        link.click();
+        document.body.removeChild(link);
+    };
 
+    const shareHandler = () => {
+        console.log("Link copied!");
+    };
 
-  return (
-    <div className={styles.container} id="home">
-        <Seo title='Home'/>
-          <main className={styles.main}>
-            <h3 className={styles.title}>
-              <a href="https://nextjs.org">두근두근</a><br/>어드벤트 캘린더
-            </h3>
-            <p className={styles.description}>
-              <b>🎅팀 산타즈🎄️</b>
-            </p>
-            <Button onClick={() => router.push('mypage')}>마이페이지가기</Button>
-            <Button onClick={useGetAllPosts}>API연결테스트</Button>
-            <SantaImage alt="santa" src="/asset/image/santa.png"/>
-            <Button onClick={screenCaptureHandler}>화면캡쳐하기</Button>
-          </main>
-    </div>
-  )
-}
+    const muteHandler = () => {
+        // TODO : 음소거 기능 추가 필요
+        console.log("음소거 됨");
+    };
+
+    return (
+        <div id="home">
+            <Seo title="Home" />
+            <MainContainer>
+                <Calendar />
+                <Flex>
+                    {/* TODO : Kakao 친구 목록 연결 */}
+                    <Friends />
+                    <Flex>
+                        <LinkCopy onClick={shareHandler} />
+                        <Bgm onClick={muteHandler} />
+                    </Flex>
+                </Flex>
+                <Share onClick={screenCaptureHandler}>캘린더 공유하기</Share>
+            </MainContainer>
+        </div>
+    );
+};
+
 
 export default Home;
