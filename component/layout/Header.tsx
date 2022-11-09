@@ -12,6 +12,7 @@ const Logo = styled.button`
     height: 40px;
     border: none;
 `;
+
 const MyPage = styled(Icons)`
     width: 40px;
     height: auto;
@@ -20,6 +21,8 @@ const MyPage = styled(Icons)`
 
 const Header = () => {
     const router = useRouter();
+    // TODO : 조건부 렌더링
+    const currPath = router.pathname.slice(1); 
     return (
         <Flex>
             <Logo onClick={() => router.push("/")}></Logo>
