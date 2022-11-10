@@ -29,14 +29,19 @@ const Share = styled(Icons)`
 `;
 
 const Calendar = styled.div`
-    background-image: url("/asset/image/Calendar.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin-bottom: 24px;
+`
+
+const DayImage = styled.img`
     justify-content: center;
-    margin-bottom: 24px;
+    padding: 2px;
     align-items: center;
-    width: 316px;
-    height: 316px;
+    width: 7rem;
+      @media (max-width: 600px) {
+        width: 100%;
+      }
 `;
 
 const Home: NextPage = () => {
@@ -66,12 +71,19 @@ const Home: NextPage = () => {
         // TODO : 음소거 기능 추가 필요
         console.log("음소거 됨");
     };
-
+    const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
     return (
         <div id="home">
             <Seo title="Home" />
             <MainContainer>
-                <Calendar />
+                <Calendar>
+                    {days.map((day)=>(
+                        //TODO: 25개 날짜별 이미지를 /asset/image/days폴더에 다 다운받고 링크 다르게 해줘야함
+                        //TODO: onClick으로 클릭시 모달창 열리는 함수 연결해두기. 임시로 음소거 함수 넣었어요ㅎㅎ
+                        <DayImage src="/asset/image/days/day1.svg" onClick={muteHandler} alt="day" key={day}/>
+                        ))
+                    }
+                </Calendar>
                 <Flex>
                     {/* TODO : Kakao 친구 목록 연결 */}
                     <Friends />
