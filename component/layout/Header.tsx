@@ -3,26 +3,36 @@ import { Flex, Icons } from "../../styles/styledComponentModule";
 import { useRouter } from "next/router";
 
 const Logo = styled.button`
-    margin-top: 16px;
+    margin-top: 20px;
     margin-bottom: 20px;
     background: none;
-    background-image: url("/asset/image/Logo.png");
+    background-image: url("/asset/image/Logo.svg");
     background-repeat: no-repeat;
     width: 120px;
     height: 40px;
     border: none;
+    margin-left: 20px;
+  
+    @media (max-width: 600px) {
+      margin-left: 0;
+    }
 `;
 
 const MyPage = styled(Icons)`
-    width: 40px;
+    width: 80px;
     height: auto;
-    background-image: url("/asset/image/favicon.png");
+    margin-right: 2%;
+    background-image: url("/asset/image/face.svg");
+    @media (max-width: 600px) {  
+      width: 40px;
+     margin-left: 0;
+    }
 `;
 
 const Header = () => {
     const router = useRouter();
     // TODO : 조건부 렌더링
-    const currPath = router.pathname.slice(1); 
+    const currPath = router.pathname.slice(1);
     return (
         <Flex>
             <Logo onClick={() => router.push("/")}></Logo>

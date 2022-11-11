@@ -4,6 +4,7 @@ import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
+import TabView from "../component/TabView";
 
 const Profile = styled(Icons)`
     width: 70px;
@@ -54,10 +55,7 @@ const MyPage: NextPage = () => {
                 <Edit></Edit>
             </CenterFlex>
             <Text email>teamSantaz@naver.com</Text>
-            <Flex>
-              <Button onClick={presentBtnClickHandler}>받은 쪽지</Button>
-              <Button onClick={presentBtnClickHandler}>보낸 쪽지</Button>
-            </Flex>
+            <TabView/>
         </MainContainer>
     );
 };

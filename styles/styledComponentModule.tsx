@@ -5,13 +5,14 @@ export const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 `;
 
 export const Logo = styled.button`
     margin-top: 16px;
     margin-bottom: 20px;
     background: none;
-    background-image: url("/asset/image/Logo.png");
+    background-image: url("/asset/image/Logo.svg");
     background-repeat: no-repeat;
     width: 120px;
     height: 40px;
