@@ -39,9 +39,9 @@ const Button = styled.button`
     background: red;
 `;
 
-const presentBtnClickHandler = () => {
-  console.log("버튼 클릭");
-}
+// const presentBtnClickHandler = () => {
+//   console.log("버튼 클릭");
+// }
 
 const MyPage: NextPage = () => {
     const router = useRouter();

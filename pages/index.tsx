@@ -18,6 +18,13 @@ const Bgm = styled(Icons)`
     background-image: url("/asset/image/SpeakerHigh.png");
 `;
 
+const ButtonFlex = styled(Flex)`
+  width: 35rem;
+  @media (max-width: 600px) {
+    width: 90%;
+  }
+`
+
 const Share = styled(Icons)`
     width: 312px;
     height: 72px;
@@ -84,14 +91,14 @@ const Home: NextPage = () => {
                         ))
                     }
                 </Calendar>
-                <Flex>
+                <ButtonFlex>
                     {/* TODO : Kakao 친구 목록 연결 */}
                     <Friends />
                     <Flex>
                         <LinkCopy onClick={shareHandler} />
                         <Bgm onClick={muteHandler} />
                     </Flex>
-                </Flex>
+                </ButtonFlex>
                 <Share onClick={screenCaptureHandler}>캘린더 공유하기</Share>
             </MainContainer>
         </div>

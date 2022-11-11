@@ -8,14 +8,18 @@ import {StyledCard} from "./Card";
 const StyledTab = styled.div`
   border-radius: 5px;
   width: 70vw;
-  height: 60vh;
+  height: 80vh;
   overflow: auto;
   justify-content: center;
   align-items: center;
   margin: 30px auto;
   @media (max-width: 600px) {
+    margin-top: 50px;
     width: 85vw;
     height: 50vh;
+  }
+  @media (max-width: 400px) {
+    margin-top: 30px
   }
 `
 
@@ -26,6 +30,9 @@ const TabCard = styled(StyledCard)`
 
   @media (max-width: 600px) {
     width: 32vw;
+  }
+  @media (max-width: 400px) {
+    width: 70vw;
   }
 `
 

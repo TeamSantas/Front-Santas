@@ -9,6 +9,7 @@ const MainWrapper = styled.div`
   padding: 22px;
   height: 100vh;
   margin: 0 auto;
+  overflow: scroll;
   box-shadow: 0 5px 20px 5px gray;
 `;
 
