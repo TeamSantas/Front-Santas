@@ -2,28 +2,49 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import 'bootstrap/dist/css/bootstrap.css';
 import styled from "styled-components";
-import {Flex, Grid} from "../styles/styledComponentModule";
-import Card from "./Card";
+import {Flex} from "../styles/styledComponentModule";
+import {StyledCard} from "./Card";
 
 const StyledTab = styled.div`
-  //background-color: burlywood;
   border-radius: 5px;
   width: 70vw;
+  height: 60vh;
+  overflow: auto;
   justify-content: center;
   align-items: center;
   margin: 30px auto;
   @media (max-width: 600px) {
     width: 85vw;
+    height: 50vh;
   }
 `
 
-const TabCard = styled(Card)`
-  color: red;  
+const TabCard = styled(StyledCard)`
+  margin: 10px 5px;
+  width: 30%;
+  height: 30%;
+
+  @media (max-width: 600px) {
+    width: 32vw;
+  }
 `
 
 const TabFlex = styled(Flex)`
-  margin: 10px;
-  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+`
+const CardImg = styled.img`
+  width: 100%;
+  height: 25vh;
+  object-fit:cover;
+  @media (max-width: 600px) {
+    height: 15vh;
+}
+`
+const Img = styled.div`
+  padding-bottom: 10px;
+  overflow: hidden;
 `
 
 const TapView = () => {
@@ -37,20 +58,34 @@ const TapView = () => {
         >
             <Tab eventKey="받은쪽지" title="받은쪽지" style={{backgroundColor:"lightblue", padding:"20px"}}>
                 <TabFlex>
-                    <TabCard>받은 선물 리스트</TabCard>
-                    <TabCard>받은 선물 리스트</TabCard>
-                    <TabCard>받은 선물 리스트</TabCard>
-                    <TabCard>받은 선물 리스트</TabCard>
-                    <TabCard>받은 선물 리스트</TabCard>
+                    <TabCard>
+                        <Img><CardImg src="/asset/image/Calendar.svg"/></Img>
+                    </TabCard>
+                    <TabCard>
+                        <CardImg src="/asset/image/santa.png"/>
+                    </TabCard>
+                    <TabCard>
+                        <CardImg src="/asset/image/Calendar.svg"/>
+                    </TabCard>
+                    <TabCard>
+                        <CardImg src="/asset/image/face.svg"/>
+                    </TabCard>
                 </TabFlex>
             </Tab>
             <Tab eventKey="보낸쪽지" title="보낸쪽지" style={{backgroundColor:"gray", padding:"20px"}}>
                 <TabFlex>
-                    <Card>보낸 쪽지 리스트</Card>
-                    <Card>보낸 쪽지 리스트</Card>
-                    <Card>보낸 쪽지 리스트</Card>
-                    <Card>보낸 쪽지 리스트</Card>
-                    <Card>보낸 쪽지 리스트</Card>
+                    <TabCard>
+                        <CardImg src="/asset/image/face.svg"/>
+                    </TabCard>
+                    <TabCard>
+                        <Img><CardImg src="/asset/image/Calendar.svg"/></Img>
+                    </TabCard>
+                    <TabCard>
+                        <CardImg src="/asset/image/santa.png"/>
+                    </TabCard>
+                    <TabCard>
+                        <CardImg src="/asset/image/Calendar.svg"/>
+                    </TabCard>
                 </TabFlex>
             </Tab>
         </Tabs>
