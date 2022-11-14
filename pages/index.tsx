@@ -1,4 +1,3 @@
-import styles from '../styles/Home.module.css'
 import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import {NextPage} from "next";
