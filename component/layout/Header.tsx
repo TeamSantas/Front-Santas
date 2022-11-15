@@ -50,13 +50,14 @@ const Header = () => {
     const router = useRouter();
     const currPath = router.pathname.slice(1);
     const [menuOnOff, setMenuOnOff] = useState(false);
-    const menuHandler = () => {
-        setMenuOnOff(!menuOnOff);
-    }
+    const menuHandler = () => setMenuOnOff(!menuOnOff);
+    const menuOffHandler = () => setMenuOnOff(false);
+    //로고를 누르면 사이드바 닫힘
+    //햄버거 바를 누르면 사이드바 열림
     return (
         <>
             <Flex>
-                <Logo onClick={() => router.push("/")}></Logo>
+                <Logo onClick={() => {router.push("/"); menuOffHandler();}}></Logo>
                 { currPath === 'mypage' ?
                     <Menu src="/asset/image/icons/menu-icon.svg" onClick={menuHandler}/>
                     : <MyPage onClick={() => {router.push("/mypage"); }}/>}

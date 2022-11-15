@@ -12,6 +12,9 @@ const Container = styled.div`
   top: 0;
   z-index: 10;
   padding-left: 0;
+  @media (max-width: 600px) {
+    width: 80%;
+  }
 `
 
 const IndexDiv = styled.div`
@@ -57,6 +60,16 @@ const Img = styled.img`
   margin-top: -5px;
 `
 
+const Background = styled.div`
+  width: 100vw;
+  height: 100vh;
+  opacity: .7;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #191C21;
+`
+
 const Sidebar = (props) => {
     const router = useRouter();
     const index = [
@@ -75,22 +88,26 @@ const Sidebar = (props) => {
     ]
 
     return (
-        <Container>
-            <Index><CloseIcon src="/asset/image/icons/close.png" onClick={props.menu}/></Index>
-            <Ul>
-                {index.map((indexTitle, i) => {
-                    return (
-                        <IndexDiv  key={i}>
-                            <Li>
-                                <Img src="/asset/image/face.svg"/>
-                                <Index onClick={() => {router.push(indexRoute[i]);}}>{indexTitle}</Index>
-                            </Li>
-                            <Hr/>
-                        </IndexDiv>
-                    )
-                })}
-            </Ul>
-        </Container>
+        <>
+            {/*Background : 배경 블러처리 겸, 아무 곳이나 눌러도 사이드바 해제하는 역할*/}
+            <Background onClick={props.menu}/>
+            <Container>
+                <Index><CloseIcon src="/asset/image/icons/close.png" onClick={props.menu}/></Index>
+                <Ul>
+                    {index.map((indexTitle, i) => {
+                        return (
+                            <IndexDiv  key={i}>
+                                <Li>
+                                    <Img src="/asset/image/face.svg"/>
+                                    <Index onClick={() => {router.push(indexRoute[i]);}}>{indexTitle}</Index>
+                                </Li>
+                                <Hr/>
+                            </IndexDiv>
+                        )
+                    })}
+                </Ul>
+            </Container>
+        </>
     )
 }
 export default Sidebar

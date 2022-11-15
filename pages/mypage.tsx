@@ -7,10 +7,11 @@ import { useRouter } from "next/router";
 import TabView from "../component/TabView";
 
 const Profile = styled(Icons)`
-    width: 70px;
-    height: 70px;
+    width: 150px;
+    height: 150px;
     margin: 30px auto;
-    background-image: url("/asset/image/Profile.png");
+    border-radius: 50%;
+    background-image: url("/asset/image/tmpProfil.png");
 `;
 
 const CenterFlex = styled(Flex)`
