@@ -12,7 +12,7 @@ const PresentModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          12월 {props.selectedDay}일
+          12월 {props.selectedday}일
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

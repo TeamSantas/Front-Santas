@@ -21,8 +21,8 @@ const DayImage = styled.img`
 const Calendar = () => {
     const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
     const [presentCardsListShow, setPresentCardsListShow] = useState(false);
-    const [selectedDay, setSelectedDay] = useState("")
-    
+    const [selectedday, setSelectedDay] = useState("")
+
     const handleShow = (e) => {
         setSelectedDay(e.target.alt.split('day')[1])
         setPresentCardsListShow(true)
@@ -46,7 +46,7 @@ const Calendar = () => {
             <PresentModal 
                 show={presentCardsListShow}
                 onHide={handleClose}
-                selectedDay={selectedDay}
+                selectedday={selectedday}
             /> 
         </>
         

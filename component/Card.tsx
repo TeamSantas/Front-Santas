@@ -38,7 +38,7 @@ const CardImg = styled.img`
 
 const Card = (props) => {
   const [presentCardShow, setPresentCardShow] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(0)
+  const [selectedcard, setSelectedCard] = useState(0)
 
   const handleShow = () => {
     setSelectedCard(props.id)
@@ -58,7 +58,7 @@ const Card = (props) => {
         <CustomModal 
           show={presentCardShow}
           onHide={handleClose}
-          selectedCard={selectedCard}
+          selectedcard={selectedcard}
           header={`쪽지 제목`}
           body={`쪽지 내용`}
         /> 
