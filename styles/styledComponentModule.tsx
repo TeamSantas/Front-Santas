@@ -33,3 +33,17 @@ export const Icons = styled.button`
     background-size: contain;
     background-position: center;
 `;
+
+export const Button = styled.button`
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    &:hover{
+      background-color: lightgrey;
+    }
+    &:active{
+      background-color: lightgrey;
+    }
+`;
