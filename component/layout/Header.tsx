@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Flex, Icons } from "../../styles/styledComponentModule";
 import { useRouter } from "next/router";
 import {useState} from "react";
+import Sidebar from "../Sidebar";
 
 const Logo = styled.button`
     margin-top: 20px;
@@ -48,14 +49,19 @@ const Menu = styled.img`
 const Header = () => {
     const router = useRouter();
     const currPath = router.pathname.slice(1);
+    const [menuOnOff, setMenuOnOff] = useState(false);
+    const menuHandler = () => {
+        setMenuOnOff(!menuOnOff);
+    }
     return (
         <>
             <Flex>
                 <Logo onClick={() => router.push("/")}></Logo>
-                { currPath === "mypage"?
-                    <Menu src="/asset/image/menu-icon.svg"/>
+                { currPath === 'mypage' ?
+                    <Menu src="/asset/image/icons/menu-icon.svg" onClick={menuHandler}/>
                     : <MyPage onClick={() => {router.push("/mypage"); }}/>}
-                </Flex>
+            </Flex>
+            {menuOnOff ? <Sidebar menu={menuHandler}/> : null}
         </>
     );
 };

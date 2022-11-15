@@ -5,16 +5,16 @@ import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import html2canvas from "html2canvas";
 
 const Friends = styled(Icons)`
-    background-image: url("/asset/image/Users.png");
+  background-image: url("/asset/image/icons/Users.png");
 `;
 
 const LinkCopy = styled(Icons)`
-    margin-right: 24px;
-    background-image: url("/asset/image/Link.png");
+  margin-right: 24px;
+  background-image: url("/asset/image/icons/Link.png");
 `;
 
 const Bgm = styled(Icons)`
-    background-image: url("/asset/image/SpeakerHigh.png");
+  background-image: url("/asset/image/icons/SpeakerHigh.png");
 `;
 
 const ButtonFlex = styled(Flex)`
