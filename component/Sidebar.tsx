@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import {useRouter} from "next/router";
-import {useState} from "react";
 
 const Container = styled.div`
   background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d3c3 100%);
+  //background-image: linear-gradient(135deg, #BDD4E7 0%, #8693AB 100%);
+  //background-image: linear-gradient(to bottom, #d3e1f2, #b4cff4, #97bdf6, #7caaf6, #6396f6);
   border-radius: 30px 0 0 30px;
   width: 30%;
   height: 100vh;
@@ -12,16 +13,21 @@ const Container = styled.div`
   top: 0;
   z-index: 10;
   padding-left: 0;
-  @media (max-width: 600px) {
-    width: 80%;
+  border: solid 3px white;
+  @media (max-width: 1000px) {
+    width: 40%;
+  }
+  @media (max-width: 650px) {
+    width: 70%;
+    border-radius: 15px 0 0 15px;
   }
 `
 
 const IndexDiv = styled.div`
   cursor: pointer;
   &:hover {
-    background-image: linear-gradient(120deg, #f6d365 20%, #fda085 80%);
-   
+    //background-image: linear-gradient(120deg, #f6d365 20%, #fda085 80%);
+    background-image: linear-gradient(to right, #94bcf8, #86aef9, #7c9ff9, #778ff8, #777ef4);
   }
 `
 
@@ -34,6 +40,9 @@ const Index = styled.button`
   &:hover {
     font-size: 24px;
     color: saddlebrown;
+  }
+  @media (max-width: 600px) {
+    font-size: 18px;
   }
 `
 const CloseIcon = styled.img`

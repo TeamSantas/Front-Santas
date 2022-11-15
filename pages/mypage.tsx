@@ -1,16 +1,16 @@
-import styles from "../styles/Home.module.css";
 import { NextPage } from "next";
 import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
-import TabView from "../component/TabView";
+import TabView from "../component/tab/TabView";
 
 const Profile = styled(Icons)`
     width: 150px;
     height: 150px;
     margin: 30px auto;
     border-radius: 50%;
+    border: solid 3px white;
     background-image: url("/asset/image/tmpProfil.png");
 `;
 
@@ -33,16 +33,6 @@ const Edit = styled(Icons)`
     height: 20px;
     background-image: url("/asset/image/edit.png");
 `;
-
-const Button = styled.button`
-    width: 100%;
-    height: 40px;
-    background: red;
-`;
-
-// const presentBtnClickHandler = () => {
-//   console.log("버튼 클릭");
-// }
 
 const MyPage: NextPage = () => {
     const router = useRouter();

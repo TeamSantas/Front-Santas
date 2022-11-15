@@ -2,13 +2,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import styled from "styled-components";
 import {Button, Flex} from "../../styles/styledComponentModule";
 import TabCard from "./TabCard";
+import SendPresentList from "./SendPresentList";
+import ReceivedPresentList from "./ReceivedPresentList";
+import {useState} from "react";
 
 const StyledTab = styled.div`
   background-color: burlywood;
   border-radius: 5px;
   width: 70vw;
   height: 80vh;
-  overflow: auto;
   justify-content: center;
   align-items: center;
   margin: 30px auto;
@@ -21,71 +23,40 @@ const StyledTab = styled.div`
     margin-top: 30px
   }
 `
-const TabFlex = styled(Flex)`
-  flex-direction: row;
-  flex-wrap: wrap;
-
-`
 const TabButton = styled(Button)`
   width: 50%;
   border: solid 2px silver;
 `
-
+const SelectedTabButton = styled(TabButton)`
+  background-color: saddlebrown;
+`
+const Box = styled.div`
+  height: 90%;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`
 const TapView = () => {
+    const [sendBtn, setSendBtn] = useState('received');
+    const btnHandler = (value) => setSendBtn(value);
     return (
         <>
             <StyledTab>
-                <TabButton>받은선물</TabButton>
-                <TabButton>보낸선물</TabButton>
-                <TabFlex>
-                    <TabCard img={"/asset/image/Calendar.svg"}/>
-                    <TabCard img={"/asset/image/Calendar.svg"}/>
-                    <TabCard img={"/asset/image/Calendar.svg"}/>
-                    <TabCard img={"/asset/image/Calendar.svg"}/>
-                </TabFlex>
+                {
+                    sendBtn === 'received' ? <SelectedTabButton onClick={()=>btnHandler('received')}>받은선물</SelectedTabButton>
+                    : <TabButton onClick={()=>btnHandler('received')}>받은선물</TabButton>
+                }
+                {
+                    sendBtn === 'send' ? <SelectedTabButton onClick={()=>btnHandler('send')}>보낸선물</SelectedTabButton>
+                        : <TabButton onClick={()=>btnHandler('send')}>보낸선물</TabButton>
+                }
+                <Box>
+                    {
+                        sendBtn === 'received' ? <ReceivedPresentList/> : <SendPresentList/>
+                    }
+                </Box>
             </StyledTab>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {/*<StyledTab>*/}
-        {/*<Tabs*/}
-        {/*    defaultActiveKey="profile"*/}
-        {/*    id="fill-tab-example"*/}
-        {/*    className="mb-3"*/}
-        {/*    fill*/}
-        {/*>*/}
-        {/*    <Tab eventKey="받은쪽지" title="받은쪽지" style={{backgroundColor:"lightblue", padding:"20px"}}>*/}
-        {/*        <TabFlex>*/}
-        {/*
-        {/*            <TabCard>*/}
-        {/*                <CardImg src="/asset/image/face.svg"/>*/}
-        {/*            </TabCard>*/}
-        {/*        </TabFlex>*/}
-        {/*    </Tab>*/}
-        {/*    <Tab eventKey="보낸쪽지" title="보낸쪽지" style={{backgroundColor:"gray", padding:"20px"}}>*/}
-        {/*        <TabFlex>*/}
-        {/*            <TabCard>*/}
-        {/*                <CardImg src="/asset/image/face.svg"/>*/}
-        {/*            </TabCard>*/}
-        {/*        </TabFlex>*/}
-        {/*    </Tab>*/}
-        {/*</Tabs>*/}
-        {/*</StyledTab>*/}
         </>
     );
 }
