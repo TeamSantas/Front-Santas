@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
+import CustomModal from "./CustomModal";
 
 export const StyledCard = styled.div`
   background: white;
@@ -12,7 +14,56 @@ export const StyledCard = styled.div`
   margin: 1rem auto;
 `
 
+const TabCard = styled(StyledCard)`
+  margin: 10px 5px;
+  width: 30%;
+  height: 30%;
+
+  @media (max-width: 600px) {
+    width: 32vw;
+  }
+  @media (max-width: 400px) {
+    width: 70vw;
+  }
+`
+
+const CardImg = styled.img`
+  width: 100%;
+  height: 25vh;
+  object-fit:cover;
+  @media (max-width: 600px) {
+    height: 15vh;
+}
+`
+
 const Card = (props) => {
-    return <StyledCard>{props.children}</StyledCard>
+  const [presentCardShow, setPresentCardShow] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(0)
+
+  const handleShow = () => {
+    setSelectedCard(props.id)
+    setPresentCardShow(true)
+  };
+  const handleClose = () => setPresentCardShow(false);
+
+    return (
+      <>
+        <TabCard>
+            <CardImg
+              id={`${props.id}`}
+              src={`/asset/image/${props.thumbnail}.${props.type}`}
+              onClick={handleShow} 
+            />
+        </TabCard>
+        <CustomModal 
+          show={presentCardShow}
+          onHide={handleClose}
+          selectedCard={selectedCard}
+          header={`쪽지 제목`}
+          body={`쪽지 내용`}
+        /> 
+      </>
+    )
 }
 export default Card;
+
