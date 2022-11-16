@@ -4,6 +4,8 @@ import {NextPage} from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import html2canvas from "html2canvas";
 import Calendar from '../component/Calendar';
+import ReactHowler from 'react-howler'
+import {useState} from "react";
 
 const Friends = styled(Icons)`
   background-image: url("/asset/image/icons/Users.png");
@@ -16,6 +18,9 @@ const LinkCopy = styled(Icons)`
 
 const Bgm = styled(Icons)`
   background-image: url("/asset/image/icons/SpeakerHigh.png");
+`;
+const MuteBgm = styled(Icons)`
+  background-image: url("/asset/image/icons/muteSpeaker.png");
 `;
 
 const ButtonFlex = styled(Flex)`
@@ -36,6 +41,8 @@ const Share = styled(Icons)`
 `;
 
 const Home: NextPage = () => {
+    const [isNotMute, setMute] = useState(true);
+
     const screenCaptureHandler = () => {
         console.log("캡쳐됨");
         html2canvas(document.getElementById("home")).then(function (canvas) {
@@ -58,8 +65,8 @@ const Home: NextPage = () => {
         console.log("Link copied!");
     };
 
-    const muteHandler = () => {
-        // TODO : 음소거 기능 추가 필요
+    const muteHandler = (value) => {
+        setMute(!value);
         console.log("음소거 됨");
     };
     const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
@@ -72,8 +79,14 @@ const Home: NextPage = () => {
                     {/* TODO : Kakao 친구 목록 연결 */}
                     <Friends />
                     <Flex>
+                        <ReactHowler
+                            src='./bgm.mp3'
+                            playing={isNotMute}
+                            loop={true}
+                        />
                         <LinkCopy onClick={shareHandler} />
-                        <Bgm onClick={muteHandler} />
+                        {isNotMute ? <Bgm onClick={()=>muteHandler(isNotMute)} />
+                            : <MuteBgm onClick={()=>muteHandler(isNotMute)} />}
                     </Flex>
                 </ButtonFlex>
                 <Share onClick={screenCaptureHandler}>캘린더 공유하기</Share>
