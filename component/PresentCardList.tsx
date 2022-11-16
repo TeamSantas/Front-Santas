@@ -21,8 +21,8 @@ const presentsData = [
   }, 
   {
     id : 2,
-    thumbnail : "santa",
-    type : "png"
+    thumbnail : "Calendar",
+    type : "svg"
   }, 
   {
     id : 3,

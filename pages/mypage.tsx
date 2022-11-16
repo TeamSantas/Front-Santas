@@ -3,7 +3,7 @@ import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
-import TabViewSY from "../component/TabViewSY";
+import TabView from "../component/tab/TabView";
 
 const Profile = styled(Icons)`
     width: 150px;
@@ -46,7 +46,7 @@ const MyPage: NextPage = () => {
                 <Edit></Edit>
             </CenterFlex>
             <Text email>teamSantaz@naver.com</Text>
-            <TabViewSY/>
+            <TabView/>
         </MainContainer>
     );
 };
