@@ -1,4 +1,3 @@
-import styles from '../styles/Home.module.css'
 import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import {NextPage} from "next";
@@ -7,16 +6,16 @@ import html2canvas from "html2canvas";
 import Calendar from '../component/Calendar';
 
 const Friends = styled(Icons)`
-    background-image: url("/asset/image/Users.png");
+  background-image: url("/asset/image/icons/Users.png");
 `;
 
 const LinkCopy = styled(Icons)`
-    margin-right: 24px;
-    background-image: url("/asset/image/Link.png");
+  margin-right: 24px;
+  background-image: url("/asset/image/icons/Link.png");
 `;
 
 const Bgm = styled(Icons)`
-    background-image: url("/asset/image/SpeakerHigh.png");
+  background-image: url("/asset/image/icons/SpeakerHigh.png");
 `;
 
 const ButtonFlex = styled(Flex)`
