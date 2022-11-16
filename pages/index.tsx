@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {NextPage} from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import html2canvas from "html2canvas";
+import Calendar from '../component/Calendar';
 
 const Friends = styled(Icons)`
     background-image: url("/asset/image/Users.png");
@@ -33,22 +34,6 @@ const Share = styled(Icons)`
     margin-bottom: 48px;
     background: #ac473d;
     border-radius: 12px;
-`;
-
-const Calendar = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  margin-bottom: 24px;
-`
-
-const DayImage = styled.img`
-    justify-content: center;
-    padding: 2px;
-    align-items: center;
-    width: 7rem;
-      @media (max-width: 600px) {
-        width: 100%;
-      }
 `;
 
 const Home: NextPage = () => {
@@ -83,14 +68,7 @@ const Home: NextPage = () => {
         <div id="home">
             <Seo title="Home" />
             <MainContainer>
-                <Calendar>
-                    {days.map((day)=>(
-                        //TODO: 25개 날짜별 이미지를 /asset/image/days폴더에 다 다운받고 링크 다르게 해줘야함
-                        //TODO: onClick으로 클릭시 모달창 열리는 함수 연결해두기. 임시로 음소거 함수 넣었어요ㅎㅎ
-                        <DayImage src="/asset/image/days/day1.svg" onClick={muteHandler} alt="day" key={day}/>
-                        ))
-                    }
-                </Calendar>
+                <Calendar />
                 <ButtonFlex>
                     {/* TODO : Kakao 친구 목록 연결 */}
                     <Friends />
