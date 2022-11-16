@@ -4,7 +4,7 @@ import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
-import TabView from "../component/TabView";
+import TabViewSY from "../component/TabViewSY";
 
 const Profile = styled(Icons)`
     width: 70px;
@@ -55,7 +55,7 @@ const MyPage: NextPage = () => {
                 <Edit></Edit>
             </CenterFlex>
             <Text email>teamSantaz@naver.com</Text>
-            <TabView/>
+            <TabViewSY/>
         </MainContainer>
     );
 };

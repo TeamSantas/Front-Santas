@@ -22,7 +22,7 @@ const StyledTab = styled.div`
   }
 `
 
-const TapView = (props) => {
+const TabViewSY = (props) => {
     return (
         <StyledTab>
         <Tabs
@@ -42,4 +42,4 @@ const TapView = (props) => {
     );
 }
 
-export default TapView;
+export default TabViewSY;
