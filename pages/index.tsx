@@ -79,6 +79,7 @@ const Home: NextPage = () => {
                     {/* TODO : Kakao 친구 목록 연결 */}
                     <Friends />
                     <Flex>
+                        {/*BGM react-howler 라이브러리*/}
                         <ReactHowler
                             src='./bgm.mp3'
                             playing={isNotMute}
