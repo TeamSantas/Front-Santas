@@ -24,6 +24,10 @@ export const Flex = styled.div`
     justify-content: space-between;
 `;
 
+export const CenteredFlex = styled(Flex)`
+  justify-content: center;
+`;
+
 export const Icons = styled.button`
     width: 32px;
     height: 32px;
@@ -47,3 +51,4 @@ export const Button = styled.button`
       background-color: green;
     }
 `;
+

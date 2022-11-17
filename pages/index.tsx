@@ -4,6 +4,7 @@ import {NextPage} from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import html2canvas from "html2canvas";
 import Calendar from '../component/Calendar';
+import Share from "../component/share/Share";
 
 const Friends = styled(Icons)`
   background-image: url("/asset/image/icons/Users.png");
@@ -25,16 +26,6 @@ const ButtonFlex = styled(Flex)`
   }
 `
 
-const Share = styled(Icons)`
-    width: 312px;
-    height: 72px;
-    font-size: 24px;
-    margin-top: 20px;
-    margin-bottom: 48px;
-    background: #ac473d;
-    border-radius: 12px;
-`;
-
 const Home: NextPage = () => {
     const screenCaptureHandler = () => {
         console.log("캡쳐됨");
@@ -54,9 +45,14 @@ const Home: NextPage = () => {
         document.body.removeChild(link);
     };
 
-    const shareHandler = () => {
+    const linkCopyHandler = () => {
+        // TODO : link copy 로직 추가 필요
         console.log("Link copied!");
     };
+
+    const shareCalendarHandler = () => {
+        
+    }
 
     const muteHandler = () => {
         // TODO : 음소거 기능 추가 필요
@@ -72,11 +68,11 @@ const Home: NextPage = () => {
                     {/* TODO : Kakao 친구 목록 연결 */}
                     <Friends />
                     <Flex>
-                        <LinkCopy onClick={shareHandler} />
+                        <LinkCopy onClick={linkCopyHandler} />
                         <Bgm onClick={muteHandler} />
                     </Flex>
                 </ButtonFlex>
-                <Share onClick={screenCaptureHandler}>캘린더 공유하기</Share>
+                <Share />
             </MainContainer>
         </div>
     );
