@@ -5,7 +5,7 @@ export default function Seo({ title }) {
         <Head>
             <title>{title} | 두근두근 어드벤트 캘린더</title>
             <meta name="description" content="두근두근 어드벤트 캘린더" />
-            <link rel="icon" href="/asset/image/favicon.ico" />
+            <link rel="icon" href="/assets/image/favicon.ico" />
         </Head>
     );
 }

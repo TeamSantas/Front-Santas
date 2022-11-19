@@ -11,7 +11,7 @@ const Profile = styled(Icons)`
     margin: 30px auto;
     border-radius: 50%;
     border: solid 3px white;
-    background-image: url("/asset/image/tmpProfil.png");
+    background-image: url("/assets/image/tmpProfil.png");
 `;
 
 const CenterFlex = styled(Flex)`
@@ -31,7 +31,7 @@ const Text = styled.div`
 const Edit = styled(Icons)`
     width: 20px;
     height: 20px;
-    background-image: url("/asset/image/edit.png");
+    background-image: url("/assets/image/edit.png");
 `;
 
 const MyPage: NextPage = () => {

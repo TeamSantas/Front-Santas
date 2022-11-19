@@ -49,8 +49,8 @@ const Card = (props) => {
         <TabCard>
             <CardImg
               id={`${props.id}`}
-              src={`/asset/image/${props.thumbnail}.${props.type}`}
-              onClick={handleShow}
+              src={`/assets/image/${props.thumbnail}.${props.type}`}
+              onClick={handleShow} 
             />
         </TabCard>
         <CustomModal

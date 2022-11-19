@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import "bootstrap/dist/css/bootstrap.css";
 import Layout from "../component/layout/Layout";
 import {AppProps} from "next/app";
-import "../public/fonts/style.css"
+import "../public/assets/fonts/font.css"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

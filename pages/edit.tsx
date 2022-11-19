@@ -9,7 +9,7 @@ const Profile = styled(Icons)`
     margin: 30px auto;
     border-radius: 50%;
     border: solid 3px white;
-    background-image: url("/asset/image/tmpProfil.png");
+    background-image: url("/assets/image/tmpProfil.png");
 `;
 
 const Container = styled.div`

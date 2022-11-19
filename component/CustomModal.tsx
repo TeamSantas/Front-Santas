@@ -40,7 +40,6 @@ const CustomFooter = styled(Modal.Footer)`
 `
 
 const CustomModal = (props) => {
-  
   return (
     <Modal
     {...props}

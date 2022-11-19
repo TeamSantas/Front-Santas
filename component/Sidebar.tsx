@@ -104,13 +104,13 @@ const Sidebar = (props) => {
             {/*Background : 배경 블러처리 겸, 아무 곳이나 눌러도 사이드바 해제하는 역할*/}
             <Background onClick={props.menu}/>
             <Container>
-                <Index back><CloseIcon src="/asset/image/icons/close.png" onClick={props.menu}/></Index>
+                <Index back><CloseIcon src="/assets/image/icons/close.png" onClick={props.menu}/></Index>
                 <Ul>
                     {index.map((indexTitle, i) => {
                         return (
                             <IndexDiv  key={i}>
                                 <Li>
-                                    <Img src="/asset/image/face.svg"/>
+                                    <Img src="/assets/image/face.svg"/>
                                     <Index onClick={() => {router.push(indexRoute[i]);}}>{indexTitle}</Index>
                                 </Li>
                                 {/*{i===0? :null}*/}
