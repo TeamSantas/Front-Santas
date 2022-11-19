@@ -44,11 +44,9 @@ export const Button = styled.button`
     margin-bottom: 10px;
     font-size: 30px;
     cursor: pointer;
-    &:hover{
-      background-color: green;
-    }
+    
     &:active{
-      background-color: green;
+      background-color: #8D362D;
     }
 `;
 

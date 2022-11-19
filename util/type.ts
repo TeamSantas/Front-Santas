@@ -1,13 +1,27 @@
 export type ResponseData<T> = {
     body: {
+        status: string;
+        message: string;
         data: T;
     };
 };
 
 // Post types ------------------------------------
-export interface PostData {
-    userId: string;
+export interface MemberData {
     id: string;
-    title: string;
-    body: string;
+    nickname:string;
+    profileImageURL: string;
+    email: string;
+    invitationLink: string;
 }
+
+export interface friendsData {
+    memberId: string
+    friendId: string
+    uuid: string
+    profileImgUrl: string
+    name: string
+    allowedMsg: boolean
+    isFavorite: boolean
+}
+

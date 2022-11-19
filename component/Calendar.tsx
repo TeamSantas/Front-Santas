@@ -5,14 +5,16 @@ import { useState } from "react";
 const CalendarWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  margin-bottom: 24px;
+  margin: 24px auto;
 `
 
 const DayImage = styled.img`
     justify-content: center;
     padding: 2px;
     align-items: center;
+    cursor: pointer;
     width: 7rem;
+    z-index: 10;
       @media (max-width: 600px) {
         width: 100%;
       }
@@ -34,22 +36,22 @@ const Calendar = () => {
         <>
             <CalendarWrapper>
                 {days.map((day, idx)=>(
-                    <DayImage 
+                    <DayImage
                         src={`/asset/image/days/day${idx+1}.svg`}
-                        onClick={handleShow} 
+                        onClick={handleShow}
                         alt={`day${idx+1}`}
                         key={day}
                     />
                     ))
                 }
             </CalendarWrapper>
-            <PresentModal 
+            <PresentModal
                 show={presentCardsListShow}
                 onHide={handleClose}
                 selectedday={selectedday}
-            /> 
+            />
         </>
-        
+
     )
 }
 

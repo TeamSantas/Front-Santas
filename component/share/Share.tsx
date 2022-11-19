@@ -4,15 +4,21 @@ import html2canvas from "html2canvas";
 import { useState } from "react";
 import CustomModal from "../CustomModal"
 
-
 const ShareBtn = styled(Icons)`
-    width: 312px;
+    width: 35rem;
     height: 72px;
     font-size: 24px;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-bottom: 48px;
     background: #ac473d;
     border-radius: 12px;
+    z-index: 5;
+    color: white;
+    @media (max-width: 600px) {
+    width: 100%;
+    margin-top: 45px;
+    height: 62px;
+    }
 `;
 
 export const ShareModalImage = styled.img`

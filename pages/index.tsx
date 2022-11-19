@@ -32,7 +32,7 @@ const ButtonFlex = styled(Flex)`
 `
 
 const Home: NextPage = () => {
-    const [isNotMute, setMute] = useState(true);
+    const [mute, setMute] = useState(false);
 
     const screenCaptureHandler = () => {
         console.log("캡쳐됨");
@@ -56,11 +56,7 @@ const Home: NextPage = () => {
         // TODO : link copy 로직 추가 필요
         console.log("Link copied!");
     };
-
-    const muteHandler = (value) => {
-        setMute(!value);
-        console.log("음소거 됨");
-    };
+    const muteHandler = (value) => setMute(!value);
     const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
     return (
         <div id="home">
@@ -74,12 +70,12 @@ const Home: NextPage = () => {
                         {/*BGM react-howler 라이브러리*/}
                         <ReactHowler
                             src='./bgm.mp3'
-                            playing={isNotMute}
+                            playing={mute}
                             loop={true}
                         />
                         <LinkCopy onClick={linkCopyHandler} />
-                        {isNotMute ? <Bgm onClick={()=>muteHandler(isNotMute)} />
-                            : <MuteBgm onClick={()=>muteHandler(isNotMute)} />}
+                        {mute ? <Bgm onClick={()=>muteHandler(mute)} />
+                            : <MuteBgm onClick={()=>muteHandler(mute)} />}
                     </Flex>
                 </ButtonFlex>
                 <Share />
