@@ -1,8 +1,6 @@
-import styled from "styled-components";
-import Image from 'next/image';
+import styled, {css} from "styled-components";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { ShareModalImage } from './share/Share';
 import { CenteredFlex } from "../styles/styledComponentModule";
 
 const CenteredModalWrapper = styled.div`
@@ -10,18 +8,39 @@ const CenteredModalWrapper = styled.div`
 `;
 
 const CustomButtons = styled(Button)`
-  // TODO : custom 값으로 세팅
+// TODO : custom 값으로 세팅
+border: none !important;
+color: ${props => props.color};
+background-color: ${props => props.bgcolor};
+font-size: 1.5rem;
+width: 10rem;
+`
+
+const CustomHeader = styled(Modal.Header)`
   border: none !important;
-  color: #000000;
-  background-color: #FFD465;
-  font-size: 1.5rem;
-  width: 10rem;
+  `
+  
+  const CustomBody = styled(Modal.Body)`
+  margin: 1rem 0rem 2rem 0rem;
+  height: 20rem;
+  
+  ${(props) => 
+    props.background_img &&
+    css`
+    background-image: url(${props.background_img});
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    `
+  }
+};
+`
+const CustomFooter = styled(Modal.Footer)`
+  border: none !important;
 `
 
 const CustomModal = (props) => {
-  // console.log("props.header >>> ", props.header)
-  // console.log("props.body >>> ", props.body)
-
+  
   return (
     <Modal
     {...props}
@@ -31,31 +50,37 @@ const CustomModal = (props) => {
     >
       <CenteredModalWrapper>
         {/* ----------- header ----------- */}
-        {props.header && 
-          (<Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-              {props.header}
-            </Modal.Title>
-          </Modal.Header>)
-        }
+        <CustomHeader closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {props.header}
+          </Modal.Title>
+        </CustomHeader>
+
         {/* ----------- body ----------- */}
-        <Modal.Body>
+        <CustomBody
+          background_img={props.background_img} 
+        >
           {props.body && (props.body)}
-          {props.img && (
-            <ShareModalImage
-              src={props.img} 
-              alt={props.name}
-            ></ShareModalImage>
-          )}
-        </Modal.Body>
+          {props.text && <h2>{props.text}</h2>}
+        </CustomBody>
+
         {/* ----------- footer ----------- */}
         {props.buttons && (
           <CenteredFlex>
-            <Modal.Footer>
+            <CustomFooter
+              bgcolor={props.btncolor}
+            >
               {props.buttons.map((btn)=>
-                <CustomButtons key={btn} onClick={props.onHide}>{btn}</CustomButtons>
+                <CustomButtons 
+                  key={btn.title} 
+                  onClick={props.onHide}
+                  color={btn.color}
+                  bgcolor={btn.bgcolor}
+                >
+                  {btn.title}
+                </CustomButtons>
               )}
-            </Modal.Footer>
+            </CustomFooter>
           </CenteredFlex>)
         }
       </CenteredModalWrapper>
