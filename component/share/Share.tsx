@@ -32,7 +32,7 @@ export const ShareModalImage = styled.img`
 `;
 
 const Test = styled.div`
-    background-image: url(/asset/image/shareModalImg.svg);
+    background-image: url(/assets/image/shareModalImg.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: inherit;
@@ -89,8 +89,8 @@ const Share = () => {
                 name={"shareModalImg"}
 
                 // body ----------------
-                img={`/asset/image/shareModalImg.svg`}
-                background_img={`/asset/image/shareModalImg.svg`}
+                img={`/assets/image/shareModalImg.svg`}
+                background_img={`/assets/image/shareModalImg.svg`}
                 text={"쪽지를 받고 싶은 친구에게 캘린더를 공유해 봐요!"}
 
                 // footer --------------
