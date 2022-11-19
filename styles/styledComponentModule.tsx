@@ -12,7 +12,7 @@ export const Logo = styled.button`
     margin-top: 16px;
     margin-bottom: 20px;
     background: none;
-    background-image: url("/asset/image/Logo.svg");
+    background-image: url("/assets/image/Logo.svg");
     background-repeat: no-repeat;
     width: 120px;
     height: 40px;

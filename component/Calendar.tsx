@@ -35,7 +35,7 @@ const Calendar = () => {
             <CalendarWrapper>
                 {days.map((day, idx)=>(
                     <DayImage 
-                        src={`/asset/image/days/day${idx+1}.svg`}
+                        src={`/assets/image/days/day${idx+1}.svg`}
                         onClick={handleShow} 
                         alt={`day${idx+1}`}
                         key={day}

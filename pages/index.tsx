@@ -8,19 +8,19 @@ import ReactHowler from 'react-howler'
 import {useState} from "react";
 
 const Friends = styled(Icons)`
-  background-image: url("/asset/image/icons/Users.png");
+  background-image: url("/assets/image/icons/Users.png");
 `;
 
 const LinkCopy = styled(Icons)`
   margin-right: 24px;
-  background-image: url("/asset/image/icons/Link.png");
+  background-image: url("/assets/image/icons/Link.png");
 `;
 
 const Bgm = styled(Icons)`
-  background-image: url("/asset/image/icons/SpeakerHigh.png");
+  background-image: url("/assets/image/icons/SpeakerHigh.png");
 `;
 const MuteBgm = styled(Icons)`
-  background-image: url("/asset/image/icons/muteSpeaker.png");
+  background-image: url("/assets/image/icons/muteSpeaker.png");
 `;
 
 const ButtonFlex = styled(Flex)`

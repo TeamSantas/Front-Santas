@@ -8,7 +8,7 @@ const Logo = styled.button`
     margin-top: 20px;
     margin-bottom: 20px;
     background: none;
-    background-image: url("/asset/image/Logo.svg");
+    background-image: url("/assets/image/Logo.svg");
     background-repeat: no-repeat;
     width: 120px;
     height: 40px;
@@ -25,7 +25,7 @@ const MyPage = styled(Icons)`
     height: auto;
     margin-right: 2%;
     cursor:pointer;
-    background-image: url("/asset/image/face.svg");
+    background-image: url("/assets/image/face.svg");
     @media (max-width: 600px) {  
       width: 52px;
      margin-left: 0;
@@ -59,7 +59,7 @@ const Header = () => {
             <Flex>
                 <Logo onClick={() => {router.push("/"); menuOffHandler();}}></Logo>
                 { currPath === 'mypage' ?
-                    <Menu src="/asset/image/icons/menu-icon.svg" onClick={menuHandler}/>
+                    <Menu src="/assets/image/icons/menu-icon.svg" onClick={menuHandler}/>
                     : <MyPage onClick={() => {router.push("/mypage"); }}/>}
             </Flex>
             {menuOnOff ? <Sidebar menu={menuHandler}/> : null}
