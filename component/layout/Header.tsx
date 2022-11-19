@@ -14,7 +14,7 @@ const Logo = styled.button`
     height: 40px;
     border: none;
     margin-left: 20px;
-  
+    z-index: 5;
     @media (max-width: 600px) {
       margin-left: 0;
     }
@@ -26,6 +26,7 @@ const MyPage = styled(Icons)`
     margin-right: 2%;
     cursor:pointer;
     background-image: url("/asset/image/face.svg");
+    z-index: 5;
     @media (max-width: 600px) {  
       width: 52px;
      margin-left: 0;
