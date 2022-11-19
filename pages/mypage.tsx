@@ -36,16 +36,19 @@ const Edit = styled(Icons)`
 
 const MyPage: NextPage = () => {
     const router = useRouter();
+    const name = '하얀코';
+    const nickname = '크리스마스덕후';
+    const email = 'teamSantaz@naver.com';
     return (
         <MainContainer>
             <Seo title="MyPage" />
             <Profile />
             <CenterFlex>
-                <Text name>이름</Text>
-                <Text nickName>닉네임</Text>
-                <Edit></Edit>
+                <Text name>{name}</Text>
+                <Text nickName>{nickname}</Text>
+                <Edit onClick={()=> router.push(`/edit`)}></Edit>
             </CenterFlex>
-            <Text email>teamSantaz@naver.com</Text>
+            <Text email>{email}</Text>
             <TabView/>
         </MainContainer>
     );

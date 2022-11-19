@@ -1,19 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import styled from "styled-components";
-import {Button, Flex} from "../../styles/styledComponentModule";
-import TabCard from "./TabCard";
+import {Button} from "../../styles/styledComponentModule";
 import SendPresentList from "./SendPresentList";
 import ReceivedPresentList from "./ReceivedPresentList";
 import {useState} from "react";
 
 const StyledTab = styled.div`
-  background-color: burlywood;
-  border-radius: 5px;
+  box-sizing: initial;
   width: 70vw;
   height: 80vh;
   justify-content: center;
   align-items: center;
   margin: 30px auto;
+  z-index: 8;
   @media (max-width: 600px) {
     margin-top: 50px;
     width: 85vw;
@@ -25,16 +24,48 @@ const StyledTab = styled.div`
 `
 const TabButton = styled(Button)`
   width: 50%;
-  border: solid 2px silver;
+  padding: 7px;
+  color: white;
+  background-size: 5px 5px;
+  background: rgba(255,255,255,.2);
+  text-shadow: 1px 0 black;
+  font-weight: bold;
+  font-size: 24px;
+  @media (max-width: 600px) {
+    padding: 0;
+    font-size: 18px;
+  }
+  &:hover{
+    background: linear-gradient(45deg, #3C6C54 25%, #78AB91 0, #78AB91 50%, #3C6C54 0, #3C6C54 75%, #78AB91 0 );
+  }
+  &:active{
+    background: linear-gradient(45deg, #3C6C54 25%, #78AB91 0, #78AB91 50%, #3C6C54 0, #3C6C54 75%, #78AB91 0 );
+  }
 `
 const SelectedTabButton = styled(TabButton)`
-  background-color: saddlebrown;
+  color: white;
+  border: none;
+  background-size: 42.4px 42.4px;
+  background: linear-gradient(45deg, #AC473D 25%, #C0544A 0, #C0544A 50%, #AC473D 0, #AC473D 75%, #C0544A 0 );
+  &:hover {
+    color: white;
+    background: linear-gradient(45deg, #3C6C54 25%, #78AB91 0, #78AB91 50%, #3C6C54 0, #3C6C54 75%, #78AB91 0 );
+  }
 `
 const Box = styled.div`
   height: 90%;
   overflow: scroll;
-  ::-webkit-scrollbar {
-    display: none;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: linear-gradient(#AC473D, #fff);
+  }
+  @media (max-width: 600px) {
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
   }
 `
 const TapView = () => {

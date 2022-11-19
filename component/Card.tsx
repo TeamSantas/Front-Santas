@@ -21,19 +21,17 @@ const TabCard = styled(StyledCard)`
 
   @media (max-width: 600px) {
     width: 32vw;
+    margin: 10px auto;
   }
   @media (max-width: 400px) {
-    width: 70vw;
+    width: 38vw;
   }
 `
 
 const CardImg = styled.img`
   width: 100%;
-  height: 25vh;
+  height: auto;
   object-fit:cover;
-  @media (max-width: 600px) {
-    height: 15vh;
-}
 `
 
 const Card = (props) => {
@@ -55,13 +53,13 @@ const Card = (props) => {
               onClick={handleShow} 
             />
         </TabCard>
-        <CustomModal 
+        <CustomModal
           show={presentCardShow}
           onHide={handleClose}
           selectedcard={selectedcard}
           header={`쪽지 제목`}
           body={`쪽지 내용`}
-        /> 
+        />
       </>
     )
 }

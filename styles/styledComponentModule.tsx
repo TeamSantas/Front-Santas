@@ -24,6 +24,10 @@ export const Flex = styled.div`
     justify-content: space-between;
 `;
 
+export const CenteredFlex = styled(Flex)`
+  justify-content: center;
+`;
+
 export const Icons = styled.button`
     width: 32px;
     height: 32px;
@@ -40,10 +44,9 @@ export const Button = styled.button`
     margin-bottom: 10px;
     font-size: 30px;
     cursor: pointer;
-    &:hover{
-      background-color: green;
-    }
+    
     &:active{
-      background-color: green;
+      background-color: #8D362D;
     }
 `;
+
