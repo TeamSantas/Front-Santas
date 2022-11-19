@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import {useRouter} from "next/router";
+import {useState} from "react";
 
 const Container = styled.div`
-  background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d3c3 100%);
-  //background-image: linear-gradient(135deg, #BDD4E7 0%, #8693AB 100%);
-  //background-image: linear-gradient(to bottom, #d3e1f2, #b4cff4, #97bdf6, #7caaf6, #6396f6);
+  background-color: #3C6C54;
   border-radius: 30px 0 0 30px;
   width: 30%;
   height: 100vh;
@@ -26,23 +25,26 @@ const Container = styled.div`
 const IndexDiv = styled.div`
   cursor: pointer;
   &:hover {
-    //background-image: linear-gradient(120deg, #f6d365 20%, #fda085 80%);
-    background-image: linear-gradient(to right, #94bcf8, #86aef9, #7c9ff9, #778ff8, #777ef4);
+    background-color: white;
   }
 `
 
 const Index = styled.button`
+  color: white;
   border: none;
   background-color: transparent;
+  width: ${(props)=>(props.back ? "50px" : "100%")};
+  filter: ${(props)=>(props.back ? "invert(100%) sepia(100%) saturate(2%) hue-rotate(235deg) brightness(115%) contrast(101%)" : "transparent")};
+  padding: 15px;
   font-size: 22px;
-  margin: 19px auto 19px 5px; 
+  margin: 0 auto 0 5px; 
   font-weight: bold;
   &:hover {
     font-size: 24px;
-    color: saddlebrown;
+    color: #AC473D;
   }
   @media (max-width: 600px) {
-    font-size: 18px;
+    font-size: 15px;
   }
 `
 const CloseIcon = styled.img`
@@ -61,7 +63,7 @@ const Li = styled.li`
 
 `
 const Hr = styled.hr`
-  border: dashed 2px #5e4b37;
+  border: dashed 2px white;
   margin: 0;
 `
 
@@ -76,6 +78,7 @@ const Background = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 9;
   background-color: #191C21;
 `
 
@@ -95,13 +98,13 @@ const Sidebar = (props) => {
         "/",
         "/"
     ]
-
+    // const [toggleValue, setToggleValue] = useState(false);
     return (
         <>
             {/*Background : 배경 블러처리 겸, 아무 곳이나 눌러도 사이드바 해제하는 역할*/}
             <Background onClick={props.menu}/>
             <Container>
-                <Index><CloseIcon src="/asset/image/icons/close.png" onClick={props.menu}/></Index>
+                <Index back><CloseIcon src="/asset/image/icons/close.png" onClick={props.menu}/></Index>
                 <Ul>
                     {index.map((indexTitle, i) => {
                         return (
@@ -110,6 +113,7 @@ const Sidebar = (props) => {
                                     <Img src="/asset/image/face.svg"/>
                                     <Index onClick={() => {router.push(indexRoute[i]);}}>{indexTitle}</Index>
                                 </Li>
+                                {/*{i===0? :null}*/}
                                 <Hr/>
                             </IndexDiv>
                         )
