@@ -4,6 +4,7 @@ import {NextPage} from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import html2canvas from "html2canvas";
 import Calendar from '../component/Calendar';
+import Share from "../component/share/Share";
 import ReactHowler from 'react-howler'
 import {useState} from "react";
 
@@ -30,23 +31,6 @@ const ButtonFlex = styled(Flex)`
   }
 `
 
-const Share = styled(Icons)`
-    width: 35rem;
-    height: 72px;
-    font-size: 24px;
-    margin-top: 40px;
-    margin-bottom: 48px;
-    background: #ac473d;
-    border-radius: 12px;
-    z-index: 5;
-    color: white;
-    @media (max-width: 600px) {
-      width: 100%;
-      margin-top: 45px;
-      height: 62px;
-    }
-`;
-
 const Home: NextPage = () => {
     const [mute, setMute] = useState(false);
 
@@ -68,7 +52,8 @@ const Home: NextPage = () => {
         document.body.removeChild(link);
     };
 
-    const shareHandler = () => {
+    const linkCopyHandler = () => {
+        // TODO : link copy 로직 추가 필요
         console.log("Link copied!");
     };
     const muteHandler = (value) => setMute(!value);
@@ -88,12 +73,12 @@ const Home: NextPage = () => {
                             playing={mute}
                             loop={true}
                         />
-                        <LinkCopy onClick={shareHandler} />
+                        <LinkCopy onClick={linkCopyHandler} />
                         {mute ? <Bgm onClick={()=>muteHandler(mute)} />
                             : <MuteBgm onClick={()=>muteHandler(mute)} />}
                     </Flex>
                 </ButtonFlex>
-                <Share onClick={screenCaptureHandler}>캘린더 공유하기</Share>
+                <Share />
             </MainContainer>
         </div>
     );
