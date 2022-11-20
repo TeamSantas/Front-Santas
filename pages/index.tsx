@@ -6,7 +6,8 @@ import html2canvas from "html2canvas";
 import Calendar from '../component/Calendar';
 import Share from "../component/share/Share";
 import ReactHowler from 'react-howler'
-import {useState} from "react";
+import {lazy, useState} from "react";
+import {Canvas} from "@react-three/fiber";
 
 const Friends = styled(Icons)`
   background-image: url("/assets/image/icons/Users.png");
@@ -30,7 +31,9 @@ const ButtonFlex = styled(Flex)`
     width: 90%;
   }
 `
-
+const Text = styled.h3`
+  color: white;
+`
 const Home: NextPage = () => {
     const [mute, setMute] = useState(false);
 
@@ -58,8 +61,13 @@ const Home: NextPage = () => {
     };
     const muteHandler = (value) => setMute(!value);
     const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+
+    // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
+    const ModelComponent = lazy(() => import("/component/SnowBallModel"));
+
     return (
         <div id="home">
+            <Flex>
             <Seo title="Home" />
             <MainContainer>
                 <Calendar />
@@ -80,6 +88,13 @@ const Home: NextPage = () => {
                 </ButtonFlex>
                 <Share />
             </MainContainer>
+            <MainContainer>
+                <Text>스노우볼을 움직여보세요</Text>
+                <Canvas>
+                    <ModelComponent />
+                </Canvas>
+            </MainContainer>
+            </Flex>
         </div>
     );
 };
