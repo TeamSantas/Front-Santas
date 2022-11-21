@@ -34,6 +34,11 @@ const ButtonFlex = styled(Flex)`
 const Text = styled.h3`
   color: white;
 `
+const SnowballContainer = styled(MainContainer)`
+  @media (max-width: 600px) {
+    display: none;
+  }
+`
 const Home: NextPage = () => {
     const [mute, setMute] = useState(false);
 
@@ -88,12 +93,12 @@ const Home: NextPage = () => {
                 </ButtonFlex>
                 <Share />
             </MainContainer>
-            <MainContainer>
+            <SnowballContainer>
                 <Text>스노우볼을 움직여보세요</Text>
                 <Canvas>
                     <ModelComponent />
                 </Canvas>
-            </MainContainer>
+            </SnowballContainer>
             </Flex>
         </div>
     );
