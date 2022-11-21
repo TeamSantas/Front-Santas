@@ -22,8 +22,17 @@ a:active {
 
 * {
   box-sizing: border-box;
-  font-family: 'BinggraeSamanco', binggraesamanco;
+  font-family: "BinggraeSamanco", binggraesamanco;
 }
 ul {
   list-style: none;
+}
+
+.textarea {
+  resize: none;
+  width: 150px;
+  min-height: 5rem;
+  border: none;
+  margin-bottom: 9rem;
+  outline-color: #ac473d;
 }

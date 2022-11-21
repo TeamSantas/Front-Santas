@@ -1,15 +1,15 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Layout from "../component/layout/Layout";
-import {AppProps} from "next/app";
-import "../public/assets/fonts/font.css"
+import { AppProps } from "next/app";
+import "../public/assets/fonts/font.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   );
 }
 
-export default MyApp
+export default MyApp;

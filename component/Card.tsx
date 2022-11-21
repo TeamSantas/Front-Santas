@@ -4,7 +4,7 @@ import CustomModal from "./CustomModal";
 
 export const StyledCard = styled.div`
   background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.26);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 10px;
   padding: 20px;
   width: 50%;
@@ -12,7 +12,7 @@ export const StyledCard = styled.div`
   justify-content: center;
   align-items: center;
   margin: 1rem auto;
-`
+`;
 
 const TabCard = styled(StyledCard)`
   margin: 10px 5px;
@@ -26,42 +26,41 @@ const TabCard = styled(StyledCard)`
   @media (max-width: 400px) {
     width: 38vw;
   }
-`
+`;
 
 const CardImg = styled.img`
   width: 100%;
   height: auto;
-  object-fit:cover;
-`
+  object-fit: cover;
+`;
 
 const Card = (props) => {
   const [presentCardShow, setPresentCardShow] = useState(false);
-  const [selectedcard, setSelectedCard] = useState(0)
+  const [selectedcard, setSelectedCard] = useState(0);
 
   const handleShow = () => {
-    setSelectedCard(props.id)
-    setPresentCardShow(true)
+    setSelectedCard(props.id);
+    setPresentCardShow(true);
   };
   const handleClose = () => setPresentCardShow(false);
 
-    return (
-      <>
-        <TabCard>
-            <CardImg
-              id={`${props.id}`}
-              src={`/assets/image/${props.thumbnail}.${props.type}`}
-              onClick={handleShow} 
-            />
-        </TabCard>
-        <CustomModal
-          show={presentCardShow}
-          onHide={handleClose}
-          selectedcard={selectedcard}
-          header={`쪽지 제목`}
-          body={`쪽지 내용`}
+  return (
+    <>
+      <TabCard>
+        <CardImg
+          id={`${props.id}`}
+          src={`/assets/image/${props.thumbnail}.${props.type}`}
+          onClick={handleShow}
         />
-      </>
-    )
-}
+      </TabCard>
+      <CustomModal
+        show={presentCardShow}
+        onHide={handleClose}
+        selectedcard={selectedcard}
+        header={`쪽지 제목`}
+        body={`쪽지 내용`}
+      />
+    </>
+  );
+};
 export default Card;
-
