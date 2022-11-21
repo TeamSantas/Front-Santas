@@ -58,9 +58,6 @@ const CustomModal = (props) => {
         <CustomBody background_img={props.background_img}>
           {props.body && props.body}
           {props.text && <h2>{props.text}</h2>}
-          {props.functions && 
-            <props.functions/>
-          }
         </CustomBody>
 
         {/* ----------- footer ----------- */}

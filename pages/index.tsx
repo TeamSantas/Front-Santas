@@ -6,7 +6,8 @@ import html2canvas from "html2canvas";
 import Calendar from "../component/Calendar";
 import Share from "../component/share/Share";
 import ReactHowler from "react-howler";
-import { useState } from "react";
+import { lazy, useState } from "react";
+import { Canvas } from "@react-three/fiber";
 
 const Friends = styled(Icons)`
   background-image: url("/assets/image/icons/Users.png");
@@ -31,6 +32,14 @@ const ButtonFlex = styled(Flex)`
   }
 `;
 
+const Text = styled.h3`
+  color: white;
+`;
+const SnowballContainer = styled(MainContainer)`
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
 const Home: NextPage = () => {
   const [mute, setMute] = useState(false);
 
@@ -59,33 +68,44 @@ const Home: NextPage = () => {
   const muteHandler = (value) => setMute(!value);
 
   // TODO : 내 캘린더인가 여부 파악
-  const ismycalendar = false;
+  const ismycalendar = true;
+
+  // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
+  const ModelComponent = lazy(() => import("/component/SnowBallModel"));
 
   return (
     <div id="home">
-      <Seo title="Home" />
-      <MainContainer>
-        <Calendar ismycalendar={ismycalendar} />
-        {ismycalendar && (
-          <>
-            <ButtonFlex>
-              {/* TODO : Kakao 친구 목록 연결 */}
-              <Friends />
-              <Flex>
-                {/*BGM react-howler 라이브러리*/}
-                <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
-                <LinkCopy onClick={linkCopyHandler} />
-                {mute ? (
-                  <Bgm onClick={() => muteHandler(mute)} />
-                ) : (
-                  <MuteBgm onClick={() => muteHandler(mute)} />
-                )}
-              </Flex>
-            </ButtonFlex>
-            <Share />
-          </>
-        )}
-      </MainContainer>
+      <Flex>
+        <Seo title="Home" />
+        <MainContainer>
+          <Calendar ismycalendar={ismycalendar} />
+          {ismycalendar && (
+            <>
+              <ButtonFlex>
+                {/* TODO : Kakao 친구 목록 연결 */}
+                <Friends />
+                <Flex>
+                  {/*BGM react-howler 라이브러리*/}
+                  <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
+                  <LinkCopy onClick={linkCopyHandler} />
+                  {mute ? (
+                    <Bgm onClick={() => muteHandler(mute)} />
+                  ) : (
+                    <MuteBgm onClick={() => muteHandler(mute)} />
+                  )}
+                </Flex>
+              </ButtonFlex>
+              <Share />
+            </>
+          )}
+        </MainContainer>
+        <SnowballContainer>
+          <Text>스노우볼을 움직여보세요</Text>
+          <Canvas>
+            <ModelComponent />
+          </Canvas>
+        </SnowballContainer>
+      </Flex>
     </div>
   );
 };

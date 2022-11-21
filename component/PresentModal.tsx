@@ -1,14 +1,17 @@
-import RedButton from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import PresentCardList from "./PresentCardList";
 import SendPresents from "./sendPresents/SendPresents";
-import styled from "styled-components";
-import CustomModal from "./CustomModal";
-import { useRef } from "react";
+import styled, { css } from "styled-components";
 
 const RedBackground = styled.div`
   background-color: #ac473d;
   border-radius: 5px;
+
+  ${(props) =>
+    props.ismycalendar &&
+    css`
+      background-color: white;
+    `}
 `;
 
 const CustomHeader = styled(Modal.Body)`
@@ -16,11 +19,18 @@ const CustomHeader = styled(Modal.Body)`
   display: flex;
   justify-content: space-between;
 `;
-const CloseButton = styled.div`
-  background-image: url("/assets/image/XCircle.svg");
+
+const WhiteCloseButton = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   width: 2rem;
+  background-image: url("/assets/image/XCircle.svg");
+
+  ${(props) =>
+    props.ismycalendar &&
+    css`
+      background-image: url("/assets/image/greenXCircle.svg"); ;
+    `}
 `;
 
 const CustomBody = styled(Modal.Body)`
@@ -28,8 +38,6 @@ const CustomBody = styled(Modal.Body)`
 `;
 
 const PresentModal = (props) => {
-  const ref = useRef(null);
-
   const RenderBody = () => {
     return <>{props.ismycalendar ? <PresentCardList /> : <SendPresents />}</>;
   };
@@ -41,12 +49,15 @@ const PresentModal = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <RedBackground>
+      <RedBackground ismycalendar={props.ismycalendar}>
         <CustomHeader closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             12월 {props.selectedday}일
           </Modal.Title>
-          <CloseButton onClick={props.onHide} />
+          <WhiteCloseButton
+            onClick={props.onHide}
+            ismycalendar={props.ismycalendar}
+          />
         </CustomHeader>
         <CustomBody>
           <RenderBody />

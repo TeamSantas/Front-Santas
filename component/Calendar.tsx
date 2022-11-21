@@ -51,7 +51,7 @@ const Calendar = (props) => {
         onHide={handleClose}
         selectedday={selectedday}
         ismycalendar={props.ismycalendar}
-      /> 
+      />
     </>
   );
 };
