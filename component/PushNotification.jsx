@@ -25,7 +25,7 @@ const PushNotification = () => {
 
     const messaging = firebase.messaging()
  
-    messaging.getToken({ vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID }).then((currentToken) => {
+    messaging.getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID }).then((currentToken) => {
       if (currentToken) {
         console.log(currentToken)
       } else {
