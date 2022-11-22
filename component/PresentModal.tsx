@@ -1,6 +1,6 @@
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import PresentCardList from './PresentCardList';
+import {Button} from "../styles/styledComponentModule";
 
 const PresentModal = (props) => {
   return (
@@ -19,7 +19,7 @@ const PresentModal = (props) => {
         <PresentCardList />
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button Click={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
   );

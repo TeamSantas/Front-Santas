@@ -1,6 +1,7 @@
 import Header from "./Header";
 import styled from "styled-components";
-// import Snows from "./Snows";
+import {Suspense} from "react";
+import Snows from "./Snows";
 
 const MainWrapper = styled.div`
   background-color: #181c23;
@@ -15,7 +16,9 @@ const MainWrapper = styled.div`
 const Layout = ({ children }) => {
     return (
         <MainWrapper>
-            {/*<Snows/>*/}
+            {/*<Suspense fallback={<h1>로딩중</h1>}>*/}
+            {/*    <Snows/>*/}
+            {/*</Suspense>*/}
             <Header />
             {children}
         </MainWrapper>
