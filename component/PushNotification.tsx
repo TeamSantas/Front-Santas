@@ -7,7 +7,7 @@ const PushNotification = () => {
     if (permission !== 'granted') return 
     
     const firebaseApp = {
-      apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
+      apiKey : process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
       authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN,
       databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASEURL,
       projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -25,7 +25,7 @@ const PushNotification = () => {
 
     const messaging = firebase.messaging()
  
-    messaging.getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID }).then((currentToken) => {
+    messaging.getToken({ vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID }).then((currentToken) => {
       if (currentToken) {
         console.log(currentToken)
       } else {
@@ -49,8 +49,9 @@ const PushNotification = () => {
   useEffect(() => {
     onMessageFCM()
   }, [])
-
-  return;
   
+  return(
+    <></>
+  )
 }
 export default PushNotification;
