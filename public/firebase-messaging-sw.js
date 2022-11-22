@@ -2,7 +2,7 @@ importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js'
 importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging-compat.js');
 
 const config = {
-  apiKey : process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN,
   databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASEURL,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
