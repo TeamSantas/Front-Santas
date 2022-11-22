@@ -36,3 +36,8 @@ ul {
   margin-bottom: 9rem;
   outline-color: #ac473d;
 }
+
+/* TODO : 기능 구현 완료 후 styled-component로 이사가기 */
+.thumbnail {
+  width: 5rem;
+}

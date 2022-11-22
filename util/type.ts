@@ -25,3 +25,12 @@ export interface friendsData {
     isFavorite: boolean
 }
 
+export interface postPresentData {
+    receiverId: number
+    nickname: string
+    title: string
+    contents?: string
+    receivedDate: string
+    isAnonymous: boolean
+    multipartFileList?: string[] // TODO : 형식 체크
+}
