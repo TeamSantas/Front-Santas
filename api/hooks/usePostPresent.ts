@@ -25,7 +25,7 @@ export async function usePostPresent(data) {
 
   const config = {
     Headers: {
-      Auth: `${process.env.TOKEN}`,
+      Auth: `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTAxMzg4NDk4Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Njg3NTk1NzQsImV4cCI6MTY2OTM2NDM3NH0.ZrHHReeic7XwJf0qDbTbVrvF_0ma8yP1rlDtIPgRmk4`,
       "Content-Type": "multipart/form-data",
     },
   };

@@ -9,7 +9,7 @@ const APIInstance = (baseURL: string) => {
     timeout: 8000,
     baseURL: baseURL,
     headers: {
-      Auth: `${process.env.TOKEN}`,
+      Auth: `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTAxMzg4NDk4Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Njg3NTk1NzQsImV4cCI6MTY2OTM2NDM3NH0.ZrHHReeic7XwJf0qDbTbVrvF_0ma8yP1rlDtIPgRmk4`,
     },
   });
   // 응답 인터셉터 추가
