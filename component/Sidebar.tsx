@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 const Container = styled.div`
-  background-color: #3c6c54;
+  background-color: #3C6C54;
   border-radius: 30px 0 0 30px;
   width: 30%;
   height: 100vh;
@@ -40,11 +40,11 @@ const Index = styled.button`
       : "transparent"};
   padding: 15px;
   font-size: 22px;
-  margin: 0 auto 0 5px;
+  margin: 0 auto 0 5px; 
   font-weight: bold;
   &:hover {
     font-size: 24px;
-    color: #ac473d;
+    color: #AC473D;
   }
   @media (max-width: 600px) {
     font-size: 20px;
@@ -76,55 +76,53 @@ const Img = styled.img`
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
-  opacity: 0.7;
+  opacity: .7;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 9;
-  background-color: #191c21;
-`;
+  background-color: #191C21;
+`
 
 const Sidebar = (props) => {
-  const router = useRouter();
-  const index = [
-    "알림설정",
-    "개인정보 처리방침",
-    "Contact to Us",
-    "로그아웃",
-    "v.0.0.1",
-  ];
-  const indexRoute = ["/", "/", "/", "/", "/"];
-  // const [toggleValue, setToggleValue] = useState(false);
-  return (
-    <>
-      {/*Background : 배경 블러처리 겸, 아무 곳이나 눌러도 사이드바 해제하는 역할*/}
-      <Background onClick={props.menu} />
-      <Container>
-        <Index back>
-          <CloseIcon src="/assets/image/icons/close.png" onClick={props.menu} />
-        </Index>
-        <Ul>
-          {index.map((indexTitle, i) => {
-            return (
-              <IndexDiv key={i}>
-                <Li>
-                  <Img src="/assets/image/face.svg" />
-                  <Index
-                    onClick={() => {
-                      router.push(indexRoute[i]);
-                    }}
-                  >
-                    {indexTitle}
-                  </Index>
-                </Li>
-                {/*{i===0? :null}*/}
-                <Hr />
-              </IndexDiv>
-            );
-          })}
-        </Ul>
-      </Container>
-    </>
-  );
-};
-export default Sidebar;
+    const router = useRouter();
+    const index = [
+        "알림설정",
+        "개인정보 처리방침",
+        "Contact to Us",
+        "로그아웃",
+        "v.0.0.1"
+    ]
+    const indexRoute = [
+        "/",
+        "/",
+        "http://pf.kakao.com/_wDRPxj",
+        `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&logout_redirect_uri=${process.env.NEXT_PUBLIC_LOGOUT_REDIRECT_URI}`,
+        "/mypage"
+    ]
+    // const [toggleValue, setToggleValue] = useState(false);
+    return (
+        <>
+            {/*Background : 배경 블러처리 겸, 아무 곳이나 눌러도 사이드바 해제하는 역할*/}
+            <Background onClick={props.menu}/>
+            <Container>
+                <Index back><CloseIcon src="/assets/image/icons/close.png" onClick={props.menu}/></Index>
+                <Ul>
+                    {index.map((indexTitle, i) => {
+                        return (
+                            <IndexDiv  key={i}>
+                                <Li>
+                                    <Img src="/assets/image/face.svg"/>
+                                    <Index onClick={() => {router.push(indexRoute[i]);}}>{indexTitle}</Index>
+                                </Li>
+                                {/*{i===0? :null}*/}
+                                <Hr/>
+                            </IndexDiv>
+                        )
+                    })}
+                </Ul>
+            </Container>
+        </>
+    )
+}
+export default Sidebar
