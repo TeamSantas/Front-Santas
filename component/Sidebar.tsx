@@ -44,7 +44,7 @@ const Index = styled.button`
     color: #AC473D;
   }
   @media (max-width: 600px) {
-    font-size: 15px;
+    font-size: 20px;
   }
 `
 const CloseIcon = styled.img`
