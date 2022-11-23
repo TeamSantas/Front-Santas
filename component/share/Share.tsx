@@ -6,9 +6,10 @@ import CustomModal from "../CustomModal";
 import {useGetPresent} from "../../api/hooks/useGetPresent";
 
 export const RedBtn = styled(Icons)`
-  width: 100%;
+  width: 35rem;
   height: 72px;
   font-size: 24px;
+  font-weight: bold;
   margin-top: 40px;
   margin-bottom: 48px;
   background: #ac473d;
