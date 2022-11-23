@@ -15,8 +15,8 @@ class PresentService {
   //선물 상세보기 🔑
   getDetailPresent = () => {};
   // 쪽지 보내기 API (쪽지or이미지and닉네임)
-  postPresent = (url, formData, config) => {
-    return PresentInstance.post<ResponseData<postPresentData>>(url, formData, config);
+  postPresent = (formData: postPresentData) => {
+    return PresentInstance.post<ResponseData<postPresentData>>(`/api/present`, formData);
   };
   //받은선물 공개 여부 설정 🔑
   putPresent_OnOff_Status = () => {};
