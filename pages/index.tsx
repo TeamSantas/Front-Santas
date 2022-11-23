@@ -8,6 +8,7 @@ import Share from "../component/share/Share";
 import ReactHowler from "react-howler";
 import { lazy, useState } from "react";
 import { Canvas } from "@react-three/fiber";
+import ImageUpLoad from "../component/sendPresents/ImageUpLoad";
 
 const Friends = styled(Icons)`
   background-image: url("/assets/image/icons/Users.png");
@@ -68,7 +69,7 @@ const Home: NextPage = () => {
   const muteHandler = (value) => setMute(!value);
 
   // TODO : 내 캘린더인가 여부 파악
-  const ismycalendar = true;
+  const ismycalendar = false;
 
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
   const ModelComponent = lazy(() => import("/component/SnowBallModel"));
@@ -106,6 +107,8 @@ const Home: NextPage = () => {
           </Canvas>
         </SnowballContainer>
       </Flex>
+      {/* Test 용으로 여기 배치했습니다. */}
+      <ImageUpLoad/>
     </div>
   );
 };

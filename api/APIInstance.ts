@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = 'https://pitapat-adventcalendar.shop';
+const BASE_URL = 'https://ec2-13-209-72-164.ap-northeast-2.compute.amazonaws.com';
 
 // Axios 로직을 인스턴스화 하는 코드
 const AuthAPIInstance = (baseURL: string) => {
