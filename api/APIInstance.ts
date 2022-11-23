@@ -10,6 +10,7 @@ const AuthAPIInstance = (baseURL: string) => {
         headers: {
             Auth : `${process.env.NEXT_PUBLIC_REFRESH_TOKEN}`,
         }
+        
     });
     // 응답 인터셉터 추가
     apiInstance.interceptors.response.use(
@@ -17,6 +18,7 @@ const AuthAPIInstance = (baseURL: string) => {
         response => response,
         // 에러 처리하기 (error handling)
         error => {
+            console.log(error)
             console.log(error.response.status)
             if(error.response.status === 401){
 
@@ -53,4 +55,4 @@ const SettingInstance = APIInstance(BASE_URL);
 const FriendsInstance = APIInstance(BASE_URL);
 const AuthInstance = APIInstance(BASE_URL);
 
-export {MemberInstance, FriendsInstance, PresentInstance};
+export {MemberInstance, FriendsInstance, PresentInstance, SettingInstance};
