@@ -42,7 +42,7 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 const Home: NextPage = () => {
-  const [mute, setMute] = useState(false);
+    const [mute, setMute] = useState(true);
 
   const screenCaptureHandler = () => {
     console.log("캡쳐됨");
