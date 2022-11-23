@@ -18,14 +18,13 @@ const APIInstance = (baseURL: string) => {
     (response) => response,
     // 에러 처리하기 (error handling)
     (error) => {
-      console.log(error.response);
-      console.log(error.response.status);
-      if (error.response.status === 401) {
-      }
-      if (error.response.status === 403) {
-      }
-      if (error.response.status === 404) {
-      }
+      console.log(error);
+      // if (error.response.status === 401) {
+      // }
+      // if (error.response.status === 403) {
+      // }
+      // if (error.response.status === 404) {
+      // }
     }
   );
   // apiInstance.defaults.withCredentials = true;
