@@ -3,6 +3,7 @@ import { Icons } from "../../styles/styledComponentModule";
 import html2canvas from "html2canvas";
 import { useState } from "react";
 import CustomModal from "../CustomModal";
+import {useGetPresent} from "../../api/hooks/useGetPresent";
 
 export const RedBtn = styled(Icons)`
   width: 100%;
@@ -79,6 +80,7 @@ const Share = () => {
   return (
     <>
       <RedBtn onClick={calendarShareHandler}>캘린더 공유하기</RedBtn>
+      <RedBtn onClick={useGetPresent}>테스트</RedBtn>
       <CustomModal
         // TODO : 공유 버튼 핸들러 구현 후 추가
 
