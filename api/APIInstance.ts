@@ -1,16 +1,17 @@
 import axios from "axios";
 
-const BASE_URL = 'https://ec2-13-209-72-164.ap-northeast-2.compute.amazonaws.com';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-// Axios 로직을 인스턴스화 하는 코드
+// Token 필요한 Axios
 const AuthAPIInstance = (baseURL: string) => {
     const apiInstance = axios.create({
         timeout: 8000,
         baseURL: baseURL,
         headers: {
-            Auth : `${process.env.NEXT_PUBLIC_REFRESH_TOKEN}`,
+            Authorization : `Bearer ${process.env.NEXT_PUBLIC_REFRESH_TOKEN}`,
+            // Auth : process.env.NEXT_PUBLIC_REFRESH_TOKEN
         }
-        
+
     });
     // 응답 인터셉터 추가
     apiInstance.interceptors.response.use(
@@ -19,21 +20,13 @@ const AuthAPIInstance = (baseURL: string) => {
         // 에러 처리하기 (error handling)
         error => {
             console.log(error)
-            console.log(error.response.status)
-            if(error.response.status === 401){
-
-            }
-            if(error.response.status === 403){
-
-            }
-            if(error.response.status === 404){
-
-            }
           }
     );
     // apiInstance.defaults.withCredentials = true;
     return apiInstance;
 };
+
+// Token 필요없는 Axios
 const APIInstance = (baseURL: string) => {
     const apiInstance = axios.create({
         timeout: 8000,
@@ -50,9 +43,14 @@ const APIInstance = (baseURL: string) => {
     return apiInstance;
 };
 const PresentInstance = APIInstance(BASE_URL);
-const MemberInstance = APIInstance(BASE_URL);
-const SettingInstance = APIInstance(BASE_URL);
-const FriendsInstance = APIInstance(BASE_URL);
-const AuthInstance = APIInstance(BASE_URL);
+const PresentAuthInstance = AuthAPIInstance(BASE_URL);
 
-export {MemberInstance, FriendsInstance, PresentInstance, SettingInstance};
+const MemberAuthInstance = AuthAPIInstance(BASE_URL);
+const MemberInstance = APIInstance(BASE_URL);
+
+const SettingAuthInstance = AuthAPIInstance(BASE_URL);
+const FriendsAuthInstance = AuthAPIInstance(BASE_URL);
+const AuthAuthInstance = AuthAPIInstance(BASE_URL);
+
+export {PresentInstance, PresentAuthInstance, MemberAuthInstance, MemberInstance,
+    SettingAuthInstance, FriendsAuthInstance, AuthAuthInstance };

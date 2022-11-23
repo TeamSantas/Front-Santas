@@ -6,7 +6,7 @@ export type ResponseData<T> = {
   };
 };
 
-// Post types ------------------------------------
+// Member types ------------------------------------
 export interface MemberData {
   id: string;
   nickname: string;
@@ -15,14 +15,16 @@ export interface MemberData {
   invitationLink: string;
 }
 
-export interface friendsData {
-  memberId: string;
-  friendId: string;
-  uuid: string;
-  profileImgUrl: string;
-  name: string;
-  allowedMsg: boolean;
-  isFavorite: boolean;
+
+// Friends types ------------------------------------
+export interface FriendsData {
+    memberId: string;
+    friendId: string;
+    uuid: string;
+    profileImgUrl: string;
+    name: string;
+    allowedMsg: boolean;
+    isFavorite: boolean;
 }
 
 export interface postPresentData {

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Switch from "react-switch";
+import { useGetLogout} from "../api/hooks/useGetLogout";
 
 const Container = styled.div`
   background-color: #3C6C54;
@@ -59,7 +61,7 @@ const Ul = styled.ul`
   padding-left: 0;
 `;
 const Li = styled.li`
-  padding: 0 0 0 20px;
+  padding: 0 10px 0 20px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -86,21 +88,14 @@ const Background = styled.div`
 
 const Sidebar = (props) => {
     const router = useRouter();
-    const index = [
-        "알림설정",
-        "개인정보 처리방침",
-        "Contact to Us",
-        "로그아웃",
-        "v.0.0.1"
-    ]
-    const indexRoute = [
-        "/",
-        "/",
-        "http://pf.kakao.com/_wDRPxj",
-        `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&logout_redirect_uri=${process.env.NEXT_PUBLIC_LOGOUT_REDIRECT_URI}`,
-        "/mypage"
-    ]
-    // const [toggleValue, setToggleValue] = useState(false);
+    //TODO : 서버 되면 유저 API 받아와서 초기 세팅해주기 (이건임시. 밑에것이 진짜)
+    const isUserToggleOpen = true;
+    // const isUserToggleOpen = settingService.getPush;
+    const [toggleValue, setToggleValue] = useState(isUserToggleOpen);
+    const toggleHandler = () => {
+        setToggleValue(!toggleValue);
+        console.log(toggleValue)
+    }
     return (
         <>
             {/*Background : 배경 블러처리 겸, 아무 곳이나 눌러도 사이드바 해제하는 역할*/}
@@ -108,18 +103,36 @@ const Sidebar = (props) => {
             <Container>
                 <Index back><CloseIcon src="/assets/image/icons/close.png" onClick={props.menu}/></Index>
                 <Ul>
-                    {index.map((indexTitle, i) => {
-                        return (
-                            <IndexDiv  key={i}>
-                                <Li>
-                                    <Img src="/assets/image/face.svg"/>
-                                    <Index onClick={() => {router.push(indexRoute[i]);}}>{indexTitle}</Index>
-                                </Li>
-                                {/*{i===0? :null}*/}
-                                <Hr/>
-                            </IndexDiv>
-                        )
-                    })}
+                    <Li>
+                        <Img src="/assets/image/face.svg"/>
+                        <Index>알림설정</Index>
+                        <Switch
+                            onChange={toggleHandler}
+                            checked={toggleValue}
+                            className="react-switch"
+                        />
+                    </Li><Hr/>
+                    <IndexDiv>
+                        <Li>
+                            <Img src="/assets/image/face.svg"/>
+                            <Index onClick={() => {router.push("https://pf.kakao.com/_wDRPxj");}}>Contact to Us</Index>
+                        </Li>
+                        <Hr/>
+                    </IndexDiv>
+                    <IndexDiv>
+                        <Li>
+                            <Img src="/assets/image/face.svg"/>
+                            <Index onClick={useGetLogout}>로그아웃</Index>
+                        </Li>
+                        <Hr/>
+                    </IndexDiv>
+                    <IndexDiv>
+                        <Li>
+                            <Img src="/assets/image/face.svg"/>
+                            <Index>v.0.0.1</Index>
+                        </Li>
+                        <Hr/>
+                    </IndexDiv>
                 </Ul>
             </Container>
         </>
