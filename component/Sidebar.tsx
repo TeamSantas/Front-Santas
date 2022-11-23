@@ -73,6 +73,7 @@ const Hr = styled.hr`
 
 const Img = styled.img`
   margin-top: -5px;
+  width: 65px;
 `;
 
 const Background = styled.div`
@@ -104,7 +105,7 @@ const Sidebar = (props) => {
                 <Index back><CloseIcon src="/assets/image/icons/close.png" onClick={props.menu}/></Index>
                 <Ul>
                     <Li>
-                        <Img src="/assets/image/face.svg"/>
+                        <Img src="/assets/image/character/face_heart_white.png"/>
                         <Index>알림설정</Index>
                         <Switch
                             onChange={toggleHandler}
@@ -114,21 +115,21 @@ const Sidebar = (props) => {
                     </Li><Hr/>
                     <IndexDiv>
                         <Li>
-                            <Img src="/assets/image/face.svg"/>
+                            <Img src="/assets/image/character/face_heart_white.png"/>
                             <Index onClick={() => {router.push("https://pf.kakao.com/_wDRPxj");}}>Contact to Us</Index>
                         </Li>
                         <Hr/>
                     </IndexDiv>
                     <IndexDiv>
                         <Li>
-                            <Img src="/assets/image/face.svg"/>
+                            <Img src="/assets/image/character/face_heart_white.png"/>
                             <Index onClick={useGetLogout}>로그아웃</Index>
                         </Li>
                         <Hr/>
                     </IndexDiv>
                     <IndexDiv>
                         <Li>
-                            <Img src="/assets/image/face.svg"/>
+                            <Img src="/assets/image/character/face_heart_white.png"/>
                             <Index>v.0.0.1</Index>
                         </Li>
                         <Hr/>
