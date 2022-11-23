@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import styled from "styled-components";
-import {Button} from "../../styles/styledComponentModule";
+import {RedButton} from "../../styles/styledComponentModule";
 import SendPresentList from "./SendPresentList";
 import ReceivedPresentList from "./ReceivedPresentList";
 import {useState} from "react";
@@ -22,7 +22,7 @@ const StyledTab = styled.div`
     margin-top: 30px
   }
 `
-const TabButton = styled(Button)`
+const TabButton = styled(RedButton)`
   width: 50%;
   padding: 7px;
   color: white;

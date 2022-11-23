@@ -1,8 +1,8 @@
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
-import 'bootstrap/dist/css/bootstrap.css';
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import "bootstrap/dist/css/bootstrap.css";
 import styled from "styled-components";
-import PresentCardList from './PresentCardList';
+import PresentCardList from "./PresentCardList";
 
 const StyledTab = styled.div`
   border-radius: 5px;
@@ -18,28 +18,36 @@ const StyledTab = styled.div`
     height: 50vh;
   }
   @media (max-width: 400px) {
-    margin-top: 30px
+    margin-top: 30px;
   }
-`
+`;
 
 const TabViewSY = (props) => {
-    return (
-        <StyledTab>
-        <Tabs
-            defaultActiveKey="profile"
-            id="fill-tab-example"
-            className="mb-3"
-            fill
+  return (
+    <StyledTab>
+      <Tabs
+        defaultActiveKey="profile"
+        id="fill-tab-example"
+        className="mb-3"
+        fill
+      >
+        <Tab
+          eventKey="받은쪽지"
+          title="받은쪽지"
+          style={{ backgroundColor: "lightblue", padding: "20px" }}
         >
-            <Tab eventKey="받은쪽지" title="받은쪽지" style={{backgroundColor:"lightblue", padding:"20px"}}>
-              <PresentCardList />
-            </Tab>
-            <Tab eventKey="보낸쪽지" title="보낸쪽지" style={{backgroundColor:"gray", padding:"20px"}}>
-              <PresentCardList />
-            </Tab>
-        </Tabs>
-        </StyledTab>
-    );
-}
+          <PresentCardList />
+        </Tab>
+        <Tab
+          eventKey="보낸쪽지"
+          title="보낸쪽지"
+          style={{ backgroundColor: "gray", padding: "20px" }}
+        >
+          <PresentCardList />
+        </Tab>
+      </Tabs>
+    </StyledTab>
+  );
+};
 
 export default TabViewSY;

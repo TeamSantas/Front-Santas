@@ -2,14 +2,14 @@ importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js'
 importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging-compat.js');
 
 const config = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN,
-  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASEURL,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORABEBUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyCastD4wzjzV_ABpqjpaPiX1t2d2pkWDiM",
+  authDomain: "ddac-e6757.firebaseapp.com",
+  databaseURL: "https://ddac-e6757-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "ddac-e6757",
+  storageBucket: "ddac-e6757.appspot.com",
+  messagingSenderId: "50350895067",
+  appId: "1:50350895067:web:559369e927aac45508c1fe",
+  measurementId: "G-478S8PF211"
 }
 
 firebase.initializeApp(config);
