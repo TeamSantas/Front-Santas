@@ -107,8 +107,6 @@ const Home: NextPage = () => {
           </Canvas>
         </SnowballContainer>
       </Flex>
-      {/* Test 용으로 여기 배치했습니다. */}
-      <ImageUpLoad/>
     </div>
   );
 };
