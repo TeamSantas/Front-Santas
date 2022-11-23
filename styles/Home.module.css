@@ -1,6 +1,6 @@
 .container {
   padding: 0 2rem;
-  background-color: #191C21;
+  background-color: #191c21;
 }
 
 .main {
@@ -40,7 +40,6 @@
   line-height: 1.5;
   font-size: 1.5rem;
 }
-
 
 @media (max-width: 600px) {
   .grid {
