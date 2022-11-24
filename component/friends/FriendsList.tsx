@@ -1,37 +1,78 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { Icons } from "../../styles/styledComponentModule";
-import CustomModal from "../CustomModal";
-import FriendCard from "./FriendCard";
+import { useGetFriend } from "../../api/hooks/useGetFriend";
 
-const Friends = styled(Icons)`
-  background-image: url("/assets/image/icons/Users.png") !important;
+const FriendsListWrapper = styled.div``;
+
+const FriendCard = styled.div`
+  width: 35rem;
+  height: 72px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background: #3c6c54;
+  border-radius: 12px;
+  z-index: 5;
+  color: white;
+  @media (max-width: 600px) {
+    width: 100%;
+    margin-bottom: 10px;
+    height: 62px;
+    font-size: 24px;
+  }
 `;
+
 const FriendsList = () => {
-  const [friendModalShow, setFriendModalShow] = useState(false);
-  const clickFriendIconHandler = () => {
-    setFriendModalShow(true);
-  };
-  const handleClose = () => setFriendModalShow(false);
+  // TODO : friends 데이터 가져와서 작업
+  // const friendsData = useGetFriend();
+  const friendsData = [
+    {
+      memberId: 2501388498,
+      friendId: 4,
+      invitationLink: "invitationLink4",
+      uuid: "uuid",
+      profileImgUrl: "profileimageurl",
+      name: "친구4",
+      allowedMsg: true,
+      isFavorite: false,
+    },
+    {
+      memberId: 2501388498,
+      friendId: 5,
+      invitationLink: "invitationLink5",
+      uuid: "uuid",
+      profileImgUrl: "profileimageurl",
+      name: "친구5",
+      allowedMsg: true,
+      isFavorite: false,
+    },
+    {
+      memberId: 2501388498,
+      friendId: 6,
+      invitationLink: "invitationLink6",
+      uuid: "uuid",
+      profileImgUrl: "profileimageurl",
+      name: "친구6",
+      allowedMsg: true,
+      isFavorite: false,
+    },
+    {
+      memberId: 2501388499,
+      friendId: 6,
+      invitationLink: "invitationLink6",
+      uuid: "uuid",
+      profileImgUrl: "profileimageurl",
+      name: "친구7",
+      allowedMsg: true,
+      isFavorite: false,
+    },
+  ];
 
   return (
-    <div>
-      <Friends onClick={clickFriendIconHandler} />
-      <CustomModal
-        // TODO : 공유 버튼 핸들러 구현 후 추가
-
-        // configs -------------
-        show={friendModalShow}
-        onHide={handleClose}
-        name={"shareModalImg"}
-        // body ----------------
-        img={`/assets/image/shareModalImg.svg`}
-        background_img={`/assets/image/shareModalImg.svg`}
-        text={"쪽지를 받고 싶은 친구에게 캘린더를 공유해 봐요!"}
-        component={"FriendCard"}
-      />
-
-    </div>
+    <FriendsListWrapper>
+      {friendsData?.map((friend) => (
+        <FriendCard key={friend.memberId}>{friend.name}</FriendCard>
+      ))}
+    </FriendsListWrapper>
   );
 };
 

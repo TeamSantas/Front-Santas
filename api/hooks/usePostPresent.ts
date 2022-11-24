@@ -7,9 +7,6 @@ export async function usePostPresent(postData) {
     ? await PresentService.postPresent(postData)
     : await PresentService.postAuthPresent(postData);
 
-  // TODO : res 값을 찍어보고 status code 함께 오는지 체크
-  // if (res.status === 200) {
-  console.log("res >>> ", res);
-  // return res;
-  // }
+  // console.log("선물보내기 성공? ", res)
+  if (res.status === 200) return res;
 }

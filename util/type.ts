@@ -30,10 +30,13 @@ export interface MemberData {
 
 // Friends types ------------------------------------
 export interface FriendsData {
+
+
+  
     memberId: string;
     friendId: string;
     uuid: string;
-    profileImgUrl: string;
+    profileImageURL: string;
     name: string;
     allowedMsg: boolean;
     isFavorite: boolean;

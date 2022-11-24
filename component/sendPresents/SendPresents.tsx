@@ -82,8 +82,7 @@ const SendPresents = (props) => {
     setContents(ref.current.value);
     HandleImageSubmit();
   };
-
-  console.log("익명? ", isAnonymous);
+  
   return (
     <SendPresentsWrapper>
       <h2>
