@@ -1,7 +1,7 @@
 import FriendsService from "../FriendsService";
 
-export async function useGetFriend() {
-        const res = await FriendsService.getFriends();
+export async function setGetFriend() {
+  const res = await FriendsService.getFriends();
 
-        return res;
+  if (res.status === 200) return res.data.data;
 }

@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { useGetFriend } from "../../api/hooks/useGetFriend";
+import { setGetFriend } from "../../api/hooks/useGetFriend";
+import Image from "next/image";
+import { Flex } from "../../styles/styledComponentModule";
+import { useEffect, useState } from "react";
 
 const FriendsListWrapper = styled.div``;
 
@@ -23,54 +26,54 @@ const FriendCard = styled.div`
 
 const FriendsList = () => {
   // TODO : friends 데이터 가져와서 작업
-  // const friendsData = useGetFriend();
-  const friendsData = [
-    {
-      memberId: 2501388498,
-      friendId: 4,
-      invitationLink: "invitationLink4",
-      uuid: "uuid",
-      profileImgUrl: "profileimageurl",
-      name: "친구4",
-      allowedMsg: true,
-      isFavorite: false,
-    },
-    {
-      memberId: 2501388498,
-      friendId: 5,
-      invitationLink: "invitationLink5",
-      uuid: "uuid",
-      profileImgUrl: "profileimageurl",
-      name: "친구5",
-      allowedMsg: true,
-      isFavorite: false,
-    },
-    {
-      memberId: 2501388498,
-      friendId: 6,
-      invitationLink: "invitationLink6",
-      uuid: "uuid",
-      profileImgUrl: "profileimageurl",
-      name: "친구6",
-      allowedMsg: true,
-      isFavorite: false,
-    },
-    {
-      memberId: 2501388499,
-      friendId: 6,
-      invitationLink: "invitationLink6",
-      uuid: "uuid",
-      profileImgUrl: "profileimageurl",
-      name: "친구7",
-      allowedMsg: true,
-      isFavorite: false,
-    },
-  ];
+  const [friendsData, setFriendsData] = useState<any>();
+  const getFriendsData = async () => {
+    const res = await setGetFriend();
+    setFriendsData(res);
+  };
+
+  useEffect(() => {
+    getFriendsData();
+  }, []);
+
+  const handleClickKakaoShare = () => {
+    console.log("카톡으로 링크 공유");
+  };
+  const goFriendsCalendar = () => {
+    console.log("친구 캘린더로 가즈아~");
+  };
+
+  const RenderFriendCardContents = (props) => {
+    console.log(props.profileImgUrl);
+    return (
+      <Flex>
+        <Image
+          // src={props.profileImgUrl}
+          src={`/assets/image/character/face_smile.png`}
+          alt="profile-img"
+          width={50}
+          height={50}
+        />
+        <p>{props.name}</p>
+        <Flex>
+          <button onClick={handleClickKakaoShare}>카카오톡 공유</button>
+          <button onClick={goFriendsCalendar}>친구캘린더로</button>
+        </Flex>
+      </Flex>
+    );
+  };
 
   return (
     <FriendsListWrapper>
+      {/* TODO : isFavorite으로 즐찾해둔 친구 상단에 먼저 렌더링 */}
       {friendsData?.map((friend) => (
-        <FriendCard key={friend.memberId}>{friend.name}</FriendCard>
+        <FriendCard key={friend.memberId}>
+          <RenderFriendCardContents
+            profileImgUrl={friend.profileImgUrl}
+            name={friend.name}
+            invitationLink={friend.invitationLink}
+          />
+        </FriendCard>
       ))}
     </FriendsListWrapper>
   );

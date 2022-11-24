@@ -6,7 +6,4 @@ export async function usePostPresent(postData) {
   const res = isAnonymous
     ? await PresentService.postPresent(postData)
     : await PresentService.postAuthPresent(postData);
-
-  // console.log("선물보내기 성공? ", res)
-  if (res.status === 200) return res;
 }
