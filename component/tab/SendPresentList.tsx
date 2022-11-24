@@ -13,22 +13,22 @@ const SendPresentList = () => {
           id : 0,
           thumbnail : "face",
           type : "svg"
-        }, 
+        },
         {
           id : 1,
           thumbnail : "Calendar",
           type : "svg"
-        }, 
+        },
         {
             id : 2,
             thumbnail : "face",
             type : "svg"
-        }, 
+        },
         {
           id : 3,
           thumbnail : "Calendar",
           type : "svg"
-        }, 
+        },
         {
             id : 4,
             thumbnail : "face",
@@ -39,14 +39,34 @@ const SendPresentList = () => {
             thumbnail : "Calendar",
             type : "svg"
         },
+        {
+            id : 0,
+            thumbnail : "/character/face_heart",
+            type : "png"
+        },
+        {
+            id : 1,
+            thumbnail : "my_calendar",
+            type : "png"
+        },
+        {
+            id : 2,
+            thumbnail : "Calendar",
+            type : "svg"
+        },
+        {
+            id : 3,
+            thumbnail : "/character/face_heart",
+            type : "png"
+        },
       ]
     return (
         <TabFlex>
             {sentPresentList?.map((present) => (
-                <Card 
+                <Card
                     key={present.id}
                     id={present.id}
-                    thumbnail={present.thumbnail} 
+                    thumbnail={present.thumbnail}
                     type={present.type}
                 />
           ))}
