@@ -3,13 +3,11 @@ import { Icons } from "../../styles/styledComponentModule";
 import html2canvas from "html2canvas";
 import { useState } from "react";
 import CustomModal from "../CustomModal";
-import {useGetPresent} from "../../api/hooks/useGetPresent";
 
 export const RedBtn = styled(Icons)`
-  width: 35rem;
+  width: 100%;
   height: 72px;
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 24px;
   margin-top: 40px;
   margin-bottom: 48px;
   background: #ac473d;
@@ -20,7 +18,6 @@ export const RedBtn = styled(Icons)`
     width: 100%;
     margin-top: 45px;
     height: 62px;
-    font-size: 24px;
   }
 `;
 

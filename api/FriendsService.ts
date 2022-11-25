@@ -1,11 +1,10 @@
-import {FriendsAuthInstance} from "./APIInstance";
-import {FriendsData, MemberData, ResponseData} from "../util/type";
+import {FriendsInstance} from "./APIInstance";
+import {friendsData, MemberData, ResponseData} from "../util/type";
 
 class FriendsService{
     //친구 목록 API 🔑
     getFriends = () => {
-        return FriendsAuthInstance.get<ResponseData<FriendsData>>(`/api/friend`);
-
+        return FriendsInstance.get<ResponseData<friendsData>>(`/api/friend`);
     };
     //친구 리스트에 친구목록 저장 🔑 (카카오에서 받아와서 저장)
 

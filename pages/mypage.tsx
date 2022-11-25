@@ -11,7 +11,7 @@ const Profile = styled(Icons)`
   margin: 30px auto;
   border-radius: 50%;
   border: solid 3px white;
-  background-image: url("/assets/image/character/face_crycry.png");
+  background-image: url("/assets/image/tmpProfil.png");
 `;
 
 const CenterFlex = styled(Flex)`

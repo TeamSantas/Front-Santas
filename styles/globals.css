@@ -23,7 +23,6 @@ a:active {
 * {
   box-sizing: border-box;
   font-family: "BinggraeSamanco", binggraesamanco;
-  /* color: white; */
 }
 ul {
   list-style: none;
@@ -34,8 +33,6 @@ ul {
   width: 150px;
   min-height: 5rem;
   border: none;
-  /* 개발용 배경색이니 놀라지 마세요 ㅎㅎ */
-  background-color: #00e1ff; 
   margin-bottom: 9rem;
   outline-color: #ac473d;
 }
