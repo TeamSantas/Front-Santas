@@ -11,9 +11,9 @@ export const pageview = (url) => {
 };
 
 export type ResponseData<T> = {
-  status: string;
-  message: string;
-  data: T;
+    status: string;
+    message: string;
+    data: T;
 };
 
 // Member types ------------------------------------
@@ -24,6 +24,7 @@ export interface MemberData {
   email: string;
   invitationLink: string;
 }
+
 
 // Friends types ------------------------------------
 export interface FriendsData {
@@ -36,6 +37,7 @@ export interface FriendsData {
   isFavorite: boolean;
 }
 
+// Present types ------------------------------------
 export interface postPresentData {
   receiverId: number;
   nickname: string;
@@ -44,4 +46,12 @@ export interface postPresentData {
   receivedDate: string;
   isAnonymous: boolean;
   multipartFileList?: string[]; // TODO : 형식 체크
+}
+
+// Setting types ------------------------------------
+export interface putPushData {
+  alertStatus: boolean
+}
+export interface putBGMData {
+  bgmStatus: boolean
 }

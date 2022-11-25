@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = "http://ec2-13-209-72-164.ap-northeast-2.compute.amazonaws.com:8080";
 
 // Token 필요한 Axios
 const AuthAPIInstance = (baseURL: string) => {
     const apiInstance = axios.create({
         timeout: 8000,
         baseURL: baseURL,
+        params: {},
         headers: {
-            Authorization : `Bearer ${process.env.NEXT_PUBLIC_REFRESH_TOKEN}`,
-            // Auth : process.env.NEXT_PUBLIC_REFRESH_TOKEN
+            Authorization : `Bearer ${process.env.NEXT_PUBLIC_REFRESH_TOKEN}`
         }
 
     });
@@ -18,9 +18,7 @@ const AuthAPIInstance = (baseURL: string) => {
         // 응답 데이터를 가공
         response => response,
         // 에러 처리하기 (error handling)
-        error => {
-            console.log(error)
-          }
+        error => error
     );
     // apiInstance.defaults.withCredentials = true;
     return apiInstance;
@@ -30,7 +28,8 @@ const AuthAPIInstance = (baseURL: string) => {
 const APIInstance = (baseURL: string) => {
     const apiInstance = axios.create({
         timeout: 8000,
-        baseURL: baseURL
+        baseURL: baseURL,
+        params: {}
     });
     // 응답 인터셉터 추가
     apiInstance.interceptors.response.use(

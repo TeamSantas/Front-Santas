@@ -9,7 +9,7 @@ export default function Seo({ title }) {
             <link rel="icon" href="/assets/image/favicon.ico" />
             <meta property="og:type" content="website"/>
             <meta property="og:url" content="httpㄴ://pitapat-adventcalendar.site/"/>
-            <meta property="og:title" content="Content Title"/>
+            <meta property="og:title" content="다함께 크리스마스 즐기기✨"/>
             <meta property="og:image" content="https://pitapat-adventcalendar.site/assets/image/character/face_heart.png"/>
             <meta property="og:description" content="크리스마스다! 두근두근 어드벤트 캘린더"/>
             <meta property="og:site_name" content="두근두근 어드벤트 캘린더🎁"/>

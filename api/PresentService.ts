@@ -6,10 +6,15 @@ class PresentService {
   getUserPresentList = () => {
     //이렇게 any로 받아와도 되긴 하는데 type을 만드는게 더 TS를 사용하는 의미가 있을 것 같긴 합니다!
     console.log(
-      PresentInstance.get<ResponseData<any>>(`/present/1?isPublic=true`)
+      PresentAuthInstance.get<ResponseData<any>>(`/api/present/my/send`)
     );
-    return PresentInstance.get<ResponseData<any>>(`/present/1?isPublic=true`);
+    return PresentAuthInstance.get<ResponseData<any>>(`/api/present/my/send`);
   };
+
+  //내가 보낸 선물 리스트 조회 API🔑
+
+
+
   //로그인한 유저의 받은 모든 선물목록 조회 API 🔑
   getLoggedUserPresentList = () => {};
   //선물 상세보기 🔑
