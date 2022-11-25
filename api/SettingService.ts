@@ -1,18 +1,24 @@
-import { ResponseData } from "../util/type";
-import { SettingAuthInstance } from "./APIInstance";
+// import {ResponseData} from "../util/type";
+import {SettingAuthInstance} from "./APIInstance";
+import {putBGMData, putPushData, ResponseData} from "../util/type";
 
 class SettingService{
     //푸시알림 조회🔑
     getPush = () => {
-        const res = SettingAuthInstance.get<ResponseData<boolean>>(`api/setting/push`);
-        return res;  //TODO : 이거 res어떻게 보는지 찍어보고 boolean 값으로 리턴해주기
+        return SettingAuthInstance.get<ResponseData<boolean>>(`/api/setting/push`);
     }
     //푸시알림 설정 수정🔑
+    putPush = (alertStatus: putPushData) => {
+        return SettingAuthInstance.put(`/api/setting/push`, null,{ params : alertStatus}); //맞으면 타입만들기
+    }
 
     //BGM  onoff 설정 🔑
+    putBGM = (putData: putBGMData) => {
+        return SettingAuthInstance.put(`/api/setting/bgm`, null,{ params : putData});
+    }
 
     //FCM토큰 저장🔑
-    setFcmtoken = (fcmtoken:string) => {
+    setFcmtoken = (fcmtoken: string) => {
         return SettingAuthInstance.post<ResponseData<String>>(`/api/setting/fcmtoken`, fcmtoken);
     };
 }

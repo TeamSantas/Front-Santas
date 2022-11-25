@@ -24,7 +24,9 @@ const ImageUpLoad = () => {
     encodeFileToBase64(fileList[0]);
   };
 
-  const HandleImageSubmit = () => {
+  const HandleImageSubmit = (e) => {
+    onLoadFile(e)
+
     const presentData = new FormData();
     presentData.append("receiverId", "1");
     presentData.append("nickname", "suyeon");
