@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Switch from "react-switch";
-import { useGetLogout} from "../api/hooks/useGetLogout";
+import { useGetLogout } from "../api/hooks/useGetLogout";
+import {useGetPush} from "../api/hooks/useStting";
 
 const Container = styled.div`
   background-color: #3C6C54;
@@ -90,8 +91,8 @@ const Background = styled.div`
 const Sidebar = (props) => {
     const router = useRouter();
     //TODO : 서버 되면 유저 API 받아와서 초기 세팅해주기 (이건임시. 밑에것이 진짜)
-    const isUserToggleOpen = true;
-    // const isUserToggleOpen = settingService.getPush;
+    // const isUserToggleOpen = true;
+    const isUserToggleOpen = useGetPush();
     const [toggleValue, setToggleValue] = useState(isUserToggleOpen);
     const toggleHandler = () => {
         setToggleValue(!toggleValue);

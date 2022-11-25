@@ -1,10 +1,18 @@
 import SettingService from "../SettingService";
+import {useEffect, useState} from "react";
 
-export async function useGetPush() {
-    const res = await SettingService.getPush();
-    console.log(res); // 값 찍어보고 결정하기!
-    return res;
+export const useGetPush = () => {
+    const [pushData, setPushData] = useState<boolean>();
+    const run = async () => {
+        const res = await SettingService.getPush();
+        setPushData(res.data.data);
+    }
+    useEffect(()=>{
+        run();
+    },[])
+    return pushData;
 }
+
 
 export async function setPutPush(status : boolean) {
     const putData = {
