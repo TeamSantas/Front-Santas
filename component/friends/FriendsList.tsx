@@ -16,6 +16,10 @@ const KakaoShare = styled.div`
   background-size: contain;
   width: 2.5rem;
   cursor: pointer;
+  margin-right: 5px;
+  @media (max-width: 600px) {
+    margin-right: 3px;
+  }
 `;
 
 const GoFriendsCalendarBtn = styled(Button)`
@@ -80,6 +84,7 @@ const FriendsList = () => {
             alt="profile-img"
             width={50}
             height={50}
+            style={{ marginRight: "5px" }}
           />
           <div>{props.name}</div>
           {/* MVP2 : 즐겨찾기 친구 */}
