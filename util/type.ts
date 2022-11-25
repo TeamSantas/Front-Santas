@@ -11,11 +11,9 @@ export const pageview = url => {
 };
 
 export type ResponseData<T> = {
-  body: {
     status: string;
     message: string;
     data: T;
-  };
 };
 
 // Member types ------------------------------------

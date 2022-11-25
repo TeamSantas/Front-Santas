@@ -6,9 +6,9 @@ import html2canvas from "html2canvas";
 import Calendar from "../component/Calendar";
 import Share from "../component/share/Share";
 import ReactHowler from "react-howler";
-import { lazy, useState } from "react";
+import {lazy, useEffect, useState} from "react";
 import { Canvas } from "@react-three/fiber";
-import ImageUpLoad from "../component/sendPresents/ImageUpLoad";
+import {setBGM} from "../api/hooks/useStting";
 
 const Friends = styled(Icons)`
   background-image: url("/assets/image/icons/Users.png");
@@ -44,6 +44,10 @@ const SnowballContainer = styled(MainContainer)`
 const Home: NextPage = () => {
     const [mute, setMute] = useState(true);
 
+    useEffect(()=>{
+      setBGM(mute);
+    },[mute])
+
   const screenCaptureHandler = () => {
     console.log("캡쳐됨");
     html2canvas(document.getElementById("home")).then(function (canvas) {
@@ -69,7 +73,7 @@ const Home: NextPage = () => {
   const muteHandler = (value) => setMute(!value);
 
   // TODO : 내 캘린더인가 여부 파악
-  const ismycalendar = false;
+  const ismycalendar = true;
 
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
   const ModelComponent = lazy(() => import("/component/SnowBallModel"));

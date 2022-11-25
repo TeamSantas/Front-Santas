@@ -8,18 +8,21 @@ const AuthAPIInstance = (baseURL: string) => {
         timeout: 8000,
         baseURL: baseURL,
         headers: {
-            Authorization : `Bearer ${process.env.NEXT_PUBLIC_REFRESH_TOKEN}`,
-            // Auth : process.env.NEXT_PUBLIC_REFRESH_TOKEN
+            Authorization : `Bearer ${process.env.NEXT_PUBLIC_REFRESH_TOKEN}`
         }
 
     });
     // 응답 인터셉터 추가
     apiInstance.interceptors.response.use(
         // 응답 데이터를 가공
-        response => response,
+        response => {
+            console.log(response)
+            return response;
+        },
         // 에러 처리하기 (error handling)
         error => {
             console.log(error)
+            return error
           }
     );
     // apiInstance.defaults.withCredentials = true;
