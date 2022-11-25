@@ -1,6 +1,6 @@
 // import {ResponseData} from "../util/type";
 import {SettingAuthInstance} from "./APIInstance";
-import {postBGMData, putPushData, ResponseData} from "../util/type";
+import {putBGMData, putPushData, ResponseData} from "../util/type";
 
 class SettingService{
     //푸시알림 조회🔑
@@ -13,7 +13,7 @@ class SettingService{
     }
 
     //BGM  onoff 설정 🔑
-    putBGM = (putData: postBGMData) => {
+    putBGM = (putData: putBGMData) => {
         return SettingAuthInstance.put(`/api/setting/bgm`, null,{ params : putData});
     }
 

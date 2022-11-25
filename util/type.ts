@@ -52,6 +52,6 @@ export interface postPresentData {
 export interface putPushData {
   alertStatus: boolean
 }
-export interface postBGMData {
+export interface putBGMData {
   bgmStatus: boolean
 }
