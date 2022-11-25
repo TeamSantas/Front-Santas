@@ -50,7 +50,7 @@ const PresentModal = (props) => {
       centered
     >
       <RedBackground ismycalendar={props.ismycalendar}>
-        <CustomHeader>
+        <CustomHeader closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             12월 {props.selectedday}일
           </Modal.Title>

@@ -10,7 +10,7 @@ function Loader() {
 
 export default function Model() {
     const ref = useRef<any>();
-    useFrame((state, delta) => (ref.current.rotation.y += 0.003));
+    useFrame((state, delta) => (ref.current.rotation.y += 0.005));
     const snowBall3D = useLoader(GLTFLoader, '/snow_3Dball.glb')
     return (
         <>

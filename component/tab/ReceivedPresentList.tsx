@@ -12,32 +12,32 @@ const ReceivedPresentList = () => {
     const receivedPresentList = [
         {
           id : 0,
-          thumbnail : "Calendar",
+          thumbnail : "face",
           type : "svg"
-        },
+        }, 
         {
           id : 1,
-          thumbnail : "my_calendar",
-          type : "png"
-        },
+          thumbnail : "Calendar",
+          type : "svg"
+        }, 
         {
             id : 2,
             thumbnail : "Calendar",
             type : "svg"
-        },
+        }, 
         {
           id : 3,
-          thumbnail : "/character/face_heart",
-          type : "png"
-        },
+          thumbnail : "face",
+          type : "svg"
+        }, 
       ]
     return (
         <TabFlex>
             {receivedPresentList?.map((present) => (
-                <Card
+                <Card 
                 key={present.id}
                 id={present.id}
-                thumbnail={present.thumbnail}
+                thumbnail={present.thumbnail} 
                 type={present.type}
                 />
           ))}

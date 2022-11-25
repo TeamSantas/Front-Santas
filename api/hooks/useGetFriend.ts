@@ -1,7 +1,8 @@
 import FriendsService from "../FriendsService";
+import {AxiosError} from "axios";
 
-export async function setGetFriend() {
-  const res = await FriendsService.getFriends();
-
-  if (res.status === 200) return res.data.data;
+export async function useGetFriend() {
+        const res = await FriendsService.getFriends();
+        console.log(res.data);
+        return res.data;
 }
