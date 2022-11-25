@@ -2,8 +2,7 @@
 import MemberService from "../MemberService";
 
 export async function useGetLoggedMember() {
-    const res = await MemberService.getLoggedMemver();
-    //res가 status 200/ok 인지 확인하기!
-    console.log(res.data);
-    return res.data;
+    const res = await MemberService.getLoggedMember();
+    // console.log(res);
+    return res;
 }

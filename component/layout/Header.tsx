@@ -21,14 +21,14 @@ const Logo = styled.button`
 `;
 
 const MyPage = styled(Icons)`
-    width: 80px;
+    width: 150px;
     height: auto;
     margin-right: 2%;
     cursor:pointer;
-    background-image: url("/assets/image/face.svg");
+    background-image: url("/assets/image/character/face_heart.png");
     z-index: 5;
     @media (max-width: 600px) {  
-      width: 52px;
+      width: 75px;
      margin-left: 0;
     }
 `;

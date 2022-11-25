@@ -8,17 +8,24 @@ export const StyledCard = styled.div`
   border-radius: 10px;
   padding: 20px;
   width: 50%;
-  height: 300px;
+  height: 350px;
   justify-content: center;
   align-items: center;
   margin: 1rem auto;
+  overflow: hidden;
+  @media (max-width: 1000px) {
+    height : 200px;
+  }
+  @media (max-width: 600px) {
+    height : 150px;
+  }
 `;
 
 const TabCard = styled(StyledCard)`
   margin: 10px 5px;
   width: 30%;
-  height: 30%;
-
+  position: relative;
+  
   @media (max-width: 600px) {
     width: 32vw;
     margin: 10px auto;
@@ -29,9 +36,16 @@ const TabCard = styled(StyledCard)`
 `;
 
 const CardImg = styled.img`
-  width: 100%;
-  height: auto;
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  margin: auto;
+  overflow: hidden;
   object-fit: cover;
+  &::after{
+    padding-bottom: 100%;
+  }
 `;
 
 const Card = (props) => {
