@@ -2,11 +2,8 @@
 import PresentService from "../PresentService";
 
 export async function usePostPresent(postData) {
-  const res = await PresentService.postPresent(postData);
-
-  // TODO : res 값을 찍어보고 status code 함께 오는지 체크
-  // if (res.status === 200) {
-    console.log("res >>> ", res);
-    return res;
-  // }
+  const isAnonymous = postData.get("isAnonymous");
+  const res = isAnonymous
+    ? await PresentService.postPresent(postData)
+    : await PresentService.postAuthPresent(postData);
 }
