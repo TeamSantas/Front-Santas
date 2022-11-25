@@ -1,4 +1,4 @@
-import {PresentAuthInstance, PresentInstance} from "./APIInstance";
+import { PresentInstance, PresentAuthInstance } from "./APIInstance";
 import { postPresentData, ResponseData } from "../util/type";
 
 class PresentService {
@@ -21,7 +21,16 @@ class PresentService {
   getDetailPresent = () => {};
   // 쪽지 보내기 API (쪽지or이미지and닉네임)
   postPresent = (formData: postPresentData) => {
-    return PresentInstance.post<ResponseData<postPresentData>>(`/api/present`, formData);
+    return PresentInstance.post<ResponseData<postPresentData>>(
+      `/api/present`,
+      formData
+    );
+  };
+  postAuthPresent = (formData: postPresentData) => {
+    return PresentAuthInstance.post<ResponseData<postPresentData>>(
+      `/api/present`,
+      formData
+    );
   };
   //받은선물 공개 여부 설정 🔑
   putPresent_OnOff_Status = () => {};

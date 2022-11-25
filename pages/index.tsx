@@ -8,15 +8,15 @@ import Share from "../component/share/Share";
 import ReactHowler from "react-howler";
 import {lazy, useEffect, useState} from "react";
 import { Canvas } from "@react-three/fiber";
+import FriendsModal from "../component/friends/FriendsModal";
 import {setBGM} from "../api/hooks/useStting";
-
-const Friends = styled(Icons)`
-  background-image: url("/assets/image/icons/Users.png");
-`;
 
 const LinkCopy = styled(Icons)`
   margin-right: 24px;
   background-image: url("/assets/image/icons/Link.png");
+`;
+const Friends = styled(Icons)`
+  background-image: url("/assets/image/icons/Users.png");
 `;
 
 const Bgm = styled(Icons)`
@@ -42,7 +42,7 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 const Home: NextPage = () => {
-    const [mute, setMute] = useState(true);
+  const [mute, setMute] = useState(true);
 
     useEffect(()=>{
       setBGM(mute);
@@ -78,6 +78,13 @@ const Home: NextPage = () => {
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
   const ModelComponent = lazy(() => import("/component/SnowBallModel"));
 
+  // friends modal
+  const [friendModalShow, setFriendModalShow] = useState(false);
+  const clickFriendIconHandler = () => {
+    setFriendModalShow(true);
+  };
+  const handleFriendsModalClose = () => setFriendModalShow(false);
+
   return (
     <div id="home">
       <Flex>
@@ -88,7 +95,11 @@ const Home: NextPage = () => {
             <>
               <ButtonFlex>
                 {/* TODO : Kakao 친구 목록 연결 */}
-                <Friends />
+                <Friends onClick={clickFriendIconHandler} />
+                <FriendsModal
+                show={friendModalShow}
+                onHide={handleFriendsModalClose}
+                />
                 <Flex>
                   {/*BGM react-howler 라이브러리*/}
                   <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />

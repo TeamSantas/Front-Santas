@@ -1,19 +1,19 @@
 declare global {
-    interface Window {
-        gtag: (param1: string, param2: string, param3: object) => void;
-    }
+  interface Window {
+    gtag: (param1: string, param2: string, param3: object) => void;
+  }
 }
 
-export const pageview = url => {
-    window.gtag('config', process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS, {
-        page_path: url,
-    });
+export const pageview = (url) => {
+  window.gtag("config", process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS, {
+    page_path: url,
+  });
 };
 
 export type ResponseData<T> = {
-    status: string;
-    message: string;
-    data: T;
+  status: string;
+  message: string;
+  data: T;
 };
 
 // Member types ------------------------------------
@@ -28,13 +28,13 @@ export interface MemberData {
 
 // Friends types ------------------------------------
 export interface FriendsData {
-    memberId: string;
-    friendId: string;
-    uuid: string;
-    profileImgUrl: string;
-    name: string;
-    allowedMsg: boolean;
-    isFavorite: boolean;
+  memberId: string;
+  friendId: string;
+  uuid: string;
+  profileImageURL: string;
+  name: string;
+  allowedMsg: boolean;
+  isFavorite: boolean;
 }
 
 export interface postPresentData {

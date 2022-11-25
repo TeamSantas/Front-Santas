@@ -51,6 +51,7 @@ const SendPresents = (props) => {
     presentData.append("contents", contents);
     presentData.append("receivedDate", "2022-12-25");
     presentData.append("isAnonymous", isAnonymous);
+
     // TODO : 파일 여러개 등록 기능 추가 필요
     if (files) {
       presentData.append("multipartFileList", files[0]);
@@ -77,12 +78,11 @@ const SendPresents = (props) => {
   };
 
   // 선물 보내기 버튼 handler ----------------
-  const handleClickSendPresent = (event) => {
+  const handleClickSendPresent = (e) => {
     setContents(ref.current.value);
     HandleImageSubmit();
   };
-
-  console.log(isAnonymous);
+  
   return (
     <SendPresentsWrapper>
       <h2>
