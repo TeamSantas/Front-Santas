@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = "http://ec2-13-209-72-164.ap-northeast-2.compute.amazonaws.com:8080";
 
 // Token 필요한 Axios
 const AuthAPIInstance = (baseURL: string) => {
