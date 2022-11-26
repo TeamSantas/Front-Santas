@@ -49,24 +49,6 @@ const Home: NextPage = () => {
     setBGM(mute);
   }, [mute]);
 
-  const screenCaptureHandler = () => {
-    console.log("캡쳐됨");
-    html2canvas(document.getElementById("home")).then(function (canvas) {
-      const url = canvas.toDataURL("my_calendar/png");
-      onDownloadAs(url, "my_calendar.png");
-    });
-  };
-
-  const onDownloadAs = (uri: string, filename: string) => {
-    console.log("다운됨");
-    const link = document.createElement("a");
-    document.body.appendChild(link);
-    link.href = uri;
-    link.download = filename;
-    link.click();
-    document.body.removeChild(link);
-  };
-
   const linkCopyHandler = () => {
     // TODO : link copy 로직 추가 필요
     console.log("Link copied!");
