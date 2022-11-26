@@ -48,13 +48,13 @@ export const Onboarding4 = ({ showPage }) => {
     <OnboardingContainer pageNumber={pageNumber} showPage={showPage}>
       <Text>
         어드벤트 캘린더를 통해
-        <br /> 친구들과 따뜻한 쪽지를 주고 받으면,
+        <br /> 친구들과 따뜻한 쪽지를 주고 받으면,₩
         <br /> 하얀코에게 크레파스를
         <br /> 선물할 수 있는 힘이 모여요~!
       </Text>
       <Image src="/assets/image/onboarding/crayon_box.png" />
       <Text>캘린더에 쪽지를 보내러 가볼까요?!</Text>
-      <GoBtn onClick={() => (window.location.href = "/")}>GO!</GoBtn>
+      <GoBtn onClick={() => (window.location.href = "/login")}>GO!</GoBtn>
     </OnboardingContainer>
   );
 };
