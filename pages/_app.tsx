@@ -7,6 +7,13 @@ import PushNotification from "../component/PushNotification";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
 import * as ga from '../lib/gtag';
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
     useEffect(() => {
