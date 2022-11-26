@@ -6,10 +6,11 @@ import html2canvas from "html2canvas";
 import Calendar from "../component/Calendar";
 import Share from "../component/share/Share";
 import ReactHowler from "react-howler";
-import {lazy, useEffect, useState} from "react";
+import { lazy, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
-import {setBGM} from "../api/hooks/useStting";
+import { setBGM } from "../api/hooks/useStting";
+import { getCookie } from "../businesslogics/cookie";
 
 const LinkCopy = styled(Icons)`
   margin-right: 24px;
@@ -44,9 +45,9 @@ const SnowballContainer = styled(MainContainer)`
 const Home: NextPage = () => {
   const [mute, setMute] = useState(true);
 
-    useEffect(()=>{
-      setBGM(mute);
-    },[mute])
+  useEffect(() => {
+    setBGM(mute);
+  }, [mute]);
 
   const screenCaptureHandler = () => {
     console.log("캡쳐됨");
@@ -85,6 +86,13 @@ const Home: NextPage = () => {
   };
   const handleFriendsModalClose = () => setFriendModalShow(false);
 
+  useEffect(() => {
+    const onboardingCookie = getCookie("onboarding");
+    if (onboardingCookie === "") {
+      window.location.href ="/onboarding"
+    }
+  }, []);
+
   return (
     <div id="home">
       <Flex>
@@ -97,8 +105,8 @@ const Home: NextPage = () => {
                 {/* TODO : Kakao 친구 목록 연결 */}
                 <Friends onClick={clickFriendIconHandler} />
                 <FriendsModal
-                show={friendModalShow}
-                onHide={handleFriendsModalClose}
+                  show={friendModalShow}
+                  onHide={handleFriendsModalClose}
                 />
                 <Flex>
                   {/*BGM react-howler 라이브러리*/}
