@@ -2,8 +2,7 @@ FROM node:16
 
 WORKDIR /frontend
 
-COPY package.json ./
-COPY yarn.lock ./
+COPY ./package*.json ./
 
 RUN npm install
 COPY . .
