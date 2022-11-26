@@ -3,6 +3,9 @@ import PresentModal from "./PresentModal";
 import { useState } from "react";
 
 const CalendarWrapper = styled.div`
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(0,0,0,.1);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   margin: 24px auto;
