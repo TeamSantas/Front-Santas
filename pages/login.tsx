@@ -4,7 +4,6 @@ import {MainContainer} from "../styles/styledComponentModule";
 import styled from "styled-components";
 import CustomModal from "../component/CustomModal";
 import {useState} from "react";
-import {useGetLogin} from "../api/hooks/useGetLogin";
 
 const Container = styled(MainContainer)`
   text-align: center;
