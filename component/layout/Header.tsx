@@ -60,7 +60,6 @@ const Header = () => {
 
   return (
     <>
-      (
       {currPath === "onboarding" ? (
         <></>
       ) : (
@@ -88,7 +87,6 @@ const Header = () => {
           {menuOnOff ? <Sidebar menu={menuHandler} /> : null}
         </>
       )}
-      )
     </>
   );
 };
