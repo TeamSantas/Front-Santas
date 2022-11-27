@@ -10,6 +10,7 @@ import {lazy, useEffect, useState} from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import {setBGM} from "../api/hooks/useStting";
+import {getLoggedMember} from "../api/hooks/useMember";
 
 const LinkCopy = styled(Icons)`
   margin-right: 24px;
@@ -42,11 +43,22 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 const Home: NextPage = () => {
-  const [mute, setMute] = useState(true);
 
-    useEffect(()=>{
+  const [myBGM, setMyBGM] = useState<any>(null);
+  const getMyBGM = async () => {
+    const res = await getLoggedMember();
+    setMyBGM(res.data.setting);
+  };
+  useEffect(() => {
+    getMyBGM();
+  }, []);
+
+  const [mute, setMute] = useState(myBGM);
+  useEffect(()=>{
       setBGM(mute);
     },[mute])
+
+
 
   const linkCopyHandler = () => {
     // TODO : link copy 로직 추가 필요
