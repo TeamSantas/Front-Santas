@@ -1,12 +1,11 @@
-FROM node:16
+FROM node:lts
 
-WORKDIR /frontend
+WORKDIR /usr/src/app
 
-COPY package*.json /frontend/
+COPY package*.json ./
 
 RUN npm install
-COPY . /frontend/
-RUN npm run build
+COPY . .
 
 EXPOSE 3000
 CMD [“npm”, “start”]
