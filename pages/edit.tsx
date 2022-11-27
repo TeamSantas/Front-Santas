@@ -2,15 +2,15 @@ import { NextPage } from "next";
 import Seo from "../component/common/Seo";
 import { RedButton, Icons, MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
-import {useLoggedMember} from "../api/hooks/useMember";
+import {getLoggedMember} from "../api/hooks/useMember";
+import {useEffect, useState} from "react";
 
-const Profile = styled(Icons)`
+const Profile = styled.img`
   width: 150px;
   height: 150px;
   margin: 30px auto;
   border-radius: 50%;
   border: solid 3px white;
-  background-image: url("/assets/image/tmpProfil.png");
 `;
 
 const Container = styled.div`
@@ -42,7 +42,7 @@ const SubmitButton = styled(RedButton)`
   width: 400px;
   height: 50px;
   background-color: #ac473d;
-  font-size: 20px;
+  font-size: 25px;
   color: white;
   @media (max-width: 650px) {
     width: 300px;
@@ -50,23 +50,32 @@ const SubmitButton = styled(RedButton)`
 `;
 
 const Edit: NextPage = () => {
-    const myData = useLoggedMember();
-    const myname = myData.nickname;
-    const email = myData.email;
-    const profileImg = myData.profileImageURL;
+    const [myName, setMyName] = useState<any>(null);
+    const [myEmail, setMyEmail] = useState<any>(null);
+    const [myProfileImg, setMyProfileImg] = useState<any>(null);
+
+    const getMyData = async () => {
+        const res = await getLoggedMember();
+        setMyName(res.data.nickname);
+        setMyEmail(res.data.email);
+        setMyProfileImg(res.data.profileImageURL);
+    };
+    useEffect(() => {
+        getMyData();
+    }, []);
 
   return (
     <MainContainer>
       <Seo title="수정하기" />
-      <Profile src={profileImg}/>
-        <h5>하얀코가 조립 중인 기능입니다🔧</h5>
+      <Profile src={myProfileImg}/>
+        <h5>뚝딱뚝딱 준비 중인 기능입니다🔧</h5>
       <Container>
         <Info>이름</Info>
-        <Text name placeholder={myname} disabled></Text>
+        <Text name placeholder={myName} disabled></Text>
         {/*<Info>닉네임</Info>*/}
         {/*<Text nickName placeholder={nickname} disabled></Text>*/}
         <Info>이메일</Info>
-        <Text email placeholder={email} disabled></Text>
+        <Text email placeholder={myEmail} disabled></Text>
         <SubmitButton>수정하기</SubmitButton>
       </Container>
     </MainContainer>
