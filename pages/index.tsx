@@ -11,6 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { setBGM } from "../api/hooks/useStting";
 import { getCookie } from "../businesslogics/cookie";
+import { Desc } from "../component/Desc/Desc";
 
 const LinkCopy = styled(Icons)`
   margin-right: 24px;
@@ -89,7 +90,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     const onboardingCookie = getCookie("onboarding");
     if (onboardingCookie === "") {
-      window.location.href ="/onboarding"
+      window.location.href = "/onboarding";
     }
   }, []);
 
@@ -104,6 +105,7 @@ const Home: NextPage = () => {
               <ButtonFlex>
                 {/* TODO : Kakao 친구 목록 연결 */}
                 <Friends onClick={clickFriendIconHandler} />
+                <Desc />
                 <FriendsModal
                   show={friendModalShow}
                   onHide={handleFriendsModalClose}
