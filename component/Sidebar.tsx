@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import {useEffect, useState} from "react";
 import Switch from "react-switch";
-import { useGetLogout } from "../api/hooks/useGetLogout";
+import { useGetLogin } from "../api/hooks/useGetLogin";
 import {setPutPush, useGetPush} from "../api/hooks/useStting";
 
 const Container = styled.div`
@@ -122,14 +122,14 @@ const Sidebar = (props) => {
                     <IndexDiv>
                         <Li>
                             <Img src="/assets/image/character/face_heart_white.png"/>
-                            <Index onClick={useGetLogout}>로그아웃</Index>
+                            <Index onClick={useGetLogin}>로그아웃</Index>
                         </Li>
                         <Hr/>
                     </IndexDiv>
                     <IndexDiv>
                         <Li>
                             <Img src="/assets/image/character/face_heart_white.png"/>
-                            <Index>v.0.0.1</Index>
+                            <Index>v.1.0.0</Index>
                         </Li>
                         <Hr/>
                     </IndexDiv>
