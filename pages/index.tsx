@@ -11,6 +11,9 @@ import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { setBGM } from "../api/hooks/useStting";
 import { getCookie } from "../businesslogics/cookie";
+import { setGetMember } from "../api/hooks/useGetMember";
+import { MemberData } from "../util/type";
+import { useRouter } from "next/router";
 
 const LinkCopy = styled(Icons)`
   margin-right: 24px;
@@ -43,7 +46,9 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 const Home: NextPage = () => {
+  const router = useRouter()
   const [mute, setMute] = useState(true);
+  const [memberInfo, setMemberInfo] = useState<MemberData>();
 
   useEffect(() => {
     setBGM(mute);
@@ -54,9 +59,6 @@ const Home: NextPage = () => {
     console.log("Link copied!");
   };
   const muteHandler = (value) => setMute(!value);
-
-  // TODO : 내 캘린더인가 여부 파악
-  const ismycalendar = true;
 
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
   const ModelComponent = lazy(() => import("/component/SnowBallModel"));
@@ -71,9 +73,22 @@ const Home: NextPage = () => {
   useEffect(() => {
     const onboardingCookie = getCookie("onboarding");
     if (onboardingCookie === "") {
-      window.location.href ="/onboarding"
+      window.location.href = "/onboarding";
     }
   }, []);
+
+  // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
+  const getMemberData = async () => {
+    const res = await setGetMember();
+    setMemberInfo(res);
+  };
+  useEffect(() => {
+    getMemberData();
+  }, []);
+  const currInvitationLink = router.pathname // 현재 invitation link
+  const ismycalendar =
+    memberInfo &&
+    currInvitationLink === memberInfo.invitationLink
 
   return (
     <div id="home">

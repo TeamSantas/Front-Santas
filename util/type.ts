@@ -11,9 +11,9 @@ export const pageview = (url) => {
 };
 
 export type ResponseData<T> = {
-    status: string;
-    message: string;
-    data: T;
+  status: string;
+  message: string;
+  data: T;
 };
 
 // Member types ------------------------------------
@@ -23,8 +23,13 @@ export interface MemberData {
   profileImageURL: string;
   email: string;
   invitationLink: string;
+  setting: {
+    id: number;
+    isAlert: boolean;
+    bgm: boolean;
+    fcmtokens: string;
+  };
 }
-
 
 // Friends types ------------------------------------
 export interface FriendsData {
@@ -50,8 +55,8 @@ export interface postPresentData {
 
 // Setting types ------------------------------------
 export interface putPushData {
-  alertStatus: boolean
+  alertStatus: boolean;
 }
 export interface putBGMData {
-  bgmStatus: boolean
+  bgmStatus: boolean;
 }

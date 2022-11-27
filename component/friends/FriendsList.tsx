@@ -51,7 +51,6 @@ const FriendsList = () => {
   const [friendsData, setFriendsData] = useState<any>();
   const [currFriendIsFavorite, setCurrFriendIsFavorite] =
     useState<boolean>(false);
-  // 서버 살아 있다면 ---------------------------------------
   const getFriendsData = async () => {
     const res = await setGetFriend();
     setFriendsData(res);
