@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Seo from "../component/common/Seo";
 import { RedButton, Icons, MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
+import {useLoggedMember} from "../api/hooks/useMember";
 
 const Profile = styled(Icons)`
   width: 150px;
@@ -48,25 +49,27 @@ const SubmitButton = styled(RedButton)`
   }
 `;
 
-const edit: NextPage = () => {
-  const name = "하얀코";
-  const nickname = "크리스마스덕후";
-  const email = "teamSantaz@naver.com";
+const Edit: NextPage = () => {
+    const myData = useLoggedMember();
+    const myname = myData.nickname;
+    const email = myData.email;
+    const profileImg = myData.profileImageURL;
 
   return (
     <MainContainer>
       <Seo title="수정하기" />
-      <Profile />
+      <Profile src={profileImg}/>
+        <h5>하얀코가 조립 중인 기능입니다🔧</h5>
       <Container>
         <Info>이름</Info>
-        <Text name placeholder={name}></Text>
-        <Info>닉네임</Info>
-        <Text nickName placeholder={nickname}></Text>
-        <Info>이메일(변경불가)</Info>
+        <Text name placeholder={myname} disabled></Text>
+        {/*<Info>닉네임</Info>*/}
+        {/*<Text nickName placeholder={nickname} disabled></Text>*/}
+        <Info>이메일</Info>
         <Text email placeholder={email} disabled></Text>
         <SubmitButton>수정하기</SubmitButton>
       </Container>
     </MainContainer>
   );
 };
-export default edit;
+export default Edit;

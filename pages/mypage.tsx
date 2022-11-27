@@ -4,14 +4,14 @@ import styled from "styled-components";
 import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
 import TabView from "../component/tab/TabView";
+import {useLoggedMember} from "../api/hooks/useMember";
 
-const Profile = styled(Icons)`
+const Profile = styled.img`
   width: 150px;
   height: 150px;
   margin: 30px auto;
   border-radius: 50%;
   border: solid 3px white;
-  background-image: url("/assets/image/character/face_crycry.png");
 `;
 
 const CenterFlex = styled(Flex)`
@@ -36,16 +36,19 @@ const Edit = styled(Icons)`
 
 const MyPage: NextPage = () => {
   const router = useRouter();
-  const name = "하얀코";
-  const nickname = "크리스마스덕후";
-  const email = "teamSantaz@naver.com";
+  const myData = useLoggedMember();
+
+  const name = myData.nickname;
+  const email = myData.email;
+  const profileImg = myData.profileImageURL;
+  // const nickname = "닉네임";
   return (
     <MainContainer>
       <Seo title="MyPage" />
-      <Profile />
+      <Profile src={profileImg}/>
       <CenterFlex>
         <Text name>{name}</Text>
-        <Text nickName>{nickname}</Text>
+        {/*<Text nickName>{nickname}</Text>*/}
         <Edit onClick={() => router.push(`/edit`)}></Edit>
       </CenterFlex>
       <Text email>{email}</Text>

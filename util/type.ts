@@ -24,7 +24,11 @@ export interface MemberData {
   email: string;
   invitationLink: string;
 }
-
+export interface PutMemberData{
+  nickname: string;
+  profileImageURL: string;
+  statusMessage: string;
+}
 
 // Friends types ------------------------------------
 export interface FriendsData {
