@@ -28,7 +28,7 @@ const Container = styled.div`
 const IndexDiv = styled.div`
   cursor: pointer;
   &:hover {
-    background-color: white;
+    background-color: rgba(0,0,0,.2);
   }
 `;
 
@@ -45,10 +45,6 @@ const Index = styled.button`
   font-size: 22px;
   margin: 0 auto 0 5px; 
   font-weight: bold;
-  &:hover {
-    font-size: 24px;
-    color: #AC473D;
-  }
   @media (max-width: 600px) {
     font-size: 20px;
   }
