@@ -6,9 +6,13 @@ import html2canvas from "html2canvas";
 import Calendar from "../component/Calendar";
 import Share from "../component/share/Share";
 import ReactHowler from "react-howler";
-import {lazy, useEffect, useState} from "react";
+import { lazy, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
+import { getCookie } from "../businesslogics/cookie";
+import { setGetMember } from "../api/hooks/useGetMember";
+import { MemberData } from "../util/type";
+import { useRouter } from "next/router";
 import {setBGM} from "../api/hooks/useStting";
 import {getLoggedMember} from "../api/hooks/useMember";
 
@@ -43,6 +47,8 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 const Home: NextPage = () => {
+  const router = useRouter()
+  const [memberInfo, setMemberInfo] = useState<MemberData>();
 
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
@@ -66,9 +72,6 @@ const Home: NextPage = () => {
   };
   const muteHandler = (value) => setMute(!value);
 
-  // TODO : 내 캘린더인가 여부 파악
-  const ismycalendar = true;
-
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
   const ModelComponent = lazy(() => import("/component/SnowBallModel"));
 
@@ -78,6 +81,26 @@ const Home: NextPage = () => {
     setFriendModalShow(true);
   };
   const handleFriendsModalClose = () => setFriendModalShow(false);
+
+  useEffect(() => {
+    const onboardingCookie = getCookie("onboarding");
+    if (onboardingCookie === "") {
+      window.location.href = "/onboarding";
+    }
+  }, []);
+
+  // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
+  const getMemberData = async () => {
+    const res = await setGetMember();
+    setMemberInfo(res);
+  };
+  useEffect(() => {
+    getMemberData();
+  }, []);
+  const currInvitationLink = router.pathname // 현재 invitation link
+  const ismycalendar =
+    memberInfo &&
+    currInvitationLink === memberInfo.invitationLink
 
   return (
     <div id="home">
@@ -91,8 +114,8 @@ const Home: NextPage = () => {
                 {/* TODO : Kakao 친구 목록 연결 */}
                 <Friends onClick={clickFriendIconHandler} />
                 <FriendsModal
-                show={friendModalShow}
-                onHide={handleFriendsModalClose}
+                  show={friendModalShow}
+                  onHide={handleFriendsModalClose}
                 />
                 <Flex>
                   {/*BGM react-howler 라이브러리*/}

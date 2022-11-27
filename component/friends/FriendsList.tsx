@@ -51,7 +51,6 @@ const FriendsList = () => {
   const [friendsData, setFriendsData] = useState<any>();
   const [currFriendIsFavorite, setCurrFriendIsFavorite] =
     useState<boolean>(false);
-  // 서버 살아 있다면 ---------------------------------------
   const getFriendsData = async () => {
     const res = await setGetFriend();
     setFriendsData(res);
@@ -61,9 +60,6 @@ const FriendsList = () => {
     getFriendsData();
   }, []);
 
-  const handleClickKakaoShare = () => {
-    console.log("카톡으로 링크 공유");
-  };
   const goFriendsCalendar = () => {
     console.log("친구 캘린더로 가즈아~");
   };
@@ -110,7 +106,6 @@ const FriendsList = () => {
         </AlignedFlex>
 
         <Flex>
-          <KakaoShare onClick={handleClickKakaoShare}></KakaoShare>
           <GoFriendsCalendarBtn onClick={goFriendsCalendar}>
             쪽지 보내러 가기
           </GoFriendsCalendarBtn>

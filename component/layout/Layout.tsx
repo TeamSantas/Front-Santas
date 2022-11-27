@@ -1,6 +1,6 @@
 import Header from "./Header";
 import styled from "styled-components";
-import {Suspense} from "react";
+import { Suspense, useEffect } from "react";
 import Snows from "./Snows";
 
 const MainWrapper = styled.div`
@@ -17,17 +17,19 @@ const MainWrapper = styled.div`
   }
 `;
 
-
 const Layout = ({ children }) => {
-    return (
-        <MainWrapper>
-            {/*<Suspense fallback={<h1>로딩중</h1>}>*/}
-            {/*    <Snows/>*/}
-            {/*</Suspense>*/}
-            <Header />
-            {children}
-        </MainWrapper>
-    );
-}
+  useEffect(() => {
+    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_JS_KEY);
+  }, []);
+  return (
+    <MainWrapper>
+      {/*<Suspense fallback={<h1>로딩중</h1>}>*/}
+      {/*    <Snows/>*/}
+      {/*</Suspense>*/}
+      <Header />
+      {children}
+    </MainWrapper>
+  );
+};
 
-export default Layout
+export default Layout;

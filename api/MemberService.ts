@@ -1,4 +1,4 @@
-import {MemberAuthInstance, MemberInstance} from "./APIInstance";
+import {MemberAuthInstance } from "./APIInstance";
 import {MemberData, PutMemberData, ResponseData} from "../util/type";
 
 
