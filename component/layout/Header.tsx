@@ -25,7 +25,7 @@ const MyPage = styled(Icons)`
     height: auto;
     margin-right: 2%;
     cursor:pointer;
-    background-image: url("/assets/image/character/face_heart.png");
+    background-image: url("/assets/image/icons/mypage.png");
     z-index: 5;
     @media (max-width: 600px) {  
       width: 75px;

@@ -7,6 +7,7 @@ const Container = styled(MainContainer)`
   text-align: center;
   font-size: 20px;
   margin-top: 40px;
+  color: white;
 `
 
 const Logout : NextPage = () => {

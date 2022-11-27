@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
 import TabView from "../component/tab/TabView";
-import {useLoggedMember} from "../api/hooks/useMember";
+import {getLoggedMember} from "../api/hooks/useMember";
+import {useEffect, useState} from "react";
 
 const Profile = styled.img`
   width: 150px;
@@ -23,7 +24,7 @@ const Text = styled.div`
   padding-right: 5px;
   margin: ${(props) => (props.email ? "auto" : "0")};
   font-size: ${(props) =>
-    props.name ? "x-large" : props.nickName ? "medium" : "small"};
+    props.name ? "x-large" : props.nickName ? "medium" : "18px"};
   font-weight: ${(props) => (props.name ? "bold" : "normal")};
   color: ${(props) => (props.name ? "white" : "grey")};
 `;
@@ -36,22 +37,30 @@ const Edit = styled(Icons)`
 
 const MyPage: NextPage = () => {
   const router = useRouter();
-  const myData = useLoggedMember();
+  const [myName, setMyName] = useState<any>(null);
+  const [myEmail, setMyEmail] = useState<any>(null);
+  const [myProfileImg, setMyProfileImg] = useState<any>(null);
 
-  const name = myData.nickname;
-  const email = myData.email;
-  const profileImg = myData.profileImageURL;
-  // const nickname = "닉네임";
+    const getMyData = async () => {
+        const res = await getLoggedMember();
+        setMyName(res.data.nickname);
+        setMyEmail(res.data.email);
+        setMyProfileImg(res.data.profileImageURL);
+  };
+    useEffect(() => {
+        getMyData();
+    }, []);
+
   return (
     <MainContainer>
       <Seo title="MyPage" />
-      <Profile src={profileImg}/>
+      <Profile src={myProfileImg}/>
       <CenterFlex>
-        <Text name>{name}</Text>
+        <Text name>{myName}</Text>
         {/*<Text nickName>{nickname}</Text>*/}
         <Edit onClick={() => router.push(`/edit`)}></Edit>
       </CenterFlex>
-      <Text email>{email}</Text>
+      <Text email>{myEmail}</Text>
       <TabView />
     </MainContainer>
   );
