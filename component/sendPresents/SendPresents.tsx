@@ -1,129 +1,210 @@
 import styled from "styled-components";
-import { useRef, useState } from "react";
-import { GreenButton } from "../../styles/styledComponentModule";
+import { useEffect, useRef, useState } from "react";
+import { Flex, GreenButton } from "../../styles/styledComponentModule";
 import Image from "next/image";
 import { usePostPresent } from "../../api/hooks/usePostPresent";
 import Form from "react-bootstrap/Form";
+import MultipleImgUploader from "./MultipleImgUploader";
+import { setGetMember } from "../../api/hooks/useGetMember";
+import { FriendsData, MemberData } from "../../util/type";
+import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
+import { GreenCloseButton } from "../friends/FriendsModal";
 
-const Container = styled.div`
-  // background-color: white;
-  height: 5rem;
-  display: flex;
-`;
-
-const ThumbnailWrapper = styled.div`
-  width: 20rem;
+const PresentHeader = styled.div`
+  font-size: x-large;
 `;
 
 const ImageFormWrapper = styled.div`
   display: flex;
 `;
 
+const JustifiedAlignedFlex = styled(Flex)`
+  align-items: center;
+  justify-content: center !important;
+  margin-bottom: 1rem;
+`;
+
+const TextArea = styled.div`
+  outline-color: #ac473d;
+  text-align: center;
+  color: white;
+  background-image: url(/assets/image/message-background.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 16rem;
+  padding: 4.5rem;
+`;
+
 const SendPresentsWrapper = styled.div`
   text-align: center;
   color: white;
-  background-image: url("/assets/image/message-background.svg");
+`;
+
+const GreenDeleteButton = styled(GreenCloseButton)`
   background-repeat: no-repeat;
-  background-position: center;
+  background-size: contain;
+  position: relative;
+  z-index: 10;
+  margin-top: -100px;
+  margin-left: 73px;
+  width: 1.5rem;
+  cursor: pointer;
 `;
 
 const SendPresents = (props) => {
   const [contents, setContents] = useState<string>("");
   const [isAnonymous, setAnonymous] = useState<boolean | any>(false);
+  const [nickname, setNickname] = useState<string>("익명");
+  const [memberInfo, setMemberInfo] = useState<MemberData>();
+
   const ref = useRef(null);
+  const nicknameRef = useRef(null);
+
+  // 현재 로그인한 유저의 정보
+  const getMemberData = async () => {
+    const res = await setGetMember();
+    setMemberInfo(res);
+  };
+  useEffect(() => {
+    getMemberData();
+  }, []);
+
+  // 현재 캘린더 주인 유저 정보
+  const currCalUserName = props.currCalUserInfo
+    ? `${props.currCalUserInfo.nickname} 님`
+    : "친구";
+  const currCalUserId = props.currCalUserInfo ? props.currCalUserInfo.id : 0;
+
+  // console.log("memberInfo >>> ", memberInfo)
+  // console.log("현재 캘린더 유저 정보 >>> ", props.currCalUserInfo)
 
   // ImageUpload -------------
-  const [files, setFiles] = useState<FileList>();
-  const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | any>();
-
-  const onLoadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
-    const fileList = target.files as FileList;
-    setFiles(fileList);
-    encodeFileToBase64(fileList[0]);
-  };
+  const fileList: File[] = [];
+  const [showImages, setShowImages] = useState([]);
 
   const HandleImageSubmit = () => {
+    const dt = new Date();
+    const receivedDate =
+      dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+
     const presentData = new FormData();
-    presentData.append("receiverId", "1");
-    presentData.append("nickname", "suyeon");
-    presentData.append("title", "Test title");
+    presentData.append("receiverId", currCalUserId); // TODO : 받은 사람 ID로 가져오기
+    presentData.append("nickname", nickname);
+    presentData.append("title", "Test title"); // title 사용하지 않기로 했습니다
     presentData.append("contents", contents);
-    presentData.append("receivedDate", "2022-12-25");
+    presentData.append("receivedDate", receivedDate);
     presentData.append("isAnonymous", isAnonymous);
 
-    // TODO : 파일 여러개 등록 기능 추가 필요
-    if (files) {
-      presentData.append("multipartFileList", files[0]);
+    if (fileList.length > 0) {
+      fileList.forEach((file) => {
+        presentData.append("multipartFileList", file);
+      });
     }
 
     usePostPresent(presentData);
   };
 
-  const encodeFileToBase64 = (fileBlob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise<void>((resolve) => {
-      reader.onload = () => {
-        setImageSrc(reader.result);
-        resolve();
-      };
-    });
-  };
   // -------------------------------------
 
   // 익명 체크
-  const handleCheckAnonymous = ({ target }) => {
+  const handleCheckAnonymous = () => {
     setAnonymous(!isAnonymous);
+    if (isAnonymous === false) {
+      if (memberInfo.nickname) {
+        setNickname(memberInfo.nickname);
+      } else {
+        setNickname("익명");
+      }
+    }
   };
 
   // 선물 보내기 버튼 handler ----------------
-  const handleClickSendPresent = (e) => {
+  const handleClickSendPresent = () => {
+    const inputNickname = nicknameRef.current?.value;
     setContents(ref.current.value);
+
+    if (inputNickname) {
+      setNickname(inputNickname);
+    } else if (memberInfo.nickname) {
+      setNickname(memberInfo.nickname);
+    }
     HandleImageSubmit();
   };
-  
+
+  // 이미지 상대경로 저장
+  const handleAddImages = (e) => {
+    const uploadFiles = Array.prototype.slice.call(e.target.files);
+    uploadFiles.forEach((uploadFile) => {
+      fileList.push(uploadFile);
+    });
+
+    let imageUrlLists = [...showImages];
+
+    for (let i = 0; i < uploadFiles.length; i++) {
+      const currentImageUrl = URL.createObjectURL(uploadFiles[i]);
+      imageUrlLists.push(currentImageUrl);
+    }
+
+    if (imageUrlLists.length > 10) {
+      imageUrlLists = imageUrlLists.slice(0, 10);
+    }
+
+    setShowImages(imageUrlLists);
+  };
+  // 클릭 시 이미지 삭제
+  const handleDeleteImage = (id) => {
+    setShowImages(showImages.filter((_, index) => index !== id));
+  };
+
   return (
     <SendPresentsWrapper>
-      <h2>
-        수연 님에게 <br /> 쪽지를 보내보세요
-      </h2>
-      {/* TODO : <TextArea /> 컴포넌트 분리 */}
-      <textarea
-        className="textarea"
-        ref={ref}
-        id="message"
-        name="message"
-        placeholder="쪽지 써보슈"
-      />
+      <PresentHeader>
+        {currCalUserName}에게 <br /> 쪽지를 보내보세요
+      </PresentHeader>
 
-      <Form.Check
-        inline
-        type="checkbox"
-        id={`default-checkbox`}
-        label={`익명`}
-        onClick={handleCheckAnonymous}
-      />
+      <TextArea>
+        <textarea
+          className="textarea"
+          ref={ref}
+          id="message"
+          name="message"
+          placeholder="여기에 쪽지를 적어주세요."
+        />
+      </TextArea>
 
-      {/* TODO : <ImageUpLoad/> 컴포넌트 분리 */}
-      <Container>
-        <ThumbnailWrapper>
-          <strong>업로드된 이미지</strong>
-          {imageSrc && (
-            <Image src={imageSrc} alt="preview-img" width={100} height={100} />
-          )}
-        </ThumbnailWrapper>
-        <ImageFormWrapper>
-          <form>
-            <input
-              type="file"
-              id="image"
-              accept="img/*"
-              onChange={onLoadFile}
-            />
-          </form>
-        </ImageFormWrapper>
-      </Container>
+      <JustifiedAlignedFlex>
+        {isAnonymous ? (
+          <input
+            className="inputNickname"
+            type="text"
+            placeholder="닉네임 입력"
+            ref={nicknameRef}
+          />
+        ) : (
+          <div className="inputNickname" />
+        )}
+        <Form.Check
+          type="checkbox"
+          id={`default-checkbox`}
+          label={`익명`}
+          onClick={handleCheckAnonymous}
+        />
+      </JustifiedAlignedFlex>
+      <div className="Thumbnail_Wrapper">
+        <label id="present_img" htmlFor="file" onChange={handleAddImages}>
+          <div className="addButton"></div>
+          <input id="file" type="file" multiple />
+        </label>
+        <Flex>
+          {showImages.map((image, id) => (
+            <div className="imageContainer" key={id}>
+              <img id="present_img" src={image} alt={`${image}-${id}`} />
+              <GreenDeleteButton onClick={() => handleDeleteImage(id)} />
+            </div>
+          ))}
+        </Flex>
+      </div>
       <GreenButton onClick={handleClickSendPresent}>쪽지보내기</GreenButton>
     </SendPresentsWrapper>
   );

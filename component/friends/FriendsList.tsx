@@ -5,7 +5,7 @@ import { Flex } from "../../styles/styledComponentModule";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 
-const AlignedFlex = styled(Flex)`
+export const AlignedFlex = styled(Flex)`
   align-items: center;
 `;
 
