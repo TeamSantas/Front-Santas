@@ -1,6 +1,4 @@
-import styled from "styled-components";
 import { useState } from "react";
-import { GreenCloseButton } from "../friends/FriendsModal";
 import { Flex } from "../../styles/styledComponentModule";
 
 const MultipleImgUploader = () => {
