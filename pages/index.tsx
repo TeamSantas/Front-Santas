@@ -2,14 +2,14 @@ import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import { NextPage } from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
-import html2canvas from "html2canvas";
 import Calendar from "../component/index/Calendar";
 import Share, { RedBtn } from "../component/share/Share";
+import { getCookie } from "../businesslogics/cookie";
 import ReactHowler from "react-howler";
 import { lazy, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
-import { getCookie } from "../businesslogics/cookie";
+import { Suspense } from "react";
 import { setGetMember } from "../api/hooks/useGetMember";
 import { MemberData } from "../util/type";
 import { useRouter } from "next/router";
@@ -59,6 +59,7 @@ const Text = styled.h3`
   color: white;
 `;
 const SnowballContainer = styled(MainContainer)`
+  height: 80vh;
   @media (max-width: 600px) {
     display: none;
   }
@@ -195,10 +196,12 @@ const Home: NextPage = () => {
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
         <SnowballContainer>
+          <Suspense fallback={<img src="/assets/image/character/spinner.gif" alt="spinner"/>}>
           <Text>스노우볼을 움직여보세요</Text>
           <Canvas>
             <ModelComponent />
           </Canvas>
+          </Suspense>
         </SnowballContainer>
       </Flex>
     </div>

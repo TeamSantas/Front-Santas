@@ -31,7 +31,7 @@ export const Onboarding3 = ({showPage}) => {
     <OnboardingContainer pageNumber={pageNumber} showPage={showPage}>
       <Image src="/assets/image/onboarding/crayon_hayanco.png" />
       <Text>
-        빨간 루돌프들은 슬퍼하는 하얀 루돌프에게<br/> 크레파스를 선물하기로 했어요!
+        빨간 루돌프들은 슬퍼하는 하얀코에게<br/> 크레파스를 선물하기로 했어요!
       </Text>
     </OnboardingContainer>
   );

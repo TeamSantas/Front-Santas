@@ -62,6 +62,18 @@ export interface postPresentData {
   multipartFileList?: string[]; // TODO : 형식 체크
 }
 
+export interface presentDetail {
+  id: number,
+  receiverId:  number,
+  senderId:  number,
+  nickname: string,
+  isAnonymous: boolean,
+  isPublic: boolean,
+  title: string,
+  contents: string,
+  imageURL: [],
+  receivedDate: string
+}
 // Friend Search types
 
 

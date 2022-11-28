@@ -4,6 +4,7 @@ import { setGetPresentDetail } from "../../api/hooks/useGetPresentDetail";
 import CustomModal from "../common/CustomModal";
 import PresentDetailBody from "../present/PresentDetailBody";
 import PresentDetailHeader from "../present/PresentDetailHeader";
+import {presentDetail} from "../../util/type";
 
 export const StyledCard = styled.div`
   background: white;
@@ -57,7 +58,7 @@ const CardImg = styled.img`
 const Card = (props) => {
   const [presentCardShow, setPresentCardShow] = useState(false);
   const [selectedcard, setSelectedCard] = useState(0);
-  const [presentDetail, setPresentDetail] = useState({});
+  const [presentDetail, setPresentDetail] = useState<presentDetail>(null);
 
   const handleShow = () => {
     setSelectedCard(props.id);
