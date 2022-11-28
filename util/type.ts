@@ -36,6 +36,20 @@ export interface PutMemberData{
   statusMessage: string;
 }
 
+export const defaultMemberData = {
+  id: '',
+  nickname: '',
+  profileImageURL: '',
+  email: '',
+  invitationLink: '',
+  setting : {
+    id: -1,
+    isAlert: false,
+    bgm: false,
+    fcmtokens: '',
+  }
+}
+
 // Friends types ------------------------------------
 export interface FriendsData {
   id: number;
