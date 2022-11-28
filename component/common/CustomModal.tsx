@@ -3,10 +3,6 @@ import RedButton from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { CenteredFlex } from "../../styles/styledComponentModule";
 
-const CenteredModalWrapper = styled.div`
-  margin: auto;
-`;
-
 const CustomButtons = styled(RedButton)`
   // TODO : custom 값으로 세팅
   border: none !important;
@@ -46,38 +42,36 @@ const CustomModal = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <CenteredModalWrapper>
-        {/* ----------- header ----------- */}
-        <CustomHeader closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {props.header}
-          </Modal.Title>
-        </CustomHeader>
+      {/* ----------- header ----------- */}
+      <CustomHeader closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {props.header}
+        </Modal.Title>
+      </CustomHeader>
 
-        {/* ----------- body ----------- */}
-        <CustomBody background_img={props.background_img}>
-          {props.body && props.body}
-          {props.text && <h2>{props.text}</h2>}
-        </CustomBody>
+      {/* ----------- body ----------- */}
+      <CustomBody background_img={props.background_img}>
+        {props.body && props.body}
+        {props.text && <h2>{props.text}</h2>}
+      </CustomBody>
 
-        {/* ----------- footer ----------- */}
-        {props.buttons && (
-          <CenteredFlex>
-            <CustomFooter bgcolor={props.btncolor}>
-              {props.buttons.map((btn) => (
-                <CustomButtons
-                  key={btn.title}
-                  onClick={props.onHide}
-                  color={btn.color}
-                  bgcolor={btn.bgcolor}
-                >
-                  {btn.title}
-                </CustomButtons>
-              ))}
-            </CustomFooter>
-          </CenteredFlex>
-        )}
-      </CenteredModalWrapper>
+      {/* ----------- footer ----------- */}
+      {props.buttons && (
+        <CenteredFlex>
+          <CustomFooter bgcolor={props.btncolor}>
+            {props.buttons.map((btn) => (
+              <CustomButtons
+                key={btn.title}
+                onClick={props.onHide}
+                color={btn.color}
+                bgcolor={btn.bgcolor}
+              >
+                {btn.title}
+              </CustomButtons>
+            ))}
+          </CustomFooter>
+        </CenteredFlex>
+      )}
     </Modal>
   );
 };
