@@ -32,17 +32,17 @@ const Login : NextPage = () => {
                     buttons={""}>
                 </CustomModal>
                 <img src="/assets/image/character/face_smile.png" width="222"/>
-                <p>하얀코와 함께<br/> 어드벤트 캘린더를 모으러 가볼까요?</p>
-                <form method="get" action={process.env.NEXT_PUBLIC_LOGOUT_REDIRECT_URI}>
-                    <input type="submit" value="GO"/>
-                </form>
-                <Link href={process.env.NEXT_PUBLIC_LOGOUT_REDIRECT_URI ?? ''}>
+                <h3>하얀코와 함께<br/> 어드벤트 캘린더를 모으러 가볼까요?</h3>
+                {/*<form method="get" action={LOGIN_URL}>*/}
+                {/*    <input type="submit" value="GO"/>*/}
+                {/*</form>*/}
+                <Link href={process.env.NEXT_PUBLIC_LOGOUT_REDIRECT_URI}>
                     <img src="/assets/image/kakao_login_large_narrow.png" width="222"/>
                 </Link>
-                <img src="/assets/image/kakao_login_large_narrow.png"
-                     onClick = {useGetLogin}
-                     width="222"
-                />
+                {/*<img src="/assets/image/kakao_login_large_narrow.png"*/}
+                {/*     onClick = {useGetLogin}*/}
+                {/*     width="222"*/}
+                {/*/>*/}
             </Container>
             </div>
         );
