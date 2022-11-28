@@ -20,7 +20,7 @@ const ImageFormWrapper = styled.div`
 
 const JustifiedAlignedFlex = styled(Flex)`
   align-items: center;
-  justify-content: center;
+  justify-content: center !important;
   margin-bottom: 1rem;
 `;
 

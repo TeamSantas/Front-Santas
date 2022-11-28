@@ -9,12 +9,12 @@ import ReactHowler from "react-howler";
 import { lazy, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
-import { setBGM } from "../api/hooks/useStting";
 import { getCookie } from "../businesslogics/cookie";
 import { setGetMember } from "../api/hooks/useGetMember";
 import { MemberData } from "../util/type";
 import { useRouter } from "next/router";
-import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
+import {setBGM} from "../api/hooks/useStting";
+import {getLoggedMember} from "../api/hooks/useMember";
 
 const LinkCopy = styled(Icons)`
   margin-right: 24px;
@@ -54,14 +54,24 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 const Home: NextPage = () => {
-  const router = useRouter();
-  const [mute, setMute] = useState(true);
+  const router = useRouter()
   const [memberInfo, setMemberInfo] = useState<MemberData>();
 
-
+  const [myBGM, setMyBGM] = useState<any>(null);
+  const getMyBGM = async () => {
+    const res = await getLoggedMember();
+    setMyBGM(res.data.setting);
+  };
   useEffect(() => {
-    setBGM(mute);
-  }, [mute]);
+    getMyBGM();
+  }, []);
+
+  const [mute, setMute] = useState(myBGM);
+  useEffect(()=>{
+      setBGM(mute);
+    },[mute])
+
+
 
   const linkCopyHandler = () => {
     // TODO : link copy 로직 추가 필요

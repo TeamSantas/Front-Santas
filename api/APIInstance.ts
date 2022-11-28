@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://ec2-13-209-72-164.ap-northeast-2.compute.amazonaws.com:8080";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 // Token 필요한 Axios
 const AuthAPIInstance = (baseURL: string) => {
@@ -50,7 +50,8 @@ const MemberInstance = APIInstance(BASE_URL);
 
 const SettingAuthInstance = AuthAPIInstance(BASE_URL);
 const FriendsAuthInstance = AuthAPIInstance(BASE_URL);
+const AuthInstance = APIInstance("");
 const AuthAuthInstance = AuthAPIInstance(BASE_URL);
 
 export {PresentInstance, PresentAuthInstance, MemberAuthInstance, MemberInstance,
-    SettingAuthInstance, FriendsAuthInstance, AuthAuthInstance };
+    SettingAuthInstance, FriendsAuthInstance, AuthInstance, AuthAuthInstance };

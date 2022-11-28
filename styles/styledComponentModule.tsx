@@ -6,6 +6,7 @@ export const MainContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
 `;
 
 export const CenteredWrapper = styled.div`
