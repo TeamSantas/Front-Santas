@@ -125,7 +125,7 @@ const Home: NextPage = () => {
   }, []);
   const currInvitationLink = router.pathname; // 현재 invitation link
   // const ismycalendar =
-  //   memberInfo && currInvitationLink === memberInfo.invitationLink;
+    // memberInfo && currInvitationLink === memberInfo.invitationLink;
   const ismycalendar = true;
 
   const MyCalendarBtn = () => {
