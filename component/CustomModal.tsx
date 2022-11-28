@@ -23,6 +23,7 @@ const CustomHeader = styled(Modal.Header)`
 const CustomBody = styled(Modal.Body)`
   margin: 1rem 0rem 2rem 0rem;
   height: 20rem;
+  overflow: scroll;
 
   ${(props) =>
       props.background_img &&
