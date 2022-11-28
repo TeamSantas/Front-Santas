@@ -139,6 +139,13 @@ const Sidebar = (props) => {
                     <IndexDiv>
                         <Li>
                             <Img src="/assets/image/character/face_heart_white.png"/>
+                            <Index><StyledLink href={process.env.NEXT_PUBLIC_FRONT_URL+`snowball`}>스노우볼</StyledLink></Index>
+                        </Li>
+                        <Hr/>
+                    </IndexDiv>
+                    <IndexDiv>
+                        <Li>
+                            <Img src="/assets/image/character/face_heart_white.png"/>
                             <Index>v.1.0.0</Index>
                         </Li>
                         <Hr/>
