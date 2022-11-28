@@ -2,6 +2,8 @@ import TabCard from "./TabCard";
 import { Flex } from "../../styles/styledComponentModule";
 import styled from "styled-components";
 import Card from "../receivedPresents/Card";
+import { useEffect, useState } from "react";
+import PresentService from "../../api/PresentService";
 
 const TabFlex = styled(Flex)`
   flex-direction: row;
@@ -9,43 +11,29 @@ const TabFlex = styled(Flex)`
   text-align: center;
 `;
 const SendPresentList = () => {
-  const sentPresentList = [
-    {
-      id: 0,
-      thumbnail: "face",
-      type: "svg",
-    },
-    {
-      id: 1,
-      thumbnail: "Calendar",
-      type: "svg",
-    },
-    {
-      id: 2,
-      thumbnail: "face",
-      type: "svg",
-    },
-    {
-      id: 3,
-      thumbnail: "Calendar",
-      type: "svg",
-    },
-  ];
-  return (
-    <TabFlex>
-      <img src="/assets/image/icons/pen.png" alt="하얀코" />
-      <h2>준비중인 기능입니다</h2>
-      <img src="/assets/image/icons/pen.png" alt="하얀코" />
+    const [sentPresentList, setSentPresentList] = useState([]);
 
-      {/*  {sentPresentList?.map((present) => (*/}
-      {/*      <Card*/}
-      {/*          key={present.id}*/}
-      {/*          id={present.id}*/}
-      {/*          thumbnail={present.thumbnail}*/}
-      {/*          type={present.type}*/}
-      {/*      />*/}
-      {/*))}*/}
-    </TabFlex>
-  );
-};
-export default SendPresentList;
+    useEffect(() => {
+        const initSendPresentList = async () => {
+          const res = await PresentService.getUserSendPresent();
+          console.log(res.data.data);
+          setSentPresentList(res.data.data.content);
+        }
+        initSendPresentList();
+      }, [])
+
+    return (
+        <TabFlex>
+            {sentPresentList?.map((present) => (
+                <Card
+                    key={present.id}
+                    id={present.id}
+                    thumbnail={present.imageURL}
+                    // type={present.type}
+                    type={"SEND"}
+                />
+          ))}
+        </TabFlex>
+    )
+}
+export default SendPresentList

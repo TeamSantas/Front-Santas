@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { setGetPresentDetail } from "../../api/hooks/useGetPresentDetail";
 import CustomModal from "../common/CustomModal";
+import PresentDetailBody from "../present/PresentDetailBody";
+import PresentDetailHeader from "../present/PresentDetailHeader";
 
 export const StyledCard = styled.div`
   background: white;
@@ -54,6 +57,7 @@ const CardImg = styled.img`
 const Card = (props) => {
   const [presentCardShow, setPresentCardShow] = useState(false);
   const [selectedcard, setSelectedCard] = useState(0);
+  const [presentDetail, setPresentDetail] = useState({});
 
   const handleShow = () => {
     setSelectedCard(props.id);
@@ -61,12 +65,29 @@ const Card = (props) => {
   };
   const handleClose = () => setPresentCardShow(false);
 
+  // prop된 카드정보를 가지고 세부정보를 가져온다.
+  const initPresentDetail = async () => {
+    // const res = (await PresentService.getDetailPresent(props.id)).data.data;
+    const res = await setGetPresentDetail(props.id);
+    console.log(">>>>>", res);
+    setPresentDetail(res);
+  };
+
+  useEffect(() => {
+    initPresentDetail();
+  }, []);
+
   return (
     <>
       <TabCard>
         <CardImg
           id={`${props.id}`}
-          src={`/assets/image/${props.thumbnail}.${props.type}`}
+          // src={`/assets/image/${props.thumbnail}.${props.type}`}
+          src={
+            props.thumbnail === "default"
+              ? `/assets/image/present/5.png`
+              : props.thumbnail
+          }
           onClick={handleShow}
         />
       </TabCard>
@@ -74,8 +95,24 @@ const Card = (props) => {
         show={presentCardShow}
         onHide={handleClose}
         selectedcard={selectedcard}
-        header={`쪽지 제목`}
-        body={`쪽지 내용`}
+        header={
+          presentDetail === undefined ? (
+            "없음"
+          ) : (
+            <PresentDetailHeader nickname={presentDetail.nickname} />
+          )
+        }
+        body={
+          presentDetail === undefined ? (
+            "없음"
+          ) : (
+            <PresentDetailBody
+              body={presentDetail}
+              handleDetail={initPresentDetail}
+              type={props.type}
+            />
+          )
+        }
       />
     </>
   );
