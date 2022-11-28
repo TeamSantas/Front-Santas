@@ -11,10 +11,6 @@ const MainWrapper = styled.div`
   overflow: scroll;
   box-shadow: 0 5px 20px 5px gray;
   position: relative;
-  background-image: url("/assets/image/snow_background.png");
-  @media (max-width: 600px) {
-    background-image: none;
-  }
 `;
 
 const Layout = ({ children }) => {

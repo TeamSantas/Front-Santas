@@ -36,7 +36,7 @@ const FriendCard = styled.div`
 `;
 
 const FriendsList = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [friendsData, setFriendsData] = useState<any>();
   // const [currFriendIsFavorite, setCurrFriendIsFavorite] =
   //   useState<boolean>(false);
@@ -58,7 +58,7 @@ const FriendsList = () => {
 
   const RenderFriendCardContents = (props) => {
     const goFriendsCalendar = () => {
-      router.push(`/${props.invitationLink}`)
+      router.push(`/${props.invitationLink}`);
       console.log("친구 캘린더로 가즈아~");
     };
 

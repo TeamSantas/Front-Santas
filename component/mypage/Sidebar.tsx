@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Switch from "react-switch";
 import { useGetLogin } from "../../api/hooks/useGetLogin";
-import { setPutPush, useGetPush } from "../../api/hooks/useStting";
 import Link from "next/link";
+import { setPutPush, useGetPush } from "../../api/hooks/useStting";
 
 const Container = styled.div`
   background-color: #3c6c54;

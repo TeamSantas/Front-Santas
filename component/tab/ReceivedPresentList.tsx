@@ -11,27 +11,27 @@ const TabFlex = styled(Flex)`
 
 const ReceivedPresentList = () => {
   const [receivedPresentList, setReceivedPresentList] = useState([]);
-    
-    useEffect(() => {
-      const initReceivedPresentList = async () => {
-        const res = await PresentService.getLoggedUserPresentList();
-        setReceivedPresentList(res.data.data.content);
-      }
-      initReceivedPresentList();
-    }, [])
 
-    return (
-        <TabFlex>
-            {receivedPresentList?.map((present) => (
-                <Card
-                key={present.id}
-                id={present.id}
-                thumbnail={present.imageURL}
-                // type={present.type}
-                type={"RECEIVED"}
-                />
-          ))}
-        </TabFlex>
-    )
-}
-export default ReceivedPresentList
+  useEffect(() => {
+    const initReceivedPresentList = async () => {
+      const res = await PresentService.getLoggedUserPresentList();
+      setReceivedPresentList(res.data.data.content);
+    };
+    initReceivedPresentList();
+  }, []);
+
+  return (
+    <TabFlex>
+      {receivedPresentList?.map((present) => (
+        <Card
+          key={present.id}
+          id={present.id}
+          thumbnail={present.imageURL}
+          // type={present.type}
+          type={"RECEIVED"}
+        />
+      ))}
+    </TabFlex>
+  );
+};
+export default ReceivedPresentList;

@@ -66,7 +66,7 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 const Home: NextPage = () => {
-  const router = useRouter()
+  const router = useRouter();
   const { storeUserData, updateUserData } = useContext(storeContext);
   const [memberInfo, setMemberInfo] = useState<MemberData>();
 
@@ -123,7 +123,7 @@ const Home: NextPage = () => {
   const storeMemberData = async () => {
     const userData = await updateUserData();
     setMemberInfo(userData);
-  }
+  };
   useEffect(() => {
     // getMemberData();
     storeMemberData();
@@ -206,11 +206,15 @@ const Home: NextPage = () => {
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
         <SnowballContainer>
-          <Suspense fallback={<img src="/assets/image/character/spinner.gif" alt="spinner"/>}>
-          <Text>스노우볼을 움직여보세요</Text>
-          <Canvas>
-            <ModelComponent />
-          </Canvas>
+          <Suspense
+            fallback={
+              <img src="/assets/image/character/spinner.gif" alt="spinner" />
+            }
+          >
+            <Text>스노우볼을 움직여보세요</Text>
+            <Canvas>
+              <ModelComponent />
+            </Canvas>
           </Suspense>
         </SnowballContainer>
       </Flex>

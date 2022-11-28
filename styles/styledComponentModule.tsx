@@ -58,7 +58,6 @@ export const RedButton = styled.button`
 `;
 
 export const GreenButton = styled(RedButton)`
-  margin-top: 20px;
   background-color: #3C6C54;
   color: white;
 `;
