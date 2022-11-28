@@ -132,7 +132,7 @@ const Sidebar = (props) => {
                     <IndexDiv>
                         <Li>
                             <Img src="/assets/image/character/face_heart_white.png"/>
-                            <Index><StyledLink href={process.env.NEXT_PUBLIC_FRONT_URL+`/onboarding`}>스토리 다시보기</StyledLink></Index>
+                            <Index><StyledLink href={process.env.NEXT_PUBLIC_FRONT_URL+`onboarding`}>스토리 다시보기</StyledLink></Index>
                         </Li>
                         <Hr/>
                     </IndexDiv>
