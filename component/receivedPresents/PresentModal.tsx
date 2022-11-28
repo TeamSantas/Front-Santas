@@ -1,6 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import PresentCardList from "./PresentCardList";
-import SendPresents from "./sendPresents/SendPresents";
+import SendPresents from "../sendPresents/SendPresents";
 import styled, { css } from "styled-components";
 
 const RedBackground = styled.div`
@@ -39,7 +39,15 @@ const CustomBody = styled(Modal.Body)`
 
 const PresentModal = (props) => {
   const RenderBody = () => {
-    return <>{props.ismycalendar ? <PresentCardList /> : <SendPresents currCalUserInfo={props.currCalUserInfo} />}</>;
+    return (
+      <>
+        {props.ismycalendar ? (
+          <PresentCardList />
+        ) : (
+          <SendPresents currCalUserInfo={props.currCalUserInfo} />
+        )}
+      </>
+    );
   };
 
   return (

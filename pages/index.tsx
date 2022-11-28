@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { NextPage } from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import html2canvas from "html2canvas";
-import Calendar from "../component/Calendar";
+import Calendar from "../component/index/Calendar";
 import Share, { RedBtn } from "../component/share/Share";
 import ReactHowler from "react-howler";
 import { lazy, useEffect, useState } from "react";
@@ -13,21 +13,31 @@ import { getCookie } from "../businesslogics/cookie";
 import { setGetMember } from "../api/hooks/useGetMember";
 import { MemberData } from "../util/type";
 import { useRouter } from "next/router";
-import {setBGM} from "../api/hooks/useStting";
-import {getLoggedMember} from "../api/hooks/useMember";
+import { setBGM } from "../api/hooks/useStting";
+import { getLoggedMember } from "../api/hooks/useMember";
+import InformationModal from "../component/index/InformationModal";
 
-const LinkCopy = styled(Icons)`
-  margin-right: 24px;
+const MainIcons = styled(Icons)`
+  height: 35px;
+`;
+
+const LinkCopy = styled(MainIcons)`
+  margin-left: 15px;
   background-image: url("/assets/image/icons/Link.png");
 `;
-const Friends = styled(Icons)`
+const Friends = styled(MainIcons)`
   background-image: url("/assets/image/icons/Users.png");
 `;
+const Info = styled(MainIcons)`
+  width: 25px;
+  margin-left: 15px;
+  background-image: url("/assets/image/icons/information.svg");
+`;
 
-const Bgm = styled(Icons)`
+const Bgm = styled(MainIcons)`
   background-image: url("/assets/image/icons/SpeakerHigh.png");
 `;
-const MuteBgm = styled(Icons)`
+const MuteBgm = styled(MainIcons)`
   background-image: url("/assets/image/icons/muteSpeaker.png");
 `;
 const GoBackMyCal = styled.div`
@@ -54,7 +64,7 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 const Home: NextPage = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [memberInfo, setMemberInfo] = useState<MemberData>();
 
   const [myBGM, setMyBGM] = useState<any>(null);
@@ -67,11 +77,9 @@ const Home: NextPage = () => {
   }, []);
 
   const [mute, setMute] = useState(myBGM);
-  useEffect(()=>{
-      setBGM(mute);
-    },[mute])
-
-
+  useEffect(() => {
+    setBGM(mute);
+  }, [mute]);
 
   const linkCopyHandler = () => {
     // TODO : link copy 로직 추가 필요
@@ -80,7 +88,7 @@ const Home: NextPage = () => {
   const muteHandler = (value) => setMute(!value);
 
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
-  const ModelComponent = lazy(() => import("/component/SnowBallModel"));
+  const ModelComponent = lazy(() => import("/component/index/SnowBallModel"));
 
   // friends modal
   const [friendModalShow, setFriendModalShow] = useState(false);
@@ -89,6 +97,16 @@ const Home: NextPage = () => {
   };
   const handleFriendsModalClose = () => setFriendModalShow(false);
 
+  // info modal
+  const [informationModalShow, setInformationModalShow] = useState(false);
+  const clickInformationIconHandler = () => {
+    console.log("hello?")
+    setInformationModalShow(true);
+    console.log(informationModalShow)
+  };
+  const handleInformationModalClose = () => setInformationModalShow(false);
+
+  // cookie
   useEffect(() => {
     const onboardingCookie = getCookie("onboarding");
     if (onboardingCookie === "") {
@@ -108,25 +126,33 @@ const Home: NextPage = () => {
   // const ismycalendar =
   //   memberInfo && currInvitationLink === memberInfo.invitationLink;
   const ismycalendar = true;
-  
+
   const MyCalendarBtn = () => {
     return (
       <>
         <ButtonFlex>
-          <Friends onClick={clickFriendIconHandler} />
-          <FriendsModal
-            show={friendModalShow}
-            onHide={handleFriendsModalClose}
-          />
+          <Flex>
+            <Friends onClick={clickFriendIconHandler} />
+            <LinkCopy onClick={linkCopyHandler} />
+            <FriendsModal
+              show={friendModalShow}
+              onHide={handleFriendsModalClose}
+            />
+          </Flex>
+
           <Flex>
             {/*BGM react-howler 라이브러리*/}
             <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
-            <LinkCopy onClick={linkCopyHandler} />
             {mute ? (
               <Bgm onClick={() => muteHandler(mute)} />
             ) : (
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
+            <Info onClick={clickInformationIconHandler} />
+            <InformationModal
+              show={informationModalShow}
+              onHide={handleInformationModalClose}
+            />
           </Flex>
         </ButtonFlex>
         <Share />
@@ -135,8 +161,8 @@ const Home: NextPage = () => {
   };
 
   const handleGoMyCal = () => {
-    router.push(`/${memberInfo.invitationLink}`)
-  }
+    router.push(`/${memberInfo.invitationLink}`);
+  };
 
   const FriendsCalendarBtn = () => {
     return (
@@ -151,6 +177,11 @@ const Home: NextPage = () => {
             ) : (
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
+            <Info onClick={clickInformationIconHandler} />
+            <InformationModal
+              show={informationModalShow}
+              onHide={handleInformationModalClose}
+            />
           </Flex>
         </ButtonFlex>
       </>

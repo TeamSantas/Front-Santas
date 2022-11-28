@@ -1,14 +1,13 @@
-import TabCard from "./TabCard";
-import {Flex} from "../../styles/styledComponentModule";
+import { Flex } from "../../styles/styledComponentModule";
 import styled from "styled-components";
-import Card from "../Card";
+import Card from "../receivedPresents/Card";
 import { useEffect, useState } from "react";
 import PresentService from "../../api/PresentService";
 
 const TabFlex = styled(Flex)`
   flex-direction: row;
   flex-wrap: wrap;
-`
+`;
 
 const ReceivedPresentList = () => {
   const [receivedPresentList, setReceivedPresentList] = useState([]);

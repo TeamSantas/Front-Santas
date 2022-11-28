@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import PresentModal from "./PresentModal";
+import PresentModal from "../receivedPresents/PresentModal";
 import { useEffect, useState } from "react";
-import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
-import { FriendsData } from "../util/type";
+import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
+import { FriendsData } from "../../util/type";
 
 const CalendarWrapper = styled.div`
   padding: 10px;
@@ -43,7 +43,9 @@ const Calendar = (props) => {
   const [currCalUserInfo, setCurrCalUserInfo] = useState<FriendsData>();
 
   const getCurrCalendarUserData = async () => {
-    const res = await setGetCurrCalendarUserInfo("e5017233-7ff2-4f61-aa44-29feb943f769");
+    const res = await setGetCurrCalendarUserInfo(
+      "e5017233-7ff2-4f61-aa44-29feb943f769"
+    );
     // console.log("캘린더 주인 유저 정보 >>> ", res);
     setCurrCalUserInfo(res);
   };

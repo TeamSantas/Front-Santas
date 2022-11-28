@@ -1,14 +1,10 @@
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import { Flex, GreenButton } from "../../styles/styledComponentModule";
-import Image from "next/image";
+import { Flex, GreenButton, GreenCloseButton } from "../../styles/styledComponentModule";
 import { usePostPresent } from "../../api/hooks/usePostPresent";
 import Form from "react-bootstrap/Form";
-import MultipleImgUploader from "./MultipleImgUploader";
 import { setGetMember } from "../../api/hooks/useGetMember";
-import { FriendsData, MemberData } from "../../util/type";
-import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
-import { GreenCloseButton } from "../friends/FriendsModal";
+import { MemberData } from "../../util/type";
 
 const PresentHeader = styled.div`
   font-size: x-large;

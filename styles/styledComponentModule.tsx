@@ -1,3 +1,4 @@
+import { Modal } from "react-bootstrap";
 import styled from "styled-components";
 
 export const MainContainer = styled.div`
@@ -60,4 +61,24 @@ export const GreenButton = styled(RedButton)`
   margin-top: 20px;
   background-color: #3C6C54;
   color: white;
+`;
+
+export const GreenCloseButton = styled.div`
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 2rem;
+  height: 2rem;
+  background-image: url("/assets/image/greenXCircle.svg"); ;
+`;
+
+export const CustomHeader = styled(Modal.Header)`
+  border: none !important;
+`;
+export const CustomBody = styled(Modal.Body)`
+  border: none;
+  overflow: auto;
+  max-height: 50rem;
+`;
+export const CustomFooter = styled(Modal.Footer)`
+  border: none;
 `;
