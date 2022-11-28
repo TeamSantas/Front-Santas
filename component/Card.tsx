@@ -74,7 +74,7 @@ const Card = (props) => {
   useEffect(() => {
     initPresentDetail();
   }, [])
-  
+
 
   return (
     <>
@@ -91,7 +91,7 @@ const Card = (props) => {
         onHide={handleClose}
         selectedcard={selectedcard}
         header={presentDetail === undefined ? "없음" : <PresentDetailHeader nickname={presentDetail.nickname}/>}
-        body={presentDetail === undefined ? "없음" : <PresentDetailBody body={presentDetail} handleDetail={initPresentDetail}/>}
+        body={presentDetail === undefined ? "없음" : <PresentDetailBody body={presentDetail} handleDetail={initPresentDetail} type={props.type}/>}
       />
     </>
   );

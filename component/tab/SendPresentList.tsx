@@ -14,12 +14,12 @@ const SendPresentList = () => {
     const [sentPresentList, setSentPresentList] = useState([]);
 
     useEffect(() => {
-        const initReceivedPresentList = async () => {
+        const initSendPresentList = async () => {
           const res = await PresentService.getUserSendPresent();
           console.log(res.data.data);
           setSentPresentList(res.data.data.content);
         }
-        initReceivedPresentList();
+        initSendPresentList();
       }, [])
 
     return (
@@ -29,7 +29,8 @@ const SendPresentList = () => {
                     key={present.id}
                     id={present.id}
                     thumbnail={present.imageURL}
-                    type={present.type}
+                    // type={present.type}
+                    type={"SEND"}
                 />
           ))}
         </TabFlex>

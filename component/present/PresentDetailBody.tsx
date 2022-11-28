@@ -6,8 +6,9 @@ const Img = styled.img`
   width: 100%;
 `;
 
-export default function PresentDetailBody({body, handleDetail}) {
+export default function PresentDetailBody({body, handleDetail, type}) {
     const [isPublic, setIsPublic] = useState(false);
+    const [isReceived, setIsReceived] = useState(false);
 
     const handlePublic = async (presentId:number) => {
         const res = await PresentService.putPresent_OnOff_Status(presentId, !isPublic);
@@ -16,9 +17,20 @@ export default function PresentDetailBody({body, handleDetail}) {
         handleDetail();
     }
 
+    const handleType = (type) => {
+        if (type === "SEND") {
+            setIsReceived(false);
+        } else {
+            setIsReceived(true);
+        }
+    }
+
     useEffect(() => {
         setIsPublic(body.isPublic);
+        handleType(type);
     }, [])
+
+    console.log("카드로넘기는데이터", body);
 
 
     return (
@@ -32,7 +44,7 @@ export default function PresentDetailBody({body, handleDetail}) {
             <p>{body.receivedDate}</p>
             <p>{isPublic ? "공개된 선물입니다" : "미공개된 선물입니다"}</p>
             <p>{isPublic.toString() + " <<< 선물공개여부"}</p>
-            <button onClick={() => {handlePublic(body.id)}}>선물공개여부변경하기</button>
+            {isReceived ? <button onClick={() => {handlePublic(body.id)}}>선물공개여부변경하기</button> : null}
             <p>{body.isAnonymous ? "이 선물은 익명으로 보내졌어요" : ""}</p>
         </div>
     );
