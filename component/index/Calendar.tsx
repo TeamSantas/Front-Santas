@@ -1,8 +1,13 @@
 import styled from "styled-components";
-import PresentModal from "./PresentModal";
-import { useState } from "react";
+import PresentModal from "../receivedPresents/PresentModal";
+import { useEffect, useState } from "react";
+import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
+import { FriendsData } from "../../util/type";
 
 const CalendarWrapper = styled.div`
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   margin: 24px auto;
@@ -34,6 +39,20 @@ const Calendar = (props) => {
   };
   const handleClose = () => setPresentModalShow(false);
 
+  // 캘린더 주인 유저 정보
+  const [currCalUserInfo, setCurrCalUserInfo] = useState<FriendsData>();
+
+  const getCurrCalendarUserData = async () => {
+    const res = await setGetCurrCalendarUserInfo(
+      "e5017233-7ff2-4f61-aa44-29feb943f769"
+    );
+    // console.log("캘린더 주인 유저 정보 >>> ", res);
+    setCurrCalUserInfo(res);
+  };
+  useEffect(() => {
+    getCurrCalendarUserData();
+  }, []);
+
   return (
     <>
       <CalendarWrapper>
@@ -51,6 +70,7 @@ const Calendar = (props) => {
         onHide={handleClose}
         selectedday={selectedday}
         ismycalendar={props.ismycalendar}
+        currCalUserInfo={currCalUserInfo}
       />
     </>
   );

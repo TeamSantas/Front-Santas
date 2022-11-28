@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Switch from "react-switch";
+import { useGetLogin } from "../api/hooks/useGetLogin";
+import { setPutPush, useGetPush } from "../api/hooks/useStting";
 
 const Container = styled.div`
   background-color: #3c6c54;
@@ -25,10 +28,16 @@ const Container = styled.div`
 const IndexDiv = styled.div`
   cursor: pointer;
   &:hover {
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.2);
   }
 `;
-
+const StyledLink = styled.a`
+  color: white;
+  text-decoration: none;
+  &:hover {
+    color: white;
+  }
+`;
 const Index = styled.button`
   color: white;
   border: none;
@@ -42,12 +51,8 @@ const Index = styled.button`
   font-size: 22px;
   margin: 0 auto 0 5px;
   font-weight: bold;
-  &:hover {
-    font-size: 24px;
-    color: #ac473d;
-  }
   @media (max-width: 600px) {
-    font-size: 15px;
+    font-size: 20px;
   }
 `;
 const CloseIcon = styled.img`
@@ -59,7 +64,7 @@ const Ul = styled.ul`
   padding-left: 0;
 `;
 const Li = styled.li`
-  padding: 0 0 0 20px;
+  padding: 0 10px 0 20px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -71,6 +76,7 @@ const Hr = styled.hr`
 
 const Img = styled.img`
   margin-top: -5px;
+  width: 65px;
 `;
 
 const Background = styled.div`
@@ -86,15 +92,12 @@ const Background = styled.div`
 
 const Sidebar = (props) => {
   const router = useRouter();
-  const index = [
-    "알림설정",
-    "개인정보 처리방침",
-    "Contact to Us",
-    "로그아웃",
-    "v.0.0.1",
-  ];
-  const indexRoute = ["/", "/", "/", "/", "/"];
-  // const [toggleValue, setToggleValue] = useState(false);
+  const isUserToggleOpen = useGetPush();
+  const [toggleValue, setToggleValue] = useState(isUserToggleOpen);
+  const toggleHandler = () => setToggleValue(!toggleValue);
+  useEffect(() => {
+    setPutPush(toggleValue);
+  }, [toggleValue]);
   return (
     <>
       {/*Background : 배경 블러처리 겸, 아무 곳이나 눌러도 사이드바 해제하는 역할*/}
@@ -104,24 +107,69 @@ const Sidebar = (props) => {
           <CloseIcon src="/assets/image/icons/close.png" onClick={props.menu} />
         </Index>
         <Ul>
-          {index.map((indexTitle, i) => {
-            return (
-              <IndexDiv key={i}>
-                <Li>
-                  <Img src="/assets/image/face.svg" />
-                  <Index
-                    onClick={() => {
-                      router.push(indexRoute[i]);
-                    }}
-                  >
-                    {indexTitle}
-                  </Index>
-                </Li>
-                {/*{i===0? :null}*/}
-                <Hr />
-              </IndexDiv>
-            );
-          })}
+          <Li>
+            <Img src="/assets/image/character/face_heart_white.png" />
+            <Index>알림설정</Index>
+            <Switch
+              onChange={toggleHandler}
+              checked={toggleValue}
+              className="react-switch"
+            />
+          </Li>
+          <Hr />
+          <IndexDiv>
+            <Li>
+              <Img src="/assets/image/character/face_heart_white.png" />
+              <Index
+                onClick={() => {
+                  router.push("https://pf.kakao.com/_wDRPxj");
+                }}
+              >
+                Contact to Us
+              </Index>
+            </Li>
+            <Hr />
+          </IndexDiv>
+          <IndexDiv>
+            <Li>
+              <Img src="/assets/image/character/face_heart_white.png" />
+              <Index onClick={useGetLogin}>로그아웃</Index>
+            </Li>
+            <Hr />
+          </IndexDiv>
+          <IndexDiv>
+            <Li>
+              <Img src="/assets/image/character/face_heart_white.png" />
+              <Index>
+                <StyledLink
+                  href={process.env.NEXT_PUBLIC_FRONT_URL + `onboarding`}
+                >
+                  스토리 다시보기
+                </StyledLink>
+              </Index>
+            </Li>
+            <Hr />
+          </IndexDiv>
+          <IndexDiv>
+            <Li>
+              <Img src="/assets/image/character/face_heart_white.png" />
+              <Index>
+                <StyledLink
+                  href={process.env.NEXT_PUBLIC_FRONT_URL + `snowball`}
+                >
+                  스노우볼
+                </StyledLink>
+              </Index>
+            </Li>
+            <Hr />
+          </IndexDiv>
+          <IndexDiv>
+            <Li>
+              <Img src="/assets/image/character/face_heart_white.png" />
+              <Index>v.1.0.0</Index>
+            </Li>
+            <Hr />
+          </IndexDiv>
         </Ul>
       </Container>
     </>

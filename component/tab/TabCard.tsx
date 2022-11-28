@@ -1,4 +1,4 @@
-import {StyledCard} from "../Card";
+import { StyledCard } from "../receivedPresents/Card";
 import styled from "styled-components";
 import TabCardImg from "./TabCardImg";
 
@@ -13,13 +13,13 @@ const TabCardForm = styled(StyledCard)`
   @media (max-width: 400px) {
     width: 70vw;
   }
-`
+`;
 
 const TabCard = (props) => {
-    return (
-        <TabCardForm>
-            <TabCardImg img={props.img}/>
-        </TabCardForm>
-    )
-}
-export default TabCard
+  return (
+    <TabCardForm>
+      <TabCardImg img={props.img} />
+    </TabCardForm>
+  );
+};
+export default TabCard;

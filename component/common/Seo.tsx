@@ -1,11 +1,47 @@
-import Head from 'next/head';
+import Head from "next/head";
 
 export default function Seo({ title }) {
-    return (
-        <Head>
-            <title>{title} | 두근두근 어드벤트 캘린더</title>
-            <meta name="description" content="두근두근 어드벤트 캘린더" />
-            <link rel="icon" href="/assets/image/favicon.ico" />
-        </Head>
-    );
+  return (
+    <Head>
+      <title>{title} | 두근두근 어드벤트 캘린더🎁</title>
+      <meta
+        name="description"
+        content="크리스마스다! 두근두근 어드벤트 캘린더"
+      />
+      {/*웹에 설정해줘야하는 og 메타태그*/}
+      <link rel="icon" href="/assets/image/favicon.ico" />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://pitapat-adventcalendar.site/" />
+      <meta property="og:title" content="다함께 크리스마스 즐기기✨" />
+      <meta
+        property="og:image"
+        content="https://pitapat-adventcalendar.site/assets/image/character/face_heart.png"
+      />
+      <meta
+        property="og:description"
+        content="크리스마스다! 두근두근 어드벤트 캘린더"
+      />
+      <meta property="og:site_name" content="두근두근 어드벤트 캘린더🎁" />
+      <meta property="og:locale" content="ko_KR" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
+      {/*// 트위터 카드 타입*/}
+      <meta
+        name="twitter:card"
+        content="크리스마스다! 두근두근 어드벤트 캘린더"
+      />
+      <meta name="twitter:title" content="두근두근 어드벤트 캘린더🎁" />
+      <meta name="twitter:description" content="다함께 크리스마스 즐기기✨" />
+      <meta
+        name="twitter:image"
+        content="https://pitapat-adventcalendar.site/assets/image/character/face_heart.png"
+      />
+      <meta name="twitter:creator" content="@hayanco" />
+      <meta
+        name="twitter:site"
+        content="https://pitapat-adventcalendar.site/"
+      />
+    </Head>
+  );
 }
