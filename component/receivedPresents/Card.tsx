@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import CustomModal from "./CustomModal";
+import CustomModal from "../common/CustomModal";
 
 export const StyledCard = styled.div`
   background: white;
@@ -14,10 +14,10 @@ export const StyledCard = styled.div`
   margin: 1rem auto;
   overflow: hidden;
   @media (max-width: 1000px) {
-    height : 200px;
+    height: 200px;
   }
   @media (max-width: 600px) {
-    height : 150px;
+    height: 150px;
   }
 `;
 
@@ -25,7 +25,7 @@ const TabCard = styled(StyledCard)`
   margin: 10px 5px;
   width: 30%;
   position: relative;
-  
+
   @media (max-width: 600px) {
     width: 32vw;
     margin: 10px auto;
@@ -39,11 +39,14 @@ const CardImg = styled.img`
   width: 90%;
   height: 90%;
   position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   margin: auto;
   overflow: hidden;
   object-fit: cover;
-  &::after{
+  &::after {
     padding-bottom: 100%;
   }
 `;
