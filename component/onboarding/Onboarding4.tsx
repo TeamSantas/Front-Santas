@@ -40,6 +40,9 @@ const GoBtn = styled.button`
 
   border: 0px;
 `;
+const Span = styled.span`
+  color: #FFD58D;
+`
 
 export const Onboarding4 = ({ showPage }) => {
   const pageNumber = 4;
@@ -48,7 +51,7 @@ export const Onboarding4 = ({ showPage }) => {
     <OnboardingContainer pageNumber={pageNumber} showPage={showPage}>
       <Text>
         어드벤트 캘린더를 통해
-        <br /> 친구들과 따뜻한 쪽지를 주고 받으면,₩
+          <br /> 친구들과 <Span>따뜻한 쪽지를 주고 받으면,</Span>
         <br /> 하얀코에게 크레파스를
         <br /> 선물할 수 있는 힘이 모여요~!
       </Text>

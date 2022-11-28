@@ -1,8 +1,9 @@
-import styled, {css} from "styled-components";
+import styled from "styled-components";
 import {Icons} from "../../styles/styledComponentModule";
 import html2canvas from "html2canvas";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import TicketModal from "./TicketModal";
+import {getLoggedMember} from "../../api/hooks/useMember";
 
 export const RedBtn = styled(Icons)`
   width: 35rem;
@@ -29,6 +30,8 @@ const Capture = styled.div`
   border-radius: 10px;
   padding: 20px;
   z-index:-1;
+  font-weight: bold;
+  color: black;
 `
 const TicketImg = styled.img`
   width: 400px;
@@ -41,7 +44,7 @@ const TicketText = styled.div`
   font-weight: bold;
   position: absolute;
   top: 110px;
-  left: 110px;
+  left: 95px;
 `
 const TicketDay = styled.div`
   border: solid 1.8px lightgrey;
@@ -64,6 +67,18 @@ const TicketTitle = styled.div`
 const Share = () => {
   const [shareModalShow, setShareModalShow] = useState(false);
   const [TicketURL, setTicketURl] = useState('');
+  const [myData, setMyData] = useState(null);
+
+  const getMyData = async () => {
+    const res = await getLoggedMember();
+    setMyData(res.data.nickname);
+  };
+
+  let memberName : string = null;
+  useEffect(() => {
+    getMyData();
+  }, []);
+
   const calendarShareHandler = () => {
     screenCaptureHandler();
     setShareModalShow(true);
@@ -77,25 +92,18 @@ const Share = () => {
     });
   };
 
+  let today = new Date();
+  const DDAY = new Date("2022-12-25");
+  let date : number = DDAY.getDate()-today.getDate();
+
+  let Dday : number = -1;
+  if(date>0) Dday=today.getDate();
+  const imgSrc = `/assets/image/days/day${Dday}.svg`
 
 
-  const buttons = [
-    {
-      title: "카톡 공유",
-      color: "#000000",
-      bgcolor: "#FFD465",
-    },
-    {
-      title: "인스타 공유",
-      color: "#FFFFFF",
-      bgcolor: "#3C6C54",
-    },
-  ];
 
-  const memberName = "하얀코";
-  const presentNum = 10;
-  const presentDate = 8;
-  const Dday = 15;
+  const presentNum : number = 10;
+  const presentDate : number = 8;
 
   return (
     <>
@@ -103,14 +111,16 @@ const Share = () => {
         <div>
           <TicketImg src='/assets/image/share/ticket_tree.png' alt='티켓'/>
           <TicketText>
-            <h5>{memberName}님의 어드벤트 캘린더✨</h5>
+            <h5>{myData}님의 어드벤트 캘린더✨</h5>
             <h6>- 받은 선물 개수 : {presentNum}개</h6>
             <h6>- 받은 날짜 수 : {presentDate}일</h6>
-            <h6>- 크리스마스 : D-{Dday}</h6>
+            {Dday === -1 ?  <h6>- 크리스마스 : 아직도 11월..</h6>
+                :   <h6>- 크리스마스 : D-{date}</h6> }
           </TicketText>
           <TicketDay>
             <p> 오늘의 캘린더 조각 </p>
-            <img src='/assets/image/days/day10.svg'/>
+            {Dday === -1 ? <img src='/assets/image/icons/pen.png' alt='펜'/>
+                :  <img src={imgSrc}/> }
           </TicketDay>
           <TicketTitle>
             <p> 두근두근 어드벤트 캘린더 </p>
@@ -130,7 +140,6 @@ const Share = () => {
         background_img={TicketURL}
         text={""}
         // footer --------------
-        buttons={buttons}
       />
     </>
   );

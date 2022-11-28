@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import {useEffect, useState} from "react";
 import Switch from "react-switch";
-import { useGetLogout } from "../api/hooks/useGetLogout";
+import { useGetLogin } from "../api/hooks/useGetLogin";
 import {setPutPush, useGetPush} from "../api/hooks/useStting";
+import Link from "next/link";
 
 const Container = styled.div`
   background-color: #3C6C54;
@@ -28,10 +29,16 @@ const Container = styled.div`
 const IndexDiv = styled.div`
   cursor: pointer;
   &:hover {
-    background-color: white;
+    background-color: rgba(0,0,0,.2);
   }
 `;
-
+const StyledLink = styled.a`
+  color: white;
+  text-decoration: none;
+  &:hover {
+    color: white;
+  }
+`
 const Index = styled.button`
   color: white;
   border: none;
@@ -45,10 +52,6 @@ const Index = styled.button`
   font-size: 22px;
   margin: 0 auto 0 5px; 
   font-weight: bold;
-  &:hover {
-    font-size: 24px;
-    color: #AC473D;
-  }
   @media (max-width: 600px) {
     font-size: 20px;
   }
@@ -122,14 +125,21 @@ const Sidebar = (props) => {
                     <IndexDiv>
                         <Li>
                             <Img src="/assets/image/character/face_heart_white.png"/>
-                            <Index onClick={useGetLogout}>로그아웃</Index>
+                            <Index onClick={useGetLogin}>로그아웃</Index>
                         </Li>
                         <Hr/>
                     </IndexDiv>
                     <IndexDiv>
                         <Li>
                             <Img src="/assets/image/character/face_heart_white.png"/>
-                            <Index>v.0.0.1</Index>
+                            <Index><StyledLink href={process.env.NEXT_PUBLIC_FRONT_URL+`/onboarding`}>스토리 다시보기</StyledLink></Index>
+                        </Li>
+                        <Hr/>
+                    </IndexDiv>
+                    <IndexDiv>
+                        <Li>
+                            <Img src="/assets/image/character/face_heart_white.png"/>
+                            <Index>v.1.0.0</Index>
                         </Li>
                         <Hr/>
                     </IndexDiv>

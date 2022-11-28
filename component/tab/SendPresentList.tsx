@@ -6,6 +6,7 @@ import Card from "../Card";
 const TabFlex = styled(Flex)`
   flex-direction: row;
   flex-wrap: wrap;
+  text-align: center;
 `
 const SendPresentList = () => {
     const sentPresentList = [
@@ -29,47 +30,21 @@ const SendPresentList = () => {
           thumbnail : "Calendar",
           type : "svg"
         },
-        {
-            id : 4,
-            thumbnail : "face",
-            type : "svg"
-        },
-        {
-            id : 5,
-            thumbnail : "Calendar",
-            type : "svg"
-        },
-        {
-            id : 0,
-            thumbnail : "/character/face_heart",
-            type : "png"
-        },
-        {
-            id : 1,
-            thumbnail : "my_calendar",
-            type : "png"
-        },
-        {
-            id : 2,
-            thumbnail : "Calendar",
-            type : "svg"
-        },
-        {
-            id : 3,
-            thumbnail : "/character/face_heart",
-            type : "png"
-        },
       ]
     return (
         <TabFlex>
-            {sentPresentList?.map((present) => (
-                <Card
-                    key={present.id}
-                    id={present.id}
-                    thumbnail={present.thumbnail}
-                    type={present.type}
-                />
-          ))}
+            <img src="/assets/image/icons/pen.png" alt='하얀코'/>
+            <h2>준비중인 기능입니다</h2>
+            <img src="/assets/image/icons/pen.png" alt='하얀코'/>
+
+            {/*  {sentPresentList?.map((present) => (*/}
+          {/*      <Card*/}
+          {/*          key={present.id}*/}
+          {/*          id={present.id}*/}
+          {/*          thumbnail={present.thumbnail}*/}
+          {/*          type={present.type}*/}
+          {/*      />*/}
+          {/*))}*/}
         </TabFlex>
     )
 }
