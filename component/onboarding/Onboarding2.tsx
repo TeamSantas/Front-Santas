@@ -29,7 +29,7 @@ export const Onboarding2 = ({ showPage }) => {
 
   return (
     <OnboardingContainer pageNumber={pageNumber} showPage={showPage}>
-      <Image src="/assets/image/character/face_small_cry.png" />
+      <Image src="/assets/image/onboarding/face_small_cry.png" />
       <Text>
         마을의 유일한 하얀코는,
         <br /> 빨간코가 되고 싶어서 슬퍼했어요

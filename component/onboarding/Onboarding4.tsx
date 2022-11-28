@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import {useEffect, useState} from "react";
+import {getCookie} from "../../businesslogics/cookie";
 
 const OnboardingContainer = styled.div`
   display: ${({ pageNumber, showPage }) =>
@@ -46,7 +48,13 @@ const Span = styled.span`
 
 export const Onboarding4 = ({ showPage }) => {
   const pageNumber = 4;
-
+  const [visited, setVisited] = useState(false);
+    useEffect(() => {
+        const onboardingCookie = getCookie("onboarding");
+        if (onboardingCookie !== "") { //방문한 적이 있으면
+            setVisited(true);
+        }
+    }, []);
   return (
     <OnboardingContainer pageNumber={pageNumber} showPage={showPage}>
       <Text>
@@ -57,7 +65,8 @@ export const Onboarding4 = ({ showPage }) => {
       </Text>
       <Image src="/assets/image/onboarding/crayon_box.png" />
       <Text>캘린더에 쪽지를 보내러 가볼까요?!</Text>
-      <GoBtn onClick={() => (window.location.href = "/login")}>GO!</GoBtn>
+        {visited === true ? <GoBtn onClick={() => (window.location.href = "/login")}>내 캘린더가기</GoBtn> //TODO : "/login"대신 내 invitation 링크가져오기
+        : <GoBtn onClick={() => (window.location.href = "/login")}>GO!</GoBtn>}
     </OnboardingContainer>
   );
 };
