@@ -8,6 +8,7 @@ import PresentService from "../../api/PresentService";
 const TabFlex = styled(Flex)`
   flex-direction: row;
   flex-wrap: wrap;
+  text-align: center;
 `
 const SendPresentList = () => {
     const [sentPresentList, setSentPresentList] = useState([]);

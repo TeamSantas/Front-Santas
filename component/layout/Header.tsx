@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Flex, Icons } from "../../styles/styledComponentModule";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import {useState} from "react";
 import Sidebar from "../Sidebar";
 
 const Logo = styled.button`
@@ -21,16 +21,16 @@ const Logo = styled.button`
 `;
 
 const MyPage = styled(Icons)`
-  width: 150px;
-  height: auto;
-  margin-right: 2%;
-  cursor: pointer;
-  background-image: url("/assets/image/character/face_heart.png");
-  z-index: 5;
-  @media (max-width: 600px) {
-    width: 75px;
-    margin-left: 0;
-  }
+    width: 150px;
+    height: auto;
+    margin-right: 2%;
+    cursor:pointer;
+    background-image: url("/assets/image/icons/mypage.png");
+    z-index: 5;
+    @media (max-width: 600px) {  
+      width: 75px;
+     margin-left: 0;
+    }
 `;
 
 const Menu = styled.img`

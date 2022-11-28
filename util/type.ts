@@ -23,12 +23,17 @@ export interface MemberData {
   profileImageURL: string;
   email: string;
   invitationLink: string;
-  setting: {
+  setting : {
     id: number;
     isAlert: boolean;
     bgm: boolean;
     fcmtokens: string;
   };
+}
+export interface PutMemberData{
+  nickname: string;
+  profileImageURL: string;
+  statusMessage: string;
 }
 
 // Friends types ------------------------------------
