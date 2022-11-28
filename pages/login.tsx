@@ -4,7 +4,6 @@ import {MainContainer} from "../styles/styledComponentModule";
 import styled from "styled-components";
 import CustomModal from "../component/CustomModal";
 import {useState} from "react";
-import {useGetLogin} from "../api/hooks/useGetLogin";
 
 const Container = styled(MainContainer)`
   text-align: center;
@@ -36,7 +35,7 @@ const Login : NextPage = () => {
                 {/*<form method="get" action={LOGIN_URL}>*/}
                 {/*    <input type="submit" value="GO"/>*/}
                 {/*</form>*/}
-                <Link href={process.env.NEXT_PUBLIC_LOGOUT_REDIRECT_URI}>
+                <Link href={"http://ec2-43-201-99-216.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/kakao"}>
                     <img src="/assets/image/kakao_login_large_narrow.png" width="222"/>
                 </Link>
                 {/*<img src="/assets/image/kakao_login_large_narrow.png"*/}
