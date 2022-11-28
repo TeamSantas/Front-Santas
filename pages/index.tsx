@@ -111,7 +111,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     const onboardingCookie = getCookie("onboarding");
     if (onboardingCookie === "") {
-      window.location.href = "/onboarding";
+      router.push("/onboarding");
     }
   }, []);
 

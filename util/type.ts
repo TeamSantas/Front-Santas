@@ -5,9 +5,11 @@ declare global {
 }
 
 export const pageview = (url) => {
-  window.gtag("config", process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS, {
-    page_path: url,
-  });
+  if (typeof window !== "undefined") {
+    window.gtag("config", process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS, {
+      page_path: url,
+    });
+  }
 };
 
 export type ResponseData<T> = {
