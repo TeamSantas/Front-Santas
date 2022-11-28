@@ -4,22 +4,10 @@ import Image from "next/image";
 import { Flex } from "../../styles/styledComponentModule";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useRouter } from "next/router";
 
-const AlignedFlex = styled(Flex)`
+export const AlignedFlex = styled(Flex)`
   align-items: center;
-`;
-
-const KakaoShare = styled.div`
-  background-image: url(https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 2.5rem;
-  cursor: pointer;
-  margin-right: 5px;
-  @media (max-width: 600px) {
-    margin-right: 3px;
-  }
 `;
 
 const GoFriendsCalendarBtn = styled(Button)`
@@ -48,11 +36,13 @@ const FriendCard = styled.div`
 `;
 
 const FriendsList = () => {
+  const router = useRouter()
   const [friendsData, setFriendsData] = useState<any>();
-  const [currFriendIsFavorite, setCurrFriendIsFavorite] =
-    useState<boolean>(false);
+  // const [currFriendIsFavorite, setCurrFriendIsFavorite] =
+  //   useState<boolean>(false);
   const getFriendsData = async () => {
     const res = await setGetFriend();
+    console.log(res);
     setFriendsData(res);
   };
 
@@ -60,22 +50,23 @@ const FriendsList = () => {
     getFriendsData();
   }, []);
 
-  const goFriendsCalendar = () => {
-    console.log("친구 캘린더로 가즈아~");
-  };
-
-  const handleClickFavoriteFriend = (isFavorite) => {
-    // 친구한테 데이터 보내야 함
-    console.log("조아용");
-    setCurrFriendIsFavorite(!isFavorite);
-  };
+  // const handleClickFavoriteFriend = (isFavorite) => {
+  //   // 친구한테 데이터 보내야 함
+  //   console.log("조아용");
+  //   setCurrFriendIsFavorite(!isFavorite);
+  // };
 
   const RenderFriendCardContents = (props) => {
+    const goFriendsCalendar = () => {
+      router.push(`/${props.invitationLink}`)
+      console.log("친구 캘린더로 가즈아~");
+    };
+
     return (
       <>
         <AlignedFlex>
           <Image
-            // src={props.profileImgUrl}
+            // src={props.profileImgUrl} // TODO : 실제 친구로 연결
             src={`/assets/image/character/face_smile.png`}
             alt="profile-img"
             width={50}
@@ -107,7 +98,7 @@ const FriendsList = () => {
 
         <Flex>
           <GoFriendsCalendarBtn onClick={goFriendsCalendar}>
-            쪽지 보내러 가기
+            친구 캘린더로 가기
           </GoFriendsCalendarBtn>
         </Flex>
       </>
@@ -116,7 +107,6 @@ const FriendsList = () => {
 
   return (
     <>
-      {/* TODO : isFavorite으로 즐찾해둔 친구 상단에 먼저 렌더링 */}
       {friendsData?.map((friend) => (
         <FriendCard key={friend.memberId}>
           <RenderFriendCardContents

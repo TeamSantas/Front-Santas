@@ -38,13 +38,17 @@ export interface PutMemberData{
 
 // Friends types ------------------------------------
 export interface FriendsData {
-  memberId: string;
-  friendId: string;
-  uuid: string;
+  id: number;
+  nickname: string;
   profileImageURL: string;
-  name: string;
-  allowedMsg: boolean;
-  isFavorite: boolean;
+  email: string;
+  invitationLink: string;
+  setting: {
+    id: number;
+    isAlert: boolean;
+    bgm: boolean;
+    fcmtokens: string;
+  };
 }
 
 // Present types ------------------------------------
@@ -58,6 +62,21 @@ export interface postPresentData {
   multipartFileList?: string[]; // TODO : 형식 체크
 }
 
+export interface presentDetail {
+  id: number,
+  receiverId:  number,
+  senderId:  number,
+  nickname: string,
+  isAnonymous: boolean,
+  isPublic: boolean,
+  title: string,
+  contents: string,
+  imageURL: [],
+  receivedDate: string
+}
+// Friend Search types
+
+
 // Setting types ------------------------------------
 export interface putPushData {
   alertStatus: boolean;
@@ -65,3 +84,4 @@ export interface putPushData {
 export interface putBGMData {
   bgmStatus: boolean;
 }
+

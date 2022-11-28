@@ -15,7 +15,7 @@ const SnowballContainer = styled(MainContainer)`
 
 const Snowball : NextPage = () => {
     // @ts-ignore
-    const ModelComponent = lazy(() => import("/component/SnowBallModel"));
+    const ModelComponent = lazy(() => import("/component/index/SnowBallModel"));
 
     return (
         <SnowballContainer>

@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import styled from "styled-components";
-import { Flex } from "../styles/styledComponentModule";
+import { Flex } from "../../styles/styledComponentModule";
 import Card from "./Card";
 
 const TabFlex = styled(Flex)`

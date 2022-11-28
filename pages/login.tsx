@@ -1,16 +1,16 @@
-import {NextPage} from "next";
+import { NextPage } from "next";
 import Link from "next/link";
-import {MainContainer} from "../styles/styledComponentModule";
+import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
-import CustomModal from "../component/CustomModal";
-import {useState} from "react";
+import CustomModal from "../component/common/CustomModal";
+import { useState } from "react";
 
 const Container = styled(MainContainer)`
   text-align: center;
   font-size: 20px;
   margin-top: 40px;
   color: white;
-`
+`;
 
 const Login : NextPage = () => {
     const [modalShow, setModalShow] = useState(true);
@@ -32,9 +32,6 @@ const Login : NextPage = () => {
                 </CustomModal>
                 <img src="/assets/image/character/face_smile.png" width="222"/>
                 <h3>하얀코와 함께<br/> 어드벤트 캘린더를 모으러 가볼까요?</h3>
-                {/*<form method="get" action={LOGIN_URL}>*/}
-                {/*    <input type="submit" value="GO"/>*/}
-                {/*</form>*/}
                 <Link href={"http://ec2-43-201-99-216.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/kakao"}>
                     <img src="/assets/image/kakao_login_large_narrow.png" width="222"/>
                 </Link>
