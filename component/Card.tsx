@@ -82,7 +82,7 @@ const Card = (props) => {
         <CardImg
           id={`${props.id}`}
           // src={`/assets/image/${props.thumbnail}.${props.type}`}
-          src={props.thumbnail}
+          src={props.thumbnail === "default" ? `/assets/image/present/5.png`: props.thumbnail}
           onClick={handleShow}
         />
       </TabCard>
