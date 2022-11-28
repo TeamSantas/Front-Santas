@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import Switch from "react-switch";
 import { useGetLogin } from "../api/hooks/useGetLogin";
 import {setPutPush, useGetPush} from "../api/hooks/useStting";
+import Link from "next/link";
 
 const Container = styled.div`
   background-color: #3C6C54;
@@ -31,7 +32,13 @@ const IndexDiv = styled.div`
     background-color: rgba(0,0,0,.2);
   }
 `;
-
+const StyledLink = styled.a`
+  color: white;
+  text-decoration: none;
+  &:hover {
+    color: white;
+  }
+`
 const Index = styled.button`
   color: white;
   border: none;
@@ -119,6 +126,13 @@ const Sidebar = (props) => {
                         <Li>
                             <Img src="/assets/image/character/face_heart_white.png"/>
                             <Index onClick={useGetLogin}>로그아웃</Index>
+                        </Li>
+                        <Hr/>
+                    </IndexDiv>
+                    <IndexDiv>
+                        <Li>
+                            <Img src="/assets/image/character/face_heart_white.png"/>
+                            <Index><StyledLink href={process.env.NEXT_PUBLIC_FRONT_URL+`/onboarding`}>스토리 다시보기</StyledLink></Index>
                         </Li>
                         <Hr/>
                     </IndexDiv>
