@@ -4,10 +4,10 @@ import Layout from "../component/layout/Layout";
 import { AppProps } from "next/app";
 import "../public/assets/fonts/font.css";
 import PushNotification from "../component/PushNotification";
-import {useEffect} from "react";
-import {useRouter} from "next/router";
-import * as ga from '../lib/gtag';
-import Store from "../store/store";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import * as ga from "../lib/gtag";
+import Store from "../store/Store";
 
 declare global {
   interface Window {
@@ -16,16 +16,16 @@ declare global {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const router = useRouter();
-    useEffect(() => {
-        const handleRouteChange = url => {
-            ga.pageview(url);
-        };
-        router.events.on('routeChangeComplete', handleRouteChange);
-        return () => {
-            router.events.off('routeChangeComplete', handleRouteChange);
-        };
-    }, [router.events]);
+  const router = useRouter();
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      ga.pageview(url);
+    };
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <Store>
