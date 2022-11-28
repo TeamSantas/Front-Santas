@@ -39,7 +39,7 @@ const CustomBody = styled(Modal.Body)`
 
 const PresentModal = (props) => {
   const RenderBody = () => {
-    return <>{props.ismycalendar ? <PresentCardList /> : <SendPresents />}</>;
+    return <>{props.ismycalendar ? <PresentCardList /> : <SendPresents currCalUserInfo={props.currCalUserInfo} />}</>;
   };
 
   return (

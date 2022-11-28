@@ -41,6 +41,7 @@ const APIInstance = (baseURL: string) => {
     // apiInstance.defaults.withCredentials = true;
     return apiInstance;
 };
+
 const PresentInstance = APIInstance(BASE_URL);
 const PresentAuthInstance = AuthAPIInstance(BASE_URL);
 

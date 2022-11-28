@@ -4,7 +4,7 @@ import { NextPage } from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import html2canvas from "html2canvas";
 import Calendar from "../component/Calendar";
-import Share from "../component/share/Share";
+import Share, { RedBtn } from "../component/share/Share";
 import ReactHowler from "react-howler";
 import { lazy, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
@@ -14,6 +14,7 @@ import { getCookie } from "../businesslogics/cookie";
 import { setGetMember } from "../api/hooks/useGetMember";
 import { MemberData } from "../util/type";
 import { useRouter } from "next/router";
+import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 
 const LinkCopy = styled(Icons)`
   margin-right: 24px;
@@ -28,6 +29,13 @@ const Bgm = styled(Icons)`
 `;
 const MuteBgm = styled(Icons)`
   background-image: url("/assets/image/icons/muteSpeaker.png");
+`;
+const GoBackMyCal = styled.div`
+  background: #ac473d;
+  border-radius: 12px;
+  color: white;
+  padding: 6px 15px;
+  text-align: center;
 `;
 
 const ButtonFlex = styled(Flex)`
@@ -46,9 +54,10 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 const Home: NextPage = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [mute, setMute] = useState(true);
   const [memberInfo, setMemberInfo] = useState<MemberData>();
+
 
   useEffect(() => {
     setBGM(mute);
@@ -85,10 +94,57 @@ const Home: NextPage = () => {
   useEffect(() => {
     getMemberData();
   }, []);
-  const currInvitationLink = router.pathname // 현재 invitation link
+  const currInvitationLink = router.pathname; // 현재 invitation link
   const ismycalendar =
-    memberInfo &&
-    currInvitationLink === memberInfo.invitationLink
+    memberInfo && currInvitationLink === memberInfo.invitationLink;
+
+  const MyCalendarBtn = () => {
+    return (
+      <>
+        <ButtonFlex>
+          <Friends onClick={clickFriendIconHandler} />
+          <FriendsModal
+            show={friendModalShow}
+            onHide={handleFriendsModalClose}
+          />
+          <Flex>
+            {/*BGM react-howler 라이브러리*/}
+            <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
+            <LinkCopy onClick={linkCopyHandler} />
+            {mute ? (
+              <Bgm onClick={() => muteHandler(mute)} />
+            ) : (
+              <MuteBgm onClick={() => muteHandler(mute)} />
+            )}
+          </Flex>
+        </ButtonFlex>
+        <Share />
+      </>
+    );
+  };
+
+  const handleGoMyCal = () => {
+    router.push(`/${memberInfo.invitationLink}`)
+  }
+
+  const FriendsCalendarBtn = () => {
+    return (
+      <>
+        <ButtonFlex>
+          <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>
+          <Flex>
+            {/*BGM react-howler 라이브러리*/}
+            <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
+            {mute ? (
+              <Bgm onClick={() => muteHandler(mute)} />
+            ) : (
+              <MuteBgm onClick={() => muteHandler(mute)} />
+            )}
+          </Flex>
+        </ButtonFlex>
+      </>
+    );
+  };
 
   return (
     <div id="home">
@@ -96,29 +152,7 @@ const Home: NextPage = () => {
         <Seo title="Home" />
         <MainContainer>
           <Calendar ismycalendar={ismycalendar} />
-          {ismycalendar && (
-            <>
-              <ButtonFlex>
-                {/* TODO : Kakao 친구 목록 연결 */}
-                <Friends onClick={clickFriendIconHandler} />
-                <FriendsModal
-                  show={friendModalShow}
-                  onHide={handleFriendsModalClose}
-                />
-                <Flex>
-                  {/*BGM react-howler 라이브러리*/}
-                  <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
-                  <LinkCopy onClick={linkCopyHandler} />
-                  {mute ? (
-                    <Bgm onClick={() => muteHandler(mute)} />
-                  ) : (
-                    <MuteBgm onClick={() => muteHandler(mute)} />
-                  )}
-                </Flex>
-              </ButtonFlex>
-              <Share />
-            </>
-          )}
+          {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
         <SnowballContainer>
           <Text>스노우볼을 움직여보세요</Text>

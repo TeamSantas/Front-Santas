@@ -17,7 +17,7 @@ const CustomFooter = styled(Modal.Footer)`
 `;
 
 
-const GreenCloseButton = styled.div`
+export const GreenCloseButton = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   width: 2rem;

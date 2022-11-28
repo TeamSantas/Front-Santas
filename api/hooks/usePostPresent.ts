@@ -6,4 +6,6 @@ export async function usePostPresent(postData) {
   const res = isAnonymous
     ? await PresentService.postPresent(postData)
     : await PresentService.postAuthPresent(postData);
+  
+  console.log("이미지 업로드 해치웠나 >>> ", res)
 }
