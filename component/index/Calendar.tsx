@@ -3,6 +3,7 @@ import PresentModal from "../receivedPresents/PresentModal";
 import { useEffect, useState } from "react";
 import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
 import { FriendsData } from "../../util/type";
+import CustomModal from "../common/CustomModal";
 
 const CalendarWrapper = styled.div`
   padding: 10px;
@@ -30,14 +31,40 @@ const Calendar = (props) => {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25,
   ];
+
+  // 현재 날짜 - ex) 20221129
+  const date = new Date();
+  const dateArray = date.toLocaleDateString().split(".").join("").split(" ");
+  const today = dateArray.join("");
+
   const [presentModalShow, setPresentModalShow] = useState(false);
-  const [selectedday, setSelectedDay] = useState("");
+  const [notYetModalShow, setNotYeModalShow] = useState(false);
+
+  const [selectedday, setSelectedDay] = useState(0);
+  const [canOpenCalendar, setCanOpenCalendar] = useState(false);
+
+  // 캘린더 오픈 가능 여부 체크
+  const selectedDayToCompare =
+    Number(selectedday) < 10 ? "2022120" + selectedday : "202212" + selectedday;
+
+  useEffect(() => {
+    if (Number(selectedDayToCompare) <= Number(today)) {
+      setCanOpenCalendar(true);
+    } else {
+      setCanOpenCalendar(false);
+    }
+  }, [selectedday]);
 
   const handleShow = (e) => {
     setSelectedDay(e.target.alt.split("day")[1]);
-    setPresentModalShow(true);
+    if (canOpenCalendar) {
+      setPresentModalShow(true);
+    } else {
+      setNotYeModalShow(true);
+    }
   };
-  const handleClose = () => setPresentModalShow(false);
+  const handleClosePresentModal = () => setPresentModalShow(false);
+  const handleCloseNotYetModal = () => setNotYeModalShow(false);
 
   // 캘린더 주인 유저 정보
   const [currCalUserInfo, setCurrCalUserInfo] = useState<FriendsData>();
@@ -53,6 +80,7 @@ const Calendar = (props) => {
     getCurrCalendarUserData();
   }, []);
 
+
   return (
     <>
       <CalendarWrapper>
@@ -67,10 +95,16 @@ const Calendar = (props) => {
       </CalendarWrapper>
       <PresentModal
         show={presentModalShow}
-        onHide={handleClose}
+        onHide={handleClosePresentModal}
         selectedday={selectedday}
         ismycalendar={props.ismycalendar}
         currCalUserInfo={currCalUserInfo}
+      />
+      <CustomModal
+        show={notYetModalShow}
+        onHide={handleCloseNotYetModal}
+        header={"아직 못 열어"}
+        text={"날짜가 지나야 돼"}
       />
     </>
   );

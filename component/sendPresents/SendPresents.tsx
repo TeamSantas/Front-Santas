@@ -6,7 +6,7 @@ import { setGetMember } from "../../api/hooks/useGetMember";
 import { MemberData } from "../../util/type";
 import { usePostPresent } from "../../api/hooks/usePostPresent";
 
-const PresentHeader = styled.div`
+export const PresentHeader = styled.div`
   font-size: x-large;
 `;
 
@@ -20,7 +20,7 @@ const JustifiedAlignedFlex = styled(Flex)`
   margin-bottom: 1rem;
 `;
 
-const TextArea = styled.div`
+export const TextArea = styled.div`
   outline-color: #ac473d;
   text-align: center;
   color: white;
@@ -32,7 +32,7 @@ const TextArea = styled.div`
   padding: 4.5rem;
 `;
 
-const SendPresentsWrapper = styled.div`
+export const SendPresentsWrapper = styled.div`
   text-align: center;
   color: white;
 `;
@@ -156,7 +156,7 @@ const SendPresents = (props) => {
   return (
     <SendPresentsWrapper>
       <PresentHeader>
-        {currCalUserName}에게 <br /> 쪽지를 보내보세요
+        {currCalUserName} 님에게<br /> 쪽지를 보내보세요
       </PresentHeader>
 
       <TextArea>
