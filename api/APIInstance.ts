@@ -1,6 +1,10 @@
 import axios from "axios";
+import {getCookie} from "../businesslogics/cookie";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+let accessToken = null;
+// let accessToken = getCookie('token');
 
 // Token 필요한 Axios
 const AuthAPIInstance = (baseURL: string) => {
@@ -9,7 +13,8 @@ const AuthAPIInstance = (baseURL: string) => {
     baseURL: baseURL,
     params: {},
     headers: {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_REFRESH_TOKEN}`,
+      Authorization: `Bearer ${accessToken}`,
+      // Authorization: `Bearer ${process.env.NEXT_PUBLIC_REFRESH_TOKEN}`
     },
   });
   // 응답 인터셉터 추가
@@ -49,7 +54,7 @@ const MemberInstance = APIInstance(BASE_URL);
 
 const SettingAuthInstance = AuthAPIInstance(BASE_URL);
 const FriendsAuthInstance = AuthAPIInstance(BASE_URL);
-const AuthInstance = APIInstance(BASE_URL);
+const AuthInstance = APIInstance(null);
 const AuthAuthInstance = AuthAPIInstance(BASE_URL);
 
 export {
