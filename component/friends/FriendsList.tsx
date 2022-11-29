@@ -2,9 +2,10 @@ import styled from "styled-components";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
 import Image from "next/image";
 import { Flex } from "../../styles/styledComponentModule";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
+import FriendsService from "../../api/FriendsService";
 
 export const AlignedFlex = styled(Flex)`
   align-items: center;
@@ -35,20 +36,54 @@ const FriendCard = styled.div`
   }
 `;
 
-const FriendsList = () => {
+const Container = styled.div`
+  height: 360px;
+  overflow: scroll;
+`;
+
+const LoadingContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+const LoadingHeader = styled.h2`
+  margin: 0;
+  padding: 0;
+  text-align: center;
+`;
+const Img = styled.img`
+  width:50px;
+  height:50px;
+  margin-right: 5px;
+  border-radius: 50px;
+`;
+
+const FriendsList = ({friendsData, isLoading}) => {
   const router = useRouter()
-  const [friendsData, setFriendsData] = useState<any>();
+  // const [friendsData, setFriendsData] = useState<any>([]);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
   // const [currFriendIsFavorite, setCurrFriendIsFavorite] =
   //   useState<boolean>(false);
-  const getFriendsData = async () => {
-    const res = await setGetFriend();
-    console.log(res);
-    setFriendsData(res);
-  };
+  
+  // const getKakaoFriendsData = async () => {
+  //   const res = await FriendsService.getKakaoFriends();
+  //   if (res.status !== 200) {
+  //     console.log('어라랍스타? 🦞', res);
+  //   }
+  // }
 
-  useEffect(() => {
-    getFriendsData();
-  }, []);
+  // const getFriendsData = async () => {
+  //   setIsLoading(true);
+  //   const res = await setGetFriend();
+  //   console.log(res);
+  //   setFriendsData(res);
+  //   setIsLoading(false);
+  // };
+
+  // useEffect(() => {
+  //   getFriendsData();
+  // }, []);
 
   // const handleClickFavoriteFriend = (isFavorite) => {
   //   // 친구한테 데이터 보내야 함
@@ -62,17 +97,11 @@ const FriendsList = () => {
       console.log("친구 캘린더로 가즈아~");
     };
 
+
     return (
       <>
         <AlignedFlex>
-          <Image
-            // src={props.profileImgUrl} // TODO : 실제 친구로 연결
-            src={`/assets/image/character/face_smile.png`}
-            alt="profile-img"
-            width={50}
-            height={50}
-            style={{ marginRight: "5px" }}
-          />
+          <Img src={(props.profileImgUrl).includes('http') ? props.profileImgUrl : '/assets/image/character/face_smile.png'} /> 
           <div>{props.name}</div>
           {/* MVP2 : 즐겨찾기 친구 */}
           {/* {props.isFavorite ? (
@@ -106,18 +135,30 @@ const FriendsList = () => {
   };
 
   return (
-    <>
-      {friendsData?.map((friend) => (
-        <FriendCard key={friend.memberId}>
-          <RenderFriendCardContents
-            profileImgUrl={friend.profileImgUrl}
-            name={friend.name}
-            invitationLink={friend.invitationLink}
-            isFavorite={friend.isFavorite}
-          />
-        </FriendCard>
-      ))}
-    </>
+    <Container>
+      {!isLoading && friendsData.length < 1 ?
+        (<LoadingContainer>
+          <img src="/assets/image/character/face_crycry.png" width="200"/>
+          <LoadingHeader>"친구가...없써...!"</LoadingHeader>
+        </LoadingContainer>)
+      : null}
+      {isLoading ? 
+        (<LoadingContainer>
+          <img src="/assets/image/character/spinner.gif" alt="spinner"/>
+          <LoadingHeader>친구들 모으는중</LoadingHeader>
+        </LoadingContainer>) : 
+        (friendsData?.map((friend, idx) => (
+          <FriendCard key={friend.memberId+idx}>
+            <RenderFriendCardContents
+              profileImgUrl={friend.profileImgUrl}
+              name={friend.name}
+              invitationLink={friend.invitationLink}
+              isFavorite={friend.isFavorite}
+            />
+          </FriendCard>))
+        )
+      }
+    </Container>
   );
 };
 
