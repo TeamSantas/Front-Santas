@@ -5,6 +5,7 @@ import {
   CustomBody,
   CustomFooter,
   CustomHeader,
+  Flex,
   GreenCloseButton,
 } from "../../styles/styledComponentModule";
 import FriendsList from "./FriendsList";
