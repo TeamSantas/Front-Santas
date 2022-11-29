@@ -138,13 +138,13 @@ const Home: NextPage = (props) => {
   // const ismycalendar = true;`
   const [ismycalendar, setIsmycalendar] = useState(true);
   const handleCalendarOwner = () => {
-    setIsmycalendar(true)
-    // console.log(Object.keys(props).length, "어라랍스타🦞 >>>>>")
-    // if (Object.keys(props).length < 1 || !props.data) {
-    //   setIsmycalendar(true);
-    // } else {
-    //   setIsmycalendar(false);
-    // }
+    // setIsmycalendar(true)
+    console.log(Object.keys(props).length, "어라랍스타🦞 >>>>>")
+    if (Object.keys(props).length < 1 || !props.data) {
+      setIsmycalendar(true);
+    } else {
+      setIsmycalendar(false);
+    }
   }
 
 

@@ -78,7 +78,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
       })}
       <Contents>내용 {body.contents}</Contents>
       <ReceivedDate>{body.receivedDate}</ReceivedDate>
-      <LockIcon>{isPublic ? "🔒" : "🔓"}</LockIcon>
+      <LockIcon>{isPublic ? "🔓" : "🔒"}</LockIcon>
       {isReceived ? (
         <ChangePublicRedBtn
           onClick={() => {

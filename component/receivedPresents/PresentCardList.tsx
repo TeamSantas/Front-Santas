@@ -1,3 +1,4 @@
+import { render } from "@react-three/fiber";
 import "bootstrap/dist/css/bootstrap.css";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -10,6 +11,11 @@ import Card from "./Card";
 const TabFlex = styled(Flex)`
   flex-direction: row;
   flex-wrap: wrap;
+`;
+
+const Default = styled.img`
+  background-image: url(/assets/image/present/default_present_bg.svg);
+  width: 100%;
 `;
 
 const PresentCardList = ({ selectedday }) => {
@@ -29,14 +35,30 @@ const PresentCardList = ({ selectedday }) => {
     initReceivedPresentList();
   }, []);
 
-  // console.log("receivedPresentList >>> ", receivedPresentList)
+  // console.log(receiverId, receivedDay);
+  // console.log("receivedPresentList >>> ", receivedPresentList);
+  const defaultText = `아직 받은 선물이 없어요. 
+  먼저 산타가 되어보는 건 어때요?🎅 
+  `;
   return (
     <>
-      <TabFlex>
-        {receivedPresentList?.map((present) => (
-          <Card key={present.id} id={present.id} thumbnail={present.imageURL} />
-        ))}
-      </TabFlex>
+      {receivedPresentList ? (
+        <TabFlex>
+          {receivedPresentList.map((present) => (
+            <Card
+              key={present.id}
+              id={present.id}
+              thumbnail={present.imageURL}
+            />
+          ))}
+        </TabFlex>
+      ) : (
+        // TODO : default 사진 CSS 수정 필요한지 확인해보기
+        <>
+          <h1>{defaultText}</h1>
+          <Default />
+        </>
+      )}
     </>
   );
 };
