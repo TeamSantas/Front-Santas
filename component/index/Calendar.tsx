@@ -35,6 +35,7 @@ const Calendar = (props) => {
   // 현재 날짜 - ex) 20221129
   const date = new Date();
   const dateArray = date.toLocaleDateString().split(".").join("").split(" ");
+  const today_day = dateArray[2];
   const today = dateArray.join("");
 
   const [presentModalShow, setPresentModalShow] = useState(false);
@@ -80,18 +81,26 @@ const Calendar = (props) => {
     getCurrCalendarUserData();
   }, []);
 
-
   return (
     <>
       <CalendarWrapper>
-        {days.map((day, idx) => (
-          <DayImage
-            src={`/assets/image/days/day${idx + 1}.svg`}
-            onClick={handleShow}
-            alt={`day${idx + 1}`}
-            key={day}
-          />
-        ))}
+        {days.map((day, idx) =>
+          day > Number(today_day) ? (
+            <DayImage
+              src={`/assets/image/days/day${idx + 1}.svg`}
+              onClick={handleShow}
+              alt={`day${idx + 1}`}
+              key={day}
+            />
+          ) : (
+            <DayImage
+              src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
+              onClick={handleShow}
+              alt={`day${idx + 1}`}
+              key={day}
+            />
+          )
+        )}
       </CalendarWrapper>
       <PresentModal
         show={presentModalShow}
