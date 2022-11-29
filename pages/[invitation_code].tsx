@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
-import { tmpdir } from "os";
 import { useContext, useEffect, useMemo, useState } from "react";
 import Home from ".";
 import FriendsService from "../api/FriendsService";
 import { storeContext } from "../store/Store";
+import { dataProps } from "../util/type";
 
 export default function OtherCalendar () {
   const router = useRouter();
   const { storeUserData } = useContext(storeContext);
   const [code, setCode] = useState('');
-  const [userData, setUserData] = useState({data: null});
+  const [userData, setUserData] = useState({});
 
   const handleInvitationCode = () => {
     if (typeof window !== 'undefined') {

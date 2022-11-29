@@ -18,7 +18,7 @@ const FriendsModal = (props) => {
 
   const getKakaoFriendsData = async () => {
     setIsLoading(true);
-    const res = await FriendsService.getKakaoFriends();
+    const res:any = await FriendsService.getKakaoFriends();
     if (res.status !== 200) {
       // console.log("어라랍스타? 🦞", res);
       alert(res.response.data.message);
