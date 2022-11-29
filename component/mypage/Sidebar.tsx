@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Switch from "react-switch";
-import { useGetLogin } from "../../api/hooks/useGetLogin";
 import Link from "next/link";
 import { setPutPush, useGetPush } from "../../api/hooks/useStting";
 
@@ -134,7 +133,7 @@ const Sidebar = (props) => {
           <IndexDiv>
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
-              <Index onClick={useGetLogin}>로그아웃</Index>
+              <Index onClick={" "}>로그아웃</Index>
             </Li>
             <Hr />
           </IndexDiv>
