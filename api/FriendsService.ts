@@ -12,10 +12,10 @@ class FriendsService {
   }
 
   //링크로 친구 검색하기 🔑
-  getFriend = (config) => {
+  getFriend = (link:string) => {
+    console.log(link, "링크로친구검색하기api");
     return FriendsAuthInstance.get<ResponseData<FriendsData>>(
-      `/api/friend/search`,
-      config
+      `/api/friend/search?link=${link}`
     );
   };
 }
