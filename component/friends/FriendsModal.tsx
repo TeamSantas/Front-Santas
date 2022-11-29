@@ -11,11 +11,13 @@ const FriendsModal = (props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getKakaoFriendsData = async () => {
+    setIsLoading(true);
     const res = await FriendsService.getKakaoFriends();
     if (res.status !== 200) {
       console.log('어라랍스타? 🦞', res);
       alert(res.response.data.message);
     }
+    setIsLoading(false);
   }
 
   const getFriendsData = async () => {
