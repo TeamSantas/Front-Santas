@@ -6,7 +6,7 @@ import Calendar from "../component/index/Calendar";
 import Share, { RedBtn } from "../component/share/Share";
 import { getCookie } from "../businesslogics/cookie";
 import ReactHowler from "react-howler";
-import { lazy, useEffect, useState } from "react";
+import { lazy, useContext, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { Suspense } from "react";
@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
 import InformationModal from "../component/index/InformationModal";
+import { storeContext } from "../store/store";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -66,6 +67,7 @@ const SnowballContainer = styled(MainContainer)`
 `;
 const Home: NextPage = () => {
   const router = useRouter();
+  const { storeUserData, updateUserData } = useContext(storeContext);
   const [memberInfo, setMemberInfo] = useState<MemberData>();
 
   const [myBGM, setMyBGM] = useState<any>(null);
@@ -101,9 +103,7 @@ const Home: NextPage = () => {
   // info modal
   const [informationModalShow, setInformationModalShow] = useState(false);
   const clickInformationIconHandler = () => {
-    console.log("hello?")
     setInformationModalShow(true);
-    console.log(informationModalShow)
   };
   const handleInformationModalClose = () => setInformationModalShow(false);
 
@@ -120,13 +120,19 @@ const Home: NextPage = () => {
     const res = await setGetMember();
     setMemberInfo(res);
   };
+  const storeMemberData = async () => {
+    const userData = await updateUserData();
+    setMemberInfo(userData);
+  };
   useEffect(() => {
-    getMemberData();
+    // getMemberData();
+    storeMemberData();
   }, []);
+
   const currInvitationLink = router.pathname; // 현재 invitation link
-  // const ismycalendar =
-  //   memberInfo && currInvitationLink === memberInfo.invitationLink;
-  const ismycalendar = true;
+  const ismycalendar =
+    memberInfo && currInvitationLink === memberInfo.invitationLink;
+  // const ismycalendar = true;
 
   const MyCalendarBtn = () => {
     return (
@@ -160,6 +166,8 @@ const Home: NextPage = () => {
       </>
     );
   };
+
+  console.log(storeUserData);
 
   const handleGoMyCal = () => {
     router.push(`/${memberInfo.invitationLink}`);
@@ -198,11 +206,15 @@ const Home: NextPage = () => {
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
         <SnowballContainer>
-          <Suspense fallback={<img src="/assets/image/character/spinner.gif" alt="spinner"/>}>
-          <Text>스노우볼을 움직여보세요</Text>
-          <Canvas>
-            <ModelComponent />
-          </Canvas>
+          <Suspense
+            fallback={
+              <img src="/assets/image/character/spinner.gif" alt="spinner" />
+            }
+          >
+            <Text>스노우볼을 움직여보세요</Text>
+            <Canvas>
+              <ModelComponent />
+            </Canvas>
           </Suspense>
         </SnowballContainer>
       </Flex>

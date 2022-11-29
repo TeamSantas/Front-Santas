@@ -3,6 +3,7 @@ import PresentService from "../PresentService";
 
 export async function useGetPresent() {
     const res = await PresentService.getUserPresentList();
+    //res가 status 200/ok 인지 확인하기!
     console.log(res);
     return res;
 }

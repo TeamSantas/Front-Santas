@@ -7,6 +7,7 @@ import PushNotification from "../component/PushNotification";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
 import * as ga from '../lib/gtag';
+import Store from "../store/store";
 
 declare global {
   interface Window {
@@ -27,10 +28,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, [router.events]);
 
   return (
-    <Layout>
-      <PushNotification />
-      <Component {...pageProps} />
-    </Layout>
+    <Store>
+      <Layout>
+        <PushNotification />
+        <Component {...pageProps} />
+      </Layout>
+    </Store>
   );
 }
 
