@@ -66,7 +66,7 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 const Home: NextPage = (props) => {
-  console.log(props, "인덱스에넘겨주는프롭스")
+  // console.log(props, "인덱스에넘겨주는프롭스")
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
   const { storeUserData, updateUserData } = useContext(storeContext);
@@ -138,6 +138,7 @@ const Home: NextPage = (props) => {
   // const ismycalendar = true;`
   const [ismycalendar, setIsmycalendar] = useState(true);
   const handleCalendarOwner = () => {
+    // setIsmycalendar(true)
     console.log(Object.keys(props).length, "어라랍스타🦞 >>>>>")
     if (Object.keys(props).length < 1 || !props.data) {
       setIsmycalendar(true);
@@ -145,6 +146,7 @@ const Home: NextPage = (props) => {
       setIsmycalendar(false);
     }
   }
+
 
   const MyCalendarBtn = () => {``
     return (
@@ -179,7 +181,7 @@ const Home: NextPage = (props) => {
     );
   };
 
-  console.log(storeUserData);
+  // console.log(storeUserData);
 
   const handleGoMyCal = () => {
     router.push(`/${memberInfo.invitationLink}`);

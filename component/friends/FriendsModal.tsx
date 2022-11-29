@@ -20,16 +20,16 @@ const FriendsModal = (props) => {
     setIsLoading(true);
     const res = await FriendsService.getKakaoFriends();
     if (res.status !== 200) {
-      console.log('어라랍스타? 🦞', res);
+      // console.log("어라랍스타? 🦞", res);
       alert(res.response.data.message);
     }
     setIsLoading(false);
-  }
+  };
 
   const getFriendsData = async () => {
     setIsLoading(true);
     const res = await setGetFriend();
-    console.log(res);
+    // console.log(res);
     setFriendsData(res);
     setIsLoading(false);
   };
@@ -46,9 +46,7 @@ const FriendsModal = (props) => {
       centered
     >
       <CustomHeader>
-        <Modal.Title id="contained-modal-title-vcenter">
-          친구 목록
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">친구 목록</Modal.Title>
         <GreenCloseButton onClick={props.onHide} />
       </CustomHeader>
       <CustomBody>
@@ -56,12 +54,23 @@ const FriendsModal = (props) => {
       </CustomBody>
       <CustomFooter>
         <ButtonFlex>
-          <UpdateBtn onClick={() => { getFriendsData() } }>친구목록 새로고침</UpdateBtn>
-          <UpdateBtn onClick={() => { getKakaoFriendsData() } }>친구목록 업데이트</UpdateBtn>
+          <UpdateBtn
+            onClick={() => {
+              getFriendsData();
+            }}
+          >
+            친구목록 새로고침
+          </UpdateBtn>
+          <UpdateBtn
+            onClick={() => {
+              getKakaoFriendsData();
+            }}
+          >
+            친구목록 업데이트
+          </UpdateBtn>
         </ButtonFlex>
       </CustomFooter>
     </Modal>
-
   );
 };
 

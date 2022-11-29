@@ -27,7 +27,6 @@ const ReceivedPresentList = () => {
           key={present.id}
           id={present.id}
           thumbnail={present.imageURL}
-          // type={present.type}
           type={"RECEIVED"}
         />
       ))}

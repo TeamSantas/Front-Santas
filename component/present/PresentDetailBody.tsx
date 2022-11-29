@@ -32,7 +32,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     link.href = url;
     link.download = "present";
     link.setAttribute("download", `present.jpg`);
-    console.log(link);
+    // console.log(link);
     document.body.appendChild(link);
     link.click();
     link.parentNode.removeChild(link);
@@ -44,7 +44,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
       !isPublic
     );
     setIsPublic(!isPublic);
-    console.log(res);
+    // console.log(res);
     handleDetail();
   };
 
@@ -78,7 +78,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
       })}
       <Contents>내용 {body.contents}</Contents>
       <ReceivedDate>{body.receivedDate}</ReceivedDate>
-      <LockIcon>{isPublic ? "🔒" : "🔓"}</LockIcon>
+      <LockIcon>{isPublic ? "🔓" : "🔒"}</LockIcon>
       {isReceived ? (
         <ChangePublicRedBtn
           onClick={() => {

@@ -70,7 +70,7 @@ const Card = (props) => {
   const initPresentDetail = async () => {
     // const res = (await PresentService.getDetailPresent(props.id)).data.data;
     const res = await setGetPresentDetail(props.id);
-    console.log(">>>>>", res);
+    // console.log(">>>>>", res);
     setPresentDetail(res);
   };
 
@@ -83,7 +83,6 @@ const Card = (props) => {
       <TabCard>
         <CardImg
           id={`${props.id}`}
-          // src={`/assets/image/${props.thumbnail}.${props.type}`}
           src={
             props.thumbnail === "default"
               ? `/assets/image/present/5.png`
