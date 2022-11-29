@@ -24,7 +24,7 @@ export default function OtherCalendar () {
   
   const getLinkMember = async (code) => {
     const res = await FriendsService.getFriend(code);
-    console.log(res, "링크멤버가져오기");
+    // console.log(res, "링크멤버가져오기");
     setUserData(res.data.data);
   }
 

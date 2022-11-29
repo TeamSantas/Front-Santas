@@ -16,7 +16,7 @@ const SendPresentList = () => {
   useEffect(() => {
     const initSendPresentList = async () => {
       const res = await PresentService.getUserSendPresent();
-      console.log(res.data.data);
+      // console.log(res.data.data);
       setSentPresentList(res.data.data.content);
     };
     initSendPresentList();
@@ -29,7 +29,6 @@ const SendPresentList = () => {
           key={present.id}
           id={present.id}
           thumbnail={present.imageURL}
-          // type={present.type}
           type={"SEND"}
         />
       ))}

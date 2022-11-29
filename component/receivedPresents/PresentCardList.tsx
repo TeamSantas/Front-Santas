@@ -1,5 +1,9 @@
 import "bootstrap/dist/css/bootstrap.css";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { setGetDayPresents } from "../../api/hooks/useGetDayPresents";
+import PresentService from "../../api/PresentService";
+import { storeContext } from "../../store/Store";
 import { Flex } from "../../styles/styledComponentModule";
 import Card from "./Card";
 
@@ -7,41 +11,30 @@ const TabFlex = styled(Flex)`
   flex-direction: row;
   flex-wrap: wrap;
 `;
-const presentsData = [
-  {
-    id: 0,
-    thumbnail: "face",
-    type: "svg",
-  },
-  {
-    id: 1,
-    thumbnail: "Calendar",
-    type: "svg",
-  },
-  {
-    id: 2,
-    thumbnail: "Calendar",
-    type: "svg",
-  },
-  {
-    id: 3,
-    thumbnail: "face",
-    type: "svg",
-  },
-];
 
-const PresentCardList = (props) => {
-  // TODO : 실제 받은 데이터로 map 돌리기
+const PresentCardList = ({ selectedday }) => {
+  const { storeUserData } = useContext(storeContext);
+  const receiverId = storeUserData.id;
+  const receivedDay =
+    selectedday < 10 ? `2022-12-0${selectedday}` : `2022-12-${selectedday}`;
+
+  const [receivedPresentList, setReceivedPresentList] = useState([]);
+
+  useEffect(() => {
+    const initReceivedPresentList = async () => {
+      const res = await setGetDayPresents(receiverId, receivedDay);
+      // console.log("receivedPresentList >>> ", res.content)
+      setReceivedPresentList(res.content);
+    };
+    initReceivedPresentList();
+  }, []);
+
+  // console.log("receivedPresentList >>> ", receivedPresentList)
   return (
     <>
       <TabFlex>
-        {presentsData?.map((present) => (
-          <Card
-            key={present.id}
-            id={present.id}
-            thumbnail={present.thumbnail}
-            type={present.type}
-          />
+        {receivedPresentList?.map((present) => (
+          <Card key={present.id} id={present.id} thumbnail={present.imageURL} />
         ))}
       </TabFlex>
     </>
