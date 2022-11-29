@@ -16,15 +16,18 @@ class PresentService {
     return PresentAuthInstance.get<ResponseData<any>>(`/api/present/my/send`);
   };
 
-
   //로그인한 유저의 받은 모든 선물목록 조회 API 🔑
   getLoggedUserPresentList = () => {
-    return PresentAuthInstance.get<ResponseData<any>>(`/api/present/my/receive`);
+    return PresentAuthInstance.get<ResponseData<any>>(
+      `/api/present/my/receive`
+    );
   };
 
   //선물 상세보기 🔑
   getDetailPresent = (presentId: number) => {
-    return PresentInstance.get<ResponseData<any>>(`/api/present/detail/${presentId}`);
+    return PresentInstance.get<ResponseData<any>>(
+      `/api/present/detail/${presentId}`
+    );
   };
 
   // 쪽지 보내기 API (쪽지or이미지and닉네임)
@@ -42,10 +45,11 @@ class PresentService {
   };
 
   //받은선물 공개 여부 설정 🔑
-  putPresent_OnOff_Status = (presentId:number, isPublic:boolean) => {
+  putPresent_OnOff_Status = (presentId: number, isPublic: boolean) => {
     console.log(presentId, isPublic);
-    return PresentAuthInstance.put(
-      `/api/present/${presentId}`, null, { params : { "isPublic": isPublic} });
+    return PresentAuthInstance.put(`/api/present/${presentId}`, null, {
+      params: { isPublic: isPublic },
+    });
   };
 }
 export default new PresentService();

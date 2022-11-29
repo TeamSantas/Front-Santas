@@ -11,29 +11,29 @@ const TabFlex = styled(Flex)`
   text-align: center;
 `;
 const SendPresentList = () => {
-    const [sentPresentList, setSentPresentList] = useState([]);
+  const [sentPresentList, setSentPresentList] = useState([]);
 
-    useEffect(() => {
-        const initSendPresentList = async () => {
-          const res = await PresentService.getUserSendPresent();
-          console.log(res.data.data);
-          setSentPresentList(res.data.data.content);
-        }
-        initSendPresentList();
-      }, [])
+  useEffect(() => {
+    const initSendPresentList = async () => {
+      const res = await PresentService.getUserSendPresent();
+      console.log(res.data.data);
+      setSentPresentList(res.data.data.content);
+    };
+    initSendPresentList();
+  }, []);
 
-    return (
-        <TabFlex>
-            {sentPresentList?.map((present) => (
-                <Card
-                    key={present.id}
-                    id={present.id}
-                    thumbnail={present.imageURL}
-                    // type={present.type}
-                    type={"SEND"}
-                />
-          ))}
-        </TabFlex>
-    )
-}
-export default SendPresentList
+  return (
+    <TabFlex>
+      {sentPresentList?.map((present) => (
+        <Card
+          key={present.id}
+          id={present.id}
+          thumbnail={present.imageURL}
+          // type={present.type}
+          type={"SEND"}
+        />
+      ))}
+    </TabFlex>
+  );
+};
+export default SendPresentList;

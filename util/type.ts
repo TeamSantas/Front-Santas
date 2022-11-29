@@ -5,9 +5,11 @@ declare global {
 }
 
 export const pageview = (url) => {
-  window.gtag("config", process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS, {
-    page_path: url,
-  });
+  if (typeof window !== "undefined") {
+    window.gtag("config", process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS, {
+      page_path: url,
+    });
+  }
 };
 
 export type ResponseData<T> = {
@@ -23,18 +25,32 @@ export interface MemberData {
   profileImageURL: string;
   email: string;
   invitationLink: string;
-  setting : {
+  setting: {
     id: number;
     isAlert: boolean;
     bgm: boolean;
     fcmtokens: string;
   };
 }
-export interface PutMemberData{
+export interface PutMemberData {
   nickname: string;
   profileImageURL: string;
   statusMessage: string;
 }
+
+export const defaultMemberData = {
+  id: "",
+  nickname: "",
+  profileImageURL: "",
+  email: "",
+  invitationLink: "",
+  setting: {
+    id: -1,
+    isAlert: false,
+    bgm: false,
+    fcmtokens: "",
+  },
+};
 
 // Friends types ------------------------------------
 export interface FriendsData {
@@ -63,19 +79,18 @@ export interface postPresentData {
 }
 
 export interface presentDetail {
-  id: number,
-  receiverId:  number,
-  senderId:  number,
-  nickname: string,
-  isAnonymous: boolean,
-  isPublic: boolean,
-  title: string,
-  contents: string,
-  imageURL: [],
-  receivedDate: string
+  id: number;
+  receiverId: number;
+  senderId: number;
+  nickname: string;
+  isAnonymous: boolean;
+  isPublic: boolean;
+  title: string;
+  contents: string;
+  imageURL: [];
+  receivedDate: string;
 }
 // Friend Search types
-
 
 // Setting types ------------------------------------
 export interface putPushData {
@@ -84,4 +99,3 @@ export interface putPushData {
 export interface putBGMData {
   bgmStatus: boolean;
 }
-

@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from "styled-components";
 
-const Title = styled.h2`
-    test-align: center;
+const Title = styled.h3`
     margin: 0;
 `;
 
 export default function PresentDetailHeader({nickname}) {
     return (
-        <Title>{nickname} 님이 보낸 선물입니다!</Title>
+        <Title>{nickname} 님의 선물 🎁</Title>
     );
 }

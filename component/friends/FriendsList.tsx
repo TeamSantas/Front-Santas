@@ -93,7 +93,7 @@ const FriendsList = ({friendsData, isLoading}) => {
 
   const RenderFriendCardContents = (props) => {
     const goFriendsCalendar = () => {
-      router.push(`/${props.invitationLink}`)
+      router.push(`/${props.invitationLink}`);
       console.log("친구 캘린더로 가즈아~");
     };
 

@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
 import TabView from "../component/tab/TabView";
-import {getLoggedMember} from "../api/hooks/useMember";
-import {useEffect, useState} from "react";
+import { getLoggedMember } from "../api/hooks/useMember";
+import { useEffect, useState } from "react";
 
 const Profile = styled.img`
   width: 150px;
@@ -41,20 +41,20 @@ const MyPage: NextPage = () => {
   const [myEmail, setMyEmail] = useState<any>(null);
   const [myProfileImg, setMyProfileImg] = useState<any>(null);
 
-    const getMyData = async () => {
-        const res = await getLoggedMember();
-        setMyName(res.data.nickname);
-        setMyEmail(res.data.email);
-        setMyProfileImg(res.data.profileImageURL);
+  const getMyData = async () => {
+    const res = await getLoggedMember();
+    setMyName(res.data.nickname);
+    setMyEmail(res.data.email);
+    setMyProfileImg(res.data.profileImageURL);
   };
-    useEffect(() => {
-        getMyData();
-    }, []);
+  useEffect(() => {
+    getMyData();
+  }, []);
 
   return (
     <MainContainer>
       <Seo title="MyPage" />
-      <Profile src={myProfileImg}/>
+      <Profile src={myProfileImg} />
       <CenterFlex>
         <Text name>{myName}</Text>
         {/*<Text nickName>{nickname}</Text>*/}

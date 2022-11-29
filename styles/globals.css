@@ -23,6 +23,7 @@ a:active {
 * {
   box-sizing: border-box;
   font-family: "BinggraeSamanco", binggraesamanco;
+  white-space: pre-wrap;
   /* color: white; */
 }
 ul {

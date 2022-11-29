@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { Alert, Button, Modal } from "react-bootstrap";
-import { GreenCloseButton, CustomHeader, CustomBody, CustomFooter, Flex } from "../../styles/styledComponentModule";
+import { Button, Modal } from "react-bootstrap";
+import {
+  CustomBody,
+  CustomFooter,
+  CustomHeader,
+  GreenCloseButton,
+} from "../../styles/styledComponentModule";
 import FriendsList from "./FriendsList";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
 import FriendsService from "../../api/FriendsService";

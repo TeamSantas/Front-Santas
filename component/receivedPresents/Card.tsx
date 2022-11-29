@@ -4,7 +4,7 @@ import { setGetPresentDetail } from "../../api/hooks/useGetPresentDetail";
 import CustomModal from "../common/CustomModal";
 import PresentDetailBody from "../present/PresentDetailBody";
 import PresentDetailHeader from "../present/PresentDetailHeader";
-import {presentDetail} from "../../util/type";
+import { presentDetail } from "../../util/type";
 
 export const StyledCard = styled.div`
   background: white;
@@ -97,21 +97,21 @@ const Card = (props) => {
         onHide={handleClose}
         selectedcard={selectedcard}
         header={
-          presentDetail === undefined ? (
-            "없음"
-          ) : (
+          presentDetail ? (
             <PresentDetailHeader nickname={presentDetail.nickname} />
+          ) : (
+            "없음"
           )
         }
         body={
-          presentDetail === undefined ? (
-            "없음"
-          ) : (
+          presentDetail ? (
             <PresentDetailBody
               body={presentDetail}
               handleDetail={initPresentDetail}
               type={props.type}
             />
+          ) : (
+            "없음"
           )
         }
       />
