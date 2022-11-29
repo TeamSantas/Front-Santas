@@ -71,6 +71,8 @@ const Calendar = (props) => {
   const [currCalUserInfo, setCurrCalUserInfo] = useState<FriendsData>();
 
   const getCurrCalendarUserData = async () => {
+    // TODO : 현재 캘린더의 invitation link로 변경
+    // 내 캘린더일 때(/)와 친구 캘린더일 때(/invitationLink) path 다르니 주의
     const res = await setGetCurrCalendarUserInfo(
       "e5017233-7ff2-4f61-aa44-29feb943f769"
     );
@@ -112,6 +114,7 @@ const Calendar = (props) => {
       <CustomModal
         show={notYetModalShow}
         onHide={handleCloseNotYetModal}
+        // TODO : 디자인 수정
         header={"아직 못 열어"}
         text={"날짜가 지나야 돼"}
       />
