@@ -14,12 +14,14 @@ const Container = styled.div`
 const shareKakao = () => {
   // TODO : inviteLink 실제 값으로 연결
   const inviteLink = "/test";
-  window.Kakao.Link.sendCustom({
-    templateId: 86453,
-    templateArgs: {
-      pagePathname: inviteLink,
-    },
-  });
+  if (typeof window !== "undefined") {
+    window.Kakao.Link.sendCustom({
+      templateId: 86453,
+      templateArgs: {
+        pagePathname: inviteLink,
+      },
+    });
+  }
 };
 
 //instargram, ect 공유
@@ -40,15 +42,19 @@ const shareWebShare = () => {
 const shareTwitter = () => {
   var sendText = "두근두근어드벤트캘린더"; // 전달할 텍스트
   var sendUrl = process.env.NEXT_PUBLIC_FRONT_URL; // 전달할 URL
-  window.open(
-    "https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl
-  );
+  if (typeof window !== "undefined") {
+    window.open(
+      "https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl
+    );
+  }
 };
 
 //페북공유
 const shareFacebook = () => {
   var sendUrl = process.env.NEXT_PUBLIC_FRONT_URL; // 전달할 URL
-  window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+  if (typeof window !== "undefined") {
+    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+  }
 };
 
 const ShareAPIButton = () => {
