@@ -11,7 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { Suspense } from "react";
 import { setGetMember } from "../api/hooks/useGetMember";
-import { MemberData } from "../util/type";
+import { dataProps, MemberData } from "../util/type";
 import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
@@ -65,8 +65,9 @@ const SnowballContainer = styled(MainContainer)`
     display: none;
   }
 `;
-const Home: NextPage = (props) => {
-  // console.log(props, "인덱스에넘겨주는프롭스")
+
+const Home: NextPage<dataProps> = (props:dataProps) => {
+  console.log(props, "인덱스에넘겨주는프롭스")
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
   const { storeUserData, updateUserData } = useContext(storeContext);
