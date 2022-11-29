@@ -142,7 +142,7 @@ const Sidebar = (props) => {
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index>
                 <StyledLink
-                  href={process.env.NEXT_PUBLIC_FRONT_URL + `onboarding`}
+                  href={`https://pitapat-adventcalendar.site/onboarding`}
                 >
                   스토리 다시보기
                 </StyledLink>
@@ -154,9 +154,7 @@ const Sidebar = (props) => {
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index>
-                <StyledLink
-                  href={process.env.NEXT_PUBLIC_FRONT_URL + `snowball`}
-                >
+                <StyledLink href={`https://pitapat-adventcalendar.site/snowball`}>
                   스노우볼
                 </StyledLink>
               </Index>

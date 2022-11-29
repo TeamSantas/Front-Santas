@@ -20,7 +20,7 @@ const Snowball : NextPage = () => {
     return (
         <SnowballContainer>
             <Text>스노우볼을 움직여보세요</Text>
-            <Suspense fallback={<h1>로딩중</h1>}>
+            <Suspense fallback={ <img src="/assets/image/character/spinner.gif" alt="spinner" />}>
             <Canvas>
                     <ModelComponent />
             </Canvas>
