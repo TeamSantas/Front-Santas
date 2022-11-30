@@ -5,7 +5,8 @@ import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
 import TabView from "../component/tab/TabView";
 import { getLoggedMember } from "../api/hooks/useMember";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { storeContext } from "../store/Store";
 
 const Profile = styled.img`
   width: 150px;
@@ -37,19 +38,21 @@ const Edit = styled(Icons)`
 
 const MyPage: NextPage = () => {
   const router = useRouter();
+  const { storeUserData, updateUserData } = useContext(storeContext);
   const [myName, setMyName] = useState<any>(null);
   const [myEmail, setMyEmail] = useState<any>(null);
   const [myProfileImg, setMyProfileImg] = useState<any>(null);
 
-  const getMyData = async () => {
-    const res = await getLoggedMember();
-    setMyName(res.data.nickname);
-    setMyEmail(res.data.email);
-    setMyProfileImg(res.data.profileImageURL);
-  };
+  const getUserData = async () => {
+    const res = await updateUserData();
+    setMyName(res.member.nickname);
+    setMyEmail(res.member.email);
+    setMyProfileImg(res.member.profileImageURL);
+  }
+
   useEffect(() => {
-    getMyData();
-  }, []);
+    getUserData();
+  }, [])
 
   return (
     <MainContainer>

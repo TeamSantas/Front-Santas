@@ -2,9 +2,8 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Switch from "react-switch";
-import { useGetLogin } from "../../api/hooks/useGetLogin";
-import Link from "next/link";
-import { setPutPush, useGetPush } from "../../api/hooks/useStting";
+import {getBGMPush, setPutPush} from "../../api/hooks/useStting";
+import {kakaoLogout} from "../../api/hooks/useKakaoLogin";
 
 const Container = styled.div`
   background-color: #3c6c54;
@@ -81,22 +80,28 @@ const Img = styled.img`
 `;
 
 const Background = styled.div`
-  width: 100vw;
-  height: 100vh;
+  position: fixed;
+  touch-action: none;
   opacity: 0.7;
-  position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 9;
   background-color: #191c21;
 `;
 
 const Sidebar = (props) => {
   const router = useRouter();
-  const isUserToggleOpen = useGetPush();
-  const [toggleValue, setToggleValue] = useState(isUserToggleOpen);
+  const [myBGM, setMyBGM] = useState<boolean>(true);
+  const run = async () => {
+    const res = await getBGMPush()
+    setMyBGM(res);
+  }
+  const [toggleValue, setToggleValue] = useState(myBGM);
   const toggleHandler = () => setToggleValue(!toggleValue);
   useEffect(() => {
+    run();
     setPutPush(toggleValue);
   }, [toggleValue]);
   return (
@@ -134,7 +139,11 @@ const Sidebar = (props) => {
           <IndexDiv>
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
-              <Index onClick={useGetLogin}>로그아웃</Index>
+              <Index onClick={()=>{
+                const result = kakaoLogout();
+                if(result === 'logout_ok')
+                  router.push('/logout');
+              }}>로그아웃</Index>
             </Li>
             <Hr />
           </IndexDiv>
@@ -143,9 +152,20 @@ const Sidebar = (props) => {
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index>
                 <StyledLink
-                  href={process.env.NEXT_PUBLIC_FRONT_URL + `/onboarding`}
+                    href={`https://pitapat-adventcalendar.site/onboarding`}
                 >
                   스토리 다시보기
+                </StyledLink>
+              </Index>
+            </Li>
+            <Hr />
+          </IndexDiv>
+          <IndexDiv>
+            <Li>
+              <Img src="/assets/image/character/face_heart_white.png" />
+              <Index>
+                <StyledLink href={`https://pitapat-adventcalendar.site/snowball`}>
+                  스노우볼
                 </StyledLink>
               </Index>
             </Li>

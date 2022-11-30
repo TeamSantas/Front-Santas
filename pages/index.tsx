@@ -11,7 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { Suspense } from "react";
 import { setGetMember } from "../api/hooks/useGetMember";
-import { dataProps, MemberData } from "../util/type";
+import { dataProps, MemberData, ResponseData } from "../util/type";
 import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
@@ -24,22 +24,26 @@ const MainIcons = styled(Icons)`
 
 const LinkCopy = styled(MainIcons)`
   margin-left: 15px;
-  background-image: url("/assets/image/icons/Link.png");
+  background-image: url("/assets/image/icons/Link.svg");
 `;
 const Friends = styled(MainIcons)`
-  background-image: url("/assets/image/icons/Users.png");
+  background-image: url("/assets/image/icons/Users.svg");
 `;
 const Info = styled(MainIcons)`
   width: 25px;
   margin-left: 15px;
   background-image: url("/assets/image/icons/information.svg");
 `;
+const Snowball = styled(MainIcons)`
+  margin-left: 15px;
+  background-image: url("/assets/image/icons/snowball.svg");
+`;
 
 const Bgm = styled(MainIcons)`
-  background-image: url("/assets/image/icons/SpeakerHigh.png");
+  background-image: url("/assets/image/icons/SpeakerHigh.svg");
 `;
 const MuteBgm = styled(MainIcons)`
-  background-image: url("/assets/image/icons/muteSpeaker.png");
+  background-image: url("/assets/image/icons/muteSpeaker.svg");
 `;
 const GoBackMyCal = styled.div`
   background: #ac473d;
@@ -50,6 +54,9 @@ const GoBackMyCal = styled.div`
 `;
 
 const ButtonFlex = styled(Flex)`
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
   width: 35rem;
   @media (max-width: 600px) {
     width: 90%;
@@ -75,8 +82,8 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
 
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
-    const res = await getLoggedMember();
-    setMyBGM(res.data.setting);
+    const res : ResponseData<MemberData> = await getLoggedMember();
+    setMyBGM(res.data.member.setting);
   };
   useEffect(() => {
     getMyBGM();
@@ -84,11 +91,19 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
 
   const [mute, setMute] = useState(myBGM);
   useEffect(() => {
-    setBGM(mute);
+    if (mute) {
+      setBGM(mute);
+    }
   }, [mute]);
 
-  const linkCopyHandler = () => {
-    // TODO : link copy 로직 추가 필요
+  const linkCopyHandler = async () => {
+    const copyURL = `https://pitapat-adventcalendar.site/${memberInfo.member.invitationLink}`
+    try {
+      await navigator.clipboard.writeText(copyURL);
+      alert('클립보드에 링크가 복사되었습니다.');
+    } catch (e) {
+      alert('복사에 실패하였습니다');
+    }
     console.log("Link copied!");
   };
   const muteHandler = (value) => setMute(!value);
@@ -110,6 +125,12 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   };
   const handleInformationModalClose = () => setInformationModalShow(false);
 
+  // snowball modal
+  const [snowballModalShow, setSnawballModalShow] = useState(false);
+  const clickSnowballIconHandler = () => {
+    setSnawballModalShow(!snowballModalShow);
+  }
+
   // cookie
   useEffect(() => {
     const onboardingCookie = getCookie("onboarding");
@@ -126,6 +147,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   const storeMemberData = async () => {
     const userData = await updateUserData();
     setMemberInfo(userData);
+    console.log('유저데이터 >>>>', userData);
   };
   useEffect(() => {
     // getMemberData();
@@ -170,6 +192,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
             ) : (
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
+            <Snowball onClick={clickSnowballIconHandler}/>
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
@@ -185,7 +208,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   // console.log(storeUserData);
 
   const handleGoMyCal = () => {
-    router.push(`/${memberInfo.invitationLink}`);
+    router.push(`/${memberInfo.member.invitationLink}`);
   };
 
   const FriendsCalendarBtn = () => {
@@ -201,6 +224,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
             ) : (
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
+            <Snowball onClick={clickSnowballIconHandler}/>
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
@@ -217,10 +241,10 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
       <Flex>
         <Seo title="Home" />
         <MainContainer>
-          <Calendar ismycalendar={ismycalendar} />
+          <Calendar ismycalendar={ismycalendar} link={props.link}/>
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
-        <SnowballContainer>
+        {snowballModalShow ? <SnowballContainer>
           <Suspense
             fallback={
               <img src="/assets/image/character/spinner.gif" alt="spinner" />
@@ -231,7 +255,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
               <ModelComponent />
             </Canvas>
           </Suspense>
-        </SnowballContainer>
+        </SnowballContainer> : null}
       </Flex>
     </div>
   );

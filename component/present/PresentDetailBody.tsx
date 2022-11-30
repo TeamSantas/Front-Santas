@@ -126,7 +126,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
 
       <ChangePublicGreenBtn
         onClick={() => {
-          router.push(`/${memberFoundById.invitationLink}`);
+          router.push(`/${memberFoundById.member.invitationLink}`);
         }}
       >
         {btnText}

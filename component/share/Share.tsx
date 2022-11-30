@@ -71,7 +71,7 @@ const Share = () => {
 
   const getMyData = async () => {
     const res = await getLoggedMember();
-    setMyData(res.data.nickname);
+    setMyData(res.data.member.nickname);
   };
 
   let memberName : string = null;

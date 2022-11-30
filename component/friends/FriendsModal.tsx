@@ -18,19 +18,25 @@ const FriendsModal = (props) => {
 
   const getKakaoFriendsData = async () => {
     setIsLoading(true);
-    const res:any = await FriendsService.getKakaoFriends();
-    if (res.status !== 200) {
-      // console.log("어라랍스타? 🦞", res);
-      alert(res.response.data.message);
+    try {
+      const res:any = await FriendsService.getKakaoFriends();
+      console.log(res, "카카오 친구를 불러와용")
+    } catch (e) {
+      console.log(e, "[🤬]카카오 친구를 불러와용");
     }
     setIsLoading(false);
   };
 
   const getFriendsData = async () => {
     setIsLoading(true);
-    const res = await setGetFriend();
-    // console.log(res);
-    setFriendsData(res);
+    try {
+      await setGetFriend().then((res) => {
+      console.log(res, "디비에 저장된 친구들을 불러와용")
+      setFriendsData(res);
+    });
+    } catch (e) {
+      console.log(e, "[🤬]디비에 저장된 친구들을 불러와용");
+    }
     setIsLoading(false);
   };
 
