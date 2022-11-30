@@ -120,9 +120,9 @@ const Share = () => {
           <TicketText>
             <h5>{myData}님의 어드벤트 캘린더✨</h5>
             <h6>- 받은 선물 개수 : {presentNum}개</h6>
-            <h6>[오늘의 행운의 아이템] </h6><h5>{randomEmoji.random({count: 3})}</h5>
             {Dday === -1 ?  <h6>- 크리스마스 : 아직도 11월..</h6>
                 :   <h6>- 크리스마스 : D-{date}</h6> }
+            <h6>[오늘의 행운의 아이템] </h6><h5> &nbsp; &nbsp;{randomEmoji.random({count: 3})}</h5>
           </TicketText>
           <TicketDay>
             <p> 오늘의 캘린더 조각 </p>
