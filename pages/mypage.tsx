@@ -44,10 +44,10 @@ const MyPage: NextPage = () => {
   const [myProfileImg, setMyProfileImg] = useState<any>(null);
 
   const getUserData = async () => {
-    const res = await updateUserData();
-    setMyName(res.member.nickname);
-    setMyEmail(res.member.email);
-    setMyProfileImg(res.member.profileImageURL);
+    const res = await getLoggedMember();
+    setMyName(res.nickname);
+    setMyEmail(res.email);
+    setMyProfileImg(res.profileImageURL);
   }
 
   useEffect(() => {
@@ -59,11 +59,11 @@ const MyPage: NextPage = () => {
       <Seo title="MyPage" />
       <Profile src={myProfileImg} />
       <CenterFlex>
-        <Text name>{myName}</Text>
+        <Text name={"true"}>{myName}</Text>
         {/*<Text nickName>{nickname}</Text>*/}
         <Edit onClick={() => router.push(`/edit`)}></Edit>
       </CenterFlex>
-      <Text email>{myEmail}</Text>
+      <Text email={"true"}>{myEmail}</Text>
       <TabView />
     </MainContainer>
   );

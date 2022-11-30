@@ -13,6 +13,7 @@ export async function KakaoLogin(code, state) {
     console.log("쿠키굽기");
     console.log(res);
     setCookie("token", res.data.data.token, 30);
+    setCookie('subToken', res.data.data.refreshToken,30);
     return res;
 };
 
