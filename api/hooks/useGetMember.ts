@@ -1,9 +1,7 @@
 import MemberService from "../MemberService";
 
 export async function setGetMember() {
-  const res = await MemberService.getLoggedMember();
-
-  if (res.status === 200) return res.data.data;
+  return await MemberService.getLoggedMember();
 }
 
 export async function setGetMemberById(memberId) {
@@ -12,7 +10,5 @@ export async function setGetMemberById(memberId) {
       memberId: memberId,
     },
   };
-  const res = await MemberService.getMemberById(config);
-
-  if (res.status === 200) return res.data.data;
+  return await MemberService.getMemberById(config);
 }

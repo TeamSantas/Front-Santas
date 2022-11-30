@@ -4,14 +4,6 @@ import {getCookie} from "../businesslogics/reactCookie";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-// useEffect(()=>{
-//   let accessToken = getCookie('token');
-// }, [])
-// 방법1... 컴포넌트에서 authAPI 호출할 때 instance.defaults.headers.common['Authorization'] = AUTH_TOKEN; 처럼 기존헤더에 추가해준다...(에바인듯)
-  // https://velog.io/@bigbrothershin/Next.js-SSR-cookie-%EB%84%A3%EC%96%B4%EC%A3%BC%EA%B8%B0
-// 방법2... ㅋㅋ..쿠키말고 중앙에 저장하기 ㅋㅋㅋㅋ(더에바인듯)
-// 방법3...
-
 const accessToken = getCookie('token');
 // console.log(">>>내쿠키어딧써")
 // console.log(getCookie('token'))

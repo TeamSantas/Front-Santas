@@ -69,15 +69,17 @@ const Card = (props) => {
 
   // prop된 카드정보를 가지고 세부정보를 가져온다.
   const initPresentDetail = async () => {
-    const res = await setGetPresentDetail(props.id);
-    // console.log(">>>>>", res);
-    setPresentDetail(res);
+    try {
+      const res = await setGetPresentDetail(props.id);
+      setPresentDetail(res.data.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
     initPresentDetail();
   }, []);
-
 
   return (
     <>

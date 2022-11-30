@@ -1,3 +1,4 @@
+// @ts-nocheck
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
@@ -20,7 +21,6 @@ const FriendsModal = (props) => {
     setIsLoading(true);
     try {
       const res:any = await FriendsService.getKakaoFriends();
-      console.log(res, "카카오 친구를 불러와용")
     } catch (e) {
       console.log(e, "[🤬]카카오 친구를 불러와용");
     }
@@ -31,7 +31,7 @@ const FriendsModal = (props) => {
     setIsLoading(true);
     try {
       await setGetFriend().then((res) => {
-      setFriendsData(res);
+      setFriendsData(res.data.data);
     });
     } catch (e) {
     }

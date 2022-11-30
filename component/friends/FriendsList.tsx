@@ -53,76 +53,62 @@ const LoadingHeader = styled.h2`
   text-align: center;
 `;
 const Img = styled.img`
-  width:50px;
-  height:50px;
+  width: 50px;
+  height: 50px;
   margin-right: 5px;
   border-radius: 50px;
 `;
 
-const FriendsList = ({friendsData, isLoading}) => {
-  const router = useRouter()
-  // const [friendsData, setFriendsData] = useState<any>([]);
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [currFriendIsFavorite, setCurrFriendIsFavorite] =
-  //   useState<boolean>(false);
-  
-  // const getKakaoFriendsData = async () => {
-  //   const res = await FriendsService.getKakaoFriends();
-  //   if (res.status !== 200) {
-  //     console.log('어라랍스타? 🦞', res);
-  //   }
-  // }
+const FriendsList = () => {
+  const router = useRouter();
+  const [friendsData, setFriendsData] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // const getFriendsData = async () => {
-  //   setIsLoading(true);
-  //   const res = await setGetFriend();
-  //   console.log(res);
-  //   setFriendsData(res);
-  //   setIsLoading(false);
-  // };
+  const getKakaoFriendsData = async () => {
+    try {
+      const res = await FriendsService.getKakaoFriends();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  // useEffect(() => {
-  //   getFriendsData();
-  // }, []);
+  const getFriendsData = async () => {
+    let res = [];
+    setIsLoading(true);
+    try {
+      const res = await setGetFriend();
+      if (res.data.data) setFriendsData(res.data.data);
+    } catch (e) {
+      console.log(e);
+    }
+    setIsLoading(false);
+  };
 
-  // const handleClickFavoriteFriend = (isFavorite) => {
-  //   // 친구한테 데이터 보내야 함
-  //   console.log("조아용");
-  //   setCurrFriendIsFavorite(!isFavorite);
-  // };
+  useEffect(() => {
+    getFriendsData();
+  }, []);
 
   const RenderFriendCardContents = (props) => {
     const goFriendsCalendar = () => {
-      router.push(`/${props.invitationLink}`);
-      console.log("친구 캘린더로 가즈아~");
+      if (props && props.invitationLink) {
+        router.push(`/${props.invitationLink}`);
+        console.log("친구 캘린더로 가즈아~");
+      } else {
+        console.log("props.invitationLink 업슴");
+      }
     };
-
 
     return (
       <>
         <AlignedFlex>
-          <Img src={(props.profileImgUrl).includes('http') ? props.profileImgUrl : '/assets/image/character/face_smile.png'} /> 
+          <Img
+            src={
+              props.profileImgUrl.includes("http")
+                ? props.profileImgUrl
+                : "/assets/image/character/face_smile.png"
+            }
+          />
           <div>{props.name}</div>
-          {/* MVP2 : 즐겨찾기 친구 */}
-          {/* {props.isFavorite ? (
-            <Image
-              // src={props.profileImgUrl}
-              src={`/assets/image/friend/fullheart.png`}
-              alt="profile-img"
-              width={30}
-              height={30}
-              onClick={handleClickFavoriteFriend}
-            />
-          ) : (
-            <Image
-              // src={props.profileImgUrl}
-              src={`/assets/image/friend/emptyheart.png`}
-              alt="profile-img"
-              width={30}
-              height={30}
-              onClick={handleClickFavoriteFriend}
-            />
-          )} */}
         </AlignedFlex>
 
         <Flex>
@@ -136,28 +122,29 @@ const FriendsList = ({friendsData, isLoading}) => {
 
   return (
     <Container>
-      {!isLoading && friendsData.length < 1 ?
-        (<LoadingContainer>
-          <img src="/assets/image/character/face_crycry.png" width="200"/>
+      {!isLoading && friendsData.length < 1 ? (
+        <LoadingContainer>
+          <img src="/assets/image/character/face_crycry.png" width="200" />
           <LoadingHeader>"친구가...없써...!"</LoadingHeader>
-        </LoadingContainer>)
-      : null}
-      {isLoading ? 
-        (<LoadingContainer>
-          <img src="/assets/image/character/spinner.gif" alt="spinner"/>
+        </LoadingContainer>
+      ) : null}
+      {isLoading ? (
+        <LoadingContainer>
+          <img src="/assets/image/character/spinner.gif" alt="spinner" />
           <LoadingHeader>친구들 모으는중</LoadingHeader>
-        </LoadingContainer>) : 
-        (friendsData?.map((friend, idx) => (
-          <FriendCard key={friend.memberId+idx}>
+        </LoadingContainer>
+      ) : (
+        friendsData?.map((friend, idx) => (
+          <FriendCard key={friend.memberId + idx}>
             <RenderFriendCardContents
               profileImgUrl={friend.profileImgUrl}
               name={friend.name}
               invitationLink={friend.invitationLink}
               isFavorite={friend.isFavorite}
             />
-          </FriendCard>))
-        )
-      }
+          </FriendCard>
+        ))
+      )}
     </Container>
   );
 };

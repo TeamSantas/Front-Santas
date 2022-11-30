@@ -45,7 +45,7 @@ const PresentModal = (props) => {
         {props.ismycalendar ? (
           <PresentCardList selectedday={props.selectedday} />
         ) : (
-          <SendPresents currCalUserInfo={props.currCalUserInfo} />
+          <SendPresents />
         )}
       </>
     );

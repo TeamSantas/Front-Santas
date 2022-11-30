@@ -3,7 +3,7 @@ import PresentService from "../PresentService";
 
 export async function usePostPresent(postData) {
   const isAnonymous = postData.get("isAnonymous");
-  const res = isAnonymous
+  return isAnonymous
     ? await PresentService.postPresent(postData)
     : await PresentService.postAuthPresent(postData);
 }

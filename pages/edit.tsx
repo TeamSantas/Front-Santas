@@ -1,9 +1,13 @@
 import { NextPage } from "next";
 import Seo from "../component/common/Seo";
-import { RedButton, Icons, MainContainer } from "../styles/styledComponentModule";
+import {
+  RedButton,
+  Icons,
+  MainContainer,
+} from "../styles/styledComponentModule";
 import styled from "styled-components";
-import {getLoggedMember} from "../api/hooks/useMember";
-import {useEffect, useState} from "react";
+import { getLoggedMember } from "../api/hooks/useMember";
+import { useEffect, useState } from "react";
 
 const Profile = styled.img`
   width: 150px;
@@ -50,25 +54,29 @@ const SubmitButton = styled(RedButton)`
 `;
 
 const Edit: NextPage = () => {
-    const [myName, setMyName] = useState<any>(null);
-    const [myEmail, setMyEmail] = useState<any>(null);
-    const [myProfileImg, setMyProfileImg] = useState<any>(null);
+  const [myName, setMyName] = useState<any>(null);
+  const [myEmail, setMyEmail] = useState<any>(null);
+  const [myProfileImg, setMyProfileImg] = useState<any>(null);
 
-    const getMyData = async () => {
-        const res = await getLoggedMember();
-        setMyName(res.nickname);
-        setMyEmail(res.email);
-        setMyProfileImg(res.profileImageURL);
-    };
-    useEffect(() => {
-        getMyData();
-    }, []);
+  const getMyData = async () => {
+    try {
+      const res = await getLoggedMember();
+      setMyName(res.nickname);
+      setMyEmail(res.email);
+      setMyProfileImg(res.profileImageURL);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getMyData();
+  }, []);
 
   return (
     <MainContainer>
       <Seo title="수정하기" />
-      <Profile src={myProfileImg}/>
-        <h5>뚝딱뚝딱 준비 중인 기능입니다🔧</h5>
+      <Profile src={myProfileImg} />
+      <h5>뚝딱뚝딱 준비 중인 기능입니다🔧</h5>
       <Container>
         <Info>이름</Info>
         <Text name placeholder={myName} disabled></Text>

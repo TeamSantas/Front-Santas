@@ -2,6 +2,5 @@
 import PresentService from "../PresentService";
 
 export async function setGetPresentDetail(presentId: number) {
-    const res = await PresentService.getDetailPresent(presentId);
-    if (res.status === 200) return res.data.data;
+    return await PresentService.getDetailPresent(presentId);
 }

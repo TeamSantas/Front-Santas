@@ -44,15 +44,19 @@ const MyPage: NextPage = () => {
   const [myProfileImg, setMyProfileImg] = useState<any>(null);
 
   const getUserData = async () => {
-    const res = await getLoggedMember();
-    setMyName(res.nickname);
-    setMyEmail(res.email);
-    setMyProfileImg(res.profileImageURL);
-  }
+    try {
+      const res = await updateUserData();
+      setMyName(res.data.member.nickname);
+      setMyEmail(res.data.member.email);
+      setMyProfileImg(res.data.member.profileImageURL);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     getUserData();
-  }, [myName])
+  }, []);
 
   return (
     <MainContainer>
