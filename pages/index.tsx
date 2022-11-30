@@ -83,7 +83,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
     const res : ResponseData<MemberData> = await getLoggedMember();
-    setMyBGM(res.data.setting);
+    setMyBGM(res.data.member.setting);
   };
   useEffect(() => {
     getMyBGM();
@@ -200,7 +200,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   // console.log(storeUserData);
 
   const handleGoMyCal = () => {
-    router.push(`/${memberInfo.invitationLink}`);
+    router.push(`/${memberInfo.member.invitationLink}`);
   };
 
   const FriendsCalendarBtn = () => {

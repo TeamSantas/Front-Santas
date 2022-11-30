@@ -56,9 +56,9 @@ const Edit: NextPage = () => {
 
     const getMyData = async () => {
         const res = await getLoggedMember();
-        setMyName(res.data.nickname);
-        setMyEmail(res.data.email);
-        setMyProfileImg(res.data.profileImageURL);
+        setMyName(res.data.member.nickname);
+        setMyEmail(res.data.member.email);
+        setMyProfileImg(res.data.member.profileImageURL);
     };
     useEffect(() => {
         getMyData();

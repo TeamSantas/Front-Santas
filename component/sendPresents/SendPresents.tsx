@@ -107,8 +107,8 @@ const SendPresents = (props) => {
   const handleCheckAnonymous = () => {
     setAnonymous(!isAnonymous);
     if (isAnonymous === false) {
-      if (memberInfo.nickname) {
-        setNickname(memberInfo.nickname);
+      if (memberInfo.member.nickname) {
+        setNickname(memberInfo.member.nickname);
       } else {
         setNickname("익명");
       }
@@ -122,8 +122,8 @@ const SendPresents = (props) => {
 
     if (inputNickname) {
       setNickname(inputNickname);
-    } else if (memberInfo.nickname) {
-      setNickname(memberInfo.nickname);
+    } else if (memberInfo.member.nickname) {
+      setNickname(memberInfo.member.nickname);
     }
     HandleImageSubmit();
   };
