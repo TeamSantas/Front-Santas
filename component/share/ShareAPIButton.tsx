@@ -13,7 +13,6 @@ const Container = styled.div`
 `;
 //kakao 공유
 const shareKakao = () => {
-  // TODO : inviteLink 실제 값으로 연결
   const inviteLink = getCookie("invitationLink");
   if (typeof window !== "undefined") {
     window.Kakao.Link.sendCustom({
