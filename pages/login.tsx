@@ -1,9 +1,9 @@
 import { NextPage } from "next";
-import Link from "next/link";
 import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
 import CustomModal from "../component/common/CustomModal";
 import { useState } from "react";
+import Link from "next/link";
 
 const Container = styled(MainContainer)`
   text-align: center;
@@ -37,17 +37,10 @@ const Login: NextPage = () => {
           하얀코와 함께
           <br /> 어드벤트 캘린더를 모으러 가볼까요?
         </h3>
-        <Link
-          href={
-            "http://ec2-43-201-99-216.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/kakao"
-          }
-        >
+        <Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=http://localhost:3000/oauth/callback/kakao"}>
+        {/*<Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=https://pitapat-adventcalendar.site/oauth/callback/kakao"}>*/}
           <img src="/assets/image/kakao_login_large_narrow.png" width="222" />
         </Link>
-        {/*<img src="/assets/image/kakao_login_large_narrow.png"*/}
-        {/*     onClick = {useGetLogin}*/}
-        {/*     width="222"*/}
-        {/*/>*/}
       </Container>
     </div>
   );

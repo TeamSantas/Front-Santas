@@ -9,8 +9,6 @@ export const getCookie = (name: string) => {
 };
 
 export const setCookie = (name, value, days = null) => {
-  console.log("쿠키 셋팅");
-  
   let expires = "";
   const domain = document.location.origin.includes(".spartacodingclub.kr")
     ? ".spartacodingclub.kr"
@@ -24,4 +22,8 @@ export const setCookie = (name, value, days = null) => {
   );
   expires = `; domain=${domain}; expires=${date.toUTCString()}${sameSite}`;
   document.cookie = name + "=" + (value || "") + expires + "; path=/";
+};
+
+export const removeCookie = (name : string) => {
+  document.cookie = name +'=; path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };
