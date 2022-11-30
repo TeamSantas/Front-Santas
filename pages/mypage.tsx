@@ -38,17 +38,21 @@ const Edit = styled(Icons)`
 
 const MyPage: NextPage = () => {
   const router = useRouter();
-  const { storeUserData } = useContext(storeContext);
+  const { storeUserData, updateUserData } = useContext(storeContext);
   const [myName, setMyName] = useState<any>(null);
   const [myEmail, setMyEmail] = useState<any>(null);
   const [myProfileImg, setMyProfileImg] = useState<any>(null);
 
+  const getUserData = async () => {
+    const res = await updateUserData();
+    setMyName(res.nickname);
+    setMyEmail(res.email);
+    setMyProfileImg(res.profileImageURL);
+  }
+
   useEffect(() => {
-    // console.log(storeUserData , ">>>>>>>>");
-    setMyName(storeUserData.nickname);
-    setMyEmail(storeUserData.email);
-    setMyProfileImg(storeUserData.profileImageURL);
-  })
+    getUserData();
+  }, [])
 
   return (
     <MainContainer>
