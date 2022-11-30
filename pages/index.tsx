@@ -87,7 +87,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   };
   useEffect(() => {
     getMyBGM();
-  }, []);
+  }, [myBGM]);
 
   const [mute, setMute] = useState(myBGM);
   useEffect(() => {
@@ -97,12 +97,12 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   }, [mute]);
 
   const linkCopyHandler = async () => {
-    const copyURL = `https://pitapat-adventcalendar.site/${memberInfo.member.invitationLink}`
+    const copyURL = `https://pitapat-adventcalendar.site/${getCookie('invitationLink')}`
     try {
       await navigator.clipboard.writeText(copyURL);
-      alert('클립보드에 링크가 복사되었습니다.');
+      alert('내 캘린더 링크가 복사되었습니다.');
     } catch (e) {
-      alert('복사에 실패하였습니다');
+      alert('내 캘린더 링크복사에 실패하였습니다');
     }
     console.log("Link copied!");
   };
