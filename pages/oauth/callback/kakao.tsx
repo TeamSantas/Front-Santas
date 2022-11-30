@@ -15,14 +15,11 @@ const Kakao : NextPage = () => {
     const {updateRefreshToken} = useContext(storeContext);
     const run = async () => {
         const res = await KakaoLogin(new URL(window.location.href).searchParams.get("code"), new URL(window.location.href).searchParams.get("state"));
-        console.log(res)
         setRefresh(res.data.data.refreshToken);
     }
 
     const getUserData = async () => {
         const res = await getLoggedMember();
-        console.log(">>>>>>>>res ")
-        console.log(res.invitationLink )
         setCookie('invitationLink', res.invitationLink, 30);
     }
 

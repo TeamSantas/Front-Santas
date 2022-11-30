@@ -52,7 +52,7 @@ const MyPage: NextPage = () => {
 
   useEffect(() => {
     getUserData();
-  }, [])
+  }, [myName])
 
   return (
     <MainContainer>
