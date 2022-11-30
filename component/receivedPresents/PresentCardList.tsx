@@ -1,92 +1,128 @@
-import { render } from "@react-three/fiber";
-import "bootstrap/dist/css/bootstrap.css";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { setGetDayPresents } from "../../api/hooks/useGetDayPresents";
-import { setGetMember } from "../../api/hooks/useGetMember";
-import PresentService from "../../api/PresentService";
-import { storeContext } from "../../store/Store";
-import { Flex } from "../../styles/styledComponentModule";
-import { MemberData } from "../../util/type";
-import Card from "./Card";
-import {getLoggedMember} from "../../api/hooks/useMember";
+import { setGetPresentDetail } from "../../api/hooks/useGetPresentDetail";
+import CustomModal from "../common/CustomModal";
+import PresentDetailBody from "../present/PresentDetailBody";
+import PresentDetailHeader from "../present/PresentDetailHeader";
+import { presentDetail } from "../../util/type";
 
-const TabFlex = styled(Flex)`
-  flex-direction: row;
-  flex-wrap: wrap;
+export const StyledCard = styled.div`
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+  padding: 20px;
+  width: 50%;
+  height: 350px;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
+  overflow: hidden;
+  @media (max-width: 1000px) {
+    height: 200px;
+  }
+  @media (max-width: 600px) {
+    height: 150px;
+  }
 `;
 
-const Default = styled.img`
-  background-image: url(/assets/image/present/default_present_bg.svg);
-  width: 100%;
+const TabCard = styled(StyledCard)`
+  margin: 10px 5px;
+  width: 30%;
+  position: relative;
+
+  @media (max-width: 600px) {
+    width: 32vw;
+    margin: 10px auto;
+  }
+  @media (max-width: 400px) {
+    width: 38vw;
+  }
 `;
 
-const PresentCardList = ({ selectedday }) => {
-  const [receiverId, setReceiverId] = useState<MemberData>();
+const CardImg = styled.img`
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: hidden;
+  object-fit: cover;
+  &::after {
+    padding-bottom: 100%;
+  }
+`;
 
-  // 현재 로그인한 유저의 정보 - id 값
-  const getMemberData = async () => {
+const Card = (props) => {
+  const [presentCardShow, setPresentCardShow] = useState(false);
+  const [selectedcard, setSelectedCard] = useState(0);
+  const [presentDetail, setPresentDetail] = useState<presentDetail>(null);
+  const haveImage = presentDetail?.imageURL.length > 0 ? true : false;
+
+  const handleShow = () => {
+    setSelectedCard(props.id);
+    setPresentCardShow(true);
+  };
+  const handleClose = () => setPresentCardShow(false);
+
+  // prop된 카드정보를 가지고 세부정보를 가져온다.
+  const initPresentDetail = async () => {
     try {
-      const res = await setGetMember();
-      setReceiverId(res.data.data.member.id);
+      const res = await setGetPresentDetail(props.id);
+      setPresentDetail(res.data.data);
     } catch (e) {
       console.log(e);
     }
   };
-  useEffect(() => {
-    getMemberData();
-  }, []);
-
-  const receivedDay =
-    selectedday < 10 ? `2022-12-0${selectedday}` : `2022-12-${selectedday}`;
-
-  const [receivedPresentList, setReceivedPresentList] = useState([]);
-
-  const initReceivedPresentList = async () => {
-    const res = await setGetDayPresents(receiverId, receivedDay);
-    console.log("receivedPresentList >>> ", res.content)
-    setReceivedPresentList(res.content);
-  };
 
   useEffect(() => {
-    const initReceivedPresentList = async () => {
-      try {
-        const res = await setGetDayPresents(receiverId, receivedDay);
-        console.log("receivedPresentList >>> ", res);
-        setReceivedPresentList(res.data.data.content);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    initReceivedPresentList();
+    initPresentDetail();
   }, []);
 
-  // console.log(receiverId, receivedDay);
-  // console.log("receivedPresentList >>> ", receivedPresentList);
-  const defaultText = `아직 받은 선물이 없어요. 
-먼저 산타가 되어보는 건 어때요?🎅 
-  `;
   return (
-    <>
-      {receivedPresentList.length > 0 ? (
-        <TabFlex>
-          {receivedPresentList.map((present) => (
-            <Card
-              key={present.id}
-              id={present.id}
-              thumbnail={present.imageURL}
-            />
-          ))}
-        </TabFlex>
-      ) : (
-        // TODO : default 사진 CSS 수정 필요한지 확인해보기
-        <>
-          <h5>{defaultText}</h5>
-          <Default />
-        </>
-      )}
-    </>
+      <>
+        <TabCard>
+          <CardImg
+              id={`${props.id}`}
+              src={
+                props.thumbnail === "default"
+                    ? `/assets/image/present/5.png`
+                    : props.thumbnail
+              }
+              onClick={handleShow}
+          />
+        </TabCard>
+        <CustomModal
+            haveImage={haveImage}
+            color={"#ac473d"}
+            show={presentCardShow}
+            onHide={handleClose}
+            selectedcard={selectedcard}
+            header={
+              presentDetail ? (
+                  <PresentDetailHeader
+                      isPublic={presentDetail.isPublic}
+                      receivedDate={presentDetail.receivedDate}
+                  />
+              ) : (
+                  "없음"
+              )
+            }
+            body={
+              presentDetail ? (
+                  <PresentDetailBody
+                      body={presentDetail}
+                      handleDetail={initPresentDetail}
+                      type={props.type}
+                  />
+              ) : (
+                  "없음"
+              )
+            }
+        />
+      </>
   );
 };
-
-export default PresentCardList;
+export default Card;
