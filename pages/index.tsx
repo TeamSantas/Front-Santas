@@ -91,11 +91,19 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
 
   const [mute, setMute] = useState(myBGM);
   useEffect(() => {
-    setBGM(mute);
+    if (mute) {
+      setBGM(mute);
+    }
   }, [mute]);
 
-  const linkCopyHandler = () => {
-    // TODO : link copy 로직 추가 필요
+  const linkCopyHandler = async () => {
+    const copyURL = `https://pitapat-adventcalendar.site/${memberInfo.member.invitationLink}`
+    try {
+      await navigator.clipboard.writeText(copyURL);
+      alert('클립보드에 링크가 복사되었습니다.');
+    } catch (e) {
+      alert('복사에 실패하였습니다');
+    }
     console.log("Link copied!");
   };
   const muteHandler = (value) => setMute(!value);
