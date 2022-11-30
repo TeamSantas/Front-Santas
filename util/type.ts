@@ -99,3 +99,9 @@ export interface putPushData {
 export interface putBGMData {
   bgmStatus: boolean;
 }
+
+///
+export interface dataProps {
+  data: object;
+  link : string;
+}

@@ -11,6 +11,14 @@ class PresentService {
     return PresentAuthInstance.get<ResponseData<any>>(`/api/present/my/send`);
   };
 
+  // 특정 날짜 선물 리스트 조회 API🔑
+  getDayPresentsList = (config) => {
+    // console.log(
+    //   PresentAuthInstance.get<ResponseData<any>>(`/api/present/list`)
+    // );
+    return PresentAuthInstance.get<ResponseData<any>>(`/api/present/list`, config);
+  };
+
   //내가 보낸 선물 리스트 조회 API🔑
   getUserSendPresent = () => {
     return PresentAuthInstance.get<ResponseData<any>>(`/api/present/my/send`);

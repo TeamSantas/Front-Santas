@@ -59,6 +59,7 @@ const Card = (props) => {
   const [presentCardShow, setPresentCardShow] = useState(false);
   const [selectedcard, setSelectedCard] = useState(0);
   const [presentDetail, setPresentDetail] = useState<presentDetail>(null);
+  const haveImage = presentDetail?.imageURL.length > 0 ? true : false;
 
   const handleShow = () => {
     setSelectedCard(props.id);
@@ -68,9 +69,8 @@ const Card = (props) => {
 
   // prop된 카드정보를 가지고 세부정보를 가져온다.
   const initPresentDetail = async () => {
-    // const res = (await PresentService.getDetailPresent(props.id)).data.data;
     const res = await setGetPresentDetail(props.id);
-    console.log(">>>>>", res);
+    // console.log(">>>>>", res);
     setPresentDetail(res);
   };
 
@@ -78,12 +78,12 @@ const Card = (props) => {
     initPresentDetail();
   }, []);
 
+
   return (
     <>
       <TabCard>
         <CardImg
           id={`${props.id}`}
-          // src={`/assets/image/${props.thumbnail}.${props.type}`}
           src={
             props.thumbnail === "default"
               ? `/assets/image/present/5.png`
@@ -93,12 +93,17 @@ const Card = (props) => {
         />
       </TabCard>
       <CustomModal
+        haveImage={haveImage}
+        color={"#ac473d"}
         show={presentCardShow}
         onHide={handleClose}
         selectedcard={selectedcard}
         header={
           presentDetail ? (
-            <PresentDetailHeader nickname={presentDetail.nickname} />
+            <PresentDetailHeader
+              isPublic={presentDetail.isPublic}
+              receivedDate={presentDetail.receivedDate}
+            />
           ) : (
             "없음"
           )

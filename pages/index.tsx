@@ -11,7 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { Suspense } from "react";
 import { setGetMember } from "../api/hooks/useGetMember";
-import {MemberData, ResponseData} from "../util/type";
+import {dataProps, MemberData, ResponseData} from "../util/type";
 import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
@@ -65,7 +65,10 @@ const SnowballContainer = styled(MainContainer)`
     display: none;
   }
 `;
-const Home: NextPage = () => {
+
+const Home: NextPage<dataProps> = (props:dataProps) => {
+  console.log(props, "인덱스에넘겨주는프롭스")
+  // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
   const { storeUserData, updateUserData } = useContext(storeContext);
   const [memberInfo, setMemberInfo] = useState<MemberData>();
@@ -116,10 +119,10 @@ const Home: NextPage = () => {
   }, []);
 
   // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
-  const getMemberData = async () => {
-    const res = await setGetMember();
-    setMemberInfo(res);
-  };
+  // const getMemberData = async () => {
+  //   const res = await setGetMember();
+  //   setMemberInfo(res);
+  // };
   const storeMemberData = async () => {
     const userData = await updateUserData();
     setMemberInfo(userData);
@@ -127,14 +130,26 @@ const Home: NextPage = () => {
   useEffect(() => {
     // getMemberData();
     storeMemberData();
+    handleCalendarOwner();
   }, []);
 
-  const currInvitationLink = router.pathname; // 현재 invitation link
-  const ismycalendar =
-    memberInfo && currInvitationLink === memberInfo.invitationLink;
-  // const ismycalendar = true;
+  // const currInvitationLink = router.pathname; // 현재 invitation link
+  // const ismycalendar =
+  //   memberInfo && currInvitationLink === memberInfo.invitationLink;
+  // const ismycalendar = true;`
+  const [ismycalendar, setIsmycalendar] = useState(true);
+  const handleCalendarOwner = () => {
+    // setIsmycalendar(true)
+    console.log(Object.keys(props).length, "어라랍스타🦞 >>>>>")
+    if (Object.keys(props).length < 1 || !props.data) {
+      setIsmycalendar(true);
+    } else {
+      setIsmycalendar(false);
+    }
+  }
 
-  const MyCalendarBtn = () => {
+
+  const MyCalendarBtn = () => {``
     return (
       <>
         <ButtonFlex>
