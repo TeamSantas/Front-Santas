@@ -2,7 +2,5 @@
 import SettingService from "../SettingService";
 
 export async function useSetFcmtoken(fcmtoken:string) {    
-    const res = await SettingService.setFcmtoken(fcmtoken);
-
-    return res;
+    return await SettingService.setFcmtoken(fcmtoken);
 }

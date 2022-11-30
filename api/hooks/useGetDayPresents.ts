@@ -7,7 +7,5 @@ export async function setGetDayPresents(receiverId, day) {
         day: day
     },
   };
-  const res = await PresentService.getDayPresentsList(config);
-
-  if (res.status === 200) return res.data.data;
+  return await PresentService.getDayPresentsList(config);
 }

@@ -2,26 +2,27 @@ import { PresentInstance, PresentAuthInstance } from "./APIInstance";
 import { postPresentData, ResponseData } from "../util/type";
 
 class PresentService {
-  //특정 유저의 받은 선물목록 조회 API
-  getUserPresentList = () => {
-    //이렇게 any로 받아와도 되긴 하는데 type을 만드는게 더 TS를 사용하는 의미가 있을 것 같긴 합니다!
-    console.log(
-      PresentAuthInstance.get<ResponseData<any>>(`/api/present/my/send`)
-    );
-    return PresentAuthInstance.get<ResponseData<any>>(`/api/present/my/send`);
-  };
-
   // 특정 날짜 선물 리스트 조회 API🔑
   getDayPresentsList = (config) => {
     // console.log(
     //   PresentAuthInstance.get<ResponseData<any>>(`/api/present/list`)
     // );
-    return PresentAuthInstance.get<ResponseData<any>>(`/api/present/list`, config);
+    return PresentAuthInstance.get<ResponseData<any>>(
+      `/api/present/list`,
+      config
+    );
   };
 
   //내가 보낸 선물 리스트 조회 API🔑
-  getUserSendPresent = () => {
+  getUserSendPresentsList = () => {
     return PresentAuthInstance.get<ResponseData<any>>(`/api/present/my/send`);
+  };
+
+  //내가 받은 선물 리스트 조회 API🔑
+  getUserReceivedPresentsList = () => {
+    return PresentAuthInstance.get<ResponseData<any>>(
+      `/api/present/my/receive`
+    );
   };
 
   //로그인한 유저의 받은 모든 선물목록 조회 API 🔑
@@ -54,7 +55,6 @@ class PresentService {
 
   //받은선물 공개 여부 설정 🔑
   putPresent_OnOff_Status = (presentId: number, isPublic: boolean) => {
-    console.log(presentId, isPublic);
     return PresentAuthInstance.put(`/api/present/${presentId}`, null, {
       params: { isPublic: isPublic },
     });

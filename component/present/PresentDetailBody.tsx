@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { setGetUserSendPresentsList } from "../../api/hooks/mypagePresents/useGetUserSendPresentsList";
 import { setGetMemberById } from "../../api/hooks/useGetMember";
 import PresentService from "../../api/PresentService";
 import { Flex } from "../../styles/styledComponentModule";
@@ -29,14 +30,16 @@ const Contents = styled.div`
   word-break: break-all;
 `;
 
-const ChangePublicGreenBtn = styled(RedBtn)`
+const GreenBtn = styled(RedBtn)`
   background-color: #3c6c54;
   margin: 0px;
+  width: 100%;
 `;
 
 export default function PresentDetailBody({ body, handleDetail, type }) {
   const [isPublic, setIsPublic] = useState(false);
   const [isReceived, setIsReceived] = useState(false);
+
   const router = useRouter();
   const btnText = type === "SEND" ? "또 보내러 가기" : "나도 보내주러 가기";
 
@@ -45,21 +48,10 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     link.href = url;
     link.download = "present";
     link.setAttribute("download", `present.jpg`);
-    // console.log(link);
     document.body.appendChild(link);
     link.click();
     link.parentNode.removeChild(link);
   }
-
-  const handlePublic = async (presentId: number) => {
-    const res = await PresentService.putPresent_OnOff_Status(
-      presentId,
-      !isPublic
-    );
-    setIsPublic(!isPublic);
-    // console.log(res);
-    handleDetail();
-  };
 
   const handleType = (type) => {
     if (type === "SEND") {
@@ -74,24 +66,51 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     handleType(type);
   }, []);
 
-  console.log("카드로넘기는데이터", body);
 
-  const [memberFoundById, setMemberFoundById] = useState<MemberData>();
-
+  // 나한테 선물 보낸 사람 정보
+  const [senderFoundById, setSenderFoundById] = useState<MemberData>();
   useEffect(() => {
-    const initReceivedPresentList = async () => {
-      const res = await setGetMemberById(body.senderId);
-      // console.log("memberFoundById >>> ", res)
-      setMemberFoundById(res);
+    const getSenderUserById = async () => {
+      try {
+        const res = await setGetMemberById(body.senderId);
+        setSenderFoundById(res.data.data);
+      } catch (e) {
+        console.log(e);
+      }
     };
-    initReceivedPresentList();
+    getSenderUserById();
   }, []);
+
+  // 내가 선물 보내준 사람 정보
+  const [receiverFoundById, setReceiverFoundById] = useState<MemberData>();
+  useEffect(() => {
+    const getReceiverUserById = async () => {
+      try {
+        const res = await setGetUserSendPresentsList();
+        setReceiverFoundById(res.data.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getReceiverUserById();
+  }, []);
+
+  const handleClickGoCalendarBtn = () => {
+    let url = "";
+    if (type === "SEND") {
+      url = `/${receiverFoundById.member.invitationLink}`;
+    } else {
+      url = `/${senderFoundById.member.invitationLink}`;
+    }
+    router.push(url);
+  };
 
   return (
     <SendPresentsWrapper>
       <PresentHeader>
-        {/* TODO : 실제 데이터로 nickname 익명 default 처리 잘 되는지 확인 필요 */}
-        {body.nickname} 님께 <br /> {type === "SEND" ? <>보낸</> : <>받은</>}
+        {/* TODO : 닉넴 고민 */}
+        {senderFoundById?.member.nickname} 님께 <br />{" "}
+        {type === "SEND" ? <>보낸</> : <>받은</>}
         선물이에요 🎁
       </PresentHeader>
       <GotTextArea>
@@ -123,25 +142,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
       ) : (
         <div style={{ height: "50px" }}></div>
       )}
-
-      <ChangePublicGreenBtn
-        onClick={() => {
-          router.push(`/${memberFoundById.member.invitationLink}`);
-        }}
-      >
-        {btnText}
-      </ChangePublicGreenBtn>
-
-      {/* TODO : 공개 비공개 로직 논의 필요 */}
-      {/* {isReceived ? (
-        <ChangePublicRedBtn
-          onClick={() => {
-            handlePublic(body.id);
-          }}
-        >
-          {isPublic ? "비공개로 전환" : "공개로 전환"}
-        </ChangePublicRedBtn>
-      ) : null} */}
+      <GreenBtn onClick={handleClickGoCalendarBtn}>{btnText}</GreenBtn>
     </SendPresentsWrapper>
   );
 }

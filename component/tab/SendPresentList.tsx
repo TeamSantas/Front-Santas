@@ -15,7 +15,7 @@ const SendPresentList = () => {
 
   useEffect(() => {
     const initSendPresentList = async () => {
-      const res = await PresentService.getUserSendPresent();
+      const res = await PresentService.getUserSendPresentsList();
       // console.log(res.data.data);
       setSentPresentList(res.data.data.content);
     };

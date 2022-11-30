@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import { Flex, GreenButton, GreenCloseButton } from "../../styles/styledComponentModule";
+import {
+  Flex,
+  GreenButton,
+  GreenCloseButton,
+} from "../../styles/styledComponentModule";
 import Form from "react-bootstrap/Form";
-import { setGetMember } from "../../api/hooks/useGetMember";
+import { setGetMember, setGetMemberById } from "../../api/hooks/useGetMember";
 import { MemberData } from "../../util/type";
 import { usePostPresent } from "../../api/hooks/usePostPresent";
+import { useRouter } from "next/router";
+import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
 
 export const PresentHeader = styled.div`
   font-size: x-large;
@@ -48,29 +54,51 @@ const GreenDeleteButton = styled(GreenCloseButton)`
   cursor: pointer;
 `;
 
-const SendPresents = (props) => {
+const SendPresents = () => {
   const [contents, setContents] = useState<string>("");
   const [isAnonymous, setAnonymous] = useState<boolean | any>(false);
   const [nickname, setNickname] = useState<string>("익명");
   const [memberInfo, setMemberInfo] = useState<MemberData>();
+  const [currCalUser, setCurrCalUser] = useState<MemberData>();
+  const router = useRouter();
 
   const ref = useRef(null);
   const nicknameRef = useRef(null);
 
   // 현재 로그인한 유저의 정보
   const getMemberData = async () => {
-    const res = await setGetMember();
-    setMemberInfo(res);
+    try {
+      const res = await setGetMember();
+      // console.log("로그인한 사람", res.data.data.member)
+      setMemberInfo(res.data.data.member);
+    } catch (e) {
+      console.log(e);
+    }
   };
   useEffect(() => {
     getMemberData();
   }, []);
 
   // 현재 캘린더 주인 유저 정보
-  const currCalUserName = props.currCalUserInfo
-    ? `${props.currCalUserInfo.nickname} 님`
-    : "친구";
-  const currCalUserId = props.currCalUserInfo ? props.currCalUserInfo.id : 0;
+  // const currInvitationLink = router.asPath.slice(1);
+  const currInvitationLink = "e5017233-7ff2-4f61-aa44-29feb943f769";
+
+  console.log("currInvitationLink >>> ", currInvitationLink);
+  const getCurrCalUser = async () => {
+    try {
+      const res = await setGetCurrCalendarUserInfo(currInvitationLink);
+      console.log("캘린더 주인 >>> ", res.data.data);
+      setCurrCalUser(res.data.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getCurrCalUser();
+  }, []);
+
+  const currCalUserName = currCalUser ? `${currCalUser.nickname} 님` : "친구";
+  const currCalUserId = currCalUser ? currCalUser.id : 0;
 
   // console.log("memberInfo >>> ", memberInfo)
   // console.log("현재 캘린더 유저 정보 >>> ", props.currCalUserInfo)
@@ -81,8 +109,9 @@ const SendPresents = (props) => {
 
   const HandleImageSubmit = () => {
     const dt = new Date();
+    const date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
     const receivedDate =
-      dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+      dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + date;
 
     const presentData = new FormData();
     presentData.append("receiverId", currCalUserId); // TODO : 받은 사람 ID로 가져오기
@@ -98,7 +127,13 @@ const SendPresents = (props) => {
       });
     }
 
-    usePostPresent(presentData);
+    try {
+      usePostPresent(presentData);
+      alert("선물 보내기 성공! 🎁");
+    } catch (e) {
+      console.log(e);
+      alert("선물 보내기에 실패했어요. 🥺");
+    }
   };
 
   // -------------------------------------
@@ -107,8 +142,8 @@ const SendPresents = (props) => {
   const handleCheckAnonymous = () => {
     setAnonymous(!isAnonymous);
     if (isAnonymous === false) {
-      if (memberInfo.member.nickname) {
-        setNickname(memberInfo.member.nickname);
+      if (memberInfo.nickname) {
+        setNickname(memberInfo.nickname);
       } else {
         setNickname("익명");
       }
@@ -122,8 +157,8 @@ const SendPresents = (props) => {
 
     if (inputNickname) {
       setNickname(inputNickname);
-    } else if (memberInfo.member.nickname) {
-      setNickname(memberInfo.member.nickname);
+    } else if (memberInfo.nickname) {
+      setNickname(memberInfo.nickname);
     }
     HandleImageSubmit();
   };
@@ -156,7 +191,8 @@ const SendPresents = (props) => {
   return (
     <SendPresentsWrapper>
       <PresentHeader>
-        {currCalUserName} 님에게<br /> 쪽지를 보내보세요
+        {currCalUserName} 님에게
+        <br /> 쪽지를 보내보세요
       </PresentHeader>
 
       <TextArea>

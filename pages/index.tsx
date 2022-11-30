@@ -73,17 +73,20 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 
-const Home: NextPage<dataProps> = (props:dataProps) => {
-  console.log(props, "인덱스에넘겨주는프롭스")
+const Home: NextPage<dataProps> = (props: dataProps) => {
+  console.log(props, "인덱스에넘겨주는프롭스");
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
-  const { storeUserData, updateUserData } = useContext(storeContext);
   const [memberInfo, setMemberInfo] = useState<MemberData>();
 
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
-    const res : ResponseData<MemberData> = await getLoggedMember();
-    setMyBGM(res.data.member.setting);
+    try {
+      const res: ResponseData<MemberData> = await getLoggedMember();
+      setMyBGM(res.data.data.member.setting);
+    } catch (e) {
+      console.log(e);
+    }
   };
   useEffect(() => {
     getMyBGM();
@@ -97,12 +100,12 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   }, [mute]);
 
   const linkCopyHandler = async () => {
-    const copyURL = `https://pitapat-adventcalendar.site/${memberInfo.member.invitationLink}`
+    const copyURL = `https://pitapat-adventcalendar.site/${memberInfo.member.invitationLink}`;
     try {
       await navigator.clipboard.writeText(copyURL);
-      alert('클립보드에 링크가 복사되었습니다.');
+      alert("클립보드에 링크가 복사되었습니다.");
     } catch (e) {
-      alert('복사에 실패하였습니다');
+      alert("복사에 실패하였습니다");
     }
     console.log("Link copied!");
   };
@@ -129,7 +132,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   const [snowballModalShow, setSnawballModalShow] = useState(false);
   const clickSnowballIconHandler = () => {
     setSnawballModalShow(!snowballModalShow);
-  }
+  };
 
   // cookie
   useEffect(() => {
@@ -140,18 +143,18 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   }, []);
 
   // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
-  // const getMemberData = async () => {
-  //   const res = await setGetMember();
-  //   setMemberInfo(res);
-  // };
-  const storeMemberData = async () => {
-    const userData = await updateUserData();
-    setMemberInfo(userData);
-    console.log('유저데이터 >>>>', userData);
+  const getMemberData = async () => {
+    try {
+      const res = await setGetMember();
+      setMemberInfo(res.data.data);
+      // console.log("사용자 정보 >>> ", res.data.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
+
   useEffect(() => {
-    // getMemberData();
-    storeMemberData();
+    getMemberData();
     handleCalendarOwner();
   }, []);
 
@@ -161,17 +164,17 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   // const ismycalendar = true;`
   const [ismycalendar, setIsmycalendar] = useState(true);
   const handleCalendarOwner = () => {
-    // setIsmycalendar(true)
-    console.log(Object.keys(props).length, "어라랍스타🦞 >>>>>")
+    // setIsmycalendar(false)
+    console.log(Object.keys(props).length, "어라랍스타🦞 >>>>>");
     if (Object.keys(props).length < 1 || !props.data) {
       setIsmycalendar(true);
     } else {
       setIsmycalendar(false);
     }
-  }
+  };
 
-
-  const MyCalendarBtn = () => {``
+  const MyCalendarBtn = () => {
+    ``;
     return (
       <>
         <ButtonFlex>
@@ -192,7 +195,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
             ) : (
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
-            <Snowball onClick={clickSnowballIconHandler}/>
+            <Snowball onClick={clickSnowballIconHandler} />
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
@@ -224,7 +227,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
             ) : (
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
-            <Snowball onClick={clickSnowballIconHandler}/>
+            <Snowball onClick={clickSnowballIconHandler} />
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
@@ -241,21 +244,23 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
       <Flex>
         <Seo title="Home" />
         <MainContainer>
-          <Calendar ismycalendar={ismycalendar} link={props.link}/>
+          <Calendar ismycalendar={ismycalendar} link={"test"} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
-        {snowballModalShow ? <SnowballContainer>
-          <Suspense
-            fallback={
-              <img src="/assets/image/character/spinner.gif" alt="spinner" />
-            }
-          >
-            <Text>스노우볼을 움직여보세요</Text>
-            <Canvas>
-              <ModelComponent />
-            </Canvas>
-          </Suspense>
-        </SnowballContainer> : null}
+        {snowballModalShow ? (
+          <SnowballContainer>
+            <Suspense
+              fallback={
+                <img src="/assets/image/character/spinner.gif" alt="spinner" />
+              }
+            >
+              <Text>스노우볼을 움직여보세요</Text>
+              <Canvas>
+                <ModelComponent />
+              </Canvas>
+            </Suspense>
+          </SnowballContainer>
+        ) : null}
       </Flex>
     </div>
   );
