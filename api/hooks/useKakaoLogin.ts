@@ -17,7 +17,8 @@ export async function KakaoLogin(code, state) {
     setCookie('subToken', res.data.data.refreshToken,30);
     return res;
   } catch (e) {
+      return e;
     console.log("쿠키굽기 실패");
     console.log(e);
-  } 
+  }
 }

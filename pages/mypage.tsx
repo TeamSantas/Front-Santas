@@ -38,17 +38,16 @@ const Edit = styled(Icons)`
 
 const MyPage: NextPage = () => {
   const router = useRouter();
-  const { storeUserData, updateUserData } = useContext(storeContext);
   const [myName, setMyName] = useState<any>(null);
   const [myEmail, setMyEmail] = useState<any>(null);
   const [myProfileImg, setMyProfileImg] = useState<any>(null);
 
   const getUserData = async () => {
     try {
-      const res = await updateUserData();
-      setMyName(res.data.member.nickname);
-      setMyEmail(res.data.member.email);
-      setMyProfileImg(res.data.member.profileImageURL);
+      const res = await getLoggedMember()
+      setMyName(res.nickname);
+      setMyEmail(res.email);
+      setMyProfileImg(res.profileImageURL);
     } catch (e) {
       console.log(e);
     }
