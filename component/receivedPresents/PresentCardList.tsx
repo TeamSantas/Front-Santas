@@ -29,7 +29,7 @@ const PresentCardList = ({ selectedday }) => {
   useEffect(() => {
     const initReceivedPresentList = async () => {
       const res = await setGetDayPresents(receiverId, receivedDay);
-      // console.log("receivedPresentList >>> ", res.content)
+      console.log("receivedPresentList >>> ", res.content)
       setReceivedPresentList(res.content);
     };
     initReceivedPresentList();
