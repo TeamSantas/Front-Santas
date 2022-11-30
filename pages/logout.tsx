@@ -6,7 +6,7 @@ import styled from "styled-components";
 const Container = styled(MainContainer)`
   text-align: center;
   font-size: 20px;
-  margin-top: 40px;
+  margin-top: 80px;
   color: white;
 `;
 

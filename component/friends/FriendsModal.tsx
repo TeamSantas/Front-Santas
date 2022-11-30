@@ -1,3 +1,4 @@
+// @ts-nocheck
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
@@ -33,7 +34,6 @@ const FriendsModal = (props) => {
       setFriendsData(res.data.data);
     });
     } catch (e) {
-      console.log(e, "[🤬]디비에 저장된 친구들을 불러와용");
     }
     setIsLoading(false);
   };

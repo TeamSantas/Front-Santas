@@ -9,6 +9,7 @@ import { storeContext } from "../../store/Store";
 import { Flex } from "../../styles/styledComponentModule";
 import { MemberData } from "../../util/type";
 import Card from "./Card";
+import {getLoggedMember} from "../../api/hooks/useMember";
 
 const TabFlex = styled(Flex)`
   flex-direction: row;
@@ -40,6 +41,12 @@ const PresentCardList = ({ selectedday }) => {
     selectedday < 10 ? `2022-12-0${selectedday}` : `2022-12-${selectedday}`;
 
   const [receivedPresentList, setReceivedPresentList] = useState([]);
+
+  const initReceivedPresentList = async () => {
+    const res = await setGetDayPresents(receiverId, receivedDay);
+    console.log("receivedPresentList >>> ", res.content)
+    setReceivedPresentList(res.content);
+  };
 
   useEffect(() => {
     const initReceivedPresentList = async () => {

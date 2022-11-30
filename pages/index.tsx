@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import { NextPage } from "next";
@@ -11,7 +12,7 @@ import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { Suspense } from "react";
 import { setGetMember } from "../api/hooks/useGetMember";
-import { dataProps, MemberData, ResponseData } from "../util/type";
+import {dataProps, MemberData, ResponseData} from "../util/type";
 import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
@@ -83,29 +84,30 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const getMyBGM = async () => {
     try {
       const res: ResponseData<MemberData> = await getLoggedMember();
-      setMyBGM(res.data.data.member.setting);
+      setMyBGM(res.setting);
     } catch (e) {
       console.log(e);
     }
   };
   useEffect(() => {
     getMyBGM();
-  }, []);
+  }, [myBGM]);
 
   const [mute, setMute] = useState(myBGM);
   useEffect(() => {
     if (mute) {
       setBGM(mute);
     }
-  }, [mute]);
+  }, [mute]); 
 
   const linkCopyHandler = async () => {
-    const copyURL = `https://pitapat-adventcalendar.site/${memberInfo.member.invitationLink}`;
+    getCookie('invitationLink')
+    const copyURL = `https://pitapat-adventcalendar.site/${getCookie('invitationLink')}`
     try {
       await navigator.clipboard.writeText(copyURL);
-      alert("클립보드에 링크가 복사되었습니다.");
+      alert('내 캘린더 링크가 복사되었습니다.');
     } catch (e) {
-      alert("복사에 실패하였습니다");
+      alert('내 캘린더 링크복사에 실패하였습니다');
     }
     console.log("Link copied!");
   };
@@ -244,6 +246,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       <Flex>
         <Seo title="Home" />
         <MainContainer>
+          {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} link={"test"} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>

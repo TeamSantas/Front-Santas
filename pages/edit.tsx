@@ -61,9 +61,9 @@ const Edit: NextPage = () => {
   const getMyData = async () => {
     try {
       const res = await getLoggedMember();
-      setMyName(res.data.data.member.nickname);
-      setMyEmail(res.data.data.member.email);
-      setMyProfileImg(res.data.data.member.profileImageURL);
+      setMyName(res.nickname);
+      setMyEmail(res.email);
+      setMyProfileImg(res.profileImageURL);
     } catch (e) {
       console.log(e);
     }

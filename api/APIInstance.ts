@@ -5,6 +5,9 @@ import {getCookie} from "../businesslogics/reactCookie";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const accessToken = getCookie('token');
+// console.log(">>>내쿠키어딧써")
+// console.log(getCookie('token'))
+
 
 // Token 필요한 Axios
 const AuthAPIInstance = (baseURL: string) => {
@@ -14,7 +17,7 @@ const AuthAPIInstance = (baseURL: string) => {
     params: {},
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      // Refresh : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTQ5MTUzNDc0Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Njk3NzEzNjMsImV4cCI6MTY2OTc3MTk2M30.7nT5zjBbjhnFDQdzAL1NHNf1V1OdbIyFlvaOeu4cWL4`
+      // Refresh : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTU1OTExNjU4Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Njk4MjQwODEsImV4cCI6MTY3MjQxNjA4MX0.PC5bhkO43TzK6oO5HR1YwkgENVSmqxgNdVr8VEjU_PU`
     },
   });
   // 응답 인터셉터 추가

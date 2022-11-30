@@ -63,11 +63,11 @@ const MyPage: NextPage = () => {
       <Seo title="MyPage" />
       <Profile src={myProfileImg} />
       <CenterFlex>
-        <Text name>{myName}</Text>
+        <Text name={"true"}>{myName}</Text>
         {/*<Text nickName>{nickname}</Text>*/}
         <Edit onClick={() => router.push(`/edit`)}></Edit>
       </CenterFlex>
-      <Text email>{myEmail}</Text>
+      <Text email={"true"}>{myEmail}</Text>
       <TabView />
     </MainContainer>
   );
