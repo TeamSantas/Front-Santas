@@ -1,6 +1,4 @@
 import MemberService from "../MemberService";
-import {useEffect, useState} from "react";
-import {MemberData} from "../../util/type";
 
 
 export async function getLoggedMember() {

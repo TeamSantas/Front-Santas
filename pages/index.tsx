@@ -82,8 +82,8 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
 
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
-    const res : ResponseData<MemberData> = await getLoggedMember();
-    setMyBGM(res.data.member.setting);
+    const res = await getLoggedMember();
+    setMyBGM(res.setting);
   };
   useEffect(() => {
     getMyBGM();

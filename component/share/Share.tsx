@@ -71,10 +71,9 @@ const Share = () => {
 
   const getMyData = async () => {
     const res = await getLoggedMember();
-    setMyData(res.data.member.nickname);
+    setMyData(res.nickname);
   };
 
-  let memberName : string = null;
   useEffect(() => {
     getMyData();
   }, []);
