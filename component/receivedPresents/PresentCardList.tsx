@@ -20,7 +20,7 @@ const Default = styled.img`
 
 const PresentCardList = ({ selectedday }) => {
   const { storeUserData } = useContext(storeContext);
-  const receiverId = storeUserData.id;
+  const receiverId = storeUserData.member.id;
   const receivedDay =
     selectedday < 10 ? `2022-12-0${selectedday}` : `2022-12-${selectedday}`;
 

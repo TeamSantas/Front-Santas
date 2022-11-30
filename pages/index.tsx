@@ -24,22 +24,26 @@ const MainIcons = styled(Icons)`
 
 const LinkCopy = styled(MainIcons)`
   margin-left: 15px;
-  background-image: url("/assets/image/icons/Link.png");
+  background-image: url("/assets/image/icons/Link.svg");
 `;
 const Friends = styled(MainIcons)`
-  background-image: url("/assets/image/icons/Users.png");
+  background-image: url("/assets/image/icons/Users.svg");
 `;
 const Info = styled(MainIcons)`
   width: 25px;
   margin-left: 15px;
   background-image: url("/assets/image/icons/information.svg");
 `;
+const Snowball = styled(MainIcons)`
+  margin-left: 15px;
+  background-image: url("/assets/image/icons/snowball.svg");
+`;
 
 const Bgm = styled(MainIcons)`
-  background-image: url("/assets/image/icons/SpeakerHigh.png");
+  background-image: url("/assets/image/icons/SpeakerHigh.svg");
 `;
 const MuteBgm = styled(MainIcons)`
-  background-image: url("/assets/image/icons/muteSpeaker.png");
+  background-image: url("/assets/image/icons/muteSpeaker.svg");
 `;
 const GoBackMyCal = styled.div`
   background: #ac473d;
@@ -50,6 +54,9 @@ const GoBackMyCal = styled.div`
 `;
 
 const ButtonFlex = styled(Flex)`
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
   width: 35rem;
   @media (max-width: 600px) {
     width: 90%;
@@ -76,7 +83,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
     const res : ResponseData<MemberData> = await getLoggedMember();
-    setMyBGM(res.data.setting);
+    setMyBGM(res.data.member.setting);
   };
   useEffect(() => {
     getMyBGM();
@@ -109,6 +116,12 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
     setInformationModalShow(true);
   };
   const handleInformationModalClose = () => setInformationModalShow(false);
+
+  // snowball modal
+  const [snowballModalShow, setSnawballModalShow] = useState(false);
+  const clickSnowballIconHandler = () => {
+    setSnawballModalShow(!snowballModalShow);
+  }
 
   // cookie
   useEffect(() => {
@@ -170,6 +183,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
             ) : (
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
+            <Snowball onClick={clickSnowballIconHandler}/>
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
@@ -185,7 +199,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   // console.log(storeUserData);
 
   const handleGoMyCal = () => {
-    router.push(`/${memberInfo.invitationLink}`);
+    router.push(`/${memberInfo.member.invitationLink}`);
   };
 
   const FriendsCalendarBtn = () => {
@@ -201,6 +215,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
             ) : (
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
+            <Snowball onClick={clickSnowballIconHandler}/>
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
@@ -217,10 +232,10 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
       <Flex>
         <Seo title="Home" />
         <MainContainer>
-          <Calendar ismycalendar={ismycalendar} />
+          <Calendar ismycalendar={ismycalendar} link={props.link}/>
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
-        <SnowballContainer>
+        {snowballModalShow ? <SnowballContainer>
           <Suspense
             fallback={
               <img src="/assets/image/character/spinner.gif" alt="spinner" />
@@ -231,7 +246,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
               <ModelComponent />
             </Canvas>
           </Suspense>
-        </SnowballContainer>
+        </SnowballContainer> : null}
       </Flex>
     </div>
   );

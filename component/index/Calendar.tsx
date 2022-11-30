@@ -27,6 +27,7 @@ const DayImage = styled.img`
 `;
 
 const Calendar = (props) => {
+  console.log(props, "캘린더프롭스>>>>>>>")
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25,
@@ -42,7 +43,7 @@ const Calendar = (props) => {
   const [notYetModalShow, setNotYeModalShow] = useState(false);
 
   const [selectedday, setSelectedDay] = useState(0);
-  const [canOpenCalendar, setCanOpenCalendar] = useState(false);
+  const [canOpenCalendar, setCanOpenCalendar] = useState(true);
 
   // 캘린더 오픈 가능 여부 체크
   const selectedDayToCompare =
@@ -67,21 +68,23 @@ const Calendar = (props) => {
   const handleClosePresentModal = () => setPresentModalShow(false);
   const handleCloseNotYetModal = () => setNotYeModalShow(false);
 
-  // 캘린더 주인 유저 정보
+  // 캘린더의 주인 유저 정보(로그인한 유저와 다를수도있음)
   const [currCalUserInfo, setCurrCalUserInfo] = useState<FriendsData>();
 
-  const getCurrCalendarUserData = async () => {
-    // TODO : 현재 캘린더의 invitation link로 변경
-    // 내 캘린더일 때(/)와 친구 캘린더일 때(/invitationLink) path 다르니 주의
-    const res = await setGetCurrCalendarUserInfo(
-      "e5017233-7ff2-4f61-aa44-29feb943f769"
-    );
-    // console.log("캘린더 주인 유저 정보 >>> ", res);
-    setCurrCalUserInfo(res);
-  };
   useEffect(() => {
+    const getCurrCalendarUserData = async () => {
+      // TODO : 현재 캘린더의 invitation link로 변경
+      // 내 캘린더일 때(/)와 친구 캘린더일 때(/invitationLink) path 다르니 주의
+      const res = await setGetCurrCalendarUserInfo(
+        props.link
+      );
+      console.log(res, "🙏🙏🙏🙏🙏currCalUserInfo 저장🙏🙏🙏🙏")
+      // console.log("캘린더 주인 유저 정보 >>> ", res);
+      setCurrCalUserInfo(res);
+    };
     getCurrCalendarUserData();
-  }, []);
+    console.log("야야 되는거맞냐????? From calendar.tsx")
+  }, [currCalUserInfo]);
 
   return (
     <>

@@ -80,12 +80,13 @@ const Img = styled.img`
 `;
 
 const Background = styled.div`
-  width: 100vw;
-  height: 100vh;
+  position: fixed;
+  touch-action: none;
   opacity: 0.7;
-  position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 9;
   background-color: #191c21;
 `;

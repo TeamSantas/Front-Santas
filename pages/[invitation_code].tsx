@@ -20,10 +20,10 @@ export default function OtherCalendar () {
   }
 
   const getLinkMember = async (code: string) => {
-    const res : any = await FriendsService.getFriend(code);
+    const res = await FriendsService.getFriend(code);
     // console.log(res, "링크멤버가져오기");
     if (res.status === 200){
-      setUserData(res.data.data);
+      setUserData(userData);
     }
     else{
       router.replace('/404')
