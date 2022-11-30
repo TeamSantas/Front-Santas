@@ -11,7 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { Suspense } from "react";
 import { setGetMember } from "../api/hooks/useGetMember";
-import { MemberData } from "../util/type";
+import {MemberData, ResponseData} from "../util/type";
 import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
 
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
-    const res = await getLoggedMember();
+    const res : ResponseData<MemberData> = await getLoggedMember();
     setMyBGM(res.data.setting);
   };
   useEffect(() => {
@@ -167,7 +167,7 @@ const Home: NextPage = () => {
     );
   };
 
-  console.log(storeUserData);
+  // console.log(storeUserData);
 
   const handleGoMyCal = () => {
     router.push(`/${memberInfo.invitationLink}`);
