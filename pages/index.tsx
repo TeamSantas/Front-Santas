@@ -54,6 +54,9 @@ const GoBackMyCal = styled.div`
 `;
 
 const ButtonFlex = styled(Flex)`
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
   width: 35rem;
   @media (max-width: 600px) {
     width: 90%;
@@ -213,11 +216,11 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
             ) : (
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
-            <Snowball />
+            <Snowball onClick={clickSnowballIconHandler}/>
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
-              onHide={handleInformationModalClose}
+              onHide={handlesInformationModalClose}
             />
           </Flex>
         </ButtonFlex>
