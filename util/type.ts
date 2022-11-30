@@ -103,4 +103,5 @@ export interface putBGMData {
 ///
 export interface dataProps {
   data: object;
+  link: string;
 }

@@ -23,7 +23,7 @@ export default function OtherCalendar () {
     const res = await FriendsService.getFriend(code);
     // console.log(res, "링크멤버가져오기");
     if (res.status === 200){
-      setUserData(res.data.data);
+      setUserData(userData);
     }
     else{
       router.replace('/404')
@@ -36,5 +36,5 @@ export default function OtherCalendar () {
   }, []);
 
   
-  return <Home data={userData} />;
+  return <Home data={userData} link={code}/>;
 }

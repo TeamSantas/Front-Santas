@@ -233,7 +233,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
       <Flex>
         <Seo title="Home" />
         <MainContainer>
-          <Calendar ismycalendar={ismycalendar} />
+          <Calendar ismycalendar={ismycalendar} link={props.link}/>
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
         {snowballModalShow ? <SnowballContainer>

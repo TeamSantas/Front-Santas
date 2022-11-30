@@ -45,9 +45,9 @@ const MyPage: NextPage = () => {
 
   const getUserData = async () => {
     const res = await updateUserData();
-    setMyName(res.nickname);
-    setMyEmail(res.email);
-    setMyProfileImg(res.profileImageURL);
+    setMyName(res.member.nickname);
+    setMyEmail(res.member.email);
+    setMyProfileImg(res.member.profileImageURL);
   }
 
   useEffect(() => {
