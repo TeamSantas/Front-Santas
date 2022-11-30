@@ -220,7 +220,7 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
-              onHide={handlesInformationModalClose}
+              onHide={handleInformationModalClose}
             />
           </Flex>
         </ButtonFlex>
