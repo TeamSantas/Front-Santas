@@ -91,7 +91,9 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
 
   const [mute, setMute] = useState(myBGM);
   useEffect(() => {
-    setBGM(mute);
+    if (mute) {
+      setBGM(mute);
+    }
   }, [mute]);
 
   const linkCopyHandler = async () => {

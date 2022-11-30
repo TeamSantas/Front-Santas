@@ -20,6 +20,7 @@ export default function OtherCalendar () {
   }
   
   const getLinkMember = async (code: string) => {
+    console.log(code, "코드에용");
     const res = await FriendsService.getFriend(code);
     // console.log(res, "링크멤버가져오기");
     if (res.status === 200){

@@ -75,12 +75,18 @@ const Calendar = (props) => {
     const getCurrCalendarUserData = async () => {
       // TODO : 현재 캘린더의 invitation link로 변경
       // 내 캘린더일 때(/)와 친구 캘린더일 때(/invitationLink) path 다르니 주의
-      const res = await setGetCurrCalendarUserInfo(
-        props.link
-      );
-      console.log(res, "🙏🙏🙏🙏🙏currCalUserInfo 저장🙏🙏🙏🙏")
+      if (props.link) {
+        try {
+          const res = await setGetCurrCalendarUserInfo(
+            props.link
+          );
+          console.log(res, "🙏🙏🙏🙏🙏currCalUserInfo 저장🙏🙏🙏🙏")
+          setCurrCalUserInfo(res);
+        } catch (e) {
+          console.log("getCurrCalendarUserData", e);
+        }
+      }
       // console.log("캘린더 주인 유저 정보 >>> ", res);
-      setCurrCalUserInfo(res);
     };
     getCurrCalendarUserData();
     console.log("야야 되는거맞냐????? From calendar.tsx")
