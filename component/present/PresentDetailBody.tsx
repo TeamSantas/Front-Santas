@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { setGetMemberById } from "../../api/hooks/useGetMember";
 import PresentService from "../../api/PresentService";
 import { Flex } from "../../styles/styledComponentModule";
+import { MemberData } from "../../util/type";
 import {
   PresentHeader,
   SendPresentsWrapper,
@@ -75,7 +76,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
 
   console.log("카드로넘기는데이터", body);
 
-  const [memberFoundById, setMemberFoundById] = useState({});
+  const [memberFoundById, setMemberFoundById] = useState<MemberData>();
 
   useEffect(() => {
     const initReceivedPresentList = async () => {

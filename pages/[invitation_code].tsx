@@ -1,13 +1,10 @@
 import { useRouter } from "next/router";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Home from ".";
 import FriendsService from "../api/FriendsService";
-import { storeContext } from "../store/Store";
-import { dataProps } from "../util/type";
 
 export default function OtherCalendar () {
   const router = useRouter();
-  const { storeUserData } = useContext(storeContext);
   const [code, setCode] = useState('');
   const [userData, setUserData] = useState({});
 
@@ -22,7 +19,7 @@ export default function OtherCalendar () {
     }
   }
   
-  const getLinkMember = async (code) => {
+  const getLinkMember = async (code: string) => {
     const res = await FriendsService.getFriend(code);
     // console.log(res, "링크멤버가져오기");
     if (res.status === 200){
