@@ -7,6 +7,7 @@ import PresentService from "../../api/PresentService";
 import { storeContext } from "../../store/Store";
 import { Flex } from "../../styles/styledComponentModule";
 import Card from "./Card";
+import {getLoggedMember} from "../../api/hooks/useMember";
 
 const TabFlex = styled(Flex)`
   flex-direction: row;
@@ -19,19 +20,25 @@ const Default = styled.img`
 `;
 
 const PresentCardList = ({ selectedday }) => {
-  const { storeUserData } = useContext(storeContext);
-  const receiverId = storeUserData.member.id;
-  const receivedDay =
-    selectedday < 10 ? `2022-12-0${selectedday}` : `2022-12-${selectedday}`;
-
+  // const { storeUserData } = useContext(storeContext);
+  const [myId, setMyId] = useState<any>(null);
   const [receivedPresentList, setReceivedPresentList] = useState([]);
+  const receiverId = myId;
+  const receivedDay =
+      selectedday < 10 ? `2022-12-0${selectedday}` : `2022-12-${selectedday}`;
+
+  const getUserData = async () => {
+    const res = await getLoggedMember();
+    setMyId(res.id());
+  }
+  const initReceivedPresentList = async () => {
+    const res = await setGetDayPresents(receiverId, receivedDay);
+    console.log("receivedPresentList >>> ", res.content)
+    setReceivedPresentList(res.content);
+  };
 
   useEffect(() => {
-    const initReceivedPresentList = async () => {
-      const res = await setGetDayPresents(receiverId, receivedDay);
-      console.log("receivedPresentList >>> ", res.content)
-      setReceivedPresentList(res.content);
-    };
+    getUserData();
     initReceivedPresentList();
   }, []);
 

@@ -4,6 +4,7 @@ import html2canvas from "html2canvas";
 import {useEffect, useState} from "react";
 import TicketModal from "./TicketModal";
 import {getLoggedMember} from "../../api/hooks/useMember";
+import PresentService from "../../api/PresentService";
 
 export const RedBtn = styled(Icons)`
   width: 35rem;
@@ -71,10 +72,9 @@ const Share = () => {
 
   const getMyData = async () => {
     const res = await getLoggedMember();
-    setMyData(res.data.member.nickname);
+    setMyData(res.nickname);
   };
 
-  let memberName : string = null;
   useEffect(() => {
     getMyData();
   }, []);
@@ -100,10 +100,17 @@ const Share = () => {
   if(date>0) Dday=today.getDate();
   const imgSrc = `/assets/image/days/day${Dday}.svg`
 
+  const [receivedPresentListNum, setReceivedPresentListNum] = useState(0);
+  const getMyPresentListNum = async () => {
+    const res = await PresentService.getLoggedUserPresentList();
+    setReceivedPresentListNum(res.data.data.totalElements);
+  };
+  useEffect(() => {
+    getMyPresentListNum();
+  }, []);
 
-
-  const presentNum : number = 10;
-  const presentDate : number = 8;
+  const presentNum : number = receivedPresentListNum;
+  const randomEmoji = require('random-unicode-emoji');
 
   return (
     <>
@@ -113,9 +120,9 @@ const Share = () => {
           <TicketText>
             <h5>{myData}님의 어드벤트 캘린더✨</h5>
             <h6>- 받은 선물 개수 : {presentNum}개</h6>
-            <h6>- 받은 날짜 수 : {presentDate}일</h6>
             {Dday === -1 ?  <h6>- 크리스마스 : 아직도 11월..</h6>
                 :   <h6>- 크리스마스 : D-{date}</h6> }
+            <h6>[오늘의 행운의 아이템] </h6><h5> &nbsp; &nbsp;{randomEmoji.random({count: 3})}</h5>
           </TicketText>
           <TicketDay>
             <p> 오늘의 캘린더 조각 </p>

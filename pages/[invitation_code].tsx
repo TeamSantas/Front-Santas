@@ -18,7 +18,7 @@ export default function OtherCalendar () {
       };
     }
   }
-  
+
   const getLinkMember = async (code: string) => {
     console.log(code, "코드에용");
     const res = await FriendsService.getFriend(code);
@@ -36,6 +36,6 @@ export default function OtherCalendar () {
     getLinkMember(link);
   }, []);
 
-  
+
   return <Home data={userData} link={code}/>;
 }

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Card from "../receivedPresents/Card";
 import { useEffect, useState } from "react";
 import PresentService from "../../api/PresentService";
+import {useRouter} from "next/router";
 
 const TabFlex = styled(Flex)`
   flex-direction: row;
@@ -10,12 +11,19 @@ const TabFlex = styled(Flex)`
 `;
 
 const ReceivedPresentList = () => {
+  const router = useRouter();
   const [receivedPresentList, setReceivedPresentList] = useState([]);
 
   useEffect(() => {
     const initReceivedPresentList = async () => {
-      const res = await PresentService.getLoggedUserPresentList();
-      setReceivedPresentList(res.data.data.content);
+      try {
+        const res = await PresentService.getLoggedUserPresentList();
+        setReceivedPresentList(res.data.data.content);
+      }catch (e){
+        alert("로그인이 필요합니다✨")
+        router.push('/login')
+      }
+
     };
     initReceivedPresentList();
   }, []);

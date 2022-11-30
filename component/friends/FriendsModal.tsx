@@ -31,11 +31,9 @@ const FriendsModal = (props) => {
     setIsLoading(true);
     try {
       await setGetFriend().then((res) => {
-      console.log(res, "디비에 저장된 친구들을 불러와용")
       setFriendsData(res);
     });
     } catch (e) {
-      console.log(e, "[🤬]디비에 저장된 친구들을 불러와용");
     }
     setIsLoading(false);
   };

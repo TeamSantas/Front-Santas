@@ -56,13 +56,14 @@ const Header = () => {
   const menuOffHandler = () => setMenuOnOff(false);
   //로고를 누르면 사이드바 닫힘
   //햄버거 바를 누르면 사이드바 열림
-  console.log(currPath);
+  // console.log(currPath);
 
   return (
     <>
       {currPath === "onboarding" ? (
         <></>
-      ) : (
+      ) : currPath === "logout" ? <></> :
+          currPath === "login" ? <></> :(
         <>
           <Flex>
             <Logo

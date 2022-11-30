@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Flex } from "../../styles/styledComponentModule";
+import {getCookie} from "../../businesslogics/cookie";
 
 const SearchBtn = styled.img`
   margin: 2px;
@@ -12,8 +13,7 @@ const Container = styled.div`
 `;
 //kakao 공유
 const shareKakao = () => {
-  // TODO : inviteLink 실제 값으로 연결
-  const inviteLink = "/test";
+  const inviteLink = getCookie("invitationLink");
   if (typeof window !== "undefined") {
     window.Kakao.Link.sendCustom({
       templateId: 86453,

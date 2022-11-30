@@ -12,13 +12,13 @@ const initialValue: valueType = {
 export const storeContext = createContext(initialValue);
 
 export default function Store({ children }: Props) {
-  const [storeUserData, setStoreUserdata] = useState<MemberData>({} as MemberData);
-  const [storeRefreshToken, setStoreRefreshToken] = useState<string>('');
+  const [storeUserData, setStoreUserdata] = useState(null);
+  const [storeRefreshToken, setStoreRefreshToken] = useState('');
 
   const updateUserData = async () => {
     const data = await getLoggedMember();
-    setStoreUserdata(data.data);
-    return data.data;
+    setStoreUserdata(data);
+    return data;
   };
 
   const updateRefreshToken = (refreshToken : string) => {

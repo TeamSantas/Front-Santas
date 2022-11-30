@@ -20,6 +20,22 @@ export type ResponseData<T> = {
 
 // Member types ------------------------------------
 export interface MemberData {
+  member: {
+    id: string;
+    nickname: string;
+    profileImageURL: string;
+    email: string;
+    invitationLink: string;
+    setting: {
+      id: number;
+      isAlert: boolean;
+      bgm: boolean;
+      fcmtokens: string;
+    };
+  }
+}
+
+export interface NewMemberData {
   dateCount: number;
   member: {
     id: string;
@@ -36,6 +52,8 @@ export interface MemberData {
   }
   presentCount: number;
 }
+
+
 export interface PutMemberData {
   nickname: string;
   profileImageURL: string;

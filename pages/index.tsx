@@ -11,7 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { Suspense } from "react";
 import { setGetMember } from "../api/hooks/useGetMember";
-import { dataProps, MemberData, ResponseData } from "../util/type";
+import {dataProps, MemberData, ResponseData} from "../util/type";
 import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
@@ -82,12 +82,12 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
 
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
-    const res : ResponseData<MemberData> = await getLoggedMember();
-    setMyBGM(res.data.member.setting);
+    const res = await getLoggedMember();
+    setMyBGM(res.setting);
   };
   useEffect(() => {
     getMyBGM();
-  }, []);
+  }, [myBGM]);
 
   const [mute, setMute] = useState(myBGM);
   useEffect(() => {
@@ -97,12 +97,12 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   }, [mute]);
 
   const linkCopyHandler = async () => {
-    const copyURL = `https://pitapat-adventcalendar.site/${memberInfo.member.invitationLink}`
+    const copyURL = `https://pitapat-adventcalendar.site/${getCookie('invitationLink')}`
     try {
       await navigator.clipboard.writeText(copyURL);
-      alert('클립보드에 링크가 복사되었습니다.');
+      alert('내 캘린더 링크가 복사되었습니다.');
     } catch (e) {
-      alert('복사에 실패하였습니다');
+      alert('내 캘린더 링크복사에 실패하였습니다');
     }
     console.log("Link copied!");
   };
@@ -147,7 +147,6 @@ const Home: NextPage<dataProps> = (props:dataProps) => {
   const storeMemberData = async () => {
     const userData = await updateUserData();
     setMemberInfo(userData);
-    console.log('유저데이터 >>>>', userData);
   };
   useEffect(() => {
     // getMemberData();

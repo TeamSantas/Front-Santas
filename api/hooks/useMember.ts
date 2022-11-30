@@ -1,11 +1,13 @@
 import MemberService from "../MemberService";
-import {useEffect, useState} from "react";
-import {MemberData} from "../../util/type";
 
 
 export async function getLoggedMember() {
-  const res = await MemberService.getLoggedMember();
-  return res.data;
+  try {
+    const res = await MemberService.getLoggedMember();
+    return res.data.data.member;
+  }catch (e) {
+    return e
+  }
 }
 // export async function usePutMemberInfo(
 //     nickname : string,
