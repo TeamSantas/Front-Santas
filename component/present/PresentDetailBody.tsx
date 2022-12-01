@@ -36,7 +36,7 @@ const GreenBtn = styled(RedBtn)`
 `;
 
 export default function PresentDetailBody({ body, handleDetail, type }) {
-  console.log(body, type, "선물디테일바디");
+  // console.log(body, type, "선물디테일바디");
   const [isPublic, setIsPublic] = useState(false);
   const [isReceived, setIsReceived] = useState(false);
 
@@ -97,10 +97,12 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
 
   const handleClickGoCalendarBtn = () => {
     let url = "";
-    if (type === "SEND") {
+    if (type && type === "SEND") {
       url = `/${receiverFoundById.member.invitationLink}`;
+    } else if (type && type === "RECEIVED") {
+      url = `/${body.senderInvitationLink}`;
     } else {
-      url = `/${senderFoundById.member.invitationLink}`;
+      url = `/${body.senderInvitationLink}`;
     }
     router.push(url);
   };
