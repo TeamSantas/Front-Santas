@@ -9,6 +9,21 @@ const TabFlex = styled(Flex)`
   flex-direction: row;
   flex-wrap: wrap;
 `;
+const PrepareingContainer = styled.div`
+  margin: 0 auto;
+`
+const PrepareingHeader = styled.h3`
+  display: block;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 2px 10px;
+`;
+const Img = styled.img`
+  width: 150px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  margin-left: 14px;
+`;
 
 const ReceivedPresentList = () => {
   const router = useRouter();
@@ -30,14 +45,20 @@ const ReceivedPresentList = () => {
 
   return (
     <TabFlex>
-      {receivedPresentList?.map((present) => (
+      {receivedPresentList.length > 0 ? receivedPresentList.map((present) => (
         <Card
           key={present.id}
           id={present.id}
           thumbnail={present.imageURL}
           type={"RECEIVED"}
         />
-      ))}
+      )) :
+        (<PrepareingContainer>
+          <Img src="/assets/image/character/face_cry.png" alt="울고있는하얀코"/>
+          <PrepareingHeader>받은선물이 없습니다</PrepareingHeader>
+        </PrepareingContainer>
+        )
+      }
     </TabFlex>
   );
 };
