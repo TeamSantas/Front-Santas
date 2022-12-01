@@ -21,17 +21,17 @@ const AuthAPIInstance = (baseURL: string) => {
     },
   });
   // 응답 인터셉터 추가
-  apiInstance.interceptors.response.use(
-    // 응답 데이터를 가공
-    (response) => response,
-    // 에러 처리하기 (error handling)
-    (error) => {
-        console.log(error);
-      // console.log(error.response.data.code);
-      // if(error.response.data.code === '403')
-        //여기에 403(만료에러) 반환되면 엑세스토큰 대신 리프레시 넣어서 재요청하게
-    }
-  );
+  // apiInstance.interceptors.response.use(
+  //   // 응답 데이터를 가공
+  //   (response) => response,
+  //   // 에러 처리하기 (error handling)
+  //   (error) => {
+  //       console.log(error);
+  //     // console.log(error.response.data.code);
+  //     // if(error.response.data.code === '403')
+  //       //여기에 403(만료에러) 반환되면 엑세스토큰 대신 리프레시 넣어서 재요청하게
+  //   }
+  // );
   // apiInstance.defaults.withCredentials = true;
   return apiInstance;
 };
@@ -44,12 +44,12 @@ const APIInstance = (baseURL: string) => {
     params: {},
   });
   // 응답 인터셉터 추가
-  apiInstance.interceptors.response.use(
-    // 응답 데이터를 가공
-    (response) => response,
-    // 에러 처리하기 (error handling)
-    (error) => console.log(error)
-  );
+  // apiInstance.interceptors.response.use(
+  //   // 응답 데이터를 가공
+  //   (response) => response,
+  //   // 에러 처리하기 (error handling)
+  //   (error) => console.log(error)
+  // );
   // apiInstance.defaults.withCredentials = true;
   return apiInstance;
 };
