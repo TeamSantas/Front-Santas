@@ -59,7 +59,7 @@ const Calendar = ({ ismycalendar }) => {
     } else {
       setCanOpenCalendar(false);
     }
-    console.log("선택한날>>>>>", selectedDayToCompare, "//", today,Number(selectedDayToCompare) <= Number(today));
+    // console.log("선택한날>>>>>", selectedDayToCompare, "//", today,Number(selectedDayToCompare) <= Number(today));
   }, [selectedday]);
 
   const handleShow = (d) => {

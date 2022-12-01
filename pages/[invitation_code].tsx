@@ -34,7 +34,7 @@ export default function OtherCalendar() {
   };
 
   const getLinkMember = async (code: string) => {
-    console.log(code, "코드에용");
+    // console.log(code, "url에서 받아온 코드");
     isMyCode(code);
 
     let res;
