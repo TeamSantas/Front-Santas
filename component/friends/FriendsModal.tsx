@@ -21,8 +21,11 @@ const FriendsModal = (props) => {
     setIsLoading(true);
     try {
       const res:any = await FriendsService.getKakaoFriends();
+      if (res === undefined) {
+        alert("현재 카카오에서 친구목록을 불러올수 없습니다. 잠시후에 다시 시도해주세요🎅");
+      }
     } catch (e) {
-      console.log(e, "[🤬]카카오 친구를 불러와용");
+      console.log(e, "[🤬]카카오 친구를 못불러와용");
     }
     setIsLoading(false);
   };
@@ -80,7 +83,7 @@ const FriendsModal = (props) => {
 
 const ButtonFlex = styled(Flex)`
   width: 100%;
-  justify-content: start;
+  justify-content: space-between;
   @media (max-width: 600px) {
     width: 90%;
   }
@@ -90,5 +93,6 @@ const UpdateBtn = styled(Button)`
   background-color: #8d362d;
   border-color: #8d362d;
 `;
+
 
 export default FriendsModal;

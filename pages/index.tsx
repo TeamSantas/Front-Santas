@@ -17,7 +17,6 @@ import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
 import InformationModal from "../component/index/InformationModal";
-import { storeContext } from "../store/Store";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -75,7 +74,7 @@ const SnowballContainer = styled(MainContainer)`
 `;
 
 const Home: NextPage<dataProps> = (props: dataProps) => {
-  console.log(props, "인덱스에넘겨주는프롭스");
+  // console.log(props, "인덱스에넘겨주는프롭스");
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
   const [memberInfo, setMemberInfo] = useState<MemberData>();
@@ -149,7 +148,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     try {
       const res = await setGetMember();
       setMemberInfo(res.data.data);
-      // console.log("사용자 정보 >>> ", res.data.data);
     } catch (e) {
       console.log(e);
     }
@@ -160,14 +158,9 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     handleCalendarOwner();
   }, []);
 
-  // const currInvitationLink = router.pathname; // 현재 invitation link
-  // const ismycalendar =
-  //   memberInfo && currInvitationLink === memberInfo.invitationLink;
-  // const ismycalendar = true;`
+  // invitation page에서 넘어온건지 확인
   const [ismycalendar, setIsmycalendar] = useState(true);
   const handleCalendarOwner = () => {
-    // setIsmycalendar(false)
-    console.log(Object.keys(props).length, "어라랍스타🦞 >>>>>");
     if (Object.keys(props).length < 1 || !props.data) {
       setIsmycalendar(true);
     } else {
@@ -213,7 +206,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(storeUserData);
 
   const handleGoMyCal = () => {
-    router.push(`/${memberInfo.member.invitationLink}`);
+    // router.push(`/${memberInfo.member.invitationLink}`);
+    router.push('/');
   };
 
   const FriendsCalendarBtn = () => {

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import PresentModal from "../receivedPresents/PresentModal";
 import { useEffect, useState } from "react";
-import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
-import { FriendsData } from "../../util/type";
 import CustomModal from "../common/CustomModal";
 
 const CalendarWrapper = styled.div`
@@ -26,6 +24,18 @@ const DayImage = styled.img`
   }
 `;
 
+const LoadingContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -38%);
+`;
+const LoadingHeader = styled.h2`
+  margin: 0;
+  padding: 0;
+  text-align: center;
+`;
+
 const Calendar = ({ ismycalendar }) => {
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -34,44 +44,40 @@ const Calendar = ({ ismycalendar }) => {
   
   // 현재 날짜 - ex) 20221129
   const date = new Date();
-  const dateArray = date.toLocaleDateString().split(".").join("").split(" ");
-  const today_day =
-  Number(dateArray[2]) < 10 ? "0" + dateArray[2] : dateArray[2];
-  const today = dateArray[0] + dateArray[1] + today_day;
+  const today = `${date.getFullYear()}${date.getMonth()+1}${date.getDate()}`;
+  const today_day = date.getDate();
   
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [notYetModalShow, setNotYeModalShow] = useState(false);
-  const [selectedday, setSelectedDay] = useState(today);
+  const [selectedday, setSelectedDay] = useState(date.getDate());
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
   
   useEffect(() => {
-    if (selectedDayToCompare <= today) {
+    const selectedDayToCompare = Number(selectedday) < 10 ? "202212" + selectedday : "202212" + selectedday;
+    if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
     } else {
       setCanOpenCalendar(false);
     }
+    // console.log("선택한날>>>>>", selectedDayToCompare, "//", today,Number(selectedDayToCompare) <= Number(today));
   }, [selectedday]);
 
-  // 캘린더 오픈 가능 여부 체크
-  const selectedDayToCompare =
-    Number(selectedday) < 10 ? "2022120" + selectedday : "202212" + selectedday;
-
-  console.log("열 수 잇다 >>> ", canOpenCalendar);
-  const handleShow = (e) => {
-    setSelectedDay(e.target.alt.split("day")[1]);
-    // 내 캘린더여야 날짜별 열기 조절
+  const handleShow = (d) => {
+    setSelectedDay(d);
+    const selDate = `202212${d}`;
     if (ismycalendar) {
       // 열기 시도한 날이 오늘보다 앞의 날
-      if (canOpenCalendar) {
+      if (Number(selDate) <= Number(today)) {
+        setCanOpenCalendar(true);
         setPresentModalShow(true);
       } else {
+        setCanOpenCalendar(false);
         setNotYeModalShow(true);
       }
     } else {
       setPresentModalShow(true);
     }
   };
-
 
   const handleClosePresentModal = () => setPresentModalShow(false);
   const handleCloseNotYetModal = () => setNotYeModalShow(false);
@@ -83,14 +89,14 @@ const Calendar = ({ ismycalendar }) => {
           day > Number(today_day) ? (
             <DayImage
               src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
-              onClick={handleShow}
+              onClick={() => {handleShow(idx+1)}}
               alt={`day${idx + 1}`}
               key={day}
             />
           ) : (
             <DayImage
               src={`/assets/image/days/day${idx + 1}.svg`}
-              onClick={handleShow}
+              onClick={() => {handleShow(idx+1)}}
               alt={`day${idx + 1}`}
               key={day}
             />
@@ -98,6 +104,7 @@ const Calendar = ({ ismycalendar }) => {
         )}
       </CalendarWrapper>
       <PresentModal
+        // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달
         show={presentModalShow}
         onHide={handleClosePresentModal}
         selectedday={selectedday}
@@ -105,14 +112,24 @@ const Calendar = ({ ismycalendar }) => {
         // currCalUserInfo={currCalUserInfo}
       />
       <CustomModal
+        // 선택한 캘린더 날짜를 보여주지 못할 때 보여주는 모달
         show={notYetModalShow}
         onHide={handleCloseNotYetModal}
-        // TODO : 디자인 수정
-        header={"아직 못 열어"}
-        text={"날짜가 지나야 돼"}
+        header={""}
+        body={<DenyAccess />}
       />
     </>
   );
 };
+
+const DenyAccess = () => {
+  return (
+    <LoadingContainer>
+      <img src="/assets/image/character/face_crycry.png" width="222" />
+      <LoadingHeader>"날짜가...<br/>지나지 않았써...!"</LoadingHeader>
+    </LoadingContainer>
+  )
+}
+
 
 export default Calendar;

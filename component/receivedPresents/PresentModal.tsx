@@ -38,14 +38,15 @@ const CustomBody = styled(Modal.Body)`
 `;
 
 const PresentModal = (props) => {
-  console.log(props, "친구선물모달이에욥>>>>>>>>")
+  // console.log(props, "친구선물모달이에욥>>>>>>>>")
   const RenderBody = () => {
     return (
       <>
         {props.ismycalendar ? (
           <PresentCardList selectedday={props.selectedday} />
         ) : (
-          <SendPresents />
+          // @ts-ignore
+          <SendPresents selectedday={props.selectedday}/>
         )}
       </>
     );

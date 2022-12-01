@@ -23,7 +23,7 @@ const StyledTab = styled.div`
   }
 `
 const TabButton = styled(RedButton)`
-  width: 50%;
+  width: 49.5%;
   padding: 7px;
   color: white;
   background-size: 5px 5px;

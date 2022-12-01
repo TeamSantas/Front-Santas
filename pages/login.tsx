@@ -26,9 +26,6 @@ const Login: NextPage = () => {
           // body ----------------
           img={""}
           background_img={"/assets/image/icons/warning.png"}
-          text={
-            "소셜로그인 가입시 뜨는 선택사항을 모두 동의해주셔야 필수기능사용이 가능합니다"
-          }
           // footer --------------
           buttons={""}
         ></CustomModal>

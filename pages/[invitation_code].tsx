@@ -3,11 +3,24 @@ import { useContext, useEffect, useState } from "react";
 import Home from ".";
 import FriendsService from "../api/FriendsService";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
+import MemberService from "../api/MemberService";
 
 export default function OtherCalendar() {
   const router = useRouter();
   const [code, setCode] = useState("");
   const [userData, setUserData] = useState({});
+
+  const isMyCode = async (code:string) => {
+    try {
+      const myLink = await (await MemberService.getLoggedMember()).data.data.member.invitationLink;
+      if (myLink === code) {
+        alert("자기 자신은 친구코드로 접근할 수 없습니다! 내 캘린더 페이지로 이동합니다🎅")
+        router.push('/');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const handleInvitationCode = () => {
     if (typeof window !== "undefined") {
@@ -21,7 +34,9 @@ export default function OtherCalendar() {
   };
 
   const getLinkMember = async (code: string) => {
-    console.log(code, "코드에용");
+    // console.log(code, "url에서 받아온 코드");
+    isMyCode(code);
+
     let res;
     try {
       res = await setGetCurrCalendarUserInfo(code);
