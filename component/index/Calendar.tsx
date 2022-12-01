@@ -26,6 +26,18 @@ const DayImage = styled.img`
   }
 `;
 
+const LoadingContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -38%);
+`;
+const LoadingHeader = styled.h2`
+  margin: 0;
+  padding: 0;
+  text-align: center;
+`;
+
 const Calendar = ({ ismycalendar }) => {
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -104,11 +116,21 @@ const Calendar = ({ ismycalendar }) => {
         show={notYetModalShow}
         onHide={handleCloseNotYetModal}
         // TODO : 디자인 수정
-        header={"아직 못 열어"}
-        text={"날짜가 지나야 돼"}
+        header={""}
+        body={<DenyAccess />}
       />
     </>
   );
 };
+
+const DenyAccess = () => {
+  return (
+    <LoadingContainer>
+      <img src="/assets/image/character/face_crycry.png" width="222" />
+      <LoadingHeader>"날짜가...<br/>지나지 않았써...!"</LoadingHeader>
+    </LoadingContainer>
+  )
+}
+
 
 export default Calendar;
