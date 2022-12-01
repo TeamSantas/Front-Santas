@@ -19,26 +19,21 @@ const Kakao : NextPage = () => {
             const res = await KakaoLogin(new URL(window.location.href).searchParams.get("code"), new URL(window.location.href).searchParams.get("state"));
             setRefresh(res.data.data.refreshToken);
             setIsLogin(true);
-        }catch (error){
-            alert('로그인이 불가한 접근시도입니다.😥');
-            router.push('/login');
-        }
-    }
-
-    const getUserData = async () => {
-        try {
-            const res = await getLoggedMember();
-            setCookie('invitationLink', res.invitationLink, 30);
-            return res;
+            
+            // getUserData
+            const loggedMember = await getLoggedMember();
+            setCookie('invitationLink', loggedMember.invitationLink, 30);
+            router.reload()
+            return loggedMember;
         }catch (error){
             alert('로그인이 필요한 기능입니다🎁');
+            // alert('로그인이 불가한 접근시도입니다.😥');
             router.push('/login');
         }
     }
 
     useEffect(()=> {
         run();
-        getUserData();
         router.push('/');
     },[])
 
