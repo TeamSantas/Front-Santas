@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import PresentModal from "../receivedPresents/PresentModal";
 import { useEffect, useState } from "react";
-import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
-import { FriendsData } from "../../util/type";
 import CustomModal from "../common/CustomModal";
 
 const CalendarWrapper = styled.div`
@@ -106,6 +104,7 @@ const Calendar = ({ ismycalendar }) => {
         )}
       </CalendarWrapper>
       <PresentModal
+        // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달
         show={presentModalShow}
         onHide={handleClosePresentModal}
         selectedday={selectedday}
@@ -113,9 +112,9 @@ const Calendar = ({ ismycalendar }) => {
         // currCalUserInfo={currCalUserInfo}
       />
       <CustomModal
+        // 선택한 캘린더 날짜를 보여주지 못할 때 보여주는 모달
         show={notYetModalShow}
         onHide={handleCloseNotYetModal}
-        // TODO : 디자인 수정
         header={""}
         body={<DenyAccess />}
       />
