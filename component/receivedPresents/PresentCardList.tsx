@@ -12,10 +12,8 @@ const TabFlex = styled(Flex)`
 `;
 
 const LoadingContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -38%);
+  height: 400px;
+  max-height: 50rem;
 `;
 const LoadingHeader = styled.h2`
   margin: 0;
@@ -40,7 +38,7 @@ const PresentCardList = ({ selectedday }) => {
 
   return (
     <>
-      {receivedPresentList ? (
+      {receivedPresentList.length > 0 ? (
         <TabFlex>
           {receivedPresentList.map((present) => (
             <Card
@@ -52,8 +50,10 @@ const PresentCardList = ({ selectedday }) => {
         </TabFlex>
       ) : (
         <LoadingContainer>
-          <img src="/assets/image/character/face_crycry.png" width="222" />
-          <LoadingHeader>"받은선물이...없써...!"</LoadingHeader>
+          <div>
+            <img src="/assets/image/character/face_crycry.png" width="222" style={{display: 'block', margin: '0 auto', marginTop: '20px'}}/>
+            <LoadingHeader>"받은선물이...없써...!"</LoadingHeader>
+          </div>
         </LoadingContainer>
       )}
     </>
