@@ -34,44 +34,40 @@ const Calendar = ({ ismycalendar }) => {
   
   // 현재 날짜 - ex) 20221129
   const date = new Date();
-  const dateArray = date.toLocaleDateString().split(".").join("").split(" ");
-  const today_day =
-  Number(dateArray[2]) < 10 ? "0" + dateArray[2] : dateArray[2];
-  const today = dateArray[0] + dateArray[1] + today_day;
+  const today = `${date.getFullYear()}${date.getMonth()+1}${date.getDate()}`;
+  const today_day = date.getDate();
   
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [notYetModalShow, setNotYeModalShow] = useState(false);
-  const [selectedday, setSelectedDay] = useState(today);
+  const [selectedday, setSelectedDay] = useState(date.getDate());
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
   
   useEffect(() => {
-    if (selectedDayToCompare <= today) {
+    const selectedDayToCompare = Number(selectedday) < 10 ? "202212" + selectedday : "202212" + selectedday;
+    if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
     } else {
       setCanOpenCalendar(false);
     }
+    console.log("선택한날>>>>>", selectedDayToCompare, "//", today,Number(selectedDayToCompare) <= Number(today));
   }, [selectedday]);
 
-  // 캘린더 오픈 가능 여부 체크
-  const selectedDayToCompare =
-    Number(selectedday) < 10 ? "2022120" + selectedday : "202212" + selectedday;
-
-  console.log("열 수 잇다 >>> ", canOpenCalendar);
-  const handleShow = (e) => {
-    setSelectedDay(e.target.alt.split("day")[1]);
-    // 내 캘린더여야 날짜별 열기 조절
+  const handleShow = (d) => {
+    setSelectedDay(d);
+    const selDate = `202212${d}`;
     if (ismycalendar) {
       // 열기 시도한 날이 오늘보다 앞의 날
-      if (canOpenCalendar) {
+      if (Number(selDate) <= Number(today)) {
+        setCanOpenCalendar(true);
         setPresentModalShow(true);
       } else {
+        setCanOpenCalendar(false);
         setNotYeModalShow(true);
       }
     } else {
       setPresentModalShow(true);
     }
   };
-
 
   const handleClosePresentModal = () => setPresentModalShow(false);
   const handleCloseNotYetModal = () => setNotYeModalShow(false);
@@ -83,14 +79,14 @@ const Calendar = ({ ismycalendar }) => {
           day > Number(today_day) ? (
             <DayImage
               src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
-              onClick={handleShow}
+              onClick={() => {handleShow(idx+1)}}
               alt={`day${idx + 1}`}
               key={day}
             />
           ) : (
             <DayImage
               src={`/assets/image/days/day${idx + 1}.svg`}
-              onClick={handleShow}
+              onClick={() => {handleShow(idx+1)}}
               alt={`day${idx + 1}`}
               key={day}
             />
