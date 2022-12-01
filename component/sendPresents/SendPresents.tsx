@@ -69,28 +69,13 @@ const SendPresents = () => {
   const getUserData = async () => {
     try {
       const res = await getLoggedMember()
+      console.log("선물보낼사람정보>>>>>>>>>>>>",res)
+      setNickname(res.nickname);
       setMemberInfo(res);
     } catch (e) {
       console.log(e);
     }
   };
-
-  useEffect(() => {
-    getUserData();
-  }, []);
-  // const getMemberData = async () => {
-  //   try {
-  //     const res = await setGetMember();
-  //     // console.log("로그인한 사람", res.data.data.member)
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getMemberData();
-  // }, []);
-
-
 
   // 현재 캘린더 주인 유저 정보
   const currInvitationLink = router.asPath.slice(1);
@@ -107,6 +92,7 @@ const SendPresents = () => {
     }
   };
   useEffect(() => {
+    getUserData();
     getCurrCalUser();
   }, []);
 
@@ -142,6 +128,7 @@ const SendPresents = () => {
     }
 
     try {
+      console.log("선물보낼것>>>", presentData);
       usePostPresent(presentData);
       alert("선물 보내기 성공! 🎁");
     } catch (e) {
@@ -167,9 +154,10 @@ const SendPresents = () => {
   // 선물 보내기 버튼 handler ----------------
   const handleClickSendPresent = () => {
     const inputNickname = nicknameRef.current?.value;
+    console.log(inputNickname, "닉넴님ㄱ넴");
     setContents(ref.current.value);
 
-    if (inputNickname) {
+    if (inputNickname !== 'undefined') {
       setNickname(inputNickname);
     } else if (memberInfo.member.nickname) {
       setNickname(memberInfo.member.nickname);
