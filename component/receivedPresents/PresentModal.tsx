@@ -45,7 +45,8 @@ const PresentModal = (props) => {
         {props.ismycalendar ? (
           <PresentCardList selectedday={props.selectedday} />
         ) : (
-          <SendPresents />
+          // @ts-ignore
+          <SendPresents selectedday={props.selectedday}/>
         )}
       </>
     );

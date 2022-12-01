@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { setGetUserSendPresentsList } from "../../api/hooks/mypagePresents/useGetUserSendPresentsList";
 import { setGetMemberById } from "../../api/hooks/useGetMember";
-import PresentService from "../../api/PresentService";
 import { Flex } from "../../styles/styledComponentModule";
 import { MemberData } from "../../util/type";
 import {
@@ -37,6 +36,7 @@ const GreenBtn = styled(RedBtn)`
 `;
 
 export default function PresentDetailBody({ body, handleDetail, type }) {
+  console.log(body, type, "선물디테일바디");
   const [isPublic, setIsPublic] = useState(false);
   const [isReceived, setIsReceived] = useState(false);
 
@@ -109,7 +109,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     <SendPresentsWrapper>
       <PresentHeader>
         {/* TODO : 닉넴 고민 */}
-        {senderFoundById?.member.nickname} 님께 <br />{" "}
+        {body.nickname} 님께 <br />{" "}
         {type === "SEND" ? <>보낸</> : <>받은</>}
         선물이에요 🎁
       </PresentHeader>
@@ -117,7 +117,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
         <IsAnonymous>
           {body.isAnonymous
             ? "이 선물은 익명으로 보내졌어요"
-            : "이 선물은 익명으로 보내졌어요"}
+            : ""}
         </IsAnonymous>
         {body.contents}
       </GotTextArea>

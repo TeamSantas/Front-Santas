@@ -56,6 +56,7 @@ const CardImg = styled.img`
 `;
 
 const Card = (props) => {
+  console.log("CARD DETAIL", props);
   const [presentCardShow, setPresentCardShow] = useState(false);
   const [selectedcard, setSelectedCard] = useState(0);
   const [presentDetail, setPresentDetail] = useState<presentDetail>(null);
@@ -71,6 +72,7 @@ const Card = (props) => {
   const initPresentDetail = async () => {
     try {
       const res = await setGetPresentDetail(props.id);
+      console.log("카드세부정보", res);
       setPresentDetail(res.data.data);
     } catch (e) {
       console.log(e);

@@ -17,7 +17,6 @@ import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
 import InformationModal from "../component/index/InformationModal";
-import { storeContext } from "../store/Store";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -213,7 +212,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(storeUserData);
 
   const handleGoMyCal = () => {
-    router.push(`/${memberInfo.member.invitationLink}`);
+    // router.push(`/${memberInfo.member.invitationLink}`);
+    router.push('/');
   };
 
   const FriendsCalendarBtn = () => {
