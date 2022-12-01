@@ -142,7 +142,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
       ) : (
         <div style={{ height: "50px" }}></div>
       )}
-      <GreenBtn onClick={handleClickGoCalendarBtn}>{btnText}</GreenBtn>
+      {body.senderId === 0 ? null : <GreenBtn onClick={handleClickGoCalendarBtn}>{btnText}</GreenBtn>}
     </SendPresentsWrapper>
   );
 }
