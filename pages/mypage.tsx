@@ -14,6 +14,7 @@ const Profile = styled.img`
   margin: 30px auto;
   border-radius: 50%;
   border: solid 3px white;
+  object-fit: cover;
 `;
 
 const CenterFlex = styled(Flex)`

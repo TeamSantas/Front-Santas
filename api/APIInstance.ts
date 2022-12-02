@@ -4,10 +4,11 @@ import {getCookie} from "../businesslogics/reactCookie";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-const accessToken = getCookie('token');
+const loadAccessToken = () => {  //여기서 getCookie로 토큰을 가져와서 만약 없으면 로그인링크로 푸시 / 있으면 로그인도있구나 판단 후 정상연결
+  return getCookie('token');
+}
 // console.log(">>>내쿠키어딧써")
 // console.log(getCookie('token'))
-
 
 // Token 필요한 Axios
 const AuthAPIInstance = (baseURL: string) => {
@@ -16,7 +17,7 @@ const AuthAPIInstance = (baseURL: string) => {
     baseURL: baseURL,
     params: {},
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${loadAccessToken()}`,
       // Refresh : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTU1OTExNjU4Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Njk4MjQwODEsImV4cCI6MTY3MjQxNjA4MX0.PC5bhkO43TzK6oO5HR1YwkgENVSmqxgNdVr8VEjU_PU`
     },
   });
