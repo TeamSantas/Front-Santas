@@ -19,7 +19,7 @@ const Text = styled.div`
   font-weight: 700;
   line-height: 110%;
   margin-bottom: 37px;
-
+  text-shadow:1px 1px 1px #000;
   @media screen and (min-width: 1024px) {
     font-size: 36px;
   }

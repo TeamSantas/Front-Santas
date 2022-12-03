@@ -13,13 +13,15 @@ const Kakao : NextPage = () => {
     const [isLogin, setIsLogin] = useState(false);
     const {updateRefreshToken} = useContext(storeContext);
 
-    //로그인하는 함수
+    //로그인하는 함수(인가코드 받아와 백엔드에서 두 Token을 받아옴)
     const run = async () => {
         try {
             const res = await KakaoLogin(new URL(window.location.href).searchParams.get("code"), new URL(window.location.href).searchParams.get("state"));
-            setRefresh(res.data.data.refreshToken);
-            setIsLogin(true);
-            
+            await setCookie("token", res.data.data.token, 30);
+            await setCookie('subToken', res.data.data.refreshToken,30);
+            // setRefresh(res.data.data.refreshToken);
+            // setIsLogin(true);
+
             // getUserData
             const loggedMember = await getLoggedMember();
             setCookie('invitationLink', loggedMember.invitationLink, 30);

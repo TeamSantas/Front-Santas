@@ -8,6 +8,7 @@ import {lazy} from "react";
 const Text = styled.h3`
   margin-top: 20px;
   color: white;
+  text-align: center;
 `;
 const SnowballContainer = styled(MainContainer)`
   height: 80vh;
@@ -19,11 +20,15 @@ const Snowball : NextPage = () => {
 
     return (
         <SnowballContainer>
-            <Text>스노우볼을 움직여보세요</Text>
-            <Suspense fallback={ <img src="/assets/image/character/spinner.gif" alt="spinner" />}>
-            <Canvas>
+            <Suspense fallback={
+                <div>
+                <Text>로딩 중.....</Text>
+                <img src="/assets/image/character/spinner.gif" alt="spinner" />
+            </div>}>
+                <Text>스노우볼을 움직여보세요</Text>
+                <Canvas>
                     <ModelComponent />
-            </Canvas>
+                </Canvas>
             </Suspense>;
         </SnowballContainer>
     )

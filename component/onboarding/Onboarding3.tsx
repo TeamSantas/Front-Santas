@@ -13,7 +13,7 @@ const Text = styled.div`
   color: #ffffff;
   font-size: 24px;
   text-align: center;
-
+  text-shadow:1px 1px 1px #000;
   @media screen and (min-width: 1024px) {
     font-size: 36px;
   }
