@@ -37,6 +37,17 @@ const Info = styled(MainIcons)`
 const Snowball = styled(MainIcons)`
   margin-left: 15px;
   background-image: url("/assets/image/icons/snowball.svg");
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+const SnowballMobile = styled(MainIcons)`
+  margin-left: 15px;
+  background-image: url("/assets/image/icons/snowball.svg");
+  display: none;
+  @media (max-width: 600px) {
+    display: flex;;
+  }
 `;
 
 const Bgm = styled(MainIcons)`
@@ -64,6 +75,7 @@ const ButtonFlex = styled(Flex)`
 `;
 
 const Text = styled.h3`
+  text-align: center;
   color: white;
 `;
 const SnowballContainer = styled(MainContainer)`
@@ -97,7 +109,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     if (mute) {
       setBGM(mute);
     }
-  }, [mute]); 
+  }, [mute]);
 
   const linkCopyHandler = async () => {
     getCookie('invitationLink')
@@ -191,6 +203,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
             <Snowball onClick={clickSnowballIconHandler} />
+            <SnowballMobile onClick={()=>router.push("/snowball")} />
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
@@ -248,7 +261,10 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           <SnowballContainer>
             <Suspense
               fallback={
+              <div>
+                <Text>로딩 중.....</Text>
                 <img src="/assets/image/character/spinner.gif" alt="spinner" />
+              </div>
               }
             >
               <Text>스노우볼을 움직여보세요</Text>

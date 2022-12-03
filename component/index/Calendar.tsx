@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import CustomModal from "../common/CustomModal";
 
 const CalendarWrapper = styled.div`
-  padding: 10px;
+  padding: 0 10px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.1);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  margin: 24px auto;
+  margin: 10px auto;
+  @media (max-width: 600px) {
+    margin: 24px auto;
+  }
 `;
 
 const DayImage = styled.img`
@@ -41,17 +44,17 @@ const Calendar = ({ ismycalendar }) => {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25,
   ];
-  
+
   // 현재 날짜 - ex) 20221129
   const date = new Date();
   const today = `${date.getFullYear()}${date.getMonth()+1}${date.getDate()}`;
   const today_day = date.getDate();
-  
+
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [notYetModalShow, setNotYeModalShow] = useState(false);
   const [selectedday, setSelectedDay] = useState(date.getDate());
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
-  
+
   useEffect(() => {
     const selectedDayToCompare = Number(selectedday) < 10 ? "202212" + selectedday : "202212" + selectedday;
     if (Number(selectedDayToCompare) <= Number(today)) {

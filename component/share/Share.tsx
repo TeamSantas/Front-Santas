@@ -11,7 +11,7 @@ export const RedBtn = styled(Icons)`
   height: 72px;
   font-size: 30px;
   font-weight: bold;
-  margin-top: 40px;
+  margin-top: 15px;
   margin-bottom: 48px;
   background: #ac473d;
   border-radius: 12px;
