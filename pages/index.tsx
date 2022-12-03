@@ -37,6 +37,17 @@ const Info = styled(MainIcons)`
 const Snowball = styled(MainIcons)`
   margin-left: 15px;
   background-image: url("/assets/image/icons/snowball.svg");
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+const SnowballMobile = styled(MainIcons)`
+  margin-left: 15px;
+  background-image: url("/assets/image/icons/snowball.svg");
+  display: none;
+  @media (max-width: 600px) {
+    display: flex;;
+  }
 `;
 
 const Bgm = styled(MainIcons)`
@@ -97,7 +108,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     if (mute) {
       setBGM(mute);
     }
-  }, [mute]); 
+  }, [mute]);
 
   const linkCopyHandler = async () => {
     getCookie('invitationLink')
@@ -191,6 +202,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
             <Snowball onClick={clickSnowballIconHandler} />
+            <SnowballMobile onClick={()=>router.push("/snowball")} />
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
