@@ -145,8 +145,7 @@ const Sidebar = (props) => {
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index
                 onClick={() => {
-                  const result = kakaoLogout();
-                  if (result === "logout_ok") router.push("/logout");
+                  if (kakaoLogout() === "logout_ok") router.push("/logout");
                 }}
               >
                 로그아웃
