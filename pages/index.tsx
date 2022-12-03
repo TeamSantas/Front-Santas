@@ -75,6 +75,7 @@ const ButtonFlex = styled(Flex)`
 `;
 
 const Text = styled.h3`
+  text-align: center;
   color: white;
 `;
 const SnowballContainer = styled(MainContainer)`
@@ -260,7 +261,10 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           <SnowballContainer>
             <Suspense
               fallback={
+              <div>
+                <Text>로딩 중.....</Text>
                 <img src="/assets/image/character/spinner.gif" alt="spinner" />
+              </div>
               }
             >
               <Text>스노우볼을 움직여보세요</Text>
