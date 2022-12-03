@@ -14,7 +14,7 @@ const loadAccessToken = () => {  //여기서 getCookie로 토큰을 가져와서
 // Token 필요한 Axios
 const AuthAPIInstance = (baseURL: string) => {
   const apiInstance = axios.create({
-    timeout: 20000,
+    timeout: 15000,
     baseURL: baseURL,
     params: {},
     headers: {
