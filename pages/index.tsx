@@ -2,7 +2,7 @@
 import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import { NextPage } from "next";
-import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
+import {Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import Calendar from "../component/index/Calendar";
 import Share, { RedBtn } from "../component/share/Share";
 import { getCookie } from "../businesslogics/cookie";
@@ -12,7 +12,7 @@ import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { Suspense } from "react";
 import { setGetMember } from "../api/hooks/useGetMember";
-import {dataProps, MemberData, ResponseData} from "../util/type";
+import { dataProps, MemberData } from "../util/type";
 import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
@@ -37,7 +37,7 @@ const Info = styled(MainIcons)`
 const Snowball = styled(MainIcons)`
   margin-left: 15px;
   background-image: url("/assets/image/icons/snowball.svg");
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     display: none;
   }
 `;
@@ -45,7 +45,7 @@ const SnowballMobile = styled(MainIcons)`
   margin-left: 15px;
   background-image: url("/assets/image/icons/snowball.svg");
   display: none;
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     display: flex;;
   }
 `;
@@ -90,11 +90,11 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
   const [memberInfo, setMemberInfo] = useState<MemberData>();
-
+  const [myName, setMyName] = useState('');
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
     try {
-      const res: ResponseData<MemberData> = await getLoggedMember();
+      const res = await getLoggedMember();
       setMyBGM(res.setting);
     } catch (e) {
       console.log(e);
@@ -120,7 +120,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     } catch (e) {
       alert('내 캘린더 링크복사에 실패하였습니다');
     }
-    console.log("Link copied!");
+    // console.log("Link copied!");
   };
   const muteHandler = (value) => setMute(!value);
 
@@ -159,6 +159,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const getMemberData = async () => {
     try {
       const res = await setGetMember();
+      setMyName(res.data.data.member.nickname);
       setMemberInfo(res.data.data);
     } catch (e) {
       console.log(e);
@@ -253,6 +254,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       <Flex>
         <Seo title="Home" />
         <MainContainer>
+              <h5>{myName}</h5>
           {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} link={"test"} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
