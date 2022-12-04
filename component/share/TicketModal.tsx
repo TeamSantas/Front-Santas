@@ -100,7 +100,7 @@ const TicketModal = (props) => {
         <TabButton
           onClick={() => onDownloadAs(props.img, "pitapet_calendar.png")}
         >
-          내 캘린더 저장하기
+          내 티켓 저장하기
         </TabButton>
       </CenteredModalWrapper>
     </Modal>

@@ -54,7 +54,7 @@ const GreenDeleteButton = styled(GreenCloseButton)`
   cursor: pointer;
 `;
 
-const SendPresents = ({ selectedday }) => {
+const SendPresents = ({ onHide, selectedday }) => {
   const [contents, setContents] = useState<string>("");
   const [isAnonymous, setAnonymous] = useState<boolean | any>(false);
   const [nickname, setNickname] = useState<string>("익명");
@@ -133,6 +133,7 @@ const SendPresents = ({ selectedday }) => {
     }
 
     HandleImageSubmit();
+    onHide();
   };
 
   // 이미지 상대경로 저장

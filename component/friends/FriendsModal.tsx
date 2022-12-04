@@ -13,6 +13,12 @@ import FriendsList from "./FriendsList";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
 import FriendsService from "../../api/FriendsService";
 
+const CenteredModalFooter = styled.div`
+  width: 90%;
+  margin: auto;
+  padding-bottom: 1rem;
+`;
+
 const FriendsModal = (props) => {
   const [friendsData, setFriendsData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -20,9 +26,11 @@ const FriendsModal = (props) => {
   const getKakaoFriendsData = async () => {
     setIsLoading(true);
     try {
-      const res:any = await FriendsService.getKakaoFriends();
+      const res: any = await FriendsService.getKakaoFriends();
       if (res === undefined) {
-        alert("현재 카카오에서 친구목록을 불러올수 없습니다. 잠시후에 다시 시도해주세요🎅");
+        alert(
+          "현재 카카오에서 친구목록을 불러올수 없습니다. 잠시후에 다시 시도해주세요🎅"
+        );
       }
     } catch (e) {
       console.log(e, "[🤬]카카오 친구를 못불러와용");
@@ -34,10 +42,9 @@ const FriendsModal = (props) => {
     setIsLoading(true);
     try {
       await setGetFriend().then((res) => {
-      setFriendsData(res.data.data);
-    });
-    } catch (e) {
-    }
+        setFriendsData(res.data.data);
+      });
+    } catch (e) {}
     setIsLoading(false);
   };
 
@@ -59,7 +66,7 @@ const FriendsModal = (props) => {
       <CustomBody>
         <FriendsList friendsData={friendsData} isLoading={isLoading} />
       </CustomBody>
-      <CustomFooter>
+      <CenteredModalFooter>
         <ButtonFlex>
           <UpdateBtn
             onClick={() => {
@@ -76,7 +83,7 @@ const FriendsModal = (props) => {
             친구목록 업데이트
           </UpdateBtn>
         </ButtonFlex>
-      </CustomFooter>
+      </CenteredModalFooter>
     </Modal>
   );
 };
@@ -84,15 +91,11 @@ const FriendsModal = (props) => {
 const ButtonFlex = styled(Flex)`
   width: 100%;
   justify-content: space-between;
-  @media (max-width: 600px) {
-    width: 90%;
-  }
 `;
 
 const UpdateBtn = styled(Button)`
   background-color: #8d362d;
   border-color: #8d362d;
 `;
-
 
 export default FriendsModal;
