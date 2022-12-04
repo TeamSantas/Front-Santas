@@ -130,17 +130,13 @@ const SendPresents = ({ selectedday }) => {
       setNickname(memberInfo.nickname); // << 익명아닐때 닉네임(자동주입)
     }
 
-    console.log("fileList 여기서는 들어가잇어야한다 >>>>> ", fileList);
-
     HandleImageSubmit();
   };
 
   // 이미지 상대경로 저장
   const handleAddImages = (e) => {
     const uploadFiles = Array.prototype.slice.call(e.target.files);
-    uploadFiles.forEach((uploadFile) => {
-      setFileList([uploadFile, ...fileList]);
-    });
+    setFileList([...uploadFiles, ...fileList]);
 
     let imageUrlLists = [...showImages];
 
@@ -184,11 +180,11 @@ const SendPresents = ({ selectedday }) => {
     );
     presentData.append("isAnonymous", isAnonymous);
 
-    // if (fileList.length > 0) {
-    fileList.forEach((file) => {
-      presentData.append("multipartFileList", file);
-    });
-    // }
+    if (fileList.length > 0) {
+      fileList.forEach((file) => {
+        presentData.append("multipartFileList", file);
+      });
+    }
 
     console.log(
       "파일들...",
