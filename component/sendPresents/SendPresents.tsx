@@ -62,6 +62,8 @@ const SendPresents = ({ selectedday }) => {
   const [currCalUser, setCurrCalUser] = useState<FriendsData>();
   // ImageUpload -------------
   const [fileList, setFileList] = useState<File[]>([]);
+  const [heicFiles, setHeicFiles] = useState<File[]>([]);
+
   const [showImages, setShowImages] = useState([]);
   const router = useRouter();
 
@@ -136,6 +138,18 @@ const SendPresents = ({ selectedday }) => {
   // 이미지 상대경로 저장
   const handleAddImages = (e) => {
     const uploadFiles = Array.prototype.slice.call(e.target.files);
+
+    // HEIC -> JPG
+    const heicFile = uploadFiles.filter((file) =>
+      file.name.toLowerCase().endsWith("heic")
+    );
+    if (heicFile.length > 0) {
+      alert("heic 파일 지원 준비중입니다. 🛠️");
+      return;
+    }
+
+    // console.log("heicFiles >>> ", heicFile);
+
     setFileList([...uploadFiles, ...fileList]);
 
     let imageUrlLists = [...showImages];
@@ -181,20 +195,23 @@ const SendPresents = ({ selectedday }) => {
     presentData.append("isAnonymous", isAnonymous);
 
     if (fileList.length > 0) {
+      // HEIC 파일이라면 변환
+      // const heicFiles = fileList.filter(file => file.name.toLowerCase().endsWith('heic'));
+      // console.log("heicFiles >>>>>>>>> ", heicFiles)
       fileList.forEach((file) => {
         presentData.append("multipartFileList", file);
       });
     }
 
-    console.log(
-      "파일들...",
-      currCalUserId,
-      memberInfo.nickname,
-      contents,
-      `2022-12-${selectedday.toString().padStart(2, "0")}`,
-      isAnonymous,
-      fileList
-    );
+    // console.log(
+    //   "파일들...",
+    //   currCalUserId,
+    //   memberInfo.nickname,
+    //   contents,
+    //   `2022-12-${selectedday.toString().padStart(2, "0")}`,
+    //   isAnonymous,
+    //   fileList
+    // );
 
     try {
       usePostPresent(presentData);
