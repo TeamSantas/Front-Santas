@@ -187,15 +187,15 @@ const SendPresents = ({ onHide, selectedday }) => {
       });
     }
 
-    console.log(
-      "파일들...",
-      currCalUserId,
-      memberInfo.nickname,
-      contents,
-      `2022-12-${selectedday.toString().padStart(2, "0")}`,
-      isAnonymous,
-      fileList
-    );
+    // console.log(
+    //   "파일들...",
+    //   currCalUserId,
+    //   memberInfo.nickname,
+    //   contents,
+    //   `2022-12-${selectedday.toString().padStart(2, "0")}`,
+    //   isAnonymous,
+    //   fileList
+    // );
 
     try {
       usePostPresent(presentData);

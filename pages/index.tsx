@@ -2,7 +2,7 @@
 import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import { NextPage } from "next";
-import {Icons, MainContainer, Flex } from "../styles/styledComponentModule";
+import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import Calendar from "../component/index/Calendar";
 import Share, { RedBtn } from "../component/share/Share";
 import { getCookie } from "../businesslogics/cookie";
@@ -46,7 +46,7 @@ const SnowballMobile = styled(MainIcons)`
   background-image: url("/assets/image/icons/snowball.svg");
   display: none;
   @media (max-width: 1000px) {
-    display: flex;;
+    display: flex;
   }
 `;
 
@@ -90,7 +90,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
   const [memberInfo, setMemberInfo] = useState<MemberData>();
-  const [myName, setMyName] = useState('');
+  const [myName, setMyName] = useState("");
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
     try {
@@ -112,13 +112,15 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   }, [mute]);
 
   const linkCopyHandler = async () => {
-    getCookie('invitationLink')
-    const copyURL = `https://pitapat-adventcalendar.site/${getCookie('invitationLink')}`
+    getCookie("invitationLink");
+    const copyURL = `https://pitapat-adventcalendar.site/${getCookie(
+      "invitationLink"
+    )}`;
     try {
       await navigator.clipboard.writeText(copyURL);
-      alert('내 캘린더 링크가 복사되었습니다.');
+      alert("내 캘린더 링크가 복사되었습니다.");
     } catch (e) {
-      alert('내 캘린더 링크복사에 실패하였습니다');
+      alert("내 캘린더 링크복사에 실패하였습니다");
     }
     // console.log("Link copied!");
   };
@@ -204,7 +206,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
               <MuteBgm onClick={() => muteHandler(mute)} />
             )}
             <Snowball onClick={clickSnowballIconHandler} />
-            <SnowballMobile onClick={()=>router.push("/snowball")} />
+            <SnowballMobile onClick={() => router.push("/snowball")} />
             <Info onClick={clickInformationIconHandler} />
             <InformationModal
               show={informationModalShow}
@@ -221,7 +223,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   const handleGoMyCal = () => {
     // router.push(`/${memberInfo.member.invitationLink}`);
-    router.push('/');
+    router.push("/");
   };
 
   const FriendsCalendarBtn = () => {
@@ -254,7 +256,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       <Flex>
         <Seo title="Home" />
         <MainContainer>
-              <h5>{myName}</h5>
+          <br />
+          <h5>{myName} 님의 캘린더 🎁</h5>
           {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} link={"test"} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
@@ -263,10 +266,13 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           <SnowballContainer>
             <Suspense
               fallback={
-              <div>
-                <Text>로딩 중.....</Text>
-                <img src="/assets/image/character/spinner.gif" alt="spinner" />
-              </div>
+                <div>
+                  <Text>로딩 중.....</Text>
+                  <img
+                    src="/assets/image/character/spinner.gif"
+                    alt="spinner"
+                  />
+                </div>
               }
             >
               <Text>스노우볼을 움직여보세요</Text>
