@@ -6,11 +6,11 @@ import {
   GreenCloseButton,
 } from "../../styles/styledComponentModule";
 import Form from "react-bootstrap/Form";
-import {FriendsData} from "../../util/type";
+import { FriendsData } from "../../util/type";
 import { usePostPresent } from "../../api/hooks/usePostPresent";
 import { useRouter } from "next/router";
 import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
-import {getLoggedMember} from "../../api/hooks/useMember";
+import { getLoggedMember } from "../../api/hooks/useMember";
 
 export const PresentHeader = styled.div`
   font-size: x-large;
@@ -54,22 +54,26 @@ const GreenDeleteButton = styled(GreenCloseButton)`
   cursor: pointer;
 `;
 
-const SendPresents = ({selectedday}) => {
+const SendPresents = ({ selectedday }) => {
   const [contents, setContents] = useState<string>("");
   const [isAnonymous, setAnonymous] = useState<boolean | any>(false);
   const [nickname, setNickname] = useState<string>("익명");
   const [memberInfo, setMemberInfo] = useState<any>();
   const [currCalUser, setCurrCalUser] = useState<FriendsData>();
+  // ImageUpload -------------
+  const [fileList, setFileList] = useState<File[]>([]);
+  const [showImages, setShowImages] = useState([]);
   const router = useRouter();
 
+  // Ref ---------------------
   const ref = useRef(null);
   const nicknameRef = useRef(null);
 
   // 현재 로그인한 유저의 정보
   const getUserData = async () => {
     try {
-      const res = await getLoggedMember()
-      console.log("선물보낼사람정보>>>>>>>>>>>>",res)
+      const res = await getLoggedMember();
+      // console.log("선물보낼사람정보>>>>>>>>>>>>", res);
       setMemberInfo(res);
     } catch (e) {
       console.log(e);
@@ -79,11 +83,11 @@ const SendPresents = ({selectedday}) => {
   // 현재 캘린더 주인 유저 정보
   const currInvitationLink = router.asPath.slice(1);
 
-  console.log("currInvitationLink >>> ", currInvitationLink);
+  // console.log("currInvitationLink >>> ", currInvitationLink);
   const getCurrCalUser = async () => {
     try {
       const res = await setGetCurrCalendarUserInfo(currInvitationLink);
-      console.log("캘린더주인정보>>>>>>>>>>>>", res.data.data);
+      // console.log("캘린더주인정보>>>>>>>>>>>>", res.data.data);
       setCurrCalUser(res.data.data);
     } catch (e) {
       console.log(e);
@@ -94,49 +98,10 @@ const SendPresents = ({selectedday}) => {
     getCurrCalUser();
   }, []);
 
-  const currCalUserName : string = currCalUser ? `${currCalUser.nickname}` : "친구";
-  const currCalUserId : number = currCalUser ? currCalUser.id : 0;
-
-
-  // ImageUpload -------------
-  const fileList: File[] = [];
-  const [showImages, setShowImages] = useState([]);
-
-  const HandleImageSubmit = () => {
-    let sendNick = nicknameRef.current?.value;
-    if (!isAnonymous) {
-      sendNick = memberInfo.nickname;
-    } else {
-      if (sendNick === 'undefined') {
-        sendNick = "익명";
-      }
-    }
-
-    const presentData = new FormData();
-
-    // @ts-ignore
-    presentData.append("receiverId", currCalUserId); // TODO : 받은 사람 ID로 가져오기
-    presentData.append("nickname", sendNick);
-    presentData.append("title", "Test title"); // title 사용하지 않기로 했습니다
-    presentData.append("contents", ref.current?.value);
-    presentData.append("receivedDate", `2022-12-${(selectedday.toString()).padStart(2, '0')}`);
-    presentData.append("isAnonymous", isAnonymous);
-    console.log("파일들...",currCalUserId, memberInfo.nickname, contents, `2022-12-${(selectedday.toString()).padStart(2, '0')}`, isAnonymous, fileList);
-
-    if (fileList.length > 0) {
-      fileList.forEach((file) => {
-        presentData.append("multipartFileList", file);
-      });
-    }
-
-    try {
-      usePostPresent(presentData);
-      alert("선물 보내기 성공! 🎁");
-    } catch (e) {
-      console.log(e);
-      alert("선물 보내기에 실패했어요. 🥺");
-    }
-  };
+  const currCalUserName: string = currCalUser
+    ? `${currCalUser.nickname}`
+    : "친구";
+  const currCalUserId: number = currCalUser ? currCalUser.id : 0;
 
   // -------------------------------------
 
@@ -155,15 +120,18 @@ const SendPresents = ({selectedday}) => {
   // 선물 보내기 버튼 handler ----------------
   const handleClickSendPresent = () => {
     const inputNickname = nicknameRef.current?.value;
-    console.log(inputNickname, "닉넴님ㄱ넴");
+    // console.log(inputNickname, "닉넴님ㄱ넴");
     setContents(ref.current?.value);
     // console.log(ref.current?.value);
 
-    if (inputNickname !== 'undefined') {
+    if (inputNickname !== "undefined") {
       setNickname(inputNickname); // << 익명체크시 닉네임
     } else if (memberInfo.nickname) {
       setNickname(memberInfo.nickname); // << 익명아닐때 닉네임(자동주입)
     }
+
+    console.log("fileList 여기서는 들어가잇어야한다 >>>>> ", fileList);
+
     HandleImageSubmit();
   };
 
@@ -171,7 +139,7 @@ const SendPresents = ({selectedday}) => {
   const handleAddImages = (e) => {
     const uploadFiles = Array.prototype.slice.call(e.target.files);
     uploadFiles.forEach((uploadFile) => {
-      fileList.push(uploadFile);
+      setFileList([uploadFile, ...fileList]);
     });
 
     let imageUrlLists = [...showImages];
@@ -191,6 +159,54 @@ const SendPresents = ({selectedday}) => {
   // 클릭 시 이미지 삭제
   const handleDeleteImage = (id) => {
     setShowImages(showImages.filter((_, index) => index !== id));
+  };
+
+  const HandleImageSubmit = () => {
+    let sendNick = nicknameRef.current?.value;
+    if (!isAnonymous) {
+      sendNick = memberInfo.nickname;
+    } else {
+      if (sendNick === "undefined") {
+        sendNick = "익명";
+      }
+    }
+
+    const presentData = new FormData();
+
+    // @ts-ignore
+    presentData.append("receiverId", currCalUserId); // TODO : 받은 사람 ID로 가져오기
+    presentData.append("nickname", sendNick);
+    presentData.append("title", "Test title"); // title 사용하지 않기로 했습니다
+    presentData.append("contents", ref.current?.value);
+    presentData.append(
+      "receivedDate",
+      `2022-12-${selectedday.toString().padStart(2, "0")}`
+    );
+    presentData.append("isAnonymous", isAnonymous);
+
+    // if (fileList.length > 0) {
+    fileList.forEach((file) => {
+      presentData.append("multipartFileList", file);
+    });
+    // }
+
+    console.log(
+      "파일들...",
+      currCalUserId,
+      memberInfo.nickname,
+      contents,
+      `2022-12-${selectedday.toString().padStart(2, "0")}`,
+      isAnonymous,
+      fileList
+    );
+
+    try {
+      usePostPresent(presentData);
+      alert("선물 보내기 성공! 🎁");
+    } catch (e) {
+      console.log(e);
+      alert("선물 보내기에 실패했어요. 🥺");
+    }
   };
 
   return (
