@@ -91,8 +91,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
-  const [memberInfo, setMemberInfo] = useState<MemberData>();
-  const [myName, setMyName] = useState("");
+  const [memberInfo, setMemberInfo] = useState('나');
+  const [myName, setMyName] = useState("나");
   const [myBGM, setMyBGM] = useState<any>(null);
   const getMyBGM = async () => {
     try {
@@ -152,12 +152,15 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   };
 
 
-  let currInvitationLink = router.asPath.slice(1);
   const getCurrCalUser = async () => {
-    if(currInvitationLink.length<2) currInvitationLink = getCookie('invitationLink')
+    let currInvitationLink = router.asPath.slice(1);
     try {
-      const res = await setGetCurrCalendarUserInfo(currInvitationLink);
-      setMyName(res.data.data.nickname);
+      if(currInvitationLink.length < 2 ) setMyName(memberInfo)
+      else{
+        const res = await setGetCurrCalendarUserInfo(currInvitationLink);
+        setMyName(res.data.data.nickname);
+      }
+
     } catch (e) {
       console.log(e);
     }
@@ -170,11 +173,19 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     }
   }, []);
 
+  const getMyName = async () => {
+    try {
+      const res = await setGetMember();
+      return res.data.data.member.nickname;
+    } catch (e) {
+      console.log(e);
+    }
+  }
   // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
   const getMemberData = async () => {
     try {
       const res = await setGetMember();
-      setMemberInfo(res.data.data);
+      setMemberInfo(res.data.data.member.nickname);
       setCookie("invitationLink", res.data.data.member.invitationLink)
     } catch (e) {
       console.log(e);
@@ -185,7 +196,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     getMemberData();
     getCurrCalUser();
     handleCalendarOwner();
-  }, []);
+  }, [memberInfo]);
 
   // invitation page에서 넘어온건지 확인
   const [ismycalendar, setIsmycalendar] = useState(true);
@@ -271,7 +282,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
         <Seo title="Home" />
         <MainContainer>
           <br />
-          <h5>{myName} 님의 캘린더 🎁</h5>
+          <h5>{myName}님의 캘린더 🎁</h5>
           {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} link={"test"} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
