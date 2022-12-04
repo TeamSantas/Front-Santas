@@ -13,7 +13,7 @@ import {
 import { RedBtn } from "../share/Share";
 
 const GotTextArea = styled(TextArea)`
-  color: black;
+  color: black !important;
   overflow: auto;
 `;
 
