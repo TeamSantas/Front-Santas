@@ -17,6 +17,8 @@ import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
 import InformationModal from "../component/index/InformationModal";
+import {setGetCurrCalendarUserInfo} from "../api/hooks/useGetCurrCalendarUserInfo";
+import {setCookie} from "cookies-next";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -149,6 +151,17 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     setSnawballModalShow(!snowballModalShow);
   };
 
+
+  let currInvitationLink = router.asPath.slice(1);
+  const getCurrCalUser = async () => {
+    if(currInvitationLink.length<2) currInvitationLink = getCookie('invitationLink')
+    try {
+      const res = await setGetCurrCalendarUserInfo(currInvitationLink);
+      setMyName(res.data.data.nickname);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   // cookie
   useEffect(() => {
     const onboardingCookie = getCookie("onboarding");
@@ -161,8 +174,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const getMemberData = async () => {
     try {
       const res = await setGetMember();
-      setMyName(res.data.data.member.nickname);
       setMemberInfo(res.data.data);
+      setCookie("invitationLink", res.data.data.member.invitationLink)
     } catch (e) {
       console.log(e);
     }
@@ -170,6 +183,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   useEffect(() => {
     getMemberData();
+    getCurrCalUser();
     handleCalendarOwner();
   }, []);
 
