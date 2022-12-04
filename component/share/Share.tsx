@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import TicketModal from "./TicketModal";
 import { getLoggedMember } from "../../api/hooks/useMember";
 import PresentService from "../../api/PresentService";
+import {getCookie} from "../../businesslogics/cookie";
 
 export const RedBtn = styled(Icons)`
   width: 35rem;
@@ -84,10 +85,24 @@ const Share = () => {
   }, []);
 
   const calendarShareHandler = () => {
-    screenCaptureHandler();
+    linkCopyHandler();
     setShareModalShow(true);
   };
   const handleClose = () => setShareModalShow(false);
+
+  const linkCopyHandler = async () => {
+    getCookie('invitationLink')
+    const copyURL = `https://pitapat-adventcalendar.site/${getCookie('invitationLink')}`
+    try {
+      await navigator.clipboard.writeText(copyURL);
+      screenCaptureHandler();
+      alert('내 캘린더 링크가 클립보드에 복사되었습니다.');
+    } catch (e) {
+      screenCaptureHandler();
+      alert('내 캘린더 링크복사에 실패하였습니다');
+    }
+    // console.log("Link copied!");
+  };
 
   const screenCaptureHandler = () => {
     console.log("캡쳐됨");
@@ -149,7 +164,7 @@ const Share = () => {
           </TicketTitle>
         </div>
       </Capture>
-      <RedBtn onClick={calendarShareHandler}>캘린더 공유하기</RedBtn>
+      <RedBtn onClick={calendarShareHandler}>내 캘린더 & 티켓 공유</RedBtn>
       <TicketModal
         // TODO : 공유 버튼 핸들러 구현 후 추가
 
