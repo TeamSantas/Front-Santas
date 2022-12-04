@@ -13,9 +13,12 @@ import {
 import { RedBtn } from "../share/Share";
 
 const GotTextArea = styled(TextArea)`
-  color: black;
   overflow: auto;
 `;
+
+const BlackContents = styled.div`
+  color: black;
+`
 
 const IsAnonymous = styled.div`
   color: gray;
@@ -121,7 +124,10 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
             ? "이 선물은 익명으로 보내졌어요"
             : ""}
         </IsAnonymous>
+        <BlackContents>
+
         {body.contents}
+        </BlackContents>
       </GotTextArea>
       {body.imageURL.length > 0 ? (
         <div className="Thumbnail_Wrapper">
