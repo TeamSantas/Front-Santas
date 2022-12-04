@@ -38,7 +38,6 @@ const CustomBody = styled(Modal.Body)`
 `;
 
 const PresentModal = (props) => {
-  // console.log(props, "친구선물모달이에욥>>>>>>>>")
   const RenderBody = () => {
     return (
       <>
@@ -46,7 +45,7 @@ const PresentModal = (props) => {
           <PresentCardList selectedday={props.selectedday} />
         ) : (
           // @ts-ignore
-          <SendPresents selectedday={props.selectedday}/>
+          <SendPresents onHide={props.onHide} selectedday={props.selectedday}/>
         )}
       </>
     );

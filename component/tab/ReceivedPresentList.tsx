@@ -33,15 +33,13 @@ const ReceivedPresentList = () => {
     const initReceivedPresentList = async () => {
       try {
         const res = await PresentService.getLoggedUserPresentList();
-        console.log("두어캔에 오신걸 환영합니다✨")
-        console.log(res)
         setReceivedPresentList(res.data.data.content);
       }catch (e){
         // alert(e)
         // console.log(">>>>>>>너였구나")
         console.log(e)
-        alert("두어캔에 오신걸 환영합니다✨")
-        router.push('/')
+        alert("로그인이 필요합니다✨")
+        router.push('/login')
       }
 
     };

@@ -11,7 +11,7 @@ const TextArea = () => {
 
   const handleClick = (event) => {
     // TODO : 쪽지 내용 DB 저장
-    console.log(ref.current.value);
+    // console.log(ref.current.value);
   };
 
   return (

@@ -65,6 +65,7 @@ const LoadingContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
 `;
 const LoadingHeader = styled.h2`
   margin: 0;
@@ -144,7 +145,9 @@ const FriendsList = () => {
       {!isLoading && friendsData.length < 1 ? (
         <LoadingContainer>
           <img src="/assets/image/character/face_crycry.png" width="200" />
-          <LoadingHeader>"친구가...없써...!"</LoadingHeader>
+          {/*<LoadingHeader>"친구가...없써...!"</LoadingHeader>*/}
+          <LoadingHeader>"카카오 승인대기 중"</LoadingHeader>
+          <p><br/>진짜 금방 될거에요.. ;o;<br/> 그때까진 🔗링크🔗로 놀러갑시닷~!</p>
         </LoadingContainer>
       ) : null}
       {isLoading ? (
