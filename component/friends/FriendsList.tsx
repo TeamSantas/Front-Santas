@@ -14,6 +14,25 @@ export const AlignedFlex = styled(Flex)`
 const GoFriendsCalendarBtn = styled(Button)`
   background-color: #8d362d;
   border-color: #8d362d;
+  @media (max-width: 600px) {
+    font-size: small;
+  }
+  @media (max-width: 300px) {
+    width: 70px;
+    font-size: x-small;
+  }
+`;
+
+const FriendsName = styled.div`
+  margin-left: 5px;
+  font-size: normal;
+  @media (max-width: 600px) {
+    font-size: smaller;
+  }
+  @media (max-width: 300px) {
+    max-width: 40px;
+    font-size: small;
+  }
 `;
 
 const FriendCard = styled.div`
@@ -108,7 +127,7 @@ const FriendsList = () => {
                 : "/assets/image/character/face_smile.png"
             }
           />
-          <div>{props.name}</div>
+          <FriendsName>{props.name}</FriendsName>
         </AlignedFlex>
 
         <Flex>
