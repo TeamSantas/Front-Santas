@@ -69,9 +69,9 @@ export const Onboarding4 = ({ showPage }) => {
       <Image src="/assets/image/onboarding/crayon_box.png" />
       <Text>캘린더에 쪽지를 보내러 가볼까요?!</Text>
       {visited === true ? (
-        <GoBtn onClick={() => (router.push("/login") )}>
+        <GoBtn onClick={() => (router.push("/") )}>
           내 캘린더가기
-        </GoBtn> //TODO : "/login"대신 내 invitation 링크가져오기
+        </GoBtn>
       ) : (
         <GoBtn onClick={() => (router.push("/login")) }>GO!</GoBtn>
       )}
