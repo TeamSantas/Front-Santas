@@ -20,7 +20,7 @@ export default function Store({ children }: Props) {
   const updateUserData = async () => {
     try {
       const data = await getLoggedMember();
-      console.log(data.data)
+      // console.log(data.data)
       setStoreUserdata(data.data.data);
       return data.data;
     } catch (e) {

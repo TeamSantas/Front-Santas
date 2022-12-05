@@ -13,7 +13,7 @@ export async function convertAllHeicToJpg(heicFiles) {
       for (let idx in images) {
         const image = images[idx];
         const outputBuffer = await image.convert();
-        console.log("변환 결과 >>> ", outputBuffer)
+        // console.log("변환 결과 >>> ", outputBuffer)
         // await promisify(fs.writeFile)(`./result-${idx}.jpg`, outputBuffer);
       }
     })();

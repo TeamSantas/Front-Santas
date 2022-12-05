@@ -109,8 +109,6 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     router.push(url);
   };
 
-  console.log("body >>>>>>>>>>>>>> ", body);
-
   return (
     <SendPresentsWrapper>
       <PresentHeader>
