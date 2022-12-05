@@ -112,9 +112,9 @@ const FriendsList = () => {
     const goFriendsCalendar = () => {
       if (props && props.invitationLink) {
         router.push(`/${props.invitationLink}`);
-        console.log("친구 캘린더로 가즈아~");
+        // console.log("친구 캘린더로 가즈아~");
       } else {
-        console.log("props.invitationLink 업슴");
+        console.log("props.invitationLink 없어용");
       }
     };
 
