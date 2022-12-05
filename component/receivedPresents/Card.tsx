@@ -56,7 +56,7 @@ const CardImg = styled.img`
 `;
 
 const Card = (props) => {
-  console.log("CARD DETAIL", props);
+  // console.log("CARD DETAIL", props);
   const [presentCardShow, setPresentCardShow] = useState(false);
   const [selectedcard, setSelectedCard] = useState(0);
   const [presentDetail, setPresentDetail] = useState<presentDetail>(null);
@@ -72,7 +72,7 @@ const Card = (props) => {
   const initPresentDetail = async () => {
     try {
       const res = await setGetPresentDetail(props.id);
-      console.log("카드세부정보", res);
+      // console.log("카드세부정보", res);
       setPresentDetail(res.data.data);
     } catch (e) {
       console.log(e);
@@ -90,7 +90,7 @@ const Card = (props) => {
           id={`${props.id}`}
           src={
             props.thumbnail === "default"
-              ? `/assets/image/present/5.png`
+              ? `/assets/image/present/6.png`
               : props.thumbnail
           }
           onClick={handleShow}

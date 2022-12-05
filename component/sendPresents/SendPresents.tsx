@@ -57,7 +57,7 @@ const GreenDeleteButton = styled(GreenCloseButton)`
 const SendPresents = ({ onHide, selectedday }) => {
   const [contents, setContents] = useState<string>("");
   const [isAnonymous, setAnonymous] = useState<boolean | any>(false);
-  const [nickname, setNickname] = useState<string>("익명");
+  const [nickname, setNickname] = useState<string>("익명의 산타");
   const [memberInfo, setMemberInfo] = useState<any>();
   const [currCalUser, setCurrCalUser] = useState<FriendsData>();
   // ImageUpload -------------
@@ -123,8 +123,9 @@ const SendPresents = ({ onHide, selectedday }) => {
   const handleClickSendPresent = () => {
     const inputNickname = nicknameRef.current?.value;
     // console.log(inputNickname, "닉넴님ㄱ넴");
+
+    // 최대 100자 제한 - 넘으면 자름
     setContents(ref.current?.value);
-    // console.log(ref.current?.value);
 
     if (inputNickname !== "undefined") {
       setNickname(inputNickname); // << 익명체크시 닉네임
@@ -148,8 +149,13 @@ const SendPresents = ({ onHide, selectedday }) => {
       alert("heic 파일 지원 준비중입니다. 🛠️");
       return;
     }
-
     // console.log("heicFiles >>> ", heicFile);
+
+    // 파일 첨부 최대 5장 제한
+    if ([...uploadFiles, ...fileList].length > 5) {
+      alert("사진은 최대 5장 첨부 가능합니다. 🎄")
+      return
+    }
 
     setFileList([...uploadFiles, ...fileList]);
 
@@ -178,7 +184,7 @@ const SendPresents = ({ onHide, selectedday }) => {
       sendNick = memberInfo.nickname;
     } else {
       if (sendNick === "undefined") {
-        sendNick = "익명";
+        sendNick = "익명의 산타";
       }
     }
 
@@ -208,7 +214,7 @@ const SendPresents = ({ onHide, selectedday }) => {
     //   "파일들...",
     //   currCalUserId,
     //   memberInfo.nickname,
-    //   contents,
+    //   contents, // 미래의 나에게 : 이거 undefined 가 정상이다 왜냐면 ref 바로 넣고잇다..
     //   `2022-12-${selectedday.toString().padStart(2, "0")}`,
     //   isAnonymous,
     //   fileList
@@ -223,6 +229,9 @@ const SendPresents = ({ onHide, selectedday }) => {
     }
   };
 
+  const placeholder = `여기에 쪽지를 적어주세요. 
+(최대 100자)`;
+
   return (
     <SendPresentsWrapper>
       <PresentHeader>
@@ -236,7 +245,8 @@ const SendPresents = ({ onHide, selectedday }) => {
           ref={ref}
           id="message"
           name="message"
-          placeholder="여기에 쪽지를 적어주세요."
+          placeholder={placeholder}
+          maxLength={100}
         />
       </TextArea>
 
@@ -245,8 +255,9 @@ const SendPresents = ({ onHide, selectedday }) => {
           <input
             className="inputNickname"
             type="text"
-            placeholder="닉네임 입력"
+            placeholder="닉네임 (최대 20자)"
             ref={nicknameRef}
+            maxLength={20}
           />
         ) : (
           <div className="inputNickname" />
@@ -261,7 +272,7 @@ const SendPresents = ({ onHide, selectedday }) => {
       <div className="Thumbnail_Wrapper">
         <label id="present_img" htmlFor="file" onChange={handleAddImages}>
           <div className="addButton"></div>
-          <input id="file" type="file" multiple />
+          <input id="file" type="file" accept="image/png, image/jpeg, image/jpg, image/heic" multiple />
         </label>
         <Flex>
           {showImages.map((image, id) => (

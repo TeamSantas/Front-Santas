@@ -18,7 +18,7 @@ const GotTextArea = styled(TextArea)`
 
 const BlackContents = styled.div`
   color: black;
-`
+`;
 
 const IsAnonymous = styled.div`
   color: gray;
@@ -69,7 +69,6 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     handleType(type);
   }, []);
 
-
   // 나한테 선물 보낸 사람 정보
   const [senderFoundById, setSenderFoundById] = useState<MemberData>();
   useEffect(() => {
@@ -114,20 +113,14 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     <SendPresentsWrapper>
       <PresentHeader>
         {/* TODO : 닉넴 고민 */}
-        {body.nickname} 님께 <br />{" "}
-        {type === "SEND" ? <>보낸</> : <>받은</>}
+        {body.nickname} 님께 <br /> {type === "SEND" ? <>보낸</> : <>받은</>}
         선물이에요 🎁
       </PresentHeader>
       <GotTextArea>
         <IsAnonymous>
-          {body.isAnonymous
-            ? "이 선물은 익명으로 보내졌어요"
-            : ""}
+          {body.isAnonymous ? "이 선물은 익명으로 보내졌어요" : ""}
         </IsAnonymous>
-        <BlackContents>
-
-        {body.contents}
-        </BlackContents>
+        <BlackContents>{body.contents}</BlackContents>
       </GotTextArea>
       {body.imageURL.length > 0 ? (
         <div className="Thumbnail_Wrapper">
@@ -150,7 +143,9 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
       ) : (
         <div style={{ height: "50px" }}></div>
       )}
-      {body.senderId === 0 ? null : <GreenBtn onClick={handleClickGoCalendarBtn}>{btnText}</GreenBtn>}
+      {body.senderId === 0 || body.isAnonymous ? null : (
+        <GreenBtn onClick={handleClickGoCalendarBtn}>{btnText}</GreenBtn>
+      )}
     </SendPresentsWrapper>
   );
 }

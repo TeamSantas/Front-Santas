@@ -32,8 +32,14 @@ const FriendsModal = (props) => {
           "현재 카카오에서 친구목록을 불러올수 없습니다. 잠시후에 다시 시도해주세요🎅"
         );
       }
+      alert(
+        "카카오톡 친구를 불러오는데 성공했습니다! 친구목록 새로고침을 눌러 확인해주세요🎅"
+      );
     } catch (e) {
       console.log(e, "[🤬]카카오 친구를 못불러와용");
+      alert(
+        "현재 카카오에서 친구목록을 불러올수 없습니다. 잠시후에 다시 시도해주세요🎅"
+      );
     }
     setIsLoading(false);
   };
@@ -50,7 +56,8 @@ const FriendsModal = (props) => {
 
   const Text = styled.h5`
     margin: 15px auto;
-  `
+    text-align: center;
+  `;
 
   useEffect(() => {
     getFriendsData();
@@ -67,13 +74,20 @@ const FriendsModal = (props) => {
         <Modal.Title id="contained-modal-title-vcenter">친구 목록</Modal.Title>
         <GreenCloseButton onClick={props.onHide} />
       </CustomHeader>
-      <Text>서비스에 가입한 친구목록만 나옵니다!📜</Text>
+      {/* TODO : kakao 친구 목록 BE 해결 후 되살리기 */}
+      {/* <Text>서비스에 가입한 친구목록만 나옵니다!📜</Text>
 
       <CustomBody>
         <FriendsList friendsData={friendsData} isLoading={isLoading} />
+      </CustomBody> */}
+      <CustomBody>
+        <Text>
+          준비중인 기능이에요.
+          <br />더 편해져서 돌아올게요! 🎅
+        </Text>
       </CustomBody>
       <CenteredModalFooter>
-        <ButtonFlex>
+        {/* <ButtonFlex>
           <UpdateBtn
             onClick={() => {
               getFriendsData();
@@ -88,7 +102,7 @@ const FriendsModal = (props) => {
           >
             친구목록 업데이트
           </UpdateBtn>
-        </ButtonFlex>
+        </ButtonFlex> */}
       </CenteredModalFooter>
     </Modal>
   );
