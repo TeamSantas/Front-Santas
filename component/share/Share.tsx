@@ -103,7 +103,7 @@ const Share = () => {
         alert("내 캘린더 링크가 복사되었습니다.");
       } catch (e) {
         screenCaptureHandler();
-        alert("내 초대링크를 복사해 보내보세요!");
+        alert("\"내 초대링크를 복사해 보내보세요! 바로 복사를 원하신다면~? 크롬브라우저로 접속해보세요✨\"");
         clickCopyIconHandler();
       }
     };
