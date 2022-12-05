@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import { Icons } from "../../styles/styledComponentModule";
+import {Flex, Icons} from "../../styles/styledComponentModule";
 import html2canvas from "html2canvas";
 import { useEffect, useState } from "react";
 import TicketModal from "./TicketModal";
 import { getLoggedMember } from "../../api/hooks/useMember";
 import PresentService from "../../api/PresentService";
-import {getCookie} from "../../businesslogics/cookie";
+import CopyModal from "../index/CopyModal";
+import {getCookie} from "cookies-next";
 
 export const RedBtn = styled(Icons)`
   width: 35rem;
@@ -90,19 +91,23 @@ const Share = () => {
   };
   const handleClose = () => setShareModalShow(false);
 
+  const [copyModal, setCopyModal] = useState<boolean>(false);
+  const clickCopyIconHandler = () => setCopyModal(true);
+  const handleCopyModalClose = () => setCopyModal(false);
   const linkCopyHandler = async () => {
-    getCookie('invitationLink')
-    const copyURL = `https://pitapat-adventcalendar.site/${getCookie('invitationLink')}`
-    try {
-      await navigator.clipboard.writeText(copyURL);
-      screenCaptureHandler();
-      alert('내 캘린더 링크가 클립보드에 복사되었습니다.');
-    } catch (e) {
-      screenCaptureHandler();
-      alert('내 캘린더 링크복사에 실패하였습니다');
-    }
+      const copyURL = `https://pitapat-adventcalendar.site/${getCookie('invitationLink')}`;
+      console.log(copyURL)
+      try {
+        await navigator.clipboard.writeText(copyURL);
+        screenCaptureHandler();
+        alert("내 캘린더 링크가 복사되었습니다.");
+      } catch (e) {
+        screenCaptureHandler();
+        alert("내 초대링크를 복사해 보내보세요!");
+        clickCopyIconHandler();
+      }
+    };
     // console.log("Link copied!");
-  };
 
   const screenCaptureHandler = () => {
     console.log("캡쳐됨");
@@ -138,6 +143,11 @@ const Share = () => {
   return (
     <>
       <Capture id="ticket" isOn={shareModalShow}>
+          <CopyModal
+              link={`https://pitapat-adventcalendar.site/${getCookie('invitationLink')}`}
+              show={copyModal}
+              onHide={handleCopyModalClose}
+          />
         <div>
           <TicketImg src="/assets/image/share/ticket_tree.png" alt="티켓" />
           <TicketText>
