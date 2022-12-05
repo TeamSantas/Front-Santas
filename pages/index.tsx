@@ -184,9 +184,9 @@ const [isLogged, setIsLogged] = useState(true);
       const res = await setGetMember();
       setMemberInfo(res.data.data.member.nickname);
       setMyLink(res.data.data.member.invitationLink);
-      // console.log(">>>>>>>>>")
-      // console.log(res.data.data.member.invitationLink)
-      // setCookie("invitationLink", res.data.data.member.invitationLink);
+      console.log(">>>>>>>>>")
+      console.log(res.data.data.member.invitationLink)
+      setCookie("invitationLink", res.data.data.member.invitationLink);
     } catch (e) {
       setIsLogged(false);
       console.log(e);
