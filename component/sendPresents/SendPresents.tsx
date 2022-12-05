@@ -123,8 +123,9 @@ const SendPresents = ({ onHide, selectedday }) => {
   const handleClickSendPresent = () => {
     const inputNickname = nicknameRef.current?.value;
     // console.log(inputNickname, "닉넴님ㄱ넴");
-    setContents(ref.current?.value);
-    // console.log(ref.current?.value);
+
+    // 최대 100자 제한 - 넘으면 자름
+    setContents(ref.current?.value.substr(0, 100));
 
     if (inputNickname !== "undefined") {
       setNickname(inputNickname); // << 익명체크시 닉네임
@@ -208,7 +209,7 @@ const SendPresents = ({ onHide, selectedday }) => {
     //   "파일들...",
     //   currCalUserId,
     //   memberInfo.nickname,
-    //   contents,
+    //   contents, // 미래의 나에게 : 이거 undefined 가 정상이다 왜냐면 ref 바로 넣고잇다..
     //   `2022-12-${selectedday.toString().padStart(2, "0")}`,
     //   isAnonymous,
     //   fileList
@@ -223,6 +224,9 @@ const SendPresents = ({ onHide, selectedday }) => {
     }
   };
 
+  const placeholder = `여기에 쪽지를 적어주세요. 
+(최대 100자)`;
+
   return (
     <SendPresentsWrapper>
       <PresentHeader>
@@ -236,7 +240,7 @@ const SendPresents = ({ onHide, selectedday }) => {
           ref={ref}
           id="message"
           name="message"
-          placeholder="여기에 쪽지를 적어주세요."
+          placeholder={placeholder}
         />
       </TextArea>
 
@@ -247,6 +251,7 @@ const SendPresents = ({ onHide, selectedday }) => {
             type="text"
             placeholder="닉네임 입력"
             ref={nicknameRef}
+            maxLength={100}
           />
         ) : (
           <div className="inputNickname" />
