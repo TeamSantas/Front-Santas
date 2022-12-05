@@ -48,6 +48,10 @@ const FriendsModal = (props) => {
     setIsLoading(false);
   };
 
+  const Text = styled.h5`
+    margin: 15px auto;
+  `
+
   useEffect(() => {
     getFriendsData();
   }, []);
@@ -63,6 +67,8 @@ const FriendsModal = (props) => {
         <Modal.Title id="contained-modal-title-vcenter">친구 목록</Modal.Title>
         <GreenCloseButton onClick={props.onHide} />
       </CustomHeader>
+      <Text>서비스에 가입한 친구목록만 나옵니다!📜</Text>
+
       <CustomBody>
         <FriendsList friendsData={friendsData} isLoading={isLoading} />
       </CustomBody>
