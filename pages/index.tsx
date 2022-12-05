@@ -91,9 +91,11 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
-  const [memberInfo, setMemberInfo] = useState('나');
-  const [myName, setMyName] = useState("나");
-  const [myBGM, setMyBGM] = useState<any>(null);
+  const [memberInfo, setMemberInfo] = useState<string>('나');
+  const [myName, setMyName] = useState<string>("나");
+  const [myBGM, setMyBGM] = useState<boolean>(true);
+  const [myLink, setMyLink] = useState<string>('');
+
   const getMyBGM = async () => {
     try {
       const res = await getLoggedMember();
@@ -114,10 +116,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   }, [mute]);
 
   const linkCopyHandler = async () => {
-    getCookie("invitationLink");
-    const copyURL = `https://pitapat-adventcalendar.site/${getCookie(
-      "invitationLink"
-    )}`;
+    const copyURL = `https://pitapat-adventcalendar.site/${myLink}`;
+    console.log(copyURL)
     try {
       await navigator.clipboard.writeText(copyURL);
       alert("내 캘린더 링크가 복사되었습니다.");
@@ -173,20 +173,14 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     }
   }, []);
 
-  const getMyName = async () => {
-    try {
-      const res = await setGetMember();
-      return res.data.data.member.nickname;
-    } catch (e) {
-      console.log(e);
-    }
-  }
+
   // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
   const getMemberData = async () => {
     try {
       const res = await setGetMember();
       setMemberInfo(res.data.data.member.nickname);
-      setCookie("invitationLink", res.data.data.member.invitationLink)
+      setMyLink(res.data.data.member.invitationLink);
+      setCookie("invitationLink", res.data.data.member.invitationLink);
     } catch (e) {
       console.log(e);
     }
