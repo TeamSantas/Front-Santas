@@ -19,6 +19,7 @@ import { getLoggedMember } from "../api/hooks/useMember";
 import InformationModal from "../component/index/InformationModal";
 import {setGetCurrCalendarUserInfo} from "../api/hooks/useGetCurrCalendarUserInfo";
 import {setCookie} from "cookies-next";
+import CopyModal from "../component/index/CopyModal";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -122,9 +123,9 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       await navigator.clipboard.writeText(copyURL);
       alert("내 캘린더 링크가 복사되었습니다.");
     } catch (e) {
-      alert("내 캘린더 링크복사에 실패하였습니다");
+      alert("내 초대링크를 복사해 보내보세요!");
+      clickCopyIconHandler();
     }
-    // console.log("Link copied!");
   };
   const muteHandler = (value) => setMute(!value);
 
@@ -144,6 +145,10 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     setInformationModalShow(true);
   };
   const handleInformationModalClose = () => setInformationModalShow(false);
+
+  const [copyModal, setCopyModal] = useState<boolean>(false);
+  const clickCopyIconHandler = () => setCopyModal(true);
+  const handleCopyModalClose = () => setCopyModal(false);
 
   // snowball modal
   const [snowballModalShow, setSnawballModalShow] = useState(false);
@@ -215,7 +220,13 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
               onHide={handleFriendsModalClose}
             />
           </Flex>
-
+          <Flex>
+            <CopyModal
+                link={`https://pitapat-adventcalendar.site/${myLink}`}
+                show={copyModal}
+                onHide={handleCopyModalClose}
+            />
+          </Flex>
           <Flex>
             {/*BGM react-howler 라이브러리*/}
             <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
