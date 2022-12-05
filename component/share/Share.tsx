@@ -96,7 +96,7 @@ const Share = () => {
   const handleCopyModalClose = () => setCopyModal(false);
   const linkCopyHandler = async () => {
       const copyURL = `https://pitapat-adventcalendar.site/${getCookie('invitationLink')}`;
-      console.log(copyURL)
+      // console.log(copyURL)
       try {
         await navigator.clipboard.writeText(copyURL);
         screenCaptureHandler();
