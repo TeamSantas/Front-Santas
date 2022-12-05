@@ -158,16 +158,15 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
 
   const getCurrCalUser = async () => {
-    let currInvitationLink = router.asPath.slice(1);
+    let currInvitationLink = props.link
     try {
       if(currInvitationLink.length < 2 ) setMyName(memberInfo)
       else{
         const res = await setGetCurrCalendarUserInfo(currInvitationLink);
         setMyName(res.data.data.nickname);
       }
-
     } catch (e) {
-      console.log(e);
+      // setMyName(router.asPath.slice(1))
     }
   };
   // cookie
@@ -178,7 +177,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     }
   }, []);
 
-
+const [isLogged, setIsLogged] = useState(true);
   // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
   const getMemberData = async () => {
     try {
@@ -187,15 +186,19 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       setMyLink(res.data.data.member.invitationLink);
       setCookie("invitationLink", res.data.data.member.invitationLink);
     } catch (e) {
+      setIsLogged(false);
       console.log(e);
     }
   };
 
   useEffect(() => {
     getMemberData();
-    getCurrCalUser();
     handleCalendarOwner();
   }, [memberInfo]);
+
+  useEffect(() => {
+    getCurrCalUser();
+  },[props])
 
   // invitation page에서 넘어온건지 확인
   const [ismycalendar, setIsmycalendar] = useState(true);
@@ -260,7 +263,9 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     return (
       <>
         <ButtonFlex>
-          <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>
+          { isLogged === false ?
+              null  : <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>
+          }
           <Flex>
             {/*BGM react-howler 라이브러리*/}
             <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
