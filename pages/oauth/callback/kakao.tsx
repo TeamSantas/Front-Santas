@@ -24,7 +24,11 @@ const Kakao : NextPage = () => {
 
             // getUserData
             const loggedMember = await getLoggedMember();
-            setCookie('invitationLink', loggedMember.invitationLink, 30);
+            await setCookie('invitationLink', loggedMember.invitationLink, 30);
+            console.log(">>>>>>>>>>loggedMember.invitationLink")
+            console.log(loggedMember)
+            console.log(loggedMember.invitationLink)
+
             router.reload()
             return loggedMember;
         }catch (error){
