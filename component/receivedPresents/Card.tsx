@@ -90,7 +90,7 @@ const Card = (props) => {
           id={`${props.id}`}
           src={
             props.thumbnail === "default"
-              ? `/assets/image/present/5.png`
+              ? `/assets/image/present/6.png`
               : props.thumbnail
           }
           onClick={handleShow}
