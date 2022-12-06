@@ -24,12 +24,13 @@ const Snowball : NextPage = () => {
                 <div>
                 <Text>로딩 중.....</Text>
                 <img src="/assets/image/character/spinner.gif" alt="spinner" />
-            </div>}>
+                </div>
+            }>
                 <Text>스노우볼을 움직여보세요</Text>
                 <Canvas>
                     <ModelComponent />
                 </Canvas>
-            </Suspense>;
+            </Suspense>
         </SnowballContainer>
     )
 }

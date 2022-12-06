@@ -109,6 +109,10 @@ const Sidebar = (props) => {
     run();
     setPutPush(toggleValue);
   }, [toggleValue]);
+
+  router.events.on("routeChangeStart", () => {
+    setToggleValue(false);
+  })
   return (
     <>
       {/*Background : 배경 블러처리 겸, 아무 곳이나 눌러도 사이드바 해제하는 역할*/}
