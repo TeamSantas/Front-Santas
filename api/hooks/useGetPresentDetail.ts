@@ -4,3 +4,8 @@ import PresentService from "../PresentService";
 export async function setGetPresentDetail(presentId: number) {
     return await PresentService.getDetailPresent(presentId);
 }
+
+export async function getTodayPresentCount(){
+    return await PresentService.getTodayCount();
+}
+
