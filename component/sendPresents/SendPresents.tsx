@@ -203,9 +203,12 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     if (fileList.length > 0) {
       // HEIC 파일이라면 변환
-      // const heicFiles = fileList.filter(file => file.name.toLowerCase().endsWith('heic'));
-      // console.log("heicFiles >>>>>>>>> ", heicFiles)
-      fileList.forEach((file) => {
+      const heicFiles = fileList.filter(file => file.name.toLowerCase().endsWith('heic'));
+      console.log("heicFiles >>>>>>>>> ", heicFiles)
+      if(heicFiles.length>0) alert('[✨오픈예정] 현재는 heic형식 파일첨부가 불가합니다.')
+
+      const myFileList = fileList.filter(file => !file.name.toLowerCase().endsWith('heic'))
+      myFileList.forEach((file) => {
         presentData.append("multipartFileList", file);
       });
     }
