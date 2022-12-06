@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Switch from "react-switch";
 import { getBGMPush, setPutPush } from "../../api/hooks/useStting";
 import { kakaoLogout } from "../../api/hooks/useKakaoLogin";
+import {removeCookie} from "../../businesslogics/cookie";
 
 const Container = styled.div`
   background-color: #3c6c54;
@@ -145,6 +146,7 @@ const Sidebar = (props) => {
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index
                 onClick={() => {
+                  removeCookie("token");
                   if (kakaoLogout() === "logout_ok") router.push("/logout");
                 }}
               >

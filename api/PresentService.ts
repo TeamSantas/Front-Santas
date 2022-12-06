@@ -2,6 +2,12 @@ import { PresentInstance, PresentAuthInstance } from "./APIInstance";
 import { postPresentData, ResponseData } from "../util/type";
 
 class PresentService {
+  //금일 총 선물개수
+  getTodayCount = () => {
+    return PresentInstance.get<ResponseData<any>>('/api/present/today/count');
+  };
+
+
   // 특정 날짜 선물 리스트 조회 API🔑
   getDayPresentsList = (config) => {
     // console.log(
