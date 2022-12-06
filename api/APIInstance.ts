@@ -64,6 +64,7 @@ const MemberInstance = APIInstance(BASE_URL);
 
 const SettingAuthInstance = AuthAPIInstance(BASE_URL);
 const FriendsAuthInstance = AuthAPIInstance(BASE_URL);
+const FriendsInstance = APIInstance(null);
 const AuthInstance = APIInstance(null);
 const AuthAuthInstance = AuthAPIInstance(BASE_URL);
 
@@ -74,6 +75,7 @@ export {
   MemberInstance,
   SettingAuthInstance,
   FriendsAuthInstance,
+  FriendsInstance,
   AuthInstance,
   AuthAuthInstance,
 };
