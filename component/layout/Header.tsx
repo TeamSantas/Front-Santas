@@ -64,7 +64,7 @@ const Header = () => {
   const router = useRouter();
   const currPath = router.pathname.slice(1);
   const [menuOnOff, setMenuOnOff] = useState(false);
-  const [todayCount, setTodayCount] = useState(1023);
+  const [todayCount, setTodayCount] = useState(null);
   const menuHandler = () => setMenuOnOff(!menuOnOff);
   const menuOffHandler = () => setMenuOnOff(false);
   //로고를 누르면 사이드바 닫힘
