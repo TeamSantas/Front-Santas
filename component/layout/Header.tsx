@@ -53,6 +53,7 @@ const Text = styled.p`
   color: white;
   font-size: 22px;
   margin: 0 auto;
+  text-align: center;
   @media (max-width: 600px) {
     margin: 0;
     font-size: 15px;
@@ -113,7 +114,7 @@ const Header = () => {
             )}
           </Flex>
           {menuOnOff ? <Sidebar menu={menuHandler} menuCloser={menuOffHandler}/> : null}
-          <Text>🎁오늘 전달된 선물 수 : {todayCount}개 </Text>
+          <Text>🎄 오늘 전달된 선물 수 : {todayCount}개 🎄</Text>
         </>
       )}
     </>
