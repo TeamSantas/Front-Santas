@@ -50,7 +50,8 @@ const FriendsModal = (props) => {
       await setGetFriend().then((res) => {
         setFriendsData(res.data.data);
       });
-    } catch (e) {}
+    } catch (e) {
+    }
     setIsLoading(false);
   };
 
@@ -75,34 +76,35 @@ const FriendsModal = (props) => {
         <GreenCloseButton onClick={props.onHide} />
       </CustomHeader>
       {/* TODO : kakao 친구 목록 BE 해결 후 되살리기 */}
-      {/* <Text>서비스에 가입한 친구목록만 나옵니다!📜</Text>
+      <Text>서비스에 가입한 친구목록만 나와요📜</Text>
 
       <CustomBody>
         <FriendsList friendsData={friendsData} isLoading={isLoading} />
-      </CustomBody> */}
-      <CustomBody>
-        <Text>
-          준비중인 기능이에요.
-          <br />더 편해져서 돌아올게요! 🎅
-        </Text>
       </CustomBody>
+      {/*<CustomBody>*/}
+      {/*  <Text>*/}
+      {/*    준비중인 기능이에요.*/}
+      {/*    <br />더 편해져서 돌아올게요! 🎅*/}
+      {/*  </Text>*/}
+      {/*</CustomBody>*/}
       <CenteredModalFooter>
-        {/* <ButtonFlex>
+       <ButtonFlex>
           <UpdateBtn
             onClick={() => {
               getFriendsData();
+              alert("친구목록은 10분에 한번 갱신됩니다🎁");
             }}
           >
             친구목록 새로고침
           </UpdateBtn>
-          <UpdateBtn
-            onClick={() => {
-              getKakaoFriendsData();
-            }}
-          >
-            친구목록 업데이트
-          </UpdateBtn>
-        </ButtonFlex> */}
+          {/*<UpdateBtn*/}
+          {/*  onClick={() => {*/}
+          {/*    getKakaoFriendsData();*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  친구목록 업데이트*/}
+          {/*</UpdateBtn>*/}
+        </ButtonFlex>
       </CenteredModalFooter>
     </Modal>
   );
