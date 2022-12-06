@@ -111,7 +111,7 @@ const Sidebar = (props) => {
   }, [toggleValue]);
 
   router.events.on("routeChangeStart", () => {
-    setToggleValue(false);
+    props.menuCloser();
   })
   return (
     <>
