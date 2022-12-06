@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { setGetUserSendPresentsList } from "../../api/hooks/mypagePresents/useGetUserSendPresentsList";
 import { setGetMemberById } from "../../api/hooks/useGetMember";
-import { Flex } from "../../styles/styledComponentModule";
+import {Flex, GreenButton} from "../../styles/styledComponentModule";
 import { MemberData } from "../../util/type";
 import {
   PresentHeader,
@@ -32,7 +32,7 @@ const Contents = styled.div`
   word-break: break-all;
 `;
 
-const GreenBtn = styled(RedBtn)`
+const MyGreenBtn = styled(RedBtn)`
   background-color: #3c6c54; !important;
   margin: 0px; !important;
   width: 100%;
@@ -144,7 +144,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
         <div style={{ height: "50px" }}></div>
       )}
       {body.senderId === 0 || body.isAnonymous ? null : (
-        <GreenBtn onClick={handleClickGoCalendarBtn}>{btnText}</GreenBtn>
+        <GreenButton onClick={handleClickGoCalendarBtn}>{btnText}</GreenButton>
       )}
     </SendPresentsWrapper>
   );
