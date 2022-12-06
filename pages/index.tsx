@@ -102,7 +102,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       const res = await getLoggedMember();
       setMyBGM(res.setting);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
   useEffect(() => {
@@ -189,7 +189,7 @@ const [isLogged, setIsLogged] = useState(true);
       setCookie("invitationLink", res.data.data.member.invitationLink);
     } catch (e) {
       setIsLogged(false);
-      console.log(e);
+      // console.log(e);
     }
   };
 

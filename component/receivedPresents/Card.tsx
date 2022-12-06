@@ -75,7 +75,7 @@ const Card = (props) => {
       // console.log("카드세부정보", res);
       setPresentDetail(res.data.data);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 

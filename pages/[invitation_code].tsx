@@ -18,7 +18,7 @@ export default function OtherCalendar() {
         router.push('/');
       }
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   }
 
@@ -41,7 +41,7 @@ export default function OtherCalendar() {
     try {
       res = await setGetCurrCalendarUserInfo(code);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
     if (res) {
       setUserData(userData);

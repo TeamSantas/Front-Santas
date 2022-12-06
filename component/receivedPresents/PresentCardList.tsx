@@ -30,7 +30,7 @@ const PresentCardList = ({ selectedday }) => {
     const initReceivedPresentList = async () => {
       const receiverId = await (await MemberService.getLoggedMember()).data.data.member.id;
       const res = await setGetDayPresents(receiverId, receivedDay);
-      console.log("receivedPresentList >>> ", res.content)
+      // console.log("receivedPresentList >>> ", res.content)
       setReceivedPresentList(res.content);
     };
     initReceivedPresentList();

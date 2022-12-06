@@ -77,7 +77,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
         const res = await setGetMemberById(body.senderId);
         setSenderFoundById(res.data.data);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     };
     getSenderUserById();
@@ -91,7 +91,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
         const res = await setGetUserSendPresentsList();
         setReceiverFoundById(res.data.data);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     };
     getReceiverUserById();

@@ -77,7 +77,7 @@ const Header = () => {
       // console.log("카드세부정보", res);
       setTodayCount(res.data.data);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
