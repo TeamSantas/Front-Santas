@@ -79,6 +79,14 @@ export const CustomBody = styled(Modal.Body)`
   max-height: 50rem;
   padding: 0 1rem ;
 `;
+export const CustomDescriptionBody = styled(Modal.Body)`
+  border: none;
+  overflow: auto;
+  max-height: 50rem;
+  padding: 0 1rem ;
+  font-size: 20px;
+  text-align: center;
+`;
 export const CustomFooter = styled(Modal.Footer)`
   border: none;
 `;
