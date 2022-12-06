@@ -92,7 +92,7 @@ const FriendsModal = (props) => {
           <UpdateBtn
             onClick={() => {
               getFriendsData();
-              alert("친구목록은 10분에 한번 갱신됩니다🎁");
+              alert("친구목록은 10분에 한번 갱신됩니다. 10분 뒤 다시 시도해주세요🎁");
             }}
           >
             친구목록 새로고침
