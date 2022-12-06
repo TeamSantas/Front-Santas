@@ -33,8 +33,8 @@ const Contents = styled.div`
 `;
 
 const GreenBtn = styled(RedBtn)`
-  background-color: #3c6c54;
-  margin: 0px;
+  background-color: #3c6c54; !important;
+  margin: 0px; !important;
   width: 100%;
 `;
 

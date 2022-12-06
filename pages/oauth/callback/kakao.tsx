@@ -27,9 +27,9 @@ const Kakao : NextPage = () => {
 
             const loggedMember = await getLoggedMember();
             // await setCookie('invitationLink', loggedMember.invitationLink, 30);
-            console.log(">>>>>>>>>>loggedMember.invitationLink")
-            console.log(loggedMember)
-            console.log(loggedMember.invitationLink)
+            // console.log(">>>>>>>>>>loggedMember.invitationLink")
+            // console.log(loggedMember)
+            // console.log(loggedMember.invitationLink)
 
             return loggedMember;
         }catch (error){
