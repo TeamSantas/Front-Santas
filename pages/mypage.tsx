@@ -50,7 +50,7 @@ const MyPage: NextPage = () => {
       setMyEmail(res.email);
       setMyProfileImg(res.profileImageURL);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 

@@ -78,7 +78,7 @@ const SendPresents = ({ onHide, selectedday }) => {
       // console.log("선물보낼사람정보>>>>>>>>>>>>", res);
       setMemberInfo(res);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -92,7 +92,7 @@ const SendPresents = ({ onHide, selectedday }) => {
       // console.log("캘린더주인정보>>>>>>>>>>>>", res.data.data);
       setCurrCalUser(res.data.data);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
   useEffect(() => {
