@@ -50,9 +50,11 @@ const MyPage: NextPage = () => {
       setMyEmail(res.email);
       setMyProfileImg(res.profileImageURL);
     } catch (e) {
+        router.push('/title')
       // console.log(e);
     }
   };
+
 
   useEffect(() => {
     getUserData();

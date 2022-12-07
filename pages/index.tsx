@@ -106,15 +106,10 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     }
   };
 
-  useEffect(() => {
-    getMyBGM();
-  }, []);
-
   const muteHandler = (value) => {
     setMute(!value);
     setBGM(!value);
   }
-
 
   const linkCopyHandler = async () => {
     const copyURL = `https://pitapat-adventcalendar.site/${myLink}`;
@@ -154,7 +149,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     setSnawballModalShow(!snowballModalShow);
   };
 
-
   const getCurrCalUser = async () => {
     let currInvitationLink = props.link
     try {
@@ -167,18 +161,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       // setMyName(router.asPath.slice(1))
     }
   };
-  // cookie
-  useEffect(() => {
-    const onboardingCookie = getCookie("onboarding");
-    if (onboardingCookie === "" && props.data) {
-      router.push("/onboarding");
-    }
-    if (onboardingCookie && !isLogged && props.data) {
-      // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
-      // 친구코드가 있으면 그 친구코드정보로 index를 뿌려줘야하기 때문임
-      router.push("/login");
-    }
-  }, []);
+
 
 const [isLogged, setIsLogged] = useState(true);
   // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
@@ -195,6 +178,28 @@ const [isLogged, setIsLogged] = useState(true);
       // console.log(e);
     }
   };
+
+  // cookie
+  const checkLocation = () =>{
+    const onboardingCookie = getCookie("onboarding");
+    console.log(">>>>>>>>is")
+    console.log(getCookie('token')=="")
+    console.log(isLogged)
+    console.log(onboardingCookie)
+    if (onboardingCookie === "" && props.data == undefined) {
+      router.push("/onboarding");
+    }
+    if (onboardingCookie && getCookie('token') == "" && props.data === undefined) {
+      // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
+      // 친구코드가 있으면 그 친구코드정보로 index를 뿌려줘야하기 때문임
+      router.push("/title");
+    }
+  }
+
+  useEffect(() => {
+    getMyBGM();
+    checkLocation();
+  }, []);
 
   useEffect(() => {
     getMemberData();
