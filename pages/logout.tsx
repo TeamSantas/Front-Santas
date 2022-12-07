@@ -2,6 +2,8 @@ import { NextPage } from "next";
 import Link from "next/link";
 import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
+import {useEffect} from "react";
+import {removeCookie} from "../businesslogics/cookie";
 
 const Container = styled(MainContainer)`
   text-align: center;
@@ -11,6 +13,9 @@ const Container = styled(MainContainer)`
 `;
 
 const Logout: NextPage = () => {
+    useEffect(()=>{
+        removeCookie('token');
+    },[])
   return (
     <Container>
       <img src="/assets/image/character/face_sad.png" width="222" />
