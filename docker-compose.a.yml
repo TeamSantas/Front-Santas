@@ -1,0 +1,6 @@
+version: "3"
+services:
+  ront:
+    build: .
+    ports:
+      - 3000:3000
