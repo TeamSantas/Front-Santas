@@ -11,6 +11,7 @@ export async function setGetDayPresents(receiverId, day) {
       const res = await PresentService.getDayPresentsList(config);
       return res.data.data;
   }catch (e){
-      alert("로그인이 필요합니다❄")
+    console.log(e)
+    // TODO : router.push /login
   }
 }

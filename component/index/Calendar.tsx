@@ -2,6 +2,7 @@ import styled from "styled-components";
 import PresentModal from "../receivedPresents/PresentModal";
 import { useEffect, useState } from "react";
 import CustomModal from "../common/CustomModal";
+import NumberOfReceivedPresents from "./NumberOfReceivedPresents";
 
 const CalendarWrapper = styled.div`
   // padding: 0 10px;
@@ -47,7 +48,7 @@ const Calendar = ({ ismycalendar }) => {
 
   // 현재 날짜 - ex) 20221129
   const date = new Date();
-  const today = `${date.getFullYear()}${date.getMonth()+1}${date.getDate()}`;
+  const today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
   const today_day = date.getDate();
 
   const [presentModalShow, setPresentModalShow] = useState(false);
@@ -55,8 +56,12 @@ const Calendar = ({ ismycalendar }) => {
   const [selectedday, setSelectedDay] = useState(date.getDate());
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
 
+
   useEffect(() => {
-    const selectedDayToCompare = Number(selectedday) < 10 ? "202212" + selectedday : "202212" + selectedday;
+    const selectedDayToCompare =
+      Number(selectedday) < 10
+        ? "202212" + selectedday
+        : "202212" + selectedday;
     if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
     } else {
@@ -84,27 +89,72 @@ const Calendar = ({ ismycalendar }) => {
 
   const handleClosePresentModal = () => setPresentModalShow(false);
   const handleCloseNotYetModal = () => setNotYeModalShow(false);
+  const RenderMyCalendar = () => {
+    return (
+      <>
+        {days.map((day, idx) =>
+          day > Number(today_day) ? (
+            <div>
+              <NumberOfReceivedPresents day={day} />
+              <DayImage
+                src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
+                onClick={() => {
+                  handleShow(idx + 1);
+                }}
+                alt={`day${idx + 1}`}
+                key={day}
+              />
+            </div>
+          ) : (
+            <div>
+              <NumberOfReceivedPresents day={day} />
+              <DayImage
+                src={`/assets/image/days/day${idx + 1}.svg`}
+                onClick={() => {
+                  handleShow(idx + 1);
+                }}
+                alt={`day${idx + 1}`}
+                key={day}
+              />
+            </div>
+          )
+        )}
+      </>
+    );
+  };
 
-  return (
-    <>
-      <CalendarWrapper>
+  const RenderFriendsCalendar = () => {
+    return (
+      <>
         {days.map((day, idx) =>
           day > Number(today_day) ? (
             <DayImage
               src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
-              onClick={() => {handleShow(idx+1)}}
+              onClick={() => {
+                handleShow(idx + 1);
+              }}
               alt={`day${idx + 1}`}
               key={day}
             />
           ) : (
             <DayImage
               src={`/assets/image/days/day${idx + 1}.svg`}
-              onClick={() => {handleShow(idx+1)}}
+              onClick={() => {
+                handleShow(idx + 1);
+              }}
               alt={`day${idx + 1}`}
               key={day}
             />
           )
         )}
+      </>
+    );
+  };
+
+  return (
+    <>
+      <CalendarWrapper>
+        {ismycalendar ? <RenderMyCalendar /> : <RenderFriendsCalendar />}
       </CalendarWrapper>
       <PresentModal
         // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달
@@ -129,10 +179,13 @@ const DenyAccess = () => {
   return (
     <LoadingContainer>
       <img src="/assets/image/character/face_crycry.png" width="222" />
-      <LoadingHeader>"날짜가...<br/>지나지 않았써...!"</LoadingHeader>
+      <LoadingHeader>
+        "날짜가...
+        <br />
+        지나지 않았써...!"
+      </LoadingHeader>
     </LoadingContainer>
-  )
-}
-
+  );
+};
 
 export default Calendar;
