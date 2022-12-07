@@ -83,7 +83,7 @@ const SendPresents = ({ onHide, selectedday }) => {
   };
 
   // 현재 캘린더 주인 유저 정보
-  const currInvitationLink = router.asPath.slice(1);
+  const currInvitationLink = router.asPath.slice(1).slice(0,36);
 
   // console.log("currInvitationLink >>> ", currInvitationLink);
   const getCurrCalUser = async () => {

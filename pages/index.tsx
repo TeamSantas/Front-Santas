@@ -94,27 +94,27 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const router = useRouter();
   const [memberInfo, setMemberInfo] = useState<string>('나');
   const [myName, setMyName] = useState<string>("나");
-  const [myBGM, setMyBGM] = useState<boolean>(true);
+  const [mute, setMute] = useState(false);
   const [myLink, setMyLink] = useState<string>('');
 
   const getMyBGM = async () => {
     try {
       const res = await getLoggedMember();
-      setMyBGM(res.setting);
+      setMute(res.setting.bgm);
     } catch (e) {
       // console.log(e);
     }
   };
+
   useEffect(() => {
     getMyBGM();
   }, []);
 
-  const [mute, setMute] = useState(myBGM);
-  useEffect(() => {
-    if (mute) {
-      setBGM(mute);
-    }
-  }, [mute]);
+  const muteHandler = (value) => {
+    setMute(!value);
+    setBGM(!value);
+  }
+
 
   const linkCopyHandler = async () => {
     const copyURL = `https://pitapat-adventcalendar.site/${myLink}`;
@@ -127,8 +127,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       clickCopyIconHandler();
     }
   };
-  const muteHandler = (value) => setMute(!value);
-
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
   const ModelComponent = lazy(() => import("/component/index/SnowBallModel"));
 

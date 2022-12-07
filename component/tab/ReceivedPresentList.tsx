@@ -38,7 +38,7 @@ const ReceivedPresentList = () => {
         // alert(e)
         // console.log(">>>>>>>너였구나")
         console.log(e)
-        alert("로그인이 필요합니다✨")
+        // alert("로그인이 필요합니다✨")
         router.push('/login')
       }
 
