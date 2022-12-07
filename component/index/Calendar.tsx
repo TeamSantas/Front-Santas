@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import CustomModal from "../common/CustomModal";
 
 const CalendarWrapper = styled.div`
-  padding: 0 10px;
+  // padding: 0 10px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.1);
   display: grid;
