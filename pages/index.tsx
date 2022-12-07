@@ -107,7 +107,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   };
   useEffect(() => {
     getMyBGM();
-  }, [myBGM]);
+  }, []);
 
   const [mute, setMute] = useState(myBGM);
   useEffect(() => {
