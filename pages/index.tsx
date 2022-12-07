@@ -297,7 +297,6 @@ const [isLogged, setIsLogged] = useState(true);
         <Seo title="Home" />
         <MainContainer>
           <br />
-          <p>테스트</p>
           <h5>{myName}의 캘린더 🎁</h5>
           {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} link={"test"} />
