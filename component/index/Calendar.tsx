@@ -89,16 +89,13 @@ const Calendar = ({ ismycalendar }) => {
 
   const handleClosePresentModal = () => setPresentModalShow(false);
   const handleCloseNotYetModal = () => setNotYeModalShow(false);
-
-  return (
-    <>
-      <CalendarWrapper>
+  const RenderMyCalendar = () => {
+    return (
+      <>
         {days.map((day, idx) =>
           day > Number(today_day) ? (
             <div>
-              <NumberOfReceivedPresents
-                day={day}
-              />
+              <NumberOfReceivedPresents day={day} />
               <DayImage
                 src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
                 onClick={() => {
@@ -110,9 +107,7 @@ const Calendar = ({ ismycalendar }) => {
             </div>
           ) : (
             <div>
-              <NumberOfReceivedPresents
-                day={day}
-              />
+              <NumberOfReceivedPresents day={day} />
               <DayImage
                 src={`/assets/image/days/day${idx + 1}.svg`}
                 onClick={() => {
@@ -124,6 +119,42 @@ const Calendar = ({ ismycalendar }) => {
             </div>
           )
         )}
+      </>
+    );
+  };
+
+  const RenderFriendsCalendar = () => {
+    return (
+      <>
+        {days.map((day, idx) =>
+          day > Number(today_day) ? (
+            <DayImage
+              src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
+              onClick={() => {
+                handleShow(idx + 1);
+              }}
+              alt={`day${idx + 1}`}
+              key={day}
+            />
+          ) : (
+            <DayImage
+              src={`/assets/image/days/day${idx + 1}.svg`}
+              onClick={() => {
+                handleShow(idx + 1);
+              }}
+              alt={`day${idx + 1}`}
+              key={day}
+            />
+          )
+        )}
+      </>
+    );
+  };
+
+  return (
+    <>
+      <CalendarWrapper>
+        {ismycalendar ? <RenderMyCalendar /> : <RenderFriendsCalendar />}
       </CalendarWrapper>
       <PresentModal
         // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달
