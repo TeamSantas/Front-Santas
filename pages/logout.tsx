@@ -4,6 +4,7 @@ import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
 import {useEffect} from "react";
 import {removeCookie} from "../businesslogics/cookie";
+import {setCookie} from "cookies-next";
 
 const Container = styled(MainContainer)`
   text-align: center;
@@ -15,6 +16,7 @@ const Container = styled(MainContainer)`
 const Logout: NextPage = () => {
     useEffect(()=>{
         removeCookie('token');
+        setCookie('token', '')
     },[])
   return (
     <Container>
