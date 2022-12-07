@@ -91,7 +91,8 @@ const Header = () => {
       {currPath === "onboarding" ? (
         <></>
       ) : currPath === "logout" ? <></> :
-          currPath === "login" ? <></> :(
+          currPath === "login" ? <></> :
+        currPath === "title" ? <></> : (
         <>
           <Flex>
             <Logo

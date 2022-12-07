@@ -4,7 +4,8 @@ import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
 import {useEffect} from "react";
 import {removeCookie} from "../businesslogics/cookie";
-import {setCookie} from "cookies-next";
+import {useRouter} from "next/router";
+
 
 const Container = styled(MainContainer)`
   text-align: center;
@@ -14,10 +15,19 @@ const Container = styled(MainContainer)`
 `;
 
 const Logout: NextPage = () => {
-    useEffect(()=>{
+    const router = useRouter();
+    useEffect(() => {
+        const preventGoBack = () => {
+            history.go(1);
+            router.push('/title')
+            console.log('prevent go back!');
+        };
+
+        history.pushState(null, '', location.href);
+        window.addEventListener('popstate', preventGoBack);
         removeCookie('token');
-        setCookie('token', '')
-    },[])
+        return () => window.removeEventListener('popstate', preventGoBack);
+    }, []);
   return (
     <Container>
       <img src="/assets/image/character/face_sad.png" width="222" />
