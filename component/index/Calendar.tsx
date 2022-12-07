@@ -42,23 +42,29 @@ const LoadingHeader = styled.h2`
 const CalendarDayWrapper = styled.div``;
 
 const NumberOfReceivedPresents = styled.p`
+  background-image: url("/assets/image/icons/heart.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  text-align: center;
   position: absolute;
-  padding-left: 3rem;
-  @media (min-width: 280px) and (max-width: 320px) {
+  @media (max-width: 320px) {
     font-size: x-small;
-    padding-left: 2.2rem;
+    margin-left: 1.7rem;
   }
   @media (min-width: 320px) and (max-width: 600px) {
     font-size: small;
-    padding-left: 2.6rem;
+    width: 40px;
+    margin-left: 1.5rem;
   }
   @media (min-width: 375px) and (max-width: 600px) {
-    font-size: small;
-    padding-left: 3.2rem;
+    margin-left: 2rem;
   }
-  @media (min-width: 601px){
+  @media (min-width: 601px) {
     font-size: x-large;
-    padding-left: 5.5rem;
+    background-size: cover;
+    width: 46px;
+    margin-left: 4rem;
   }
 `;
 
