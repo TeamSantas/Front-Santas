@@ -150,7 +150,6 @@ const Sidebar = (props) => {
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index
                 onClick={() => {
-                  setCookie("token",'',30);
                   if (kakaoLogout() === "logout_ok") router.push("/logout");
                 }}
               >

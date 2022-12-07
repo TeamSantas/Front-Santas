@@ -17,7 +17,7 @@ const Custom404 = () => {
         <br />
         앗... 길을 잘못 들었다..
       </h3>
-      <h2>이 마을엔 아무도 안 살고 잇따!</h2>
+      <h2>내가 &apos;잘못된 친구코드&apos; 를 가져왔구나!</h2>
       <img src="/assets/image/404.png" width="200" />
     </Container>
   );
