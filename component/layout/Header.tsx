@@ -114,7 +114,7 @@ const Header = () => {
             )}
           </Flex>
           {menuOnOff ? <Sidebar menu={menuHandler} menuCloser={menuOffHandler}/> : null}
-          <Text>🎄 오늘 전달된 선물 수 : {todayCount}개 🎄</Text>
+          <Text>🎄 오늘까지 전달된 선물 수 : {todayCount}개 🎄</Text>
         </>
       )}
     </>
