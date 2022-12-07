@@ -28,8 +28,7 @@ export default function OtherCalendar() {
       if (path.length == 37) {
         const tmp = window.location.pathname.split("/");
         setCode(tmp[1].slice(0,36));
-        console.log(code)
-        return tmp[1];
+        return tmp[1].slice(0,36);
       }
     }
   };
