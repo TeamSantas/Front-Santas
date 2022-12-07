@@ -4,9 +4,13 @@ import { postPresentData, ResponseData } from "../util/type";
 class PresentService {
   //금일 총 선물개수
   getTodayCount = () => {
-    return PresentInstance.get<ResponseData<any>>('/api/present/today/count');
+    return PresentInstance.get<ResponseData<any>>("/api/present/today/count");
   };
 
+  // 날짜별 도착한 선물 개수 조회 (res : 배열 / 전체 날짜별 개수)
+  getNumberOfReceivedPresents = (config) => {
+    return PresentInstance.get<ResponseData<any>>(`/api/present/count`, config);
+  };
 
   // 특정 날짜 선물 리스트 조회 API🔑
   getDayPresentsList = (config) => {

@@ -39,6 +39,29 @@ const LoadingHeader = styled.h2`
   text-align: center;
 `;
 
+const CalendarDayWrapper = styled.div``;
+
+const NumberOfReceivedPresents = styled.p`
+  position: absolute;
+  padding-left: 3rem;
+  @media (min-width: 280px) and (max-width: 320px) {
+    font-size: x-small;
+    padding-left: 2.2rem;
+  }
+  @media (min-width: 320px) and (max-width: 600px) {
+    font-size: small;
+    padding-left: 2.6rem;
+  }
+  @media (min-width: 375px) and (max-width: 600px) {
+    font-size: small;
+    padding-left: 3.2rem;
+  }
+  @media (min-width: 601px){
+    font-size: x-large;
+    padding-left: 5.5rem;
+  }
+`;
+
 const Calendar = ({ ismycalendar }) => {
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -47,7 +70,7 @@ const Calendar = ({ ismycalendar }) => {
 
   // 현재 날짜 - ex) 20221129
   const date = new Date();
-  const today = `${date.getFullYear()}${date.getMonth()+1}${date.getDate()}`;
+  const today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
   const today_day = date.getDate();
 
   const [presentModalShow, setPresentModalShow] = useState(false);
@@ -56,7 +79,10 @@ const Calendar = ({ ismycalendar }) => {
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
 
   useEffect(() => {
-    const selectedDayToCompare = Number(selectedday) < 10 ? "202212" + selectedday : "202212" + selectedday;
+    const selectedDayToCompare =
+      Number(selectedday) < 10
+        ? "202212" + selectedday
+        : "202212" + selectedday;
     if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
     } else {
@@ -85,24 +111,36 @@ const Calendar = ({ ismycalendar }) => {
   const handleClosePresentModal = () => setPresentModalShow(false);
   const handleCloseNotYetModal = () => setNotYeModalShow(false);
 
+  const CalendarInformations = {};
+
   return (
     <>
       <CalendarWrapper>
         {days.map((day, idx) =>
           day > Number(today_day) ? (
-            <DayImage
-              src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
-              onClick={() => {handleShow(idx+1)}}
-              alt={`day${idx + 1}`}
-              key={day}
-            />
+            <CalendarDayWrapper>
+              <NumberOfReceivedPresents>12</NumberOfReceivedPresents>
+              <DayImage
+                src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
+                onClick={() => {
+                  handleShow(idx + 1);
+                }}
+                alt={`day${idx + 1}`}
+                key={day}
+              />
+            </CalendarDayWrapper>
           ) : (
-            <DayImage
-              src={`/assets/image/days/day${idx + 1}.svg`}
-              onClick={() => {handleShow(idx+1)}}
-              alt={`day${idx + 1}`}
-              key={day}
-            />
+            <CalendarDayWrapper>
+              <NumberOfReceivedPresents>12</NumberOfReceivedPresents>
+              <DayImage
+                src={`/assets/image/days/day${idx + 1}.svg`}
+                onClick={() => {
+                  handleShow(idx + 1);
+                }}
+                alt={`day${idx + 1}`}
+                key={day}
+              />
+            </CalendarDayWrapper>
           )
         )}
       </CalendarWrapper>
@@ -129,10 +167,13 @@ const DenyAccess = () => {
   return (
     <LoadingContainer>
       <img src="/assets/image/character/face_crycry.png" width="222" />
-      <LoadingHeader>"날짜가...<br/>지나지 않았써...!"</LoadingHeader>
+      <LoadingHeader>
+        "날짜가...
+        <br />
+        지나지 않았써...!"
+      </LoadingHeader>
     </LoadingContainer>
-  )
-}
-
+  );
+};
 
 export default Calendar;
