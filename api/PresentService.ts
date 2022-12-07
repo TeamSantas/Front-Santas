@@ -12,12 +12,12 @@ class PresentService {
     return PresentInstance.get<ResponseData<any>>(`/api/present/count`, config);
   };
 
-  // 특정 날짜 선물 리스트 조회 API🔑
+  // 특정 날짜 선물 리스트 조회 API
   getDayPresentsList = (config) => {
     // console.log(
     //   PresentAuthInstance.get<ResponseData<any>>(`/api/present/list`)
     // );
-    return PresentAuthInstance.get<ResponseData<any>>(
+    return PresentInstance.get<ResponseData<any>>(
       `/api/present/list`,
       config
     );

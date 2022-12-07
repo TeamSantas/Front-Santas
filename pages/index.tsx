@@ -17,8 +17,8 @@ import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
 import InformationModal from "../component/index/InformationModal";
-import {setGetCurrCalendarUserInfo} from "../api/hooks/useGetCurrCalendarUserInfo";
-import {setCookie} from "cookies-next";
+import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
+import { setCookie } from "cookies-next";
 import CopyModal from "../component/index/CopyModal";
 
 const MainIcons = styled(Icons)`
@@ -92,10 +92,10 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
-  const [memberInfo, setMemberInfo] = useState<string>('나');
+  const [memberInfo, setMemberInfo] = useState<string>("나");
   const [myName, setMyName] = useState<string>("나");
   const [mute, setMute] = useState(false);
-  const [myLink, setMyLink] = useState<string>('');
+  const [myLink, setMyLink] = useState<string>("");
 
   const getMyBGM = async () => {
     try {
@@ -109,16 +109,18 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const muteHandler = (value) => {
     setMute(!value);
     setBGM(!value);
-  }
+  };
 
   const linkCopyHandler = async () => {
     const copyURL = `https://pitapat-adventcalendar.site/${myLink}`;
-    console.log(copyURL)
+    console.log(copyURL);
     try {
       await navigator.clipboard.writeText(copyURL);
       alert("내 캘린더 링크가 복사되었습니다.");
     } catch (e) {
-      alert("내 초대링크를 복사해 보내보세요! 바로 복사를 원하신다면~? 크롬브라우저로 접속해보세요✨");
+      alert(
+        "내 초대링크를 복사해 보내보세요! 바로 복사를 원하신다면~? 크롬브라우저로 접속해보세요✨"
+      );
       clickCopyIconHandler();
     }
   };
@@ -150,10 +152,11 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   };
 
   const getCurrCalUser = async () => {
-    let currInvitationLink = props.link
+    let currInvitationLink = props.link;
     try {
-      if(currInvitationLink.length < 2 ) setMyName(memberInfo)
-      else{
+      if (currInvitationLink.length < 2) {
+        setMyName(memberInfo);
+      } else {
         const res = await setGetCurrCalendarUserInfo(currInvitationLink);
         setMyName(res.data.data.nickname);
       }
@@ -162,8 +165,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     }
   };
 
-
-const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(true);
   // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
   const getMemberData = async () => {
     try {
@@ -171,30 +173,34 @@ const [isLogged, setIsLogged] = useState(true);
       setMemberInfo(res.data.data.member.nickname);
       setMyLink(res.data.data.member.invitationLink);
       // console.log(">>>>>>>>>")
-      // console.log(res.data.data.member.invitationLink)
+      // console.log(res.data.data.member.id)
       setCookie("invitationLink", res.data.data.member.invitationLink);
     } catch (e) {
       setIsLogged(false);
       // console.log(e);
     }
   };
-
+  
   // cookie
-  const checkLocation = () =>{
+  const checkLocation = () => {
     const onboardingCookie = getCookie("onboarding");
-    console.log(">>>>>>>>is")
-    console.log(getCookie('token')=="")
-    console.log(isLogged)
-    console.log(onboardingCookie)
+    // console.log(">>>>>>>>is");
+    // console.log(getCookie("token") == "");
+    // console.log(isLogged);
+    // console.log(onboardingCookie);
     if (onboardingCookie === "" && props.data == undefined) {
       router.push("/onboarding");
     }
-    if (onboardingCookie && getCookie('token') == "" && props.data === undefined) {
+    if (
+      onboardingCookie &&
+      getCookie("token") == "" &&
+      props.data === undefined
+    ) {
       // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
       // 친구코드가 있으면 그 친구코드정보로 index를 뿌려줘야하기 때문임
       router.push("/title");
     }
-  }
+  };
 
   useEffect(() => {
     getMyBGM();
@@ -208,7 +214,7 @@ const [isLogged, setIsLogged] = useState(true);
 
   useEffect(() => {
     getCurrCalUser();
-  },[props])
+  }, [props]);
 
   // invitation page에서 넘어온건지 확인
   const [ismycalendar, setIsmycalendar] = useState(true);
@@ -235,9 +241,9 @@ const [isLogged, setIsLogged] = useState(true);
           </Flex>
           <Flex>
             <CopyModal
-                link={`https://pitapat-adventcalendar.site/${myLink}`}
-                show={copyModal}
-                onHide={handleCopyModalClose}
+              link={`https://pitapat-adventcalendar.site/${myLink}`}
+              show={copyModal}
+              onHide={handleCopyModalClose}
             />
           </Flex>
           <Flex>
@@ -273,9 +279,9 @@ const [isLogged, setIsLogged] = useState(true);
     return (
       <>
         <ButtonFlex>
-          { isLogged === false ?
-              null  : <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>
-          }
+          {isLogged === false ? null : (
+            <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>
+          )}
           <Flex>
             {/*BGM react-howler 라이브러리*/}
             <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
@@ -304,7 +310,7 @@ const [isLogged, setIsLogged] = useState(true);
           <br />
           <h5>{myName}의 캘린더 🎁</h5>
           {/* 실제 invitation Link 로 보내기 */}
-          <Calendar ismycalendar={ismycalendar} link={"test"} />
+          <Calendar ismycalendar={ismycalendar} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
         {snowballModalShow ? (

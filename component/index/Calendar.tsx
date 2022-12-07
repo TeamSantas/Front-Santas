@@ -2,6 +2,7 @@ import styled from "styled-components";
 import PresentModal from "../receivedPresents/PresentModal";
 import { useEffect, useState } from "react";
 import CustomModal from "../common/CustomModal";
+import NumberOfReceivedPresents from "./NumberOfReceivedPresents";
 
 const CalendarWrapper = styled.div`
   // padding: 0 10px;
@@ -39,35 +40,6 @@ const LoadingHeader = styled.h2`
   text-align: center;
 `;
 
-const CalendarDayWrapper = styled.div``;
-
-const NumberOfReceivedPresents = styled.p`
-  background-image: url("/assets/image/icons/heart.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 20px;
-  text-align: center;
-  position: absolute;
-  @media (max-width: 320px) {
-    font-size: x-small;
-    margin-left: 1.7rem;
-  }
-  @media (min-width: 320px) and (max-width: 600px) {
-    font-size: small;
-    width: 40px;
-    margin-left: 1.5rem;
-  }
-  @media (min-width: 375px) and (max-width: 600px) {
-    margin-left: 2rem;
-  }
-  @media (min-width: 601px) {
-    font-size: x-large;
-    background-size: cover;
-    width: 46px;
-    margin-left: 4rem;
-  }
-`;
-
 const Calendar = ({ ismycalendar }) => {
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -83,6 +55,7 @@ const Calendar = ({ ismycalendar }) => {
   const [notYetModalShow, setNotYeModalShow] = useState(false);
   const [selectedday, setSelectedDay] = useState(date.getDate());
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
+
 
   useEffect(() => {
     const selectedDayToCompare =
@@ -117,15 +90,15 @@ const Calendar = ({ ismycalendar }) => {
   const handleClosePresentModal = () => setPresentModalShow(false);
   const handleCloseNotYetModal = () => setNotYeModalShow(false);
 
-  const CalendarInformations = {};
-
   return (
     <>
       <CalendarWrapper>
         {days.map((day, idx) =>
           day > Number(today_day) ? (
-            <CalendarDayWrapper>
-              <NumberOfReceivedPresents>12</NumberOfReceivedPresents>
+            <div>
+              <NumberOfReceivedPresents
+                day={day}
+              />
               <DayImage
                 src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
                 onClick={() => {
@@ -134,10 +107,12 @@ const Calendar = ({ ismycalendar }) => {
                 alt={`day${idx + 1}`}
                 key={day}
               />
-            </CalendarDayWrapper>
+            </div>
           ) : (
-            <CalendarDayWrapper>
-              <NumberOfReceivedPresents>12</NumberOfReceivedPresents>
+            <div>
+              <NumberOfReceivedPresents
+                day={day}
+              />
               <DayImage
                 src={`/assets/image/days/day${idx + 1}.svg`}
                 onClick={() => {
@@ -146,7 +121,7 @@ const Calendar = ({ ismycalendar }) => {
                 alt={`day${idx + 1}`}
                 key={day}
               />
-            </CalendarDayWrapper>
+            </div>
           )
         )}
       </CalendarWrapper>
