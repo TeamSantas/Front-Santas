@@ -4,14 +4,17 @@ import styled from "styled-components";
 import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
 import TabView from "../component/tab/TabView";
+import { getLoggedMember } from "../api/hooks/useMember";
+import { useContext, useEffect, useState } from "react";
+import { storeContext } from "../store/Store";
 
-const Profile = styled(Icons)`
+const Profile = styled.img`
   width: 150px;
   height: 150px;
   margin: 30px auto;
   border-radius: 50%;
   border: solid 3px white;
-  background-image: url("/assets/image/character/face_crycry.png");
+  object-fit: cover;
 `;
 
 const CenterFlex = styled(Flex)`
@@ -23,7 +26,7 @@ const Text = styled.div`
   padding-right: 5px;
   margin: ${(props) => (props.email ? "auto" : "0")};
   font-size: ${(props) =>
-    props.name ? "x-large" : props.nickName ? "medium" : "small"};
+    props.name ? "x-large" : props.nickName ? "medium" : "18px"};
   font-weight: ${(props) => (props.name ? "bold" : "normal")};
   color: ${(props) => (props.name ? "white" : "grey")};
 `;
@@ -36,19 +39,35 @@ const Edit = styled(Icons)`
 
 const MyPage: NextPage = () => {
   const router = useRouter();
-  const name = "하얀코";
-  const nickname = "크리스마스덕후";
-  const email = "teamSantaz@naver.com";
+  const [myName, setMyName] = useState<any>(null);
+  const [myEmail, setMyEmail] = useState<any>(null);
+  const [myProfileImg, setMyProfileImg] = useState<any>(null);
+
+  const getUserData = async () => {
+    try {
+      const res = await getLoggedMember()
+      setMyName(res.nickname);
+      setMyEmail(res.email);
+      setMyProfileImg(res.profileImageURL);
+    } catch (e) {
+      // console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   return (
     <MainContainer>
       <Seo title="MyPage" />
-      <Profile />
+      <Profile src={myProfileImg} />
       <CenterFlex>
-        <Text name>{name}</Text>
-        <Text nickName>{nickname}</Text>
+        <Text name={"true"}>{myName}</Text>
+        {/*<Text nickName>{nickname}</Text>*/}
         <Edit onClick={() => router.push(`/edit`)}></Edit>
       </CenterFlex>
-      <Text email>{email}</Text>
+      <Text email={"true"}>{myEmail}</Text>
       <TabView />
     </MainContainer>
   );

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { Flex, Icons } from "../../styles/styledComponentModule";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import Sidebar from "../Sidebar";
+import {useEffect, useState} from "react";
+import Sidebar from "../mypage/Sidebar";
+import {getTodayPresentCount, setGetPresentDetail} from "../../api/hooks/useGetPresentDetail";
 
 const Logo = styled.button`
   margin-top: 20px;
@@ -25,7 +26,7 @@ const MyPage = styled(Icons)`
   height: auto;
   margin-right: 2%;
   cursor: pointer;
-  background-image: url("/assets/image/character/face_heart.png");
+  background-image: url("/assets/image/icons/mypage.png");
   z-index: 5;
   @media (max-width: 600px) {
     width: 75px;
@@ -48,22 +49,49 @@ const Menu = styled.img`
   }
 `;
 
+const Text = styled.p`
+  color: white;
+  font-size: 22px;
+  margin: 0 auto;
+  text-align: center;
+  @media (max-width: 600px) {
+    margin: 0;
+    font-size: 15px;
+  }
+ 
+`
+
 const Header = () => {
   const router = useRouter();
   const currPath = router.pathname.slice(1);
   const [menuOnOff, setMenuOnOff] = useState(false);
+  const [todayCount, setTodayCount] = useState(null);
   const menuHandler = () => setMenuOnOff(!menuOnOff);
   const menuOffHandler = () => setMenuOnOff(false);
   //로고를 누르면 사이드바 닫힘
   //햄버거 바를 누르면 사이드바 열림
-  console.log(currPath);
+  // console.log(currPath);
+
+  const getCount = async () => {
+    try {
+      const res = await getTodayPresentCount();
+      // console.log("카드세부정보", res);
+      setTodayCount(res.data.data);
+    } catch (e) {
+      // console.log(e);
+    }
+  };
+
+  useEffect(()=>{
+    getCount();
+  },[])
 
   return (
     <>
-      (
       {currPath === "onboarding" ? (
         <></>
-      ) : (
+      ) : currPath === "logout" ? <></> :
+          currPath === "login" ? <></> :(
         <>
           <Flex>
             <Logo
@@ -85,10 +113,10 @@ const Header = () => {
               />
             )}
           </Flex>
-          {menuOnOff ? <Sidebar menu={menuHandler} /> : null}
+          {menuOnOff ? <Sidebar menu={menuHandler} menuCloser={menuOffHandler}/> : null}
+          <Text>🎄 오늘까지 전달된 선물 수 : {todayCount}개 🎄</Text>
         </>
       )}
-      )
     </>
   );
 };

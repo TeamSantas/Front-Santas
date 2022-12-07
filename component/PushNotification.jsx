@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import firebase from "firebase";
-import { useSetFcmtoken } from '../api/hooks/useSetFcmtoken';
 
 const PushNotification = () => {
   const onMessageFCM = async () => {
@@ -28,9 +27,7 @@ const PushNotification = () => {
  
     messaging.getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID }).then((currentToken) => {
       if (currentToken) {
-        console.log(currentToken);
-        // FCM 토큰을 받아와 우리DB에 저장하는 api
-        useSetFcmtoken(currentToken);
+        // console.log(currentToken)
       } else {
         console.log('No registration token available. Request permission to generate one.')
       }
@@ -42,9 +39,8 @@ const PushNotification = () => {
       console.log('Message received. ', payload)
       const title = payload.notification.title;
       const body = payload.notification.body;
-      const icon = '/assets/image/pushLogo.svg';
-      const clickAction = "https://front-santas.vercel.app/";
-      const options = { body, icon, clickAction };
+      const icon = "https://cdn.mkhealth.co.kr/news/photo/202102/52163_52859_5928.jpg";
+      const options = { body, icon };
 
       new Notification(title, options);
     })

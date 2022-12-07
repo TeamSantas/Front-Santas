@@ -1,33 +1,76 @@
+// @ts-nocheck
 import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import { NextPage } from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
-import html2canvas from "html2canvas";
-import Calendar from "../component/Calendar";
-import Share from "../component/share/Share";
+import Calendar from "../component/index/Calendar";
+import Share, { RedBtn } from "../component/share/Share";
+import { getCookie } from "../businesslogics/cookie";
 import ReactHowler from "react-howler";
-import { lazy, useEffect, useState } from "react";
+import { lazy, useContext, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
+import { Suspense } from "react";
+import { setGetMember } from "../api/hooks/useGetMember";
+import { dataProps, MemberData } from "../util/type";
+import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
-import { getCookie } from "../businesslogics/cookie";
+import { getLoggedMember } from "../api/hooks/useMember";
+import InformationModal from "../component/index/InformationModal";
+import {setGetCurrCalendarUserInfo} from "../api/hooks/useGetCurrCalendarUserInfo";
+import {setCookie} from "cookies-next";
+import CopyModal from "../component/index/CopyModal";
 
-const LinkCopy = styled(Icons)`
-  margin-right: 24px;
-  background-image: url("/assets/image/icons/Link.png");
-`;
-const Friends = styled(Icons)`
-  background-image: url("/assets/image/icons/Users.png");
+const MainIcons = styled(Icons)`
+  height: 35px;
 `;
 
-const Bgm = styled(Icons)`
-  background-image: url("/assets/image/icons/SpeakerHigh.png");
+const LinkCopy = styled(MainIcons)`
+  margin-left: 15px;
+  background-image: url("/assets/image/icons/Link.svg");
 `;
-const MuteBgm = styled(Icons)`
-  background-image: url("/assets/image/icons/muteSpeaker.png");
+const Friends = styled(MainIcons)`
+  background-image: url("/assets/image/icons/Users.svg");
+`;
+const Info = styled(MainIcons)`
+  width: 25px;
+  margin-left: 15px;
+  background-image: url("/assets/image/icons/information.svg");
+`;
+const Snowball = styled(MainIcons)`
+  margin-left: 15px;
+  background-image: url("/assets/image/icons/snowball.svg");
+  @media (max-width: 1000px) {
+    display: none;
+  }
+`;
+const SnowballMobile = styled(MainIcons)`
+  margin-left: 15px;
+  background-image: url("/assets/image/icons/snowball.svg");
+  display: none;
+  @media (max-width: 1000px) {
+    display: flex;
+  }
+`;
+
+const Bgm = styled(MainIcons)`
+  background-image: url("/assets/image/icons/SpeakerHigh.svg");
+`;
+const MuteBgm = styled(MainIcons)`
+  background-image: url("/assets/image/icons/muteSpeaker.svg");
+`;
+const GoBackMyCal = styled.div`
+  background: #ac473d;
+  border-radius: 12px;
+  color: white;
+  padding: 6px 15px;
+  text-align: center;
 `;
 
 const ButtonFlex = styled(Flex)`
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
   width: 35rem;
   @media (max-width: 600px) {
     width: 90%;
@@ -35,31 +78,57 @@ const ButtonFlex = styled(Flex)`
 `;
 
 const Text = styled.h3`
+  text-align: center;
   color: white;
 `;
 const SnowballContainer = styled(MainContainer)`
+  height: 80vh;
   @media (max-width: 600px) {
     display: none;
   }
 `;
-const Home: NextPage = () => {
-  const [mute, setMute] = useState(true);
+
+const Home: NextPage<dataProps> = (props: dataProps) => {
+  // console.log(props, "인덱스에넘겨주는프롭스");
+  // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
+  const router = useRouter();
+  const [memberInfo, setMemberInfo] = useState<string>('나');
+  const [myName, setMyName] = useState<string>("나");
+  const [mute, setMute] = useState(false);
+  const [myLink, setMyLink] = useState<string>('');
+
+  const getMyBGM = async () => {
+    try {
+      const res = await getLoggedMember();
+      setMute(res.setting.bgm);
+    } catch (e) {
+      // console.log(e);
+    }
+  };
 
   useEffect(() => {
-    setBGM(mute);
-  }, [mute]);
+    getMyBGM();
+  }, []);
 
-  const linkCopyHandler = () => {
-    // TODO : link copy 로직 추가 필요
-    console.log("Link copied!");
+  const muteHandler = (value) => {
+    setMute(!value);
+    setBGM(!value);
+  }
+
+
+  const linkCopyHandler = async () => {
+    const copyURL = `https://pitapat-adventcalendar.site/${myLink}`;
+    console.log(copyURL)
+    try {
+      await navigator.clipboard.writeText(copyURL);
+      alert("내 캘린더 링크가 복사되었습니다.");
+    } catch (e) {
+      alert("내 초대링크를 복사해 보내보세요! 바로 복사를 원하신다면~? 크롬브라우저로 접속해보세요✨");
+      clickCopyIconHandler();
+    }
   };
-  const muteHandler = (value) => setMute(!value);
-
-  // TODO : 내 캘린더인가 여부 파악
-  const ismycalendar = true;
-
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
-  const ModelComponent = lazy(() => import("/component/SnowBallModel"));
+  const ModelComponent = lazy(() => import("/component/index/SnowBallModel"));
 
   // friends modal
   const [friendModalShow, setFriendModalShow] = useState(false);
@@ -68,49 +137,191 @@ const Home: NextPage = () => {
   };
   const handleFriendsModalClose = () => setFriendModalShow(false);
 
+  // info modal
+  const [informationModalShow, setInformationModalShow] = useState(false);
+  const clickInformationIconHandler = () => {
+    setInformationModalShow(true);
+  };
+  const handleInformationModalClose = () => setInformationModalShow(false);
+
+  const [copyModal, setCopyModal] = useState<boolean>(false);
+  const clickCopyIconHandler = () => setCopyModal(true);
+  const handleCopyModalClose = () => setCopyModal(false);
+
+  // snowball modal
+  const [snowballModalShow, setSnawballModalShow] = useState(false);
+  const clickSnowballIconHandler = () => {
+    setSnawballModalShow(!snowballModalShow);
+  };
+
+
+  const getCurrCalUser = async () => {
+    let currInvitationLink = props.link
+    try {
+      if(currInvitationLink.length < 2 ) setMyName(memberInfo)
+      else{
+        const res = await setGetCurrCalendarUserInfo(currInvitationLink);
+        setMyName(res.data.data.nickname);
+      }
+    } catch (e) {
+      // setMyName(router.asPath.slice(1))
+    }
+  };
+  // cookie
   useEffect(() => {
     const onboardingCookie = getCookie("onboarding");
-    if (onboardingCookie === "") {
-      window.location.href ="/onboarding"
+    if (onboardingCookie === "" && props.data) {
+      router.push("/onboarding");
+    }
+    if (onboardingCookie && !isLogged && props.data) {
+      // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
+      // 친구코드가 있으면 그 친구코드정보로 index를 뿌려줘야하기 때문임
+      router.push("/login");
     }
   }, []);
+
+const [isLogged, setIsLogged] = useState(true);
+  // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
+  const getMemberData = async () => {
+    try {
+      const res = await setGetMember();
+      setMemberInfo(res.data.data.member.nickname);
+      setMyLink(res.data.data.member.invitationLink);
+      // console.log(">>>>>>>>>")
+      // console.log(res.data.data.member.invitationLink)
+      setCookie("invitationLink", res.data.data.member.invitationLink);
+    } catch (e) {
+      setIsLogged(false);
+      // console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getMemberData();
+    handleCalendarOwner();
+  }, [memberInfo]);
+
+  useEffect(() => {
+    getCurrCalUser();
+  },[props])
+
+  // invitation page에서 넘어온건지 확인
+  const [ismycalendar, setIsmycalendar] = useState(true);
+  const handleCalendarOwner = () => {
+    if (Object.keys(props).length < 1 || !props.data) {
+      setIsmycalendar(true);
+    } else {
+      setIsmycalendar(false);
+    }
+  };
+
+  const MyCalendarBtn = () => {
+    ``;
+    return (
+      <>
+        <ButtonFlex>
+          <Flex>
+            <Friends onClick={clickFriendIconHandler} />
+            <LinkCopy onClick={linkCopyHandler} />
+            <FriendsModal
+              show={friendModalShow}
+              onHide={handleFriendsModalClose}
+            />
+          </Flex>
+          <Flex>
+            <CopyModal
+                link={`https://pitapat-adventcalendar.site/${myLink}`}
+                show={copyModal}
+                onHide={handleCopyModalClose}
+            />
+          </Flex>
+          <Flex>
+            {/*BGM react-howler 라이브러리*/}
+            <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
+            {mute ? (
+              <Bgm onClick={() => muteHandler(mute)} />
+            ) : (
+              <MuteBgm onClick={() => muteHandler(mute)} />
+            )}
+            <Snowball onClick={clickSnowballIconHandler} />
+            <SnowballMobile onClick={() => router.push("/snowball")} />
+            <Info onClick={clickInformationIconHandler} />
+            <InformationModal
+              show={informationModalShow}
+              onHide={handleInformationModalClose}
+            />
+          </Flex>
+        </ButtonFlex>
+        <Share />
+      </>
+    );
+  };
+
+  // console.log(storeUserData);
+
+  const handleGoMyCal = () => {
+    // router.push(`/${memberInfo.member.invitationLink}`);
+    router.push("/");
+  };
+
+  const FriendsCalendarBtn = () => {
+    return (
+      <>
+        <ButtonFlex>
+          { isLogged === false ?
+              null  : <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>
+          }
+          <Flex>
+            {/*BGM react-howler 라이브러리*/}
+            <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
+            {mute ? (
+              <Bgm onClick={() => muteHandler(mute)} />
+            ) : (
+              <MuteBgm onClick={() => muteHandler(mute)} />
+            )}
+            <Snowball onClick={clickSnowballIconHandler} />
+            <Info onClick={clickInformationIconHandler} />
+            <InformationModal
+              show={informationModalShow}
+              onHide={handleInformationModalClose}
+            />
+          </Flex>
+        </ButtonFlex>
+      </>
+    );
+  };
 
   return (
     <div id="home">
       <Flex>
         <Seo title="Home" />
         <MainContainer>
-          <Calendar ismycalendar={ismycalendar} />
-          {ismycalendar && (
-            <>
-              <ButtonFlex>
-                {/* TODO : Kakao 친구 목록 연결 */}
-                <Friends onClick={clickFriendIconHandler} />
-                <FriendsModal
-                  show={friendModalShow}
-                  onHide={handleFriendsModalClose}
-                />
-                <Flex>
-                  {/*BGM react-howler 라이브러리*/}
-                  <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
-                  <LinkCopy onClick={linkCopyHandler} />
-                  {mute ? (
-                    <Bgm onClick={() => muteHandler(mute)} />
-                  ) : (
-                    <MuteBgm onClick={() => muteHandler(mute)} />
-                  )}
-                </Flex>
-              </ButtonFlex>
-              <Share />
-            </>
-          )}
+          <br />
+          <h5>{myName}의 캘린더 🎁</h5>
+          {/* 실제 invitation Link 로 보내기 */}
+          <Calendar ismycalendar={ismycalendar} link={"test"} />
+          {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
-        <SnowballContainer>
-          <Text>스노우볼을 움직여보세요</Text>
-          <Canvas>
-            <ModelComponent />
-          </Canvas>
-        </SnowballContainer>
+        {snowballModalShow ? (
+          <SnowballContainer>
+            <Suspense
+              fallback={
+                <div>
+                  <Text>로딩 중.....</Text>
+                  <img
+                    src="/assets/image/character/spinner.gif"
+                    alt="spinner"
+                  />
+                </div>
+              }
+            >
+              <Text>스노우볼을 움직여보세요</Text>
+              <Canvas>
+                <ModelComponent />
+              </Canvas>
+            </Suspense>
+          </SnowballContainer>
+        ) : null}
       </Flex>
     </div>
   );

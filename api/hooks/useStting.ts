@@ -2,16 +2,8 @@ import SettingService from "../SettingService";
 import {useEffect, useState} from "react";
 import {putBGMData, putPushData} from "../../util/type";
 
-export const useGetPush = () => {
-    const [pushData, setPushData] = useState<boolean>();
-    const run = async () => {
-        const res = await SettingService.getPush();
-        setPushData(res.data.data);
-    }
-    useEffect(()=>{
-        run();
-    },[])
-    return pushData;
+export async function getBGMPush() {
+    return await SettingService.getPush();
 }
 
 export async function setPutPush(status : boolean) {

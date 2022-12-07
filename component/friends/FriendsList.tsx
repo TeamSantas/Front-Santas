@@ -2,29 +2,37 @@ import styled from "styled-components";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
 import Image from "next/image";
 import { Flex } from "../../styles/styledComponentModule";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useRouter } from "next/router";
+import FriendsService from "../../api/FriendsService";
 
-const AlignedFlex = styled(Flex)`
+export const AlignedFlex = styled(Flex)`
   align-items: center;
-`;
-
-const KakaoShare = styled.div`
-  background-image: url(https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 2.5rem;
-  cursor: pointer;
-  margin-right: 5px;
-  @media (max-width: 600px) {
-    margin-right: 3px;
-  }
 `;
 
 const GoFriendsCalendarBtn = styled(Button)`
   background-color: #8d362d;
   border-color: #8d362d;
+  @media (max-width: 600px) {
+    font-size: small;
+  }
+  @media (max-width: 300px) {
+    width: 70px;
+    font-size: x-small;
+  }
+`;
+
+const FriendsName = styled.div`
+  margin-left: 5px;
+  font-size: normal;
+  @media (max-width: 600px) {
+    font-size: smaller;
+  }
+  @media (max-width: 300px) {
+    max-width: 40px;
+    font-size: small;
+  }
 `;
 
 const FriendCard = styled.div`
@@ -47,68 +55,85 @@ const FriendCard = styled.div`
   }
 `;
 
+const Container = styled.div`
+  height: 360px;
+  overflow: scroll;
+`;
+
+const LoadingContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+`;
+const LoadingHeader = styled.h2`
+  margin: 0;
+  padding: 0;
+  text-align: center;
+`;
+const Img = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+  border-radius: 50px;
+`;
+
 const FriendsList = () => {
-  const [friendsData, setFriendsData] = useState<any>();
-  const [currFriendIsFavorite, setCurrFriendIsFavorite] =
-    useState<boolean>(false);
-  // 서버 살아 있다면 ---------------------------------------
+  const router = useRouter();
+  const [friendsData, setFriendsData] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const getKakaoFriendsData = async () => {
+    try {
+      const res = await FriendsService.getKakaoFriends();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const getFriendsData = async () => {
-    const res = await setGetFriend();
-    setFriendsData(res);
+    let res = [];
+    setIsLoading(true);
+    try {
+      const res = await setGetFriend();
+      if (res.data.data) setFriendsData(res.data.data);
+    } catch (e) {
+      console.log(e);
+    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
     getFriendsData();
   }, []);
 
-  const goFriendsCalendar = () => {
-    console.log("친구 캘린더로 가즈아~");
-  };
-
-  const handleClickFavoriteFriend = (isFavorite) => {
-    // 친구한테 데이터 보내야 함
-    console.log("조아용");
-    setCurrFriendIsFavorite(!isFavorite);
-  };
-
   const RenderFriendCardContents = (props) => {
+    const goFriendsCalendar = () => {
+      if (props && props.invitationLink) {
+        router.push(`/${props.invitationLink}`);
+        // console.log("친구 캘린더로 가즈아~");
+      } else {
+        console.log("props.invitationLink 없어용");
+      }
+    };
+
     return (
       <>
         <AlignedFlex>
-          <Image
-            // src={props.profileImgUrl}
-            src={`/assets/image/character/face_smile.png`}
-            alt="profile-img"
-            width={50}
-            height={50}
-            style={{ marginRight: "5px" }}
+          <Img
+            src={
+              props.profileImgUrl.includes("http")
+                ? props.profileImgUrl
+                : "/assets/image/character/face_smile.png"
+            }
           />
-          <div>{props.name}</div>
-          {/* MVP2 : 즐겨찾기 친구 */}
-          {/* {props.isFavorite ? (
-            <Image
-              // src={props.profileImgUrl}
-              src={`/assets/image/friend/fullheart.png`}
-              alt="profile-img"
-              width={30}
-              height={30}
-              onClick={handleClickFavoriteFriend}
-            />
-          ) : (
-            <Image
-              // src={props.profileImgUrl}
-              src={`/assets/image/friend/emptyheart.png`}
-              alt="profile-img"
-              width={30}
-              height={30}
-              onClick={handleClickFavoriteFriend}
-            />
-          )} */}
+          <FriendsName>{props.name}</FriendsName>
         </AlignedFlex>
 
         <Flex>
           <GoFriendsCalendarBtn onClick={goFriendsCalendar}>
-            쪽지 보내러 가기
+            친구 캘린더로 가기
           </GoFriendsCalendarBtn>
         </Flex>
       </>
@@ -116,19 +141,31 @@ const FriendsList = () => {
   };
 
   return (
-    <>
-      {/* TODO : isFavorite으로 즐찾해둔 친구 상단에 먼저 렌더링 */}
-      {friendsData?.map((friend) => (
-        <FriendCard key={friend.memberId}>
-          <RenderFriendCardContents
-            profileImgUrl={friend.profileImgUrl}
-            name={friend.name}
-            invitationLink={friend.invitationLink}
-            isFavorite={friend.isFavorite}
-          />
-        </FriendCard>
-      ))}
-    </>
+    <Container>
+      {!isLoading && friendsData.length < 1 ? (
+        <LoadingContainer>
+          <img src="/assets/image/character/face_crycry.png" width="200" />
+          <LoadingHeader>"친구가...없써...!"</LoadingHeader>
+        </LoadingContainer>
+      ) : null}
+      {isLoading ? (
+        <LoadingContainer>
+          <img src="/assets/image/character/spinner.gif" alt="spinner" />
+          <LoadingHeader>친구들 모으는중</LoadingHeader>
+        </LoadingContainer>
+      ) : (
+        friendsData?.map((friend, idx) => (
+          <FriendCard key={friend.memberId + idx}>
+            <RenderFriendCardContents
+              profileImgUrl={friend.profileImgUrl}
+              name={friend.name}
+              invitationLink={friend.invitationLink}
+              isFavorite={friend.isFavorite}
+            />
+          </FriendCard>
+        ))
+      )}
+    </Container>
   );
 };
 
