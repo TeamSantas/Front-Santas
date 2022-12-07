@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { GreenButton } from "../../styles/styledComponentModule";
 
 const OnboardingContainer = styled.div`
   display: ${({ pageNumber, showPage }) =>
@@ -6,13 +7,16 @@ const OnboardingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 15vh;
+  padding-top: 10vh;
 `;
 
 const Text = styled.div`
   font-size: 24px;
-  color: black;
-  text-shadow:1px 1px 1px #000;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0 10px;
+  border-radius: 5px;
+  
   @media screen and (min-width: 1024px) {
     font-size: 36px;
     color: #ffffff;
@@ -33,6 +37,10 @@ const Image = styled.img`
   margin-bottom: 60px;
 `;
 
+const NextBtn = styled(GreenButton)`
+  margin-top: 30px;
+`;
+
 export const Onboarding1 = ({ showPage }) => {
   const pageNumber = 1;
 
@@ -42,6 +50,7 @@ export const Onboarding1 = ({ showPage }) => {
       <Text>
         모두가 행복한 빨간 <TextRed>코</TextRed> 루돌프 마을
       </Text>
+      <NextBtn>다음으로</NextBtn>
     </OnboardingContainer>
   );
 };

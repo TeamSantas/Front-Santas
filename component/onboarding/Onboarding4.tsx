@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getCookie } from "../../businesslogics/cookie";
 import { useRouter } from "next/router";
+import { GreenButton } from "../../styles/styledComponentModule";
 
 const OnboardingContainer = styled.div`
   display: ${({ pageNumber, showPage }) =>
@@ -9,17 +10,17 @@ const OnboardingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 10vh;
+  padding-top: 6vh;
 `;
 
 const Text = styled.div`
-  color: #ffffff;
   font-size: 24px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0 10px;
+  border-radius: 5px;
   text-align: center;
-  font-weight: 700;
-  line-height: 110%;
-  margin-bottom: 37px;
-  text-shadow:1px 1px 1px #000;
+
   @media screen and (min-width: 1024px) {
     font-size: 36px;
   }
@@ -27,6 +28,7 @@ const Text = styled.div`
 
 const Image = styled.img`
   width: 223px;
+  margin-top: 30px;
   margin-bottom: 100px;
 `;
 
@@ -34,17 +36,21 @@ const Span = styled.span`
   color: #ffd58d;
 `;
 const Text2 = styled.div`
-  text-shadow:0 0 5px #fff;
   font-size: 26px;
-  background-color: rgba(255,255,255,.5);
-  border-radius: 20px;
-  color: #222;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0 10px;
+  border-radius: 5px;
+  color: #fff;
+
   @media screen and (min-width: 1024px) {
     font-size: 36px;
-    color: #fff;
-    background-color: transparent;
   }
 `;
+
+const NextBtn = styled(GreenButton)`
+  margin-top: 30px;
+`;
+
 export const Onboarding4 = ({ showPage }) => {
   const pageNumber = 4;
 
@@ -61,12 +67,16 @@ export const Onboarding4 = ({ showPage }) => {
     <OnboardingContainer pageNumber={pageNumber} showPage={showPage}>
       <Text>
         어드벤트 캘린더를 통해
-        <br /> 친구들과 <Span>따뜻한 쪽지를 주고 받으면,</Span>
-        <br /> 하얀코에게 크레파스를
-        <br /> 선물할 수 있는 힘이 모여요~!
+        {/* <br /> 친구들과 <Span>따뜻한 쪽지를 주고 받으면,</Span> */}
+        {/* <br /> 하얀코에게 크레파스를 */}
+        {/* <br /> 선물할 수 있는 힘이 모여요~! */}
       </Text>
+      <Text>친구들과 <Span>따뜻한 쪽지를 주고 받으면,</Span></Text>
+      <Text>하얀코에게 크레파스를</Text>
+      <Text>선물할 수 있는 힘이 모여요~!</Text>
       <Image src="/assets/image/onboarding/crayon_box.png" />
       <Text2> 캘린더에 쪽지를 보내러 가볼까요?! </Text2>
+      <NextBtn>다음으로</NextBtn>
       {/*{visited === true ? (*/}
       {/*  <GoBtn onClick={() => (router.push("/") )}>*/}
       {/*    내 캘린더가기*/}

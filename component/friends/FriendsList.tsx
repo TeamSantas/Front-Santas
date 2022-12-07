@@ -146,10 +146,6 @@ const FriendsList = () => {
         <LoadingContainer>
           <img src="/assets/image/character/face_crycry.png" width="200" />
           <LoadingHeader>"친구가...없써...!"</LoadingHeader>
-          {/*<LoadingHeader>친구가 없어서 놀라셨나요?</LoadingHeader>*/}
-
-          {/*<LoadingHeader>"카카오 승인대기 중"</LoadingHeader>*/}
-          {/*<p><br/>진짜 금방 될거에요.. ;o;<br/> 그때까진 🔗링크🔗로 놀러갑시닷~!</p>*/}
         </LoadingContainer>
       ) : null}
       {isLoading ? (

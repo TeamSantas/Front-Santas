@@ -14,6 +14,23 @@ const Container = styled(MainContainer)`
   color: white;
 `;
 
+const StoryLink = styled.a`
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  display: block;
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  // background-color: red;
+  border-radius: 5px;
+  padding: 2px 10px;
+
+  &:hover{  
+    color : white;
+    text-decoration: underline;
+  }
+`;
+
 const Login: NextPage = () => {
   const [modalShow, setModalShow] = useState(true);
   const handleClose = () => setModalShow(false);
@@ -46,9 +63,14 @@ const Login: NextPage = () => {
           <br /> 어드벤트 캘린더를 모으러 가볼까요?
         </h3>
          {/*<Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=http://localhost:3000/oauth/callback/kakao"}>*/}
-        <Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=https://pitapat-adventcalendar.site/oauth/callback/kakao"}>
-          <img src="/assets/image/kakao_login_large_narrow.png" width="222" />
-        </Link>
+        <div style={{marginTop: '40px'}}>
+          <Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=https://pitapat-adventcalendar.site/oauth/callback/kakao"}>
+            <img src="/assets/image/kakao_login_large_narrow.png" width="222" />
+          </Link>
+          <StoryLink href={`https://pitapat-adventcalendar.site/onboarding`}>
+            👉 스토리 보러가기
+          </StoryLink>
+        </div>
       </Container>
     </div>
   );

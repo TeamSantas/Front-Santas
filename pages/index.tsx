@@ -172,8 +172,13 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   // cookie
   useEffect(() => {
     const onboardingCookie = getCookie("onboarding");
-    if (onboardingCookie === "") {
+    if (onboardingCookie === "" && props.data) {
       router.push("/onboarding");
+    }
+    if (onboardingCookie && !isLogged && props.data) {
+      // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
+      // 친구코드가 있으면 그 친구코드정보로 index를 뿌려줘야하기 때문임
+      router.push("/login");
     }
   }, []);
 
