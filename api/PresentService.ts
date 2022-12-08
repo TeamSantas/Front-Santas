@@ -17,7 +17,7 @@ class PresentService {
     // console.log(
     //   PresentAuthInstance.get<ResponseData<any>>(`/api/present/list`)
     // );
-    return PresentInstance.get<ResponseData<any>>(
+    return PresentAuthInstance.get<ResponseData<any>>(
       `/api/present/list`,
       config
     );
