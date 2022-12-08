@@ -88,6 +88,24 @@ const SnowballContainer = styled(MainContainer)`
   }
 `;
 
+const CalendarYellowBtn = styled(Icons)`
+  width: 35rem;
+  height: 72px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 48px;
+  background: #c68202;
+  border-radius: 12px;
+  z-index: 5;
+  color: white;
+  @media (max-width: 600px) {
+    width: 90%;
+    margin-top: 45px;
+    height: 62px;
+    font-size: 24px;
+  }
+`;
 const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
@@ -180,14 +198,10 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       // console.log(e);
     }
   };
-  
+
   // cookie
   const checkLocation = () => {
     const onboardingCookie = getCookie("onboarding");
-    // console.log(">>>>>>>>is");
-    // console.log(getCookie("token") == "");
-    // console.log(isLogged);
-    // console.log(onboardingCookie);
     if (onboardingCookie === "" && props.data == undefined) {
       router.push("/onboarding");
     }
@@ -197,7 +211,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       props.data === undefined
     ) {
       // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
-      // 친구코드가 있으면 그 친구코드정보로 index를 뿌려줘야하기 때문임
       router.push("/title");
     }
   };
@@ -298,6 +311,9 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
             />
           </Flex>
         </ButtonFlex>
+        {isLogged === true ? null : (
+        <CalendarYellowBtn onClick={()=> router.push('/title')}>내 캘린더도 만들기✨</CalendarYellowBtn>
+        )}
       </>
     );
   };
