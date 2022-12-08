@@ -21,3 +21,16 @@ export async function KakaoLogin(code, state) {
       return e;
   }
 }
+
+
+export async function KakaoDEVLogin(code, state) {
+  try {
+    // console.log("쿠키굽기 #################");
+    // // console.log(res);
+    // await setCookie("token", res.data.data.token, 30);
+    // await setCookie('subToken', res.data.data.refreshToken,30);
+    return await AuthService.getDEVKakaoLogin(code, state);
+  } catch (e) {
+    return e;
+  }
+}

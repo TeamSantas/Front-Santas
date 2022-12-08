@@ -97,20 +97,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const [mute, setMute] = useState(false);
   const [myLink, setMyLink] = useState<string>("");
 
-  const getMyBGM = async () => {
-    try {
-      const res = await getLoggedMember();
-      setMute(res.setting.bgm);
-    } catch (e) {
-      // console.log(e);
-    }
-  };
-
-  const muteHandler = (value) => {
-    setMute(!value);
-    setBGM(!value);
-  };
-
   const linkCopyHandler = async () => {
     const copyURL = `https://pitapat-adventcalendar.site/${myLink}`;
     console.log(copyURL);
@@ -151,17 +137,34 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     setSnawballModalShow(!snowballModalShow);
   };
 
-  const getCurrCalUser = async () => {
-    let currInvitationLink = props.link;
+  const getMyBGM = async () => {
     try {
-      if (currInvitationLink.length < 2) {
-        setMyName(memberInfo);
-      } else {
-        const res = await setGetCurrCalendarUserInfo(currInvitationLink);
-        setMyName(res.data.data.nickname);
-      }
+      const res = await getLoggedMember();
+      setMute(res.setting.bgm);
     } catch (e) {
-      // setMyName(router.asPath.slice(1))
+      // console.log(e);
+    }
+  };
+
+  const muteHandler = (value) => {
+    setMute(!value);
+    setBGM(!value);
+  };
+
+
+  const getCurrCalUser = async () => {
+    if(props.link !== undefined){
+      let currInvitationLink = props.link;
+      try {
+        if (currInvitationLink.length < 2) {
+          setMyName(memberInfo);
+        } else {
+          const res = await setGetCurrCalendarUserInfo(currInvitationLink);
+          setMyName(res.data.data.nickname);
+        }
+      } catch (e) {
+        // setMyName(router.asPath.slice(1))
+      }
     }
   };
 
@@ -180,31 +183,24 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       // console.log(e);
     }
   };
-  
+
   // cookie
   const checkLocation = () => {
     const onboardingCookie = getCookie("onboarding");
-    // console.log(">>>>>>>>is");
-    // console.log(getCookie("token") == "");
-    // console.log(isLogged);
-    // console.log(onboardingCookie);
     if (onboardingCookie === "" && props.data == undefined) {
       router.push("/onboarding");
     }
-    if (
-      onboardingCookie &&
+    else if (onboardingCookie &&
       getCookie("token") == "" &&
-      props.data === undefined
-    ) {
+      props.data === undefined) {
       // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
-      // 친구코드가 있으면 그 친구코드정보로 index를 뿌려줘야하기 때문임
       router.push("/title");
     }
   };
 
   useEffect(() => {
-    getMyBGM();
     checkLocation();
+    getMyBGM();
   }, []);
 
   useEffect(() => {
