@@ -3,6 +3,7 @@ import PresentModal from "../receivedPresents/PresentModal";
 import { useEffect, useState } from "react";
 import CustomModal from "../common/CustomModal";
 import NumberOfReceivedPresents from "./NumberOfReceivedPresents";
+import {setGetNumberOfReceivedPresents} from "../../api/hooks/useGetNumberOfReceivedPresents";
 
 const CalendarWrapper = styled.div`
   // padding: 0 10px;
@@ -40,7 +41,7 @@ const LoadingHeader = styled.h2`
   text-align: center;
 `;
 
-const Calendar = ({ ismycalendar }) => {
+const Calendar = ({ ismycalendar, loggedId }) => {
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25,
@@ -55,20 +56,6 @@ const Calendar = ({ ismycalendar }) => {
   const [notYetModalShow, setNotYeModalShow] = useState(false);
   const [selectedday, setSelectedDay] = useState(date.getDate());
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
-
-
-  useEffect(() => {
-    const selectedDayToCompare =
-      Number(selectedday) < 10
-        ? "202212" + selectedday
-        : "202212" + selectedday;
-    if (Number(selectedDayToCompare) <= Number(today)) {
-      setCanOpenCalendar(true);
-    } else {
-      setCanOpenCalendar(false);
-    }
-    // console.log("선택한날>>>>>", selectedDayToCompare, "//", today,Number(selectedDayToCompare) <= Number(today));
-  }, [selectedday]);
 
   const handleShow = (d) => {
     setSelectedDay(d);
@@ -87,37 +74,63 @@ const Calendar = ({ ismycalendar }) => {
     }
   };
 
+  useEffect(() => {
+    const selectedDayToCompare =
+        Number(selectedday) < 10
+            ? "202212" + selectedday
+            : "202212" + selectedday;
+    if (Number(selectedDayToCompare) <= Number(today)) {
+      setCanOpenCalendar(true);
+    } else {
+      setCanOpenCalendar(false);
+    }
+    // console.log("선택한날>>>>>", selectedDayToCompare, "//", today,Number(selectedDayToCompare) <= Number(today));
+  }, [selectedday]);
+
+
+
   const handleClosePresentModal = () => setPresentModalShow(false);
   const handleCloseNotYetModal = () => setNotYeModalShow(false);
   const RenderMyCalendar = () => {
+    const [receivePresentList, setReceivePresentList] = useState<any>([]);
+
+    useEffect(() => {
+    //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
+      const getRecivedPresentList = async () =>{
+      const res = await setGetNumberOfReceivedPresents(loggedId);
+      setReceivePresentList(await res.data.data);
+    }
+      getRecivedPresentList();
+    },[])
+
     return (
       <>
         {days.map((day, idx) =>
           day > Number(today_day) ? (
-            <div key={day.toString()}>
-              <NumberOfReceivedPresents day={day} />
-              <DayImage
-                src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
-                onClick={() => {
-                  handleShow(idx + 1);
-                }}
-                alt={`day${idx + 1}`}
-                key={day}
-              />
-            </div>
-          ) : (
-            <div key={day.toString()}>
-              <NumberOfReceivedPresents day={day} />
-              <DayImage
-                src={`/assets/image/days/day${idx + 1}.svg`}
-                onClick={() => {
-                  handleShow(idx + 1);
-                }}
-                alt={`day${idx + 1}`}
-                key={day}
-              />
-            </div>
-          )
+                  <div key={day.toString()}>
+                    <NumberOfReceivedPresents day={day} receivedList={receivePresentList} />
+                    <DayImage
+                        src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
+                        onClick={() => {
+                          handleShow(idx + 1);
+                        }}
+                        alt={`day${idx + 1}`}
+                        key={day}
+                    />
+                  </div>
+              ) : (
+                  <div key={day.toString()}>
+                    <NumberOfReceivedPresents day={day} receivedList={receivePresentList}/>
+                    <DayImage
+                        src={`/assets/image/days/day${idx + 1}.svg`}
+                        onClick={() => {
+                          handleShow(idx + 1);
+                        }}
+                        alt={`day${idx + 1}`}
+                        key={day}
+                    />
+                  </div>
+              )
         )}
       </>
     );
