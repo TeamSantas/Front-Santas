@@ -3,7 +3,7 @@ import Head from "next/head";
 export default function Seo({ title }) {
   return (
     <Head>
-      <title>{title || "두근두근 어드벤트 캘린더🎁"}</title>
+      <title>{"두근두근 어드벤트 캘린더🎁" || title}</title>
       <meta
         name="description"
         content="크리스마스다! 두근두근 어드벤트 캘린더"

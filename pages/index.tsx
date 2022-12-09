@@ -95,7 +95,7 @@ const CalendarYellowBtn = styled(Icons)`
   font-weight: bold;
   margin-top: 5px;
   margin-bottom: 48px;
-  background: #c68202;
+  background: #ac473d;
   border-radius: 12px;
   z-index: 5;
   color: white;
