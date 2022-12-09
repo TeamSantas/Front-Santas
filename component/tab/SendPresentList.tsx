@@ -28,30 +28,36 @@ const Img = styled.img`
 
 const SendPresentList = () => {
   const [sentPresentList, setSentPresentList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const initSendPresentList = async () => {
       const res = await PresentService.getUserSendPresentsList();
-      // console.log(res.data.data);
       setSentPresentList(res.data.data.content);
+      setIsLoading(false);
     };
     initSendPresentList();
   }, []);
 
   return (
     <TabFlex>
-      <PrepareingContainer>
-        <Img src="/assets/image/character/face_cry.png" alt="울고있는하얀코"/>
-        <PrepareingHeader>준비중인 기능입니다</PrepareingHeader>
-      </PrepareingContainer>
-      {/* {sentPresentList?.map((present) => (
-        <Card
-          key={present.id}
-          id={present.id}
-          thumbnail={present.imageURL}
-          type={"SEND"}
-        />
-      ))} */}
+      {isLoading ? 
+        <PrepareingContainer>
+          <Img src="/assets/image/character/spinner.gif" alt="로딩하얀코"/>
+          <PrepareingHeader>선물 불러오는중...</PrepareingHeader>
+        </PrepareingContainer> : 
+        <>
+          {sentPresentList?.map((present) => (
+            <Card
+              key={present.id}
+              id={present.id}
+              thumbnail={present.imageURL}
+              type={"SEND"}
+              isRead={present.isRead}
+            />
+          ))}
+        </>
+      }
     </TabFlex>
   );
 };
