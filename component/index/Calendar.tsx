@@ -61,16 +61,20 @@ const Calendar = ({ ismycalendar, loggedId }) => {
     setSelectedDay(d);
     const selDate = `202212${d}`;
     if (ismycalendar) {
-      // 열기 시도한 날이 오늘보다 앞의 날
-      if (Number(selDate) <= Number(today)) {
+        // 열기 시도한 날이 오늘보다 앞의 날
+        if (Number(selDate) <= Number(today)) {
         setCanOpenCalendar(true);
         setPresentModalShow(true);
-      } else {
+        }
+      else {
         setCanOpenCalendar(false);
         setNotYeModalShow(true);
       }
     } else {
-      setPresentModalShow(true);
+      if (Number(selDate)< Number(today)){
+        alert("과거로는 선물을 보낼 수 없어요 ⌛");
+      }else
+        setPresentModalShow(true);
     }
   };
 
