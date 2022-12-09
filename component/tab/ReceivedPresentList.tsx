@@ -28,6 +28,7 @@ const Img = styled.img`
 const ReceivedPresentList = () => {
   const router = useRouter();
   const [receivedPresentList, setReceivedPresentList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const initReceivedPresentList = async () => {
@@ -41,26 +42,34 @@ const ReceivedPresentList = () => {
         // alert("로그인이 필요합니다✨")
         router.push('/login')
       }
-
+      setIsLoading(false);
     };
     initReceivedPresentList();
   }, []);
 
   return (
     <TabFlex>
-      {receivedPresentList.length > 0 ? receivedPresentList.map((present) => (
-        <Card
-          key={present.id}
-          id={present.id}
-          thumbnail={present.imageURL}
-          type={"RECEIVED"}
-        />
-      )) :
-        (<PrepareingContainer>
-          <Img src="/assets/image/character/face_cry.png" alt="울고있는하얀코"/>
-          <PrepareingHeader>받은선물이 없습니다</PrepareingHeader>
-        </PrepareingContainer>
-        )
+      {isLoading ?
+        <PrepareingContainer>
+          <Img src="/assets/image/character/spinner.gif" alt="로딩하얀코"/>
+          <PrepareingHeader>선물 불러오는중...</PrepareingHeader>
+        </PrepareingContainer> :
+        <>
+          {receivedPresentList.length > 0 ? receivedPresentList.map((present) => (
+          <Card
+            key={present.id}
+            id={present.id}
+            thumbnail={present.imageURL}
+            type={"RECEIVED"}
+          />
+        )) :
+          (<PrepareingContainer>
+            <Img src="/assets/image/character/face_cry.png" alt="울고있는하얀코"/>
+            <PrepareingHeader>받은선물이 없습니다</PrepareingHeader>
+          </PrepareingContainer>
+          )
+        }
+        </>
       }
     </TabFlex>
   );
