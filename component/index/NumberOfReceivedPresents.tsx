@@ -29,23 +29,16 @@ const StyledNumberOfReceivedPresents = styled.p`
     margin-left: 4rem;
   }
 `;
-const NumberOfReceivedPresents = ({ day }) => {
-  const receivedDay = day < 10 ? `2022-12-0${day}` : `2022-12-${day}`;
-  const [numberOfReceivedPresents, setReceivedPresentList] = useState(0);
-
-  // 날짜별 선물의 개수를 구해 length로 세팅한다.
-  useEffect(() => {
-    const initReceivedPresentList = async () => {
-      const receiverId = await (
-        await MemberService.getLoggedMember()
-      ).data.data.member.id;
-      // console.log(receiverId)
-      const res = await setGetDayPresents(receiverId, receivedDay);
-      // console.log("receivedPresentList >>> ", res.content.length)
-      setReceivedPresentList(res.content.length);
-    };
-    initReceivedPresentList();
-  }, [receivedDay]);
+const NumberOfReceivedPresents = ({ day, receivedList }) => {
+  let numberOfReceivedPresents = 0;
+  //Calendar에서 받아온 day와 /api/present/count API로 받은 리스트를 비교해 day에 받은 선물이 존재하면 count 기록. 없으면 0
+  for(let i=0; i<receivedList.length; i++){
+    const receivedDay = new Date(receivedList[i].receivedDate);  //받아온 날짜 그대로 넣어주기
+    if( receivedDay.getDate() === day) {
+      numberOfReceivedPresents = receivedList[i].count;
+      break;
+    }
+  }
 
   const presentCount =
     numberOfReceivedPresents > 100 ? "99+" : numberOfReceivedPresents;
