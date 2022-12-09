@@ -23,27 +23,29 @@ const PushNotification = () => {
       firebase.app();
     }
 
-    const messaging = firebase.messaging()
+    if (firebase.messaging.isSupported()) {
+      const messaging = firebase.messaging();
  
-    messaging.getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID }).then((currentToken) => {
-      if (currentToken) {
-        // console.log(currentToken)
-      } else {
-        console.log('No registration token available. Request permission to generate one.')
-      }
-    }).catch((err) => {
-      console.log('An error occurred while retrieving token. ', err)
-    })
- 
-    messaging.onMessage((payload) => {
-      console.log('Message received. ', payload)
-      const title = payload.notification.title;
-      const body = payload.notification.body;
-      const icon = "https://cdn.mkhealth.co.kr/news/photo/202102/52163_52859_5928.jpg";
-      const options = { body, icon };
+      messaging.getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID }).then((currentToken) => {
+        if (currentToken) {
+          // console.log(currentToken)
+        } else {
+          console.log('No registration token available. Request permission to generate one.')
+        }
+      }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err)
+      })
+  
+      messaging.onMessage((payload) => {
+        console.log('Message received. ', payload)
+        const title = payload.notification.title;
+        const body = payload.notification.body;
+        const icon = "https://cdn.mkhealth.co.kr/news/photo/202102/52163_52859_5928.jpg";
+        const options = { body, icon };
 
-      new Notification(title, options);
-    })
+        new Notification(title, options);
+      })
+    }
   }
  
   useEffect(() => {
