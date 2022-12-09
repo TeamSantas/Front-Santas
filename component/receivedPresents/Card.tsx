@@ -17,6 +17,7 @@ export const StyledCard = styled.div`
   align-items: center;
   margin: 1rem auto;
   overflow: hidden;
+
   @media (max-width: 1000px) {
     height: 200px;
   }
@@ -29,6 +30,8 @@ const TabCard = styled(StyledCard)`
   margin: 10px 5px;
   width: 30%;
   position: relative;
+  
+  /* border: props.isRead ? "none" : "2px solid #ac473d" ; */
 
   @media (max-width: 600px) {
     width: 32vw;
@@ -72,7 +75,6 @@ const Card = (props) => {
   const initPresentDetail = async () => {
     try {
       const res = await setGetPresentDetail(props.id);
-      // console.log("카드세부정보", res);
       setPresentDetail(res.data.data);
     } catch (e) {
       // console.log(e);

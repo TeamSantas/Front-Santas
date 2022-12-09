@@ -39,7 +39,7 @@ const MyGreenBtn = styled(RedBtn)`
 `;
 
 export default function PresentDetailBody({ body, handleDetail, type }) {
-  // console.log(body, type, "선물디테일바디");
+  // console.log(body, "선물디테일바디");
   const [isPublic, setIsPublic] = useState(false);
   const [isReceived, setIsReceived] = useState(false);
 
@@ -113,7 +113,8 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     <SendPresentsWrapper>
       <PresentHeader>
         {/* TODO : 닉넴 고민 */}
-        {body.nickname} 님께 <br /> {type === "SEND" ? <>보낸</> : <>받은</>}
+        {type === "SEND" ? body.targetNickname : body.nickname} 님께 <br />
+        {type === "SEND" ? "보낸" : "받은"}
         선물이에요 🎁
       </PresentHeader>
       <GotTextArea>
