@@ -58,7 +58,7 @@ const SendPresentList = () => {
           )):
             (<PrepareingContainer>
               <Img src="/assets/image/character/face_cry.png" alt="울고있는하얀코"/>
-              <PrepareingHeader>받은선물이 없습니다</PrepareingHeader>
+              <PrepareingHeader>보낸선물이 없습니다</PrepareingHeader>
             </PrepareingContainer>
             )
           }
