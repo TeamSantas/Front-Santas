@@ -11,6 +11,7 @@ import { usePostPresent } from "../../api/hooks/usePostPresent";
 import { useRouter } from "next/router";
 import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
 import { getLoggedMember } from "../../api/hooks/useMember";
+import MemberService from "../../api/MemberService";
 
 export const PresentHeader = styled.div`
   font-size: x-large;
@@ -56,6 +57,7 @@ const GreenDeleteButton = styled(GreenCloseButton)`
 
 const SendPresents = ({ onHide, selectedday }) => {
   const [contents, setContents] = useState<string>("");
+  const [isLogged, setIsLogged] = useState(false);
   const [isAnonymous, setAnonymous] = useState<boolean | any>(false);
   const [nickname, setNickname] = useState<string>("익명의 산타");
   const [memberInfo, setMemberInfo] = useState<any>();
@@ -63,10 +65,10 @@ const SendPresents = ({ onHide, selectedday }) => {
   // ImageUpload -------------
   const [fileList, setFileList] = useState<File[]>([]);
   const [heicFiles, setHeicFiles] = useState<File[]>([]);
-
+  
   const [showImages, setShowImages] = useState([]);
   const router = useRouter();
-
+  
   // Ref ---------------------
   const ref = useRef(null);
   const nicknameRef = useRef(null);
@@ -74,11 +76,14 @@ const SendPresents = ({ onHide, selectedday }) => {
   // 현재 로그인한 유저의 정보
   const getUserData = async () => {
     try {
-      const res = await getLoggedMember();
-      // console.log("선물보낼사람정보>>>>>>>>>>>>", res);
-      setMemberInfo(res);
+      // const res = await getLoggedMember();
+      const res = await MemberService.getLoggedMember();
+      // console.log("선물보낼사람정보>>>>>>>>>>>>", res.data.data.member);
+      setMemberInfo(res.data.data.member);
+      setIsLogged(true);
     } catch (e) {
       // console.log(e);
+      setIsLogged(false);
     }
   };
 
@@ -254,7 +259,7 @@ const SendPresents = ({ onHide, selectedday }) => {
       </TextArea>
 
       <JustifiedAlignedFlex>
-        {isAnonymous ? (
+        {isAnonymous || !isLogged ? (
           <input
             className="inputNickname"
             type="text"
@@ -270,6 +275,8 @@ const SendPresents = ({ onHide, selectedday }) => {
           id={`default-checkbox`}
           label={`익명`}
           onClick={handleCheckAnonymous}
+          disabled={!isLogged}
+          checked={!isLogged || isAnonymous}
         />
       </JustifiedAlignedFlex>
       <div className="Thumbnail_Wrapper">

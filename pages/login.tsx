@@ -31,6 +31,28 @@ const StoryLink = styled.a`
   }
 `;
 
+const Img = styled.img`
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 10px;
+`;
+
+const Alert = styled.div`
+  text-align: center;
+`;
+
+const AlertContent = styled.p`
+  margin-bottom: 0;
+  font-size: 1.5rem;
+  text-align: center;
+`;
+
+const AlertHighlight =  styled.span`
+  padding: 0 4px;
+  background-color: #3C6C54;
+  color: white;
+`;
+
 const Login: NextPage = () => {
   const [modalShow, setModalShow] = useState(true);
   const handleClose = () => setModalShow(false);
@@ -53,7 +75,14 @@ const Login: NextPage = () => {
           name={"modalImg"}
           // body ----------------
           img={""}
-          background_img={"/assets/image/icons/warning.png"}
+          // background_img={"/assets/image/icons/warning.png"}
+          body={
+            <Alert>
+              <Img src="/assets/image/character/hayanco_stand_creyon.png" width="260" />
+              <AlertContent>소셜로그인시, <AlertHighlight>선택사항을 모두 동의해야</AlertHighlight></AlertContent>
+              <AlertContent>친구목록 기능사용이 가능합니다.</AlertContent>
+            </Alert>
+          }
           // footer --------------
           buttons={""}
           login={"login"}
