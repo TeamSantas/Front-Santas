@@ -100,6 +100,13 @@ const TextHeader = styled.p`
   }
 `;
 
+const DayImage = styled.img`
+    width: 2.5rem;
+    @media (max-width: 280px) {
+      width: 2rem;
+    }
+`;
+
 const Share = () => {
   const [shareModalShow, setShareModalShow] = useState(false);
   const [TicketURL, setTicketURl] = useState("");
@@ -184,7 +191,7 @@ const Share = () => {
     `;
     return (
       <StyledTicketText>
-        <TextHeader title>{myData}님의 어드벤트 캘린더✨</TextHeader>
+        <TextHeader title="title">{myData}님의 어드벤트 캘린더✨</TextHeader>
         {contents}
         {/* {Dday === -1 ? (
           <p>- 크리스마스 : 아직도 11월..</p>
@@ -194,13 +201,6 @@ const Share = () => {
       </StyledTicketText>
     );
   };
-
-  const DayImage = styled.img`
-    width: 2.5rem;
-    @media (max-width: 280px) {
-      width: 2rem;
-    }
-  `;
 
   const TicketDay = () => {
     return (
