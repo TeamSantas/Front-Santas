@@ -94,7 +94,7 @@ const Calendar = ({ ismycalendar }) => {
       <>
         {days.map((day, idx) =>
           day > Number(today_day) ? (
-            <div>
+            <div key={day.toString()}>
               <NumberOfReceivedPresents day={day} />
               <DayImage
                 src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
@@ -106,7 +106,7 @@ const Calendar = ({ ismycalendar }) => {
               />
             </div>
           ) : (
-            <div>
+            <div key={day.toString()}>
               <NumberOfReceivedPresents day={day} />
               <DayImage
                 src={`/assets/image/days/day${idx + 1}.svg`}
