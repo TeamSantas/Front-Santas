@@ -56,6 +56,7 @@ const Login: NextPage = () => {
           background_img={"/assets/image/icons/warning.png"}
           // footer --------------
           buttons={""}
+          login={"login"}
         ></CustomModal>
         <img src="/assets/image/character/face_smile.png" width="222" />
         <h3>

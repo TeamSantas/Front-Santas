@@ -96,7 +96,7 @@ const CustomModal = (props) => {
             </CustomFooter>
           </CenteredFlex>
         )}
-        <Button onClick={props.onHide}>확인했어요🎁</Button>
+        {props.login && <Button onClick={props.onHide}>확인했어요🎁</Button>}
       </ColorBackground>
     </Modal>
   );
