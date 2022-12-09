@@ -111,6 +111,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
   const [memberInfo, setMemberInfo] = useState<string>("나");
+  const [loggedMemberId, setLoggedMemberId] = useState(null);
   const [myName, setMyName] = useState<string>("나");
   const [mute, setMute] = useState(false);
   const [myLink, setMyLink] = useState<string>("");
@@ -190,6 +191,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       const res = await setGetMember();
       setMemberInfo(res.data.data.member.nickname);
       setMyLink(res.data.data.member.invitationLink);
+      setLoggedMemberId(res.data.data.member.id)
       // console.log(">>>>>>>>>")
       // console.log(res.data.data.member.id)
       setCookie("invitationLink", res.data.data.member.invitationLink);
@@ -326,7 +328,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           <br />
           <h5>{myName}의 캘린더 🎁</h5>
           {/* 실제 invitation Link 로 보내기 */}
-          <Calendar ismycalendar={ismycalendar} />
+          <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
         {snowballModalShow ? (
