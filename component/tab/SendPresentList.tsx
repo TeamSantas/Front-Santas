@@ -47,7 +47,7 @@ const SendPresentList = () => {
           <PrepareingHeader>선물 불러오는중...</PrepareingHeader>
         </PrepareingContainer> : 
         <>
-          {sentPresentList?.map((present) => (
+          {sentPresentList.length > 0 ? sentPresentList.map((present) => (
             <Card
               key={present.id}
               id={present.id}
@@ -55,7 +55,13 @@ const SendPresentList = () => {
               type={"SEND"}
               isRead={present.isRead}
             />
-          ))}
+          )):
+            (<PrepareingContainer>
+              <Img src="/assets/image/character/face_cry.png" alt="울고있는하얀코"/>
+              <PrepareingHeader>받은선물이 없습니다</PrepareingHeader>
+            </PrepareingContainer>
+            )
+          }
         </>
       }
     </TabFlex>

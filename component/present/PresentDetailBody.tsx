@@ -100,7 +100,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
   const handleClickGoCalendarBtn = () => {
     let url = "";
     if (type && type === "SEND") {
-      url = `/${receiverFoundById.member.invitationLink}`;
+      url = `/${body.receiverInvitationLink}`;
     } else if (type && type === "RECEIVED") {
       url = `/${body.senderInvitationLink}`;
     } else {
