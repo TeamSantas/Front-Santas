@@ -23,9 +23,8 @@ const CustomHeader = styled(Modal.Header)`
 `;
 
 const CustomBody = styled(Modal.Body)`
-  margin: 1rem 0rem 2rem 0rem;
+  margin: 1rem auto 2rem auto;
   height: 20rem;
-
   ${(props) =>
     props.background_img &&
     css`
@@ -39,6 +38,20 @@ const CustomBody = styled(Modal.Body)`
 const CustomFooter = styled(Modal.Footer)`
   border: none !important;
 `;
+
+const Button = styled.div`
+  width: 300px;
+  height: 50px;
+  background-color: #ac473d;
+  border-radius: 10px;
+  margin: 60px auto 0 auto;
+  color: white;
+  font-size: 24px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+`
 
 const CustomModal = (props) => {
   return (
@@ -83,6 +96,7 @@ const CustomModal = (props) => {
             </CustomFooter>
           </CenteredFlex>
         )}
+        <Button onClick={props.onHide}>확인했어요🎁</Button>
       </ColorBackground>
     </Modal>
   );
