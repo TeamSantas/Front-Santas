@@ -65,10 +65,10 @@ const SendPresents = ({ onHide, selectedday }) => {
   // ImageUpload -------------
   const [fileList, setFileList] = useState<File[]>([]);
   const [heicFiles, setHeicFiles] = useState<File[]>([]);
-  
+
   const [showImages, setShowImages] = useState([]);
   const router = useRouter();
-  
+
   // Ref ---------------------
   const ref = useRef(null);
   const nicknameRef = useRef(null);
@@ -88,7 +88,7 @@ const SendPresents = ({ onHide, selectedday }) => {
   };
 
   // 현재 캘린더 주인 유저 정보
-  const currInvitationLink = router.asPath.slice(1).slice(0,36);
+  const currInvitationLink = router.asPath.slice(1).slice(0, 36);
 
   // console.log("currInvitationLink >>> ", currInvitationLink);
   const getCurrCalUser = async () => {
@@ -133,7 +133,11 @@ const SendPresents = ({ onHide, selectedday }) => {
     setContents(ref.current?.value);
 
     if (inputNickname !== "undefined") {
-      setNickname(inputNickname); // << 익명체크시 닉네임
+      if (inputNickname) {
+        setNickname(inputNickname); // << 익명체크시 닉네임
+      } else {
+        setNickname("익명의 산타");
+      }
     } else if (memberInfo.nickname) {
       setNickname(memberInfo.nickname); // << 익명아닐때 닉네임(자동주입)
     }
@@ -158,8 +162,8 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     // 파일 첨부 최대 5장 제한
     if ([...uploadFiles, ...fileList].length > 5) {
-      alert("사진은 최대 5장 첨부 가능합니다. 🎄")
-      return
+      alert("사진은 최대 5장 첨부 가능합니다. 🎄");
+      return;
     }
 
     setFileList([...uploadFiles, ...fileList]);
@@ -186,9 +190,13 @@ const SendPresents = ({ onHide, selectedday }) => {
   const HandleImageSubmit = () => {
     let sendNick = nicknameRef.current?.value;
     if (!isAnonymous) {
-      sendNick = memberInfo.nickname;
+      if (memberInfo?.nickname) {
+        sendNick = memberInfo.nickname;
+      } else {
+        sendNick = "익명의 산타";
+      }
     } else {
-      if (sendNick === "undefined") {
+      if (!sendNick) {
         sendNick = "익명의 산타";
       }
     }
@@ -208,11 +216,16 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     if (fileList.length > 0) {
       // HEIC 파일이라면 변환
-      const heicFiles = fileList.filter(file => file.name.toLowerCase().endsWith('heic'));
-      console.log("heicFiles >>>>>>>>> ", heicFiles)
-      if(heicFiles.length>0) alert('[✨오픈예정] 현재는 heic형식 파일첨부가 불가합니다.')
+      const heicFiles = fileList.filter((file) =>
+        file.name.toLowerCase().endsWith("heic")
+      );
+      console.log("heicFiles >>>>>>>>> ", heicFiles);
+      if (heicFiles.length > 0)
+        alert("[✨오픈예정] 현재는 heic형식 파일첨부가 불가합니다.");
 
-      const myFileList = fileList.filter(file => !file.name.toLowerCase().endsWith('heic'))
+      const myFileList = fileList.filter(
+        (file) => !file.name.toLowerCase().endsWith("heic")
+      );
       myFileList.forEach((file) => {
         presentData.append("multipartFileList", file);
       });
@@ -221,7 +234,7 @@ const SendPresents = ({ onHide, selectedday }) => {
     // console.log(
     //   "파일들...",
     //   currCalUserId,
-    //   memberInfo.nickname,
+    //   sendNick,
     //   contents, // 미래의 나에게 : 이거 undefined 가 정상이다 왜냐면 ref 바로 넣고잇다..
     //   `2022-12-${selectedday.toString().padStart(2, "0")}`,
     //   isAnonymous,
@@ -282,7 +295,12 @@ const SendPresents = ({ onHide, selectedday }) => {
       <div className="Thumbnail_Wrapper">
         <label id="present_img" htmlFor="file" onChange={handleAddImages}>
           <div className="addButton"></div>
-          <input id="file" type="file" accept="image/png, image/jpeg, image/jpg, image/heic" multiple />
+          <input
+            id="file"
+            type="file"
+            accept="image/png, image/jpeg, image/jpg, image/heic"
+            multiple
+          />
         </label>
         <Flex>
           {showImages.map((image, id) => (
