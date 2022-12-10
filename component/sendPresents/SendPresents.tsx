@@ -84,6 +84,7 @@ const SendPresents = ({ onHide, selectedday }) => {
     } catch (e) {
       // console.log(e);
       setIsLogged(false);
+      setAnonymous(true);
     }
   };
 
