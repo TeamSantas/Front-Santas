@@ -278,7 +278,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
             />
           </Flex>
         </ButtonFlex>
-        <Share />
+        <Share loggedId={loggedMemberId}/>
       </>
     );
   };
