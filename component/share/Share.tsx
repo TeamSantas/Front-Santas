@@ -7,6 +7,7 @@ import { getLoggedMember } from "../../api/hooks/useMember";
 import PresentService from "../../api/PresentService";
 import CopyModal from "../index/CopyModal";
 import { getCookie } from "cookies-next";
+import {setGetNumberOfReceivedPresents} from "../../api/hooks/useGetNumberOfReceivedPresents";
 
 export const RedBtn = styled(Icons)`
   width: 35rem;
@@ -107,7 +108,7 @@ const DayImage = styled.img`
     }
 `;
 
-const Share = () => {
+const Share = ({loggedId}) => {
   const [shareModalShow, setShareModalShow] = useState(false);
   const [TicketURL, setTicketURl] = useState("");
   const [myData, setMyData] = useState(null);
@@ -168,20 +169,23 @@ const Share = () => {
   if (date > 0) Dday = today.getDate();
   const imgSrc = `/assets/image/days/day${Dday}.svg`;
 
-  const [receivedPresentListNum, setReceivedPresentListNum] = useState(0);
-  const getMyPresentListNum = async () => {
-    try {
-      const res = await PresentService.getLoggedUserPresentList();
-      setReceivedPresentListNum(res.data.data.totalElements);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  useEffect(() => {
-    getMyPresentListNum();
-  }, []);
+  const [receivePresentCount, setReceivePresentCount] = useState<any>([]);
 
-  const presentNum: number = receivedPresentListNum;
+  useEffect(() => {
+    //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
+    const getRecivedPresentList = async () =>{
+      const res = await setGetNumberOfReceivedPresents(loggedId);
+      const presentList = res.data.data;
+      const presentTotal = presentList.reduce((total, cur, i)=>{
+        return total += Number(cur.count);
+      },0);
+      setReceivePresentCount(presentTotal);
+    }
+    getRecivedPresentList();
+  },[])
+
+
+  const presentNum: number = receivePresentCount;
   const randomEmoji = require("random-unicode-emoji");
 
   const TicketText = () => {
