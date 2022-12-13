@@ -68,12 +68,12 @@ const GoBackMyCal = styled.div`
 `;
 
 const ButtonFlex = styled(Flex)`
-  padding: 10px;
+  padding: 5px 10px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.3);
   width: 35rem;
   @media (max-width: 600px) {
-    width: 90%;
+    width: 97%;
   }
 `;
 
@@ -106,6 +106,22 @@ const CalendarYellowBtn = styled(Icons)`
     font-size: 24px;
   }
 `;
+const Span = styled.span`
+  color: #fff;
+  text-shadow: 0 0 20px #fff, 0 0 2px #fff, 0 0 2px #fff, 0 0 42px #079467,
+  0 0 82px #1d5c48, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 100px #0fa;
+`
+const MainFlex = styled(Flex)`
+  margin-top: -15px;
+`
+const InfoText = styled.p`
+  font-size: 20px;
+  margin: 0 auto;
+  @media (max-width: 600px) {
+    font-size: 15px;
+  }
+`
+
 const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
@@ -322,11 +338,13 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   return (
     <div id="home">
-      <Flex>
+      <MainFlex>
         <Seo title="Home" />
         <MainContainer>
           <br />
-          <h5>{myName}의 캘린더 🎁</h5>
+          <h2><Span>{myName}</Span>의 캘린더 🎁</h2>
+          <InfoText>날짜조각을 클릭해 기프티콘, 짤, 응원의 메세지등을 보내보세요!</InfoText>
+          <InfoText>내 캘린더 링크도 공유해 쪽지를 받아보세요</InfoText>
           {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
@@ -351,7 +369,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
             </Suspense>
           </SnowballContainer>
         ) : null}
-      </Flex>
+      </MainFlex>
     </div>
   );
 };

@@ -14,16 +14,16 @@ export const RedBtn = styled(Icons)`
   height: 72px;
   font-size: 30px;
   font-weight: bold;
-  margin-top: 15px;
+  margin-top: 5px;
   margin-bottom: 48px;
   background: #ac473d;
   border-radius: 12px;
   z-index: 5;
   color: white;
   @media (max-width: 600px) {
-    width: 100%;
-    margin-top: 45px;
-    height: 62px;
+    width: 97%;
+    margin-top: 5px;
+    height: 52px;
     font-size: 24px;
   }
 `;
@@ -143,7 +143,6 @@ const Share = ({loggedId}) => {
     try {
       await navigator.clipboard.writeText(copyURL);
       screenCaptureHandler();
-      alert("내 캘린더 링크가 복사되었습니다.");
     } catch (e) {
       screenCaptureHandler();
       alert(
@@ -241,7 +240,7 @@ const Share = ({loggedId}) => {
           </TicketTitle>
         </TicketImg>
       </Capture>
-      <RedBtn onClick={calendarShareHandler}>내 캘린더 & 티켓 공유</RedBtn>
+      <RedBtn onClick={calendarShareHandler}>기념티켓 발급</RedBtn>
       <TicketModal
         // TODO : 공유 버튼 핸들러 구현 후 추가
 
