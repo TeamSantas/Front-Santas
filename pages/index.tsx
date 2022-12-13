@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { NextPage } from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import Calendar from "../component/index/Calendar";
-import Share, { RedBtn } from "../component/share/Share";
+import Share from "../component/share/Share";
 import { getCookie } from "../businesslogics/cookie";
 import ReactHowler from "react-howler";
 import { lazy, useContext, useEffect, useState } from "react";
@@ -129,10 +129,24 @@ const InfoText = styled.p`
     font-size: 15px;
   }
 `
-const CopyLinkBtn = styled(RedBtn)`
+const BottomCopyLink = styled(Icons)`
+  width: 35rem;
+  height: 72px;
+  font-size: 30px;
+  font-weight: bold;
   margin-top: 24px;
   margin-bottom: 5px;
-  background-color: #AC473D;
+  background: #ac473d;
+  /* background: #3C6C54; */
+  border-radius: 12px;
+  z-index: 5;
+  color: white;
+  @media (max-width: 600px) {
+    width: 95%;
+    margin-top: 5px;
+    height: 52px;
+    font-size: 24px;
+  }
 `;
 
 const Home: NextPage<dataProps> = (props: dataProps) => {
@@ -321,7 +335,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
             />
           </Flex>
         </ButtonFlex>
-        <CopyLinkBtn onClick={linkCopyHandler}>내 캘린더링크 공유하기</CopyLinkBtn>
+        <BottomCopyLink onClick={linkCopyHandler}>내 캘린더링크 공유하기</BottomCopyLink>
         <Share loggedId={loggedMemberId}/>
       </>
     );
