@@ -62,8 +62,14 @@ const LoadingScreenBack = styled.div`
   bottom: 0;
   right: 0;
   background-color: #ac473d;
-  padding-top: 30%;
   z-index: 10;
+`;
+
+const LoadingContainer = styled.div`
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const SendPresents = ({ onHide, selectedday }) => {
@@ -73,7 +79,7 @@ const SendPresents = ({ onHide, selectedday }) => {
   const [nickname, setNickname] = useState<string>("익명의 산타");
   const [memberInfo, setMemberInfo] = useState<any>();
   const [currCalUser, setCurrCalUser] = useState<FriendsData>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // ImageUpload -------------
   const [fileList, setFileList] = useState<File[]>([]);
   const [heicFiles, setHeicFiles] = useState<File[]>([]);
@@ -332,8 +338,10 @@ const SendPresents = ({ onHide, selectedday }) => {
       <GreenButton onClick={handleClickSendPresent}>쪽지보내기</GreenButton>
       {isLoading ? 
         <LoadingScreenBack>
-          <img src="/assets/image/character/spinner.gif" alt="로딩하얀코"/>
-          <p>선물을 보내는 중입니다...</p>
+          <LoadingContainer>
+            <img src="/assets/image/character/spinner.gif" alt="로딩하얀코"/>
+            <p>선물을 보내는 중입니다...</p>
+          </LoadingContainer>
         </LoadingScreenBack>
         : null}
     </SendPresentsWrapper>
