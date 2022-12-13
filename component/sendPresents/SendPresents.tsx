@@ -79,7 +79,7 @@ const SendPresents = ({ onHide, selectedday }) => {
   const [nickname, setNickname] = useState<string>("익명의 산타");
   const [memberInfo, setMemberInfo] = useState<any>();
   const [currCalUser, setCurrCalUser] = useState<FriendsData>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   // ImageUpload -------------
   const [fileList, setFileList] = useState<File[]>([]);
   const [heicFiles, setHeicFiles] = useState<File[]>([]);
