@@ -16,7 +16,8 @@ export const RedBtn = styled(Icons)`
   font-weight: bold;
   margin-top: 5px;
   margin-bottom: 48px;
-  background: #ac473d;
+  /* background: #ac473d; */
+  background: #3C6C54;
   border-radius: 12px;
   z-index: 5;
   color: white;

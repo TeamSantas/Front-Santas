@@ -4,20 +4,23 @@ import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import {
   CustomBody,
-  CustomFooter,
   CustomHeader,
   Flex,
   GreenCloseButton,
 } from "../../styles/styledComponentModule";
 import FriendsList from "./FriendsList";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
-import FriendsService from "../../api/FriendsService";
 
 const CenteredModalFooter = styled.div`
   width: 90%;
   margin: auto;
   padding-bottom: 1rem;
 `;
+
+const Text = styled.h5`
+    margin: 15px auto;
+    text-align: center;
+  `;
 
 const FriendsModal = (props) => {
   const [friendsData, setFriendsData] = useState<any>([]);
@@ -54,11 +57,6 @@ const FriendsModal = (props) => {
     }
     setIsLoading(false);
   };
-
-  const Text = styled.h5`
-    margin: 15px auto;
-    text-align: center;
-  `;
 
   useEffect(() => {
     // getFriendsData();
