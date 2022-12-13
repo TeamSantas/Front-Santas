@@ -55,6 +55,17 @@ const GreenDeleteButton = styled(GreenCloseButton)`
   cursor: pointer;
 `;
 
+const LoadingScreenBack = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #ac473d;
+  padding-top: 30%;
+  z-index: 10;
+`;
+
 const SendPresents = ({ onHide, selectedday }) => {
   const [contents, setContents] = useState<string>("");
   const [isLogged, setIsLogged] = useState(false);
@@ -62,6 +73,7 @@ const SendPresents = ({ onHide, selectedday }) => {
   const [nickname, setNickname] = useState<string>("익명의 산타");
   const [memberInfo, setMemberInfo] = useState<any>();
   const [currCalUser, setCurrCalUser] = useState<FriendsData>();
+  const [isLoading, setIsLoading] = useState(false);
   // ImageUpload -------------
   const [fileList, setFileList] = useState<File[]>([]);
   const [heicFiles, setHeicFiles] = useState<File[]>([]);
@@ -144,7 +156,7 @@ const SendPresents = ({ onHide, selectedday }) => {
     }
 
     HandleImageSubmit();
-    onHide();
+    // onHide();
   };
 
   // 이미지 상대경로 저장
@@ -189,6 +201,7 @@ const SendPresents = ({ onHide, selectedday }) => {
   };
 
   const HandleImageSubmit = async () => {
+    setIsLoading(true);
     let sendNick = nicknameRef.current?.value;
     if (!isAnonymous) {
       if (memberInfo?.nickname) {
@@ -245,17 +258,19 @@ const SendPresents = ({ onHide, selectedday }) => {
     try {
       const res = await usePostPresent(presentData);
       if (res.status === 200) {
+        setIsLoading(false);
         alert("선물 보내기 성공! 🎁");
+        onHide();
       }
     } catch (e) {
       console.log(e);
+      setIsLoading(false);
       alert("선물 보내기에 실패했어요. 🥺");
     }
   };
 
   const placeholder = `여기에 쪽지를 적어주세요. 
 (최대 100자)`;
-
   return (
     <SendPresentsWrapper>
       <PresentHeader>
@@ -315,6 +330,12 @@ const SendPresents = ({ onHide, selectedday }) => {
         </Flex>
       </div>
       <GreenButton onClick={handleClickSendPresent}>쪽지보내기</GreenButton>
+      {isLoading ? 
+        <LoadingScreenBack>
+          <img src="/assets/image/character/spinner.gif" alt="로딩하얀코"/>
+          <p>선물을 보내는 중입니다...</p>
+        </LoadingScreenBack>
+        : null}
     </SendPresentsWrapper>
   );
 };
