@@ -24,12 +24,17 @@ import CopyModal from "../component/index/CopyModal";
 const MainIcons = styled(Icons)`
   height: 35px;
 `;
-
+const SearchBtn = styled.img`
+  margin: 3px;
+  height: 28px;
+  cursor: pointer;
+`;
 const LinkCopy = styled(MainIcons)`
-  margin-left: 15px;
+  margin: 0 2px;
   background-image: url("/assets/image/icons/Link.svg");
 `;
 const Friends = styled(MainIcons)`
+  margin: 0 2px;
   background-image: url("/assets/image/icons/Users.svg");
 `;
 const Info = styled(MainIcons)`
@@ -256,6 +261,18 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       setIsmycalendar(false);
     }
   };
+  //kakao 공유
+    const shareKakao = () => {
+      const inviteLink = getCookie("invitationLink");
+      if (typeof window !== "undefined") {
+        window.Kakao.Link.sendCustom({
+          templateId: 86453,
+          templateArgs: {
+            pagePathname: inviteLink,
+          },
+        });
+      }
+    };
 
   const MyCalendarBtn = () => {
     ``;
@@ -265,6 +282,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           <Flex>
             <Friends onClick={clickFriendIconHandler} />
             <LinkCopy onClick={linkCopyHandler} />
+            <SearchBtn src="/assets/image/share/kakao_button.png" onClick={shareKakao} />
+
             <FriendsModal
               show={friendModalShow}
               onHide={handleFriendsModalClose}
