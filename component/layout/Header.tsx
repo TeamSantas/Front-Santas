@@ -51,7 +51,7 @@ const Menu = styled.img`
 
 const Text = styled.p`
   color: white;
-  font-size: 22px;
+  font-size: 25px;
   margin: 0 auto;
   text-align: center;
   @media (max-width: 600px) {

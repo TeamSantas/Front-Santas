@@ -11,9 +11,9 @@ const CalendarWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  margin: 10px auto;
+  margin: 5px auto;
   @media (max-width: 600px) {
-    margin: 10px auto;
+    margin: 5px auto;
   }
 `;
 
@@ -197,9 +197,9 @@ const DenyAccess = () => {
     <LoadingContainer>
       <img src="/assets/image/character/face_crycry.png" width="222" />
       <LoadingHeader>
-        "날짜가...
+        "어드벤트 캘린더🎁"<br/>
+        해당 날짜가 되어야<br/> 열어볼 수 있습니다
         <br />
-        지나지 않았써...!"
       </LoadingHeader>
     </LoadingContainer>
   );
