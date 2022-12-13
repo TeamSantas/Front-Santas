@@ -155,10 +155,10 @@ const SendPresents = ({ onHide, selectedday }) => {
     const heicFile = uploadFiles.filter((file) =>
       file.name.toLowerCase().endsWith("heic")
     );
-    if (heicFile.length > 0) {
-      alert("heic 파일 지원 준비중입니다. 🛠️");
-      return;
-    }
+    // if (heicFile.length > 0) {
+    //   alert("heic 파일 지원 준비중입니다. 🛠️");
+    //   return;
+    // }
     // console.log("heicFiles >>> ", heicFile);
 
     // 파일 첨부 최대 5장 제한
@@ -188,7 +188,7 @@ const SendPresents = ({ onHide, selectedday }) => {
     setShowImages(showImages.filter((_, index) => index !== id));
   };
 
-  const HandleImageSubmit = () => {
+  const HandleImageSubmit = async () => {
     let sendNick = nicknameRef.current?.value;
     if (!isAnonymous) {
       if (memberInfo?.nickname) {
@@ -243,8 +243,10 @@ const SendPresents = ({ onHide, selectedday }) => {
     // );
 
     try {
-      usePostPresent(presentData);
-      alert("선물 보내기 성공! 🎁");
+      const res = await usePostPresent(presentData);
+      if (res.status === 200) {
+        alert("선물 보내기 성공! 🎁");
+      }
     } catch (e) {
       console.log(e);
       alert("선물 보내기에 실패했어요. 🥺");
