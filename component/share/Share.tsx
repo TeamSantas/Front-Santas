@@ -21,7 +21,7 @@ export const RedBtn = styled(Icons)`
   z-index: 5;
   color: white;
   @media (max-width: 600px) {
-    width: 90%;
+    width: 95%;
     margin-top: 5px;
     height: 52px;
     font-size: 24px;

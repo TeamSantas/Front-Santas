@@ -78,7 +78,7 @@ const ButtonFlex = styled(Flex)`
   background-color: rgba(0, 0, 0, 0.3);
   width: 35rem;
   @media (max-width: 600px) {
-    width: 90%;
+    width: 95%;
   }
 `;
 
