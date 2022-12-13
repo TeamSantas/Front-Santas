@@ -26,6 +26,7 @@ const MainIcons = styled(Icons)`
 `;
 const SearchBtn = styled.img`
   margin: 3px;
+  margin-left: 10px;
   height: 28px;
   cursor: pointer;
 `;
@@ -39,11 +40,11 @@ const Friends = styled(MainIcons)`
 `;
 const Info = styled(MainIcons)`
   width: 25px;
-  margin-left: 15px;
+  margin-left: 10px;
   background-image: url("/assets/image/icons/information.svg");
 `;
 const Snowball = styled(MainIcons)`
-  margin-left: 15px;
+  margin-left: 10px;
   background-image: url("/assets/image/icons/snowball.svg");
   @media (max-width: 1000px) {
     display: none;
@@ -112,6 +113,8 @@ const CalendarYellowBtn = styled(Icons)`
   }
 `;
 const Span = styled.span`
+  margin-top: 5px;
+  display: block;
   color: #fff;
   text-shadow: 0 0 20px #fff, 0 0 2px #fff, 0 0 2px #fff, 0 0 42px #079467,
   0 0 82px #1d5c48, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 100px #0fa;
@@ -126,6 +129,11 @@ const InfoText = styled.p`
     font-size: 15px;
   }
 `
+const CopyLinkBtn = styled(RedBtn)`
+  margin-top: 24px;
+  margin-bottom: 5px;
+  background-color: #AC473D;
+`;
 
 const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
@@ -156,7 +164,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     console.log(copyURL);
     try {
       await navigator.clipboard.writeText(copyURL);
-      alert("내 캘린더 링크가 복사되었습니다.");
+      alert("내 캘린더 링크가 복사되었습니다. 친구에게 공유해 쪽지를 주고받아보세요!");
     } catch (e) {
       alert(
         "내 초대링크를 복사해 보내보세요! 바로 복사를 원하신다면~? 크롬브라우저로 접속해보세요✨"
@@ -281,7 +289,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
         <ButtonFlex>
           <Flex>
             <Friends onClick={clickFriendIconHandler} />
-            <LinkCopy onClick={linkCopyHandler} />
+            {/* <LinkCopy onClick={linkCopyHandler} /> */}
             <SearchBtn src="/assets/image/share/kakao_button.png" onClick={shareKakao} />
 
             <FriendsModal
@@ -313,6 +321,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
             />
           </Flex>
         </ButtonFlex>
+        <CopyLinkBtn onClick={linkCopyHandler}>내 캘린더링크 공유하기</CopyLinkBtn>
         <Share loggedId={loggedMemberId}/>
       </>
     );
@@ -361,9 +370,9 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
         <Seo title="Home" />
         <MainContainer>
           <br />
-          <h2><Span>{myName}</Span>의 캘린더 🎁</h2>
+          <h2><Span>{myName}의 캘린더</Span></h2>
           <InfoText>날짜조각을 클릭해 기프티콘, 짤, 응원의 메세지등을 보내보세요!</InfoText>
-          <InfoText>내 캘린더 링크도 공유해 쪽지를 받아보세요</InfoText>
+          <InfoText>* 내 캘린더 링크를 공유해 쪽지를 받을 수 있어요 *</InfoText>
           {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
