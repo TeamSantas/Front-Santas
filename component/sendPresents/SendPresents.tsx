@@ -233,7 +233,7 @@ const SendPresents = ({ onHide, selectedday }) => {
       const heicFiles = fileList.filter((file) =>
         file.name.toLowerCase().endsWith("heic")
       );
-      console.log("heicFiles >>>>>>>>> ", heicFiles);
+      // console.log("heicFiles >>>>>>>>> ", heicFiles);
       if (heicFiles.length > 0)
         alert("[✨오픈예정] 현재는 heic형식 파일첨부가 불가합니다.");
 
