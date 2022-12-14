@@ -53,7 +53,7 @@ const SendPresentList = () => {
               id={present.id}
               thumbnail={present.imageURL}
               type={"SEND"}
-              isRead={present.isRead}
+              isRead={true}
             />
           )):
             (<PrepareingContainer>
