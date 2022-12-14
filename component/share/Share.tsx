@@ -173,13 +173,15 @@ const Share = ({loggedId}) => {
 
   useEffect(() => {
     //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
-    const getRecivedPresentList = async () =>{
-      const res = await setGetNumberOfReceivedPresents(loggedId);
-      const presentList = res.data.data;
-      const presentTotal = presentList.reduce((total, cur, i)=>{
-        return total += Number(cur.count);
-      },0);
-      setReceivePresentCount(presentTotal);
+    const getRecivedPresentList = async () => {
+      if (loggedId !== null) {
+        const res = await setGetNumberOfReceivedPresents(loggedId);
+        const presentList = res.data.data;
+        const presentTotal = presentList.reduce((total, cur, i) => {
+          return total += Number(cur.count);
+        }, 0);
+        setReceivePresentCount(presentTotal);
+      }
     }
     getRecivedPresentList();
   },[])

@@ -101,8 +101,10 @@ const Calendar = ({ ismycalendar, loggedId }) => {
     useEffect(() => {
     //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
       const getRecivedPresentList = async () =>{
-      const res = await setGetNumberOfReceivedPresents(loggedId);
-      setReceivePresentList(await res.data.data);
+        if(loggedId!==null){
+          const res = await setGetNumberOfReceivedPresents(loggedId);
+          setReceivePresentList(await res.data.data);
+        }
     }
       getRecivedPresentList();
     },[])
