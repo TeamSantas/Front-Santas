@@ -31,7 +31,6 @@ const TabCard = styled(StyledCard)`
   margin: 10px 5px;
   width: 30%;
   position: relative;
-  /* border: ${props => props.isRead ? "none" : "2px solid #ac473d"}; */
 
   @media (max-width: 600px) {
     width: 32vw;
@@ -65,6 +64,7 @@ const Card = (props) => {
   const haveImage = presentDetail?.imageURL.length > 0 ? true : false;
 
   const handleShow = () => {
+    initPresentDetail();
     setSelectedCard(props.id);
     setPresentCardShow(true);
   };
@@ -80,14 +80,10 @@ const Card = (props) => {
     }
   };
 
-  useEffect(() => {
-    initPresentDetail();
-  }, []);
-
   return (
     <>
       <TabCard>
-        {presentDetail && !presentDetail.isRead ? <NewBadge>NEW</NewBadge> : null}
+        {!props.isRead ? <NewBadge>NEW</NewBadge> : null}
         <CardImg
           id={`${props.id}`}
           src={

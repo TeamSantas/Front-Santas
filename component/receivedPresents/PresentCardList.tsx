@@ -46,6 +46,7 @@ const PresentCardList = ({ selectedday }) => {
               key={present.id}
               id={present.id}
               thumbnail={present.imageURL}
+              isRead={present.isRead}
             />
           ))}
         </TabFlex>
