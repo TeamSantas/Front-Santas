@@ -42,6 +42,7 @@ const Menu = styled.img`
     brightness(104%) contrast(103%);
   cursor: pointer;
   color: white;
+  z-index: 5;
   @media (max-width: 600px) {
     width: 30px;
     height: 30px;
