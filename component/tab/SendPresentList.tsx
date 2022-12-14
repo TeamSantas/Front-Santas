@@ -33,7 +33,6 @@ const SendPresentList = () => {
   useEffect(() => {
     const initSendPresentList = async () => {
       const res = await PresentService.getUserSendPresentsList();
-      console.log(res.data.data.content)
       setSentPresentList(res.data.data.content);
       setIsLoading(false);
     };
@@ -58,7 +57,7 @@ const SendPresentList = () => {
               contents={present.contents}
               thumbnail={present.imageURL}
               type={"SEND"}
-              isRead={present.isRead}
+              isRead={true}
             />
           )):
             (<PrepareingContainer>

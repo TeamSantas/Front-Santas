@@ -115,6 +115,7 @@ export interface presentDetail {
   contents: string;
   imageURL: [];
   receivedDate: string;
+  isRead: boolean;
 }
 // Friend Search types
 

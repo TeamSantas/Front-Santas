@@ -90,3 +90,17 @@ export const CustomDescriptionBody = styled(Modal.Body)`
 export const CustomFooter = styled(Modal.Footer)`
   border: none;
 `;
+
+export const NewBadge = styled.div`
+  position: absolute;
+  background-color: #ac473d;
+  color: white;
+  width: 50px;
+  height: 25px;
+  z-index: 9999;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 25px;
+  top: 6px;
+  right: 6px;
+`;

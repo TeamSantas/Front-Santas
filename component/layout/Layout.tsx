@@ -2,6 +2,7 @@ import Header from "./Header";
 import styled from "styled-components";
 import { Suspense, useEffect } from "react";
 import Snows from "./Snows";
+import Snow from "./Snow";
 
 const MainWrapper = styled.div`
   background-color: #181c23;
@@ -13,6 +14,18 @@ const MainWrapper = styled.div`
   position: relative;
   background-image: url("/assets/image/snow_background.png");
   background-size: cover;
+
+  -ms-overflow-style: none; /* Explorer */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome */
+  }
+`;
+
+const UpperWrapper = styled.div`
+  position: relative;
+  z-index: 1;
 `;
 
 const Layout = ({ children }) => {
@@ -28,7 +41,8 @@ const Layout = ({ children }) => {
       {/*    <Snows/>*/}
       {/*</Suspense>*/}
       <Header />
-      {children}
+      <UpperWrapper>{children}</UpperWrapper>
+      <Snow />
     </MainWrapper>
   );
 };

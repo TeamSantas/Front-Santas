@@ -34,11 +34,12 @@ const Capture = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   padding: 20px;
-  z-index: -1;
+  /* z-index: -10; */
   /* z-index: 10; */
   font-weight: bold;
   color: black;
   width: 90%;
+  top: -9999px;
   @media (min-width: 500px) {
     width: 400px;
     min-width: 280px;
@@ -173,13 +174,15 @@ const Share = ({loggedId}) => {
 
   useEffect(() => {
     //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
-    const getRecivedPresentList = async () =>{
-      const res = await setGetNumberOfReceivedPresents(loggedId);
-      const presentList = res.data.data;
-      const presentTotal = presentList.reduce((total, cur, i)=>{
-        return total += Number(cur.count);
-      },0);
-      setReceivePresentCount(presentTotal);
+    const getRecivedPresentList = async () => {
+      if (loggedId !== null) {
+        const res = await setGetNumberOfReceivedPresents(loggedId);
+        const presentList = res.data.data;
+        const presentTotal = presentList.reduce((total, cur, i) => {
+          return total += Number(cur.count);
+        }, 0);
+        setReceivePresentCount(presentTotal);
+      }
     }
     getRecivedPresentList();
   },[])

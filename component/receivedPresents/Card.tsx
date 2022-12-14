@@ -6,6 +6,7 @@ import PresentDetailBody from "../present/PresentDetailBody";
 import PresentDetailHeader from "../present/PresentDetailHeader";
 import { presentDetail } from "../../util/type";
 import { Flex } from "../../styles/styledComponentModule";
+import { NewBadge } from "../../styles/styledComponentModule";
 
 export const StyledCard = styled.div`
   background: white;
@@ -93,13 +94,15 @@ const CardFlex = styled(Flex)`
   align-items: center;
 `
 const Card = (props) => {
-  // console.log("CARD DETAIL", props);
   const [presentCardShow, setPresentCardShow] = useState(false);
   const [selectedcard, setSelectedCard] = useState(0);
   const [presentDetail, setPresentDetail] = useState<presentDetail>(null);
+  const [readStatus, setReadStatus] = useState(props.isRead);
   const haveImage = presentDetail?.imageURL.length > 0 ? true : false;
 
   const handleShow = () => {
+    initPresentDetail();
+    setReadStatus(true);
     setSelectedCard(props.id);
     setPresentCardShow(true);
   };
@@ -115,13 +118,10 @@ const Card = (props) => {
     }
   };
 
-  useEffect(() => {
-    initPresentDetail();
-  }, []);
-
   return (
     <>
         <TabCard>
+        {!readStatus ? <NewBadge>NEW</NewBadge> : null}
             <CardFlex>
                 <CardImg
                   id={`${props.id}`}
@@ -163,11 +163,11 @@ const Card = (props) => {
         header={
           presentDetail ? (
             <PresentDetailHeader
-              isPublic={presentDetail.isPublic}
-              receivedDate={presentDetail.receivedDate}
+            isPublic={presentDetail.isPublic}
+            receivedDate={presentDetail.receivedDate}
             />
-          ) : (
-            "없음"
+            ) : (
+              "없음"
           )
         }
         body={

@@ -12,6 +12,8 @@ const CalendarWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   margin: 5px auto;
+  z-index: 1;
+
   @media (max-width: 600px) {
     margin: 5px auto;
   }
@@ -34,6 +36,7 @@ const LoadingContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -38%);
+  text-align: center;
 `;
 const LoadingHeader = styled.h2`
   margin: 0;
@@ -101,8 +104,10 @@ const Calendar = ({ ismycalendar, loggedId }) => {
     useEffect(() => {
     //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
       const getRecivedPresentList = async () =>{
-      const res = await setGetNumberOfReceivedPresents(loggedId);
-      setReceivePresentList(await res.data.data);
+        if(loggedId!==null){
+          const res = await setGetNumberOfReceivedPresents(loggedId);
+          setReceivePresentList(await res.data.data);
+        }
     }
       getRecivedPresentList();
     },[])
@@ -197,10 +202,9 @@ const DenyAccess = () => {
     <LoadingContainer>
       <img src="/assets/image/character/face_crycry.png" width="222" />
       <LoadingHeader>
-        "어드벤트 캘린더🎁"<br/>
-        해당 날짜가 되어야<br/> 열어볼 수 있습니다
-        <br />
+        "날짜가...지나지않아써...!"
       </LoadingHeader>
+      <p>(해당 날짜가 되어야 선물을 열어볼 수 있습니다. 조금만 기다려주세요!)</p>
     </LoadingContainer>
   );
 };
