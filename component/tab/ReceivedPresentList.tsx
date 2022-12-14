@@ -35,6 +35,7 @@ const ReceivedPresentList = () => {
       try {
         const res = await PresentService.getLoggedUserPresentList();
         setReceivedPresentList(res.data.data.content);
+        // console.log(res.data.data.content, ">>>>받은선물리스트");
       }catch (e){
         // alert(e)
         // console.log(">>>>>>>너였구나")
@@ -61,6 +62,7 @@ const ReceivedPresentList = () => {
             id={present.id}
             thumbnail={present.imageURL}
             type={"RECEIVED"}
+            isRead={present.isRead}
           />
         )) :
           (<PrepareingContainer>
