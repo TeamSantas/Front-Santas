@@ -61,10 +61,12 @@ const Card = (props) => {
   const [presentCardShow, setPresentCardShow] = useState(false);
   const [selectedcard, setSelectedCard] = useState(0);
   const [presentDetail, setPresentDetail] = useState<presentDetail>(null);
+  const [readStatus, setReadStatus] = useState(props.isRead);
   const haveImage = presentDetail?.imageURL.length > 0 ? true : false;
 
   const handleShow = () => {
     initPresentDetail();
+    setReadStatus(true);
     setSelectedCard(props.id);
     setPresentCardShow(true);
   };
@@ -83,7 +85,7 @@ const Card = (props) => {
   return (
     <>
       <TabCard>
-        {!props.isRead ? <NewBadge>NEW</NewBadge> : null}
+        {!readStatus ? <NewBadge>NEW</NewBadge> : null}
         <CardImg
           id={`${props.id}`}
           src={
