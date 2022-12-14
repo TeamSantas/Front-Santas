@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
       {/*</Suspense>*/}
       <Header />
       {children}
-      <Snow />
+      {/* <Snow /> */}
     </MainWrapper>
   );
 };
