@@ -12,6 +12,8 @@ const CalendarWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   margin: 5px auto;
+  z-index: 1;
+
   @media (max-width: 600px) {
     margin: 5px auto;
   }
