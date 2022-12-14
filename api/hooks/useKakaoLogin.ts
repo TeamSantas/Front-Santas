@@ -5,7 +5,7 @@ import {ResponseData} from "../../util/type";
 
 export const kakaoLogout = () => {
   removeCookie("token");
-  AuthAuthInstance.get<ResponseData<any>>(`/api/member/logout`);
+  // AuthAuthInstance.get<ResponseData<any>>(`/api/member/logout`);
   return "logout_ok";
 };
 
