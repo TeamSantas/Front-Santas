@@ -34,11 +34,12 @@ const Capture = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   padding: 20px;
-  z-index: -1;
+  /* z-index: -10; */
   /* z-index: 10; */
   font-weight: bold;
   color: black;
   width: 90%;
+  top: -9999px;
   @media (min-width: 500px) {
     width: 400px;
     min-width: 280px;

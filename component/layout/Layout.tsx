@@ -23,6 +23,11 @@ const MainWrapper = styled.div`
   }
 `;
 
+const UpperWrapper = styled.div`
+  position: relative;
+  z-index: 1;
+`;
+
 const Layout = ({ children }) => {
   useEffect(() => {
     if (window.Kakao.isInitialized()) {
@@ -36,8 +41,8 @@ const Layout = ({ children }) => {
       {/*    <Snows/>*/}
       {/*</Suspense>*/}
       <Header />
-      {children}
-      {/* <Snow /> */}
+      <UpperWrapper>{children}</UpperWrapper>
+      <Snow />
     </MainWrapper>
   );
 };
