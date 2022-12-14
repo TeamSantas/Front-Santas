@@ -5,6 +5,7 @@ import CustomModal from "../common/CustomModal";
 import PresentDetailBody from "../present/PresentDetailBody";
 import PresentDetailHeader from "../present/PresentDetailHeader";
 import { presentDetail } from "../../util/type";
+import { NewBadge } from "../../styles/styledComponentModule";
 
 export const StyledCard = styled.div`
   background: white;
@@ -30,8 +31,7 @@ const TabCard = styled(StyledCard)`
   margin: 10px 5px;
   width: 30%;
   position: relative;
-  
-  /* border: props.isRead ? "none" : "2px solid #ac473d" ; */
+  /* border: ${props => props.isRead ? "none" : "2px solid #ac473d"}; */
 
   @media (max-width: 600px) {
     width: 32vw;
@@ -59,7 +59,6 @@ const CardImg = styled.img`
 `;
 
 const Card = (props) => {
-  // console.log("CARD DETAIL", props);
   const [presentCardShow, setPresentCardShow] = useState(false);
   const [selectedcard, setSelectedCard] = useState(0);
   const [presentDetail, setPresentDetail] = useState<presentDetail>(null);
@@ -88,15 +87,16 @@ const Card = (props) => {
   return (
     <>
       <TabCard>
+        {presentDetail && !presentDetail.isRead ? <NewBadge>NEW</NewBadge> : null}
         <CardImg
           id={`${props.id}`}
           src={
             props.thumbnail === "default"
-              ? `/assets/image/present/6.png`
-              : props.thumbnail
+            ? `/assets/image/present/6.png`
+            : props.thumbnail
           }
           onClick={handleShow}
-        />
+          />
       </TabCard>
       <CustomModal
         haveImage={haveImage}
@@ -107,11 +107,11 @@ const Card = (props) => {
         header={
           presentDetail ? (
             <PresentDetailHeader
-              isPublic={presentDetail.isPublic}
-              receivedDate={presentDetail.receivedDate}
+            isPublic={presentDetail.isPublic}
+            receivedDate={presentDetail.receivedDate}
             />
-          ) : (
-            "없음"
+            ) : (
+              "없음"
           )
         }
         body={

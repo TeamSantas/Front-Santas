@@ -34,6 +34,7 @@ const LoadingContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -38%);
+  text-align: center;
 `;
 const LoadingHeader = styled.h2`
   margin: 0;
@@ -197,10 +198,9 @@ const DenyAccess = () => {
     <LoadingContainer>
       <img src="/assets/image/character/face_crycry.png" width="222" />
       <LoadingHeader>
-        "어드벤트 캘린더🎁"<br/>
-        해당 날짜가 되어야<br/> 열어볼 수 있습니다
-        <br />
+        "날짜가...지나지않아써...!"
       </LoadingHeader>
+      <p>(해당 날짜가 되어야 선물을 열어볼 수 있습니다. 조금만 기다려주세요!)</p>
     </LoadingContainer>
   );
 };
