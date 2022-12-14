@@ -33,6 +33,7 @@ const SendPresentList = () => {
   useEffect(() => {
     const initSendPresentList = async () => {
       const res = await PresentService.getUserSendPresentsList();
+      console.log(res.data.data.content)
       setSentPresentList(res.data.data.content);
       setIsLoading(false);
     };
@@ -41,16 +42,20 @@ const SendPresentList = () => {
 
   return (
     <TabFlex>
-      {isLoading ? 
+      {isLoading ?
         <PrepareingContainer>
           <Img src="/assets/image/character/spinner.gif" alt="로딩하얀코"/>
           <PrepareingHeader>선물 불러오는중...</PrepareingHeader>
-        </PrepareingContainer> : 
+        </PrepareingContainer> :
         <>
           {sentPresentList.length > 0 ? sentPresentList.map((present) => (
             <Card
               key={present.id}
               id={present.id}
+              to={present.receiverName}
+              from={present.nickname}
+              date={present.receivedDate}
+              contents={present.contents}
               thumbnail={present.imageURL}
               type={"SEND"}
               isRead={present.isRead}
