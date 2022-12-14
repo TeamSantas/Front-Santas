@@ -45,6 +45,10 @@ const PresentCardList = ({ selectedday }) => {
             <Card
               key={present.id}
               id={present.id}
+              date={present.receivedDate}
+              from={present.nickname}
+              contents={present.contents}
+              type={"NONE"}
               thumbnail={present.imageURL}
               isRead={present.isRead}
             />

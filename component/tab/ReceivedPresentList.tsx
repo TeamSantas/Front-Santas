@@ -37,8 +37,6 @@ const ReceivedPresentList = () => {
         setReceivedPresentList(res.data.data.content);
         // console.log(res.data.data.content, ">>>>받은선물리스트");
       }catch (e){
-        // alert(e)
-        // console.log(">>>>>>>너였구나")
         console.log(e)
         // alert("로그인이 필요합니다✨")
         router.push('/login')
@@ -60,6 +58,9 @@ const ReceivedPresentList = () => {
           <Card
             key={present.id}
             id={present.id}
+            date={present.receivedDate}
+            from={present.nickname}
+            contents={present.contents}
             thumbnail={present.imageURL}
             type={"RECEIVED"}
             isRead={present.isRead}
