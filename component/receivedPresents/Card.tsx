@@ -134,19 +134,19 @@ const Card = (props) => {
                 />
 
                 {props.type === "RECEIVED" ?
-                    <Text><Flex>{props.from == "" ? "익명" : `${props.from}`}
+                    <Text onClick={handleShow}><Flex>{props.from == "" ? "익명" : `${props.from}`}
                     <span>{props.date && `${props.date.slice(5,7)}/${props.date.slice(8,10)}`}</span></Flex>
                     {props.contents && props.contents.length>10 ? `${props.contents.slice(0,10)}..`
                         : props.contents && props.contents.slice(0,10)}</Text>
                  :
                  props.type === "SEND" ?
-                         <Text><Flex>{props.to == "" ? "익명" : `to.${props.to}`}
+                         <Text onClick={handleShow}><Flex>{props.to == "" ? "익명" : `to.${props.to}`}
                                 <span>{props.date && `${props.date.slice(5, 7)}/${props.date.slice(8, 10)}`}</span></Flex>
                                 {props.from == "" ? "익명" : `from.${props.from}`}<br/>
                                 {props.contents && props.contents.length > 5 ? `${props.contents.slice(0, 5)}..`
                                     : props.contents && props.contents.slice(0, 5)}</Text>
 
-                            :   <Text><Flex>{props.from == "" ? "익명" : `${props.from}`}
+                            :   <Text onClick={handleShow}><Flex>{props.from == "" ? "익명" : `${props.from}`}
                                     <span>{props.date && `${props.date.slice(5, 7)}/${props.date.slice(8, 10)}`}</span></Flex>
                                 {props.contents && props.contents.length > 5 ? `${props.contents.slice(0, 5)}..`
                                 :  props.contents && props.contents.slice(0, 5)}</Text>
