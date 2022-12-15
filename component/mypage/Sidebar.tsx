@@ -124,7 +124,7 @@ const Sidebar = (props) => {
         <Ul>
           <Li>
             <Img src="/assets/image/character/face_heart_white.png" />
-            <Index>알림설정</Index>
+            <Index>이메일알림설정</Index>
             <Switch
               onChange={toggleHandler}
               checked={toggleValue}
