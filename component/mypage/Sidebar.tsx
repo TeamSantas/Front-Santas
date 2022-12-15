@@ -148,12 +148,13 @@ const Sidebar = (props) => {
           <IndexDiv>
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
-              <Index
-                onClick={() => {
-                  if (kakaoLogout() === "logout_ok") router.push("/logout");
-                }}
-              >
-                로그아웃
+              <Index>
+                <StyledLink
+                    href={`https://eggplant-expansion-b23.notion.site/3854c59e7f304686bc10e01886825e7e`}
+                    target="_blank"
+                >
+                  공지사항
+                </StyledLink>
               </Index>
             </Li>
             <Hr />
@@ -187,7 +188,20 @@ const Sidebar = (props) => {
           <IndexDiv>
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
-              <Index>v.1.0.0</Index>
+              <Index
+                  onClick={() => {
+                    if (kakaoLogout() === "logout_ok") router.push("/logout");
+                  }}
+              >
+                로그아웃
+              </Index>
+            </Li>
+            <Hr />
+          </IndexDiv>
+          <IndexDiv>
+            <Li>
+              <Img src="/assets/image/character/face_heart_white.png" />
+              <Index>v.1.4.0</Index>
             </Li>
             <Hr />
           </IndexDiv>
