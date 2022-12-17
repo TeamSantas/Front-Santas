@@ -3,13 +3,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { setGetUserSendPresentsList } from "../../api/hooks/mypagePresents/useGetUserSendPresentsList";
 import { setGetMemberById } from "../../api/hooks/useGetMember";
-import {Flex, GreenButton} from "../../styles/styledComponentModule";
+import { Flex, GreenButton } from "../../styles/styledComponentModule";
 import { MemberData } from "../../util/type";
-import {
-  PresentHeader,
-  SendPresentsWrapper,
-  TextArea,
-} from "../sendPresents/SendPresents";
+import { PresentHeader, SendPresentsWrapper, TextArea } from "../sendPresents/SendPresents";
 import { RedBtn } from "../share/Share";
 
 const GotTextArea = styled(TextArea)`
@@ -17,6 +13,8 @@ const GotTextArea = styled(TextArea)`
 `;
 
 const BlackContents = styled.div`
+  margin: 0 auto;
+  max-width: 230px;
   color: black;
 `;
 
@@ -118,19 +116,17 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
         선물이에요 🎁
       </PresentHeader>
       <GotTextArea>
-        <IsAnonymous>
-          {body.isAnonymous ? "이 선물은 익명으로 보내졌어요" : ""}
-        </IsAnonymous>
+        <IsAnonymous>{body.isAnonymous ? "이 선물은 익명으로 보내졌어요" : ""}</IsAnonymous>
         <BlackContents>{body.contents}</BlackContents>
       </GotTextArea>
       {body.imageURL.length > 0 ? (
-        <div className="Thumbnail_Wrapper">
+        <div className='Thumbnail_Wrapper'>
           <Flex>
             {body.imageURL.map((img: string) => {
               return (
-                <div className="imageContainer" key={img}>
+                <div className='imageContainer' key={img}>
                   <img
-                    id="present_img"
+                    id='present_img'
                     onClick={() => {
                       handleSaveClick(img);
                     }}
