@@ -16,6 +16,7 @@ const BlackContents = styled.div`
   margin: 0 auto;
   max-width: 230px;
   color: black;
+  text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
 `;
 
 const IsAnonymous = styled.div`
