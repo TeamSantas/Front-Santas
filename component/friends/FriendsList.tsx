@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
-import Image from "next/image";
 import { Flex } from "../../styles/styledComponentModule";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
-import FriendsService from "../../api/FriendsService";
 
 export const AlignedFlex = styled(Flex)`
   align-items: center;
@@ -84,14 +82,6 @@ const FriendsList = () => {
   const [friendsData, setFriendsData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const getKakaoFriendsData = async () => {
-    try {
-      const res = await FriendsService.getKakaoFriends();
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const getFriendsData = async () => {
     let res = [];
     setIsLoading(true);
@@ -112,7 +102,6 @@ const FriendsList = () => {
     const goFriendsCalendar = () => {
       if (props && props.invitationLink) {
         router.push(`/${props.invitationLink}`);
-        // console.log("친구 캘린더로 가즈아~");
       } else {
         console.log("props.invitationLink 없어용");
       }
@@ -144,8 +133,8 @@ const FriendsList = () => {
     <Container>
       {!isLoading && friendsData.length < 1 ? (
         <LoadingContainer>
-          <img src="/assets/image/character/face_crycry.png" width="200" />
-          <LoadingHeader>"친구가...없써...!"</LoadingHeader>
+          <img src="/assets/image/character/face_crycry.png" width="200"  alt="친구사진"/>
+          <LoadingHeader>&#34;친구가...없써...!&#34;</LoadingHeader>
         </LoadingContainer>
       ) : null}
       {isLoading ? (

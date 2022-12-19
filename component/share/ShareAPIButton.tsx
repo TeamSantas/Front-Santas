@@ -12,7 +12,7 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 //kakao 공유
-const shareKakao = () => {
+export const shareKakao = () => {
   const inviteLink = getCookie("invitationLink");
   if (typeof window !== "undefined") {
     window.Kakao.Link.sendCustom({

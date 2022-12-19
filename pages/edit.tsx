@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import Seo from "../component/common/Seo";
 import {
   RedButton,
-  Icons,
   MainContainer,
 } from "../styles/styledComponentModule";
 import styled from "styled-components";
@@ -81,8 +80,6 @@ const Edit: NextPage = () => {
       <Container>
         <Info>이름</Info>
         <Text name placeholder={myName} disabled></Text>
-        {/*<Info>닉네임</Info>*/}
-        {/*<Text nickName placeholder={nickname} disabled></Text>*/}
         <Info>이메일</Info>
         <Text email placeholder={myEmail} disabled></Text>
         <SubmitButton>수정하기</SubmitButton>

@@ -5,8 +5,7 @@ import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
 import TabView from "../component/tab/TabView";
 import { getLoggedMember } from "../api/hooks/useMember";
-import { useContext, useEffect, useState } from "react";
-import { storeContext } from "../store/Store";
+import { useEffect, useState } from "react";
 
 const Profile = styled.img`
   width: 150px;
@@ -51,7 +50,6 @@ const MyPage: NextPage = () => {
       setMyProfileImg(res.profileImageURL);
     } catch (e) {
         router.push('/title')
-      // console.log(e);
     }
   };
 

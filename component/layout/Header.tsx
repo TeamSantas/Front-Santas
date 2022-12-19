@@ -3,7 +3,7 @@ import { Flex, Icons } from "../../styles/styledComponentModule";
 import { useRouter } from "next/router";
 import {useEffect, useState} from "react";
 import Sidebar from "../mypage/Sidebar";
-import {getTodayPresentCount, setGetPresentDetail} from "../../api/hooks/useGetPresentDetail";
+import {getTodayPresentCount} from "../../api/hooks/useGetPresentDetail";
 
 const Logo = styled.button`
   margin-top: 20px;
@@ -71,7 +71,6 @@ const Header = () => {
   const menuOffHandler = () => setMenuOnOff(false);
   //로고를 누르면 사이드바 닫힘
   //햄버거 바를 누르면 사이드바 열림
-  // console.log(currPath);
 
   const getCount = async () => {
     try {
