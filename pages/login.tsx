@@ -4,7 +4,6 @@ import styled from "styled-components";
 import CustomModal from "../component/common/CustomModal";
 import {useEffect, useState} from "react";
 import Link from "next/link";
-import {useRouter} from "next/router";
 import {getCookie} from "../businesslogics/cookie";
 
 const Container = styled(MainContainer)`
@@ -57,7 +56,6 @@ const Login: NextPage = () => {
   const [modalShow, setModalShow] = useState(true);
   const handleClose = () => setModalShow(false);
   const [visited, setVisited] = useState(false);
-  const router = useRouter()
   useEffect(() => {
     const onboardingCookie = getCookie("onboarding");
     if (onboardingCookie !== "") {

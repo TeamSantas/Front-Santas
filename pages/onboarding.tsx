@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-// import { Onboarding1 } from "../component/onboarding/splash";
 import { Onboarding1 } from "../component/onboarding/Onboarding1";
 import { Onboarding2 } from "../component/onboarding/Onboarding2";
 import { Onboarding3 } from "../component/onboarding/Onboarding3";
