@@ -18,9 +18,7 @@ declare global {
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
-    const [hasMounted, setHasMounted] = useState(false);
     useEffect(() => {
-        setHasMounted(true);
         const handleRouteChange = url => {
             ga.pageview(url);
         };
@@ -30,9 +28,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         };
     }, [router.events]);
 
-    if (!hasMounted) {
-        return null;
-    }
   return (
       <CookiesProvider>
         <Store>
