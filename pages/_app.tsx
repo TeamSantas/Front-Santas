@@ -4,7 +4,7 @@ import Layout from "../component/layout/Layout";
 import { AppProps } from "next/app";
 import "../public/assets/fonts/font.css";
 import PushNotification from "../component/PushNotification";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import * as ga from '../lib/gtag';
 import Store from "../store/Store";
@@ -18,7 +18,9 @@ declare global {
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
+    const [hasMounted, setHasMounted] = useState(false);
     useEffect(() => {
+        setHasMounted(true);
         const handleRouteChange = url => {
             ga.pageview(url);
         };
@@ -28,6 +30,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         };
     }, [router.events]);
 
+    if (!hasMounted) {
+        return null;
+    }
   return (
       <CookiesProvider>
         <Store>

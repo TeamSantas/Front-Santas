@@ -2,6 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  compiler: {
+    styledComponents: true | {
+      displayName : true,
+      ssr : true
+    },
+    removeConsole: process.env.NODE_ENV === "production"
+  }
 }
 module.exports = nextConfig
 

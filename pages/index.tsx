@@ -7,7 +7,7 @@ import Calendar from "../component/index/Calendar";
 import Share from "../component/share/Share";
 import { getCookie } from "../businesslogics/cookie";
 import ReactHowler from "react-howler";
-import { lazy, useContext, useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../component/friends/FriendsModal";
 import { Suspense } from "react";
@@ -20,6 +20,7 @@ import InformationModal from "../component/index/InformationModal";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import { setCookie } from "cookies-next";
 import CopyModal from "../component/index/CopyModal";
+import {shareKakao} from "../component/share/ShareAPIButton";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -283,18 +284,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       setIsmycalendar(false);
     }
   };
-  //kakao 공유
-    const shareKakao = () => {
-      const inviteLink = getCookie("invitationLink");
-      if (typeof window !== "undefined") {
-        window.Kakao.Link.sendCustom({
-          templateId: 86453,
-          templateArgs: {
-            pagePathname: inviteLink,
-          },
-        });
-      }
-    };
 
   const MyCalendarBtn = () => {
     ``;
@@ -341,10 +330,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     );
   };
 
-  // console.log(storeUserData);
-
   const handleGoMyCal = () => {
-    // router.push(`/${memberInfo.member.invitationLink}`);
     router.push("/");
   };
 
