@@ -44,7 +44,7 @@ class PresentService {
 
   //선물 상세보기 🔑
   getDetailPresent = (presentId: number) => {
-    return PresentInstance.get<ResponseData<any>>(
+    return PresentAuthInstance.get<ResponseData<any>>(
       `/api/present/detail/${presentId}`
     );
   };
