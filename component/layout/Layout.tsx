@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Suspense, useEffect } from "react";
 import Snows from "./Snows";
 import Snow from "./Snow";
-import {ClientOnly} from "../../util/ClientOnly";
 
 const MainWrapper = styled.div`
   background-color: #181c23;
@@ -29,7 +28,6 @@ const UpperWrapper = styled.div`
   z-index: 1;
 `;
 
-
 const Layout = ({ children }) => {
   useEffect(() => {
     if (window.Kakao.isInitialized()) {
@@ -38,13 +36,14 @@ const Layout = ({ children }) => {
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_JS_KEY);
   }, []);
   return (
-      <ClientOnly>
-          <MainWrapper>
-            <Header />
-              <Snow />
-          <UpperWrapper>{children}</UpperWrapper>
-          </MainWrapper>
-      </ClientOnly>
+    <MainWrapper>
+      {/*<Suspense fallback={<h1>로딩중</h1>}>*/}
+      {/*    <Snows/>*/}
+      {/*</Suspense>*/}
+      <Header />
+      <UpperWrapper>{children}</UpperWrapper>
+      <Snow />
+    </MainWrapper>
   );
 };
 

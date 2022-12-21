@@ -1,18 +1,5 @@
 User-agent: *
-Disallow: /
-
-# Google Search
-User-agent: Googlebot
-Allow : /
-Disallow: /api*/
-Disallow: /oauth*/
-Disallow: /userprofile*/
-
-# Naver Search
-User-agent: Yeti
-Allow: /
-Disallow: /api*/
-Disallow: /oauth*/
-Disallow: /userprofile*/
-
+Disallow:
+Crawl-delay: 0
+Disallow: /cgi-bin/
 Sitemap: https://pitapat-adventcalendar.site/
