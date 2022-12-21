@@ -8,7 +8,7 @@ class AuthService {
     }
 
     getTmpKakaoLogin= (code, state) => {
-        const link = `http://ec2-43-201-99-216.ap-northeast-2.compute.amazonaws.com:8080/login/oauth2/code/kakao?code=${code}&state=${state}`
+        const link = `https://pitapat-adventcalendar.shop/login/oauth2/code/kakao?code=${code}&state=${state}`
         return AuthInstance.get<any>(link)
     }
 
