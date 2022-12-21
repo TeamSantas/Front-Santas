@@ -21,3 +21,11 @@ export async function KakaoLogin(code, state) {
       return e;
   }
 }
+
+export async function KakaoTmpLogin(code, state) {
+  try {
+    return await AuthService.getTmpKakaoLogin(code, state);
+  } catch (e) {
+    return e;
+  }
+}

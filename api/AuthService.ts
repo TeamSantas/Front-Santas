@@ -6,5 +6,10 @@ class AuthService {
         const link = `https://pitapat-adventcalendar.shop/oauth/callback/kakao?code=${code}&state=${state}`
         return AuthInstance.get<any>(link)
     }
+
+    getTmpKakaoLogin= (code, state) => {
+        const link = `https://pitapat-adventcalendar.shop/login/oauth2/code/kakao?code=${code}&state=${state}`
+        return AuthInstance.get<any>(link)
+    }
 }
 export default new AuthService();
