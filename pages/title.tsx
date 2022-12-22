@@ -87,6 +87,11 @@ const Title = () => {
                             },
                         ],
                     }}
+                    twitter={{
+                        handle: '@teamsantaz_official',
+                        site: '@teamsantaz_official',
+                        cardType: 'summary_large_image',
+                    }}
                 />
                 <Image src="/assets/image/character/face_heart.png" />
                 <Image src="/assets/image/onboarding/title.png" />

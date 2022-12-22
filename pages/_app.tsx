@@ -59,6 +59,11 @@ function MyApp({ Component, pageProps }: AppProps) {
                       },
                   ],
               }}
+              twitter={{
+                  handle: '@teamsantaz_official',
+                  site: '@teamsantaz_official',
+                  cardType: 'summary_large_image',
+              }}
           />
         <Store>
           <Layout>
