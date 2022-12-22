@@ -17,10 +17,7 @@ const CenteredModalFooter = styled.div`
   padding-bottom: 1rem;
 `;
 
-const Text = styled.h5`
-    margin: 15px auto;
-    text-align: center;
-  `;
+
 
 const FriendsModal = (props) => {
   const [friendsData, setFriendsData] = useState<any>([]);
@@ -60,6 +57,7 @@ const FriendsModal = (props) => {
 
   useEffect(() => {
     // getFriendsData();
+    console.log(friendsData)
   }, []);
 
   return (
@@ -73,9 +71,6 @@ const FriendsModal = (props) => {
         <Modal.Title id="contained-modal-title-vcenter">친구 목록</Modal.Title>
         <GreenCloseButton onClick={props.onHide} />
       </CustomHeader>
-      {/* TODO : kakao 친구 목록 BE 해결 후 되살리기 */}
-      <Text>서비스에 가입한 친구목록만 나와요📜</Text>
-
       <CustomBody>
         <FriendsList friendsData={friendsData} isLoading={isLoading} />
       </CustomBody>

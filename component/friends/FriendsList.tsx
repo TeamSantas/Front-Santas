@@ -76,7 +76,10 @@ const Img = styled.img`
   margin-right: 5px;
   border-radius: 50px;
 `;
-
+const Text = styled.h5`
+    margin: 15px 5px;
+    text-align: center;
+  `;
 const FriendsList = () => {
   const router = useRouter();
   const [friendsData, setFriendsData] = useState<any>([]);
@@ -131,6 +134,10 @@ const FriendsList = () => {
 
   return (
     <Container>
+      <Flex>
+        <Text>📜서비스에 가입한 친구목록만 나와요 </Text>
+        <Text>({friendsData.length}명)</Text>
+      </Flex>
       {!isLoading && friendsData.length < 1 ? (
         <LoadingContainer>
           <img src="/assets/image/character/face_crycry.png" width="200"  alt="친구사진"/>
