@@ -57,7 +57,6 @@ const FriendsModal = (props) => {
 
   useEffect(() => {
     // getFriendsData();
-    console.log(friendsData)
   }, []);
 
   return (
