@@ -13,7 +13,7 @@ export default function Seo({ title }) {
       {/*웹에 설정해줘야하는 og 메타태그*/}
       <link rel="icon" href="/assets/image/favicon.ico" />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://pitapat-adventcalendar.site/" />
+      <meta property="og:url" content="https://pitapat-adventcalendar.site/title" />
       <meta property="og:title" content="다함께 크리스마스 즐기기✨" />
       <meta
         property="og:image"
@@ -30,19 +30,19 @@ export default function Seo({ title }) {
 
       {/*// 트위터 카드 타입*/}
       <meta
-        name="twitter:card"
+          property="twitter:card"
         content="크리스마스다! 두근두근 어드벤트 캘린더"
       />
-      <meta name="twitter:title" content="두근두근 어드벤트 캘린더🎁" />
-      <meta name="twitter:description" content="다함께 크리스마스 즐기기✨" />
+      <meta property="twitter:title" content="두근두근 어드벤트 캘린더🎁" />
+      <meta property="twitter:description" content="다함께 크리스마스 즐기기✨" />
       <meta
-        name="twitter:image"
+          property="twitter:image"
         content="https://pitapat-adventcalendar.site/assets/image/character/face_heart.png"
       />
-      <meta name="twitter:creator" content="@hayanco" />
+      <meta property="twitter:creator" content="@teamsantaz_official" />
       <meta
-        name="twitter:site"
-        content="https://pitapat-adventcalendar.site/"
+          property="twitter:site"
+        content="https://pitapat-adventcalendar.site/title"
       />
     </Head>
   );

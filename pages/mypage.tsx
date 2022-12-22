@@ -7,18 +7,35 @@ import TabView from "../component/tab/TabView";
 import { getLoggedMember } from "../api/hooks/useMember";
 import { useEffect, useState } from "react";
 
+const Container = styled.div`
+  overflow: auto;
+  height: 100vh;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`
+const InnerContainer = styled(Flex)`
+  justify-content: center;
+  margin: 5px auto;
+  align-items: center;
+`
 const Profile = styled.img`
-  width: 150px;
-  height: 150px;
-  margin: 30px auto;
+  width: 100px;
+  height: 100px;
+  margin: 30px 20px 5px 20px;
   border-radius: 50%;
-  border: solid 3px white;
+  border: solid 0px white;
   object-fit: cover;
+  @media (max-width: 600px) {
+    margin: 5px 20px;
+    width: 75px;
+    height: 75px;
+  }
 `;
 
 const CenterFlex = styled(Flex)`
-  justify-content: center;
-  align-items: end;
+  justify-content: left;
+  align-items: center;
 `;
 
 const Text = styled.div`
@@ -61,14 +78,19 @@ const MyPage: NextPage = () => {
   return (
     <MainContainer>
       <Seo title="MyPage" />
-      <Profile src={myProfileImg} />
-      <CenterFlex>
-        <Text name={"true"}>{myName}</Text>
-        {/*<Text nickName>{nickname}</Text>*/}
-        <Edit onClick={() => router.push(`/edit`)}></Edit>
-      </CenterFlex>
-      <Text email={"true"}>{myEmail}</Text>
+      <Container>
+        <InnerContainer>
+          <Profile src={myProfileImg} />
+          <div>
+            <CenterFlex>
+              <Text name={"true"}>{myName}</Text>
+              <Edit onClick={() => router.push(`/edit`)}></Edit>
+            </CenterFlex>
+            <Text email={"true"}>{myEmail}</Text>
+          </div>
+        </InnerContainer>
       <TabView />
+      </Container>
     </MainContainer>
   );
 };

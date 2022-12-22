@@ -219,9 +219,10 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     try {
       if (currInvitationLink.length < 2) {
         setMyName(memberInfo);
-      } else {
+      }
+      else {
         const res = await setGetCurrCalendarUserInfo(currInvitationLink);
-        setMyName(res.data.data.nickname);
+        if(myName != res.data.data.nickname) setMyName(res.data.data.nickname);
       }
     } catch (e) {
       // setMyName(router.asPath.slice(1))

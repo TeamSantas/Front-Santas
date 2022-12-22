@@ -1,5 +1,4 @@
 User-agent: *
-Disallow:
-Crawl-delay: 0
-Disallow: /cgi-bin/
+Allow: /
+Disallow: /readme.html
 Sitemap: https://pitapat-adventcalendar.site/
