@@ -80,20 +80,17 @@ export const defaultMemberData = {
 
 // Friends types ------------------------------------
 export interface FriendsData {
-  friendDtoList: {
+  id: number;
+  nickname: string;
+  profileImageURL: string;
+  email: string;
+  invitationLink: string;
+  setting: {
     id: number;
-    nickname: string;
-    profileImageURL: string;
-    email: string;
-    invitationLink: string;
-    setting: {
-      id: number;
-      isAlert: boolean;
-      bgm: boolean;
-      fcmtokens: string;
-    }
-  }
-
+    isAlert: boolean;
+    bgm: boolean;
+    fcmtokens: string;
+  };
 }
 
 // Present types ------------------------------------
