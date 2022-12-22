@@ -17,7 +17,7 @@ export default function Seo({ title }) {
       <meta property="og:title" content="다함께 크리스마스 즐기기✨" />
       <meta
         property="og:image"
-        content="https://pitapat-adventcalendar.site/assets/image/character/face_heart.png"
+        content="https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png"
       />
       <meta
         property="og:description"
@@ -37,7 +37,7 @@ export default function Seo({ title }) {
       <meta property="twitter:description" content="다함께 크리스마스 즐기기✨" />
       <meta
           property="twitter:image"
-        content="https://pitapat-adventcalendar.site/assets/image/character/face_heart.png"
+        content="https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png"
       />
       <meta property="twitter:creator" content="@teamsantaz_official" />
       <meta

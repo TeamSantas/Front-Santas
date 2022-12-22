@@ -12,7 +12,7 @@ export const SeoNext = {
     site_name: "두근두근 어드벤트 캘린더🎁",
     images: [
       {
-        url: "https://pitapat-adventcalendar.site/assets/image/character/face_heart.png",
+        url: "https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png",
         width: 285,
         height: 167,
         alt: "이미지"
@@ -20,8 +20,8 @@ export const SeoNext = {
     ]
   },
   twitter: {
-      handle: '@handle',
-      site: '@site',
+      handle: '@teamsantaz_official',
+      site: '@teamsantaz_official',
       cardType: 'summary_large_image',
   },
 };

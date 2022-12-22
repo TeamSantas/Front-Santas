@@ -150,7 +150,7 @@ const Sidebar = (props) => {
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index>
                 <StyledLink
-                    href={`https://eggplant-expansion-b23.notion.site/3854c59e7f304686bc10e01886825e7e`}
+                    href={`https://www.notion.so/pitapatdac/36927b1bd2b24a6888c0ee786b4eb865`}
                     target="_blank"
                 >
                   공지사항
