@@ -90,8 +90,7 @@ const FriendsList = () => {
     setIsLoading(true);
     try {
       const res = await setGetFriend();
-      if (res.data.data) setFriendsData(res.data.data.friendDtoList);
-      console.log(res.data.data)
+      if (res.data.data) setFriendsData(res.data.data);
     } catch (e) {
       console.log(e);
     }
