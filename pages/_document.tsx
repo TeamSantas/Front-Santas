@@ -37,7 +37,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-            <Seo/>
+            <Seo title={"설정"}/>
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
