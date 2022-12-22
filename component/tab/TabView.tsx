@@ -14,7 +14,7 @@ const StyledTab = styled.div`
   margin: 30px auto;
   z-index: 8;
   @media (max-width: 600px) {
-    margin-top: 50px;
+    margin-top: 20px;
     width: 85vw;
     height: 50vh;
   }
@@ -53,7 +53,7 @@ const SelectedTabButton = styled(TabButton)`
   }
 `
 const Box = styled.div`
-  height: 90%;
+  height: 70vh;
   overflow: scroll;
   &::-webkit-scrollbar {
     width: 5px;
