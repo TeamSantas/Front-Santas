@@ -9,7 +9,9 @@ import {useRouter} from "next/router";
 import * as ga from '../lib/gtag';
 import Store from "../store/Store";
 import {CookiesProvider} from "react-cookie";
-
+import Seo from "../component/common/Seo";
+import { DefaultSeo } from "next-seo";
+import {SeoNext} from "../component/common/SeoNext";
 declare global {
   interface Window {
     Kakao: any;
@@ -38,6 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Store>
           <Layout>
             <PushNotification />
+              <DefaultSeo {...SeoNext}/>
             <Component {...pageProps} />
           </Layout>
         </Store>
