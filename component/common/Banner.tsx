@@ -38,7 +38,7 @@ const CloseBtn = styled.div`
   color: #fff;
   right: 20px;
   top: 0;
-  z-index: 99;
+  z-index: 1;
   cursor: pointer;
   
   @media (max-width: 600px) {
@@ -54,7 +54,7 @@ const BottomCloseBtn = styled.div`
   color: #fff;
   top: 100%;
   left: 50%;
-  z-index: 999999;
+  z-index: 1;
   line-height: 0;
   width: 60px;
   height: 22px;
