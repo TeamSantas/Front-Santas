@@ -1,6 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
-import Seo from "../component/common/Seo";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -37,7 +36,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-            <Seo title={"설정"}/>
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}

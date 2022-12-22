@@ -37,33 +37,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   return (
       <CookiesProvider>
-          <DefaultSeo {...SeoNext}/>
-          <NextSeo
-              openGraph={{
-                  type: 'website',
-                  url: 'https://pitapat-adventcalendar.site/title',
-                  title: '두근두근 어드벤트 캘린더🎁',
-                  description: '크리스마스다! 두근두근 어드벤트 캘린더',
-                  images: [
-                      {
-                          url: "https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png",
-                          width: 280,
-                          height: 280,
-                          alt: "Og Image Alt 1"
-                      },
-                      {
-                          url: 'https://pitapat-adventcalendar.site/assets/image/character/face_heart.png',
-                          width: 600,
-                          height: 600,
-                          alt: 'Og Image Alt 2',
-                      },
-                  ],
-              }}
-          />
         <Store>
           <Layout>
             <PushNotification />
-              <DefaultSeo {...SeoNext}/>
             <Component {...pageProps} />
           </Layout>
         </Store>
