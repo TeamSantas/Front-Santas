@@ -10,7 +10,7 @@ import * as ga from '../lib/gtag';
 import Store from "../store/Store";
 import {CookiesProvider} from "react-cookie";
 import Seo from "../component/common/Seo";
-import { DefaultSeo } from "next-seo";
+import {DefaultSeo, NextSeo} from "next-seo";
 import {SeoNext} from "../component/common/SeoNext";
 import { getCookie, setCookie } from "cookies-next";
 declare global {

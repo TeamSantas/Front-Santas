@@ -74,7 +74,6 @@ const Edit: NextPage = () => {
 
   return (
     <MainContainer>
-      <Seo title="수정하기" />
       <Profile src={myProfileImg} />
       <h5>뚝딱뚝딱 준비 중인 기능입니다🔧</h5>
       <Container>

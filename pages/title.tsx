@@ -2,6 +2,9 @@ import {useRouter} from "next/router";
 import styled from "styled-components";
 import {useEffect, useState} from "react";
 import {getCookie} from "../businesslogics/cookie";
+import {DefaultSeo} from "next-seo";
+import {SeoNext} from "../component/common/SeoNext";
+import { NextSeo } from 'next-seo';
 
 const GoBtn = styled.button`
   background: #ac473d;

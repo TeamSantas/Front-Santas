@@ -1,5 +1,4 @@
 // @ts-nocheck
-import Seo from "../component/common/Seo";
 import styled from "styled-components";
 import { NextPage } from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
@@ -21,6 +20,7 @@ import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserI
 import { setCookie } from "cookies-next";
 import CopyModal from "../component/index/CopyModal";
 import {shareKakao} from "../component/share/ShareAPIButton";
+import {NextSeo} from "next-seo";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -368,7 +368,34 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   return (
     <div id="home">
       <MainFlex>
-        <Seo title="Home" />
+        {/*<Seo title="Home" />*/}
+        <NextSeo
+            openGraph={{
+              type: 'website',
+              url: 'https://pitapat-adventcalendar.site/title',
+              title: '두근두근 어드벤트 캘린더🎁',
+              description: '크리스마스다! 두근두근 어드벤트 캘린더',
+              images: [
+                {
+                  url: "https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png",
+                  width: 280,
+                  height: 280,
+                  alt: "Og Image Alt 1"
+                },
+                {
+                  url: 'https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png',
+                  width: 600,
+                  height: 600,
+                  alt: 'Og Image Alt 2',
+                },
+              ],
+            }}
+            twitter={{
+              handle: '@teamsantaz_official',
+              site: '@teamsantaz_official',
+              cardType: 'summary_large_image',
+            }}
+        />
         <MainContainer>
           <br />
           <h2><Span>{myName}의 캘린더</Span></h2>
