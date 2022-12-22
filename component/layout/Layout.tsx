@@ -1,8 +1,8 @@
 import Header from "./Header";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
+import Snows from "./Snows";
 import Snow from "./Snow";
-import Banner from "../common/Banner";
 
 const MainWrapper = styled.div`
   background-color: #181c23;
@@ -10,7 +10,7 @@ const MainWrapper = styled.div`
   height: 100vh;
   margin: 0 auto;
   overflow: scroll;
-  /* box-shadow: 0 5px 20px 5px gray; */
+  box-shadow: 0 5px 20px 5px gray;
   position: relative;
   background-image: url("/assets/image/snow_background.png");
   background-size: cover;
@@ -36,14 +36,14 @@ const Layout = ({ children }) => {
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_JS_KEY);
   }, []);
   return (
-    <>
-      <Banner />
-      <MainWrapper>
-        <Header />
-        <UpperWrapper>{children}</UpperWrapper>
-        <Snow />
-      </MainWrapper>
-    </>
+    <MainWrapper>
+      {/*<Suspense fallback={<h1>로딩중</h1>}>*/}
+      {/*    <Snows/>*/}
+      {/*</Suspense>*/}
+      <Header />
+      <UpperWrapper>{children}</UpperWrapper>
+      <Snow />
+    </MainWrapper>
   );
 };
 

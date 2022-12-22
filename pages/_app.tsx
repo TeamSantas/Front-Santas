@@ -12,7 +12,6 @@ import {CookiesProvider} from "react-cookie";
 import Seo from "../component/common/Seo";
 import { DefaultSeo } from "next-seo";
 import {SeoNext} from "../component/common/SeoNext";
-import { getCookie, setCookie } from "cookies-next";
 declare global {
   interface Window {
     Kakao: any;
@@ -33,12 +32,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         };
     }, [router.events]);
 
-    useEffect(() => {
-      if (!getCookie("noticeRead")) {
-        setCookie("noticeRead", false);
-      }
-    }, [])
-
     if (!hasMounted) {
         return null;
     }
@@ -46,8 +39,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <CookiesProvider>
         <Store>
           <Layout>
-            {/* <PushNotification /> */}
-            <DefaultSeo {...SeoNext}/>
+            <PushNotification />
+              <DefaultSeo {...SeoNext}/>
             <Component {...pageProps} />
           </Layout>
         </Store>
