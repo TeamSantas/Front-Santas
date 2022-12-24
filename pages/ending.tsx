@@ -24,7 +24,6 @@ function ending(props) {
           </Page1Right>
         </Page1>
         <AboutDAC>
-          <Title>2022년 두어캘은요...</Title>
           <Inner>
             <InnerContainer>
               <InnerTitle>총 사용자 수</InnerTitle>
@@ -75,9 +74,9 @@ function ending(props) {
               <InnerTitle>
                 2등
                 <br />
-                충전식 손난로
+                충전식
                 <br />
-                1개
+                손난로 1개
               </InnerTitle>
             </InnerContainer>
             <InnerContainer>
@@ -184,7 +183,7 @@ const Button = styled(RedBtn)`
 
 const AboutDAC = styled.div`
   background-color: rgba(24, 28, 35, 1);
-  padding-top: 20px;
+  /* padding-top: 20px; */
   border-radius: 20px;
   max-width: 1000px;
   margin: 0 auto;
@@ -204,7 +203,8 @@ const Inner = styled.div`
   margin: 0 auto;
   display: flex;
   margin-top: 20px;
-  padding-bottom: 40px;
+  padding: 22px;
+  padding-bottom: 30px;
 `;
 const InnerContainer = styled.span`
   color: #fff;
@@ -214,10 +214,11 @@ const InnerContainer = styled.span`
 `;
 const InnerTitle = styled.h5`
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 16px;
 `;
 const InnerContent = styled.p`
-  font-size: 50px;
+  margin: 0;
+  font-size: 46px;
 `;
 const WinnerContentGreen = styled.div`
   position: absolute;
@@ -247,7 +248,11 @@ const WinnerInner = styled.div`
   border-radius: 100%;
 `;
 const WinnerContent = styled(InnerContent)`
-  margin-top: 35%;
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const Page2 = styled.div`
@@ -283,7 +288,7 @@ const Img = styled.img`
 const Page3 = styled.div`
   background-color: #181c23;
   text-align: center;
-  padding-bottom: 60px;
+  padding-bottom: 20px;
   border-radius: 20px;
 `;
 const Page4 = styled.div`
