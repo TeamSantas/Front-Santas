@@ -26,15 +26,15 @@ function ending(props) {
         <AboutDAC>
           <Inner>
             <InnerContainer>
-              <InnerTitle>총 사용자 수</InnerTitle>
+              <InnerTitle>총 사용자수</InnerTitle>
               <InnerContent>4.2K</InnerContent>
             </InnerContainer>
             <InnerContainer>
-              <InnerTitle>이벤트 수</InnerTitle>
+              <InnerTitle>이벤트수</InnerTitle>
               <InnerContent>76K</InnerContent>
             </InnerContainer>
             <InnerContainer>
-              <InnerTitle>최고 트래픽</InnerTitle>
+              <InnerTitle>총 조회수</InnerTitle>
               <InnerContent>35K</InnerContent>
             </InnerContainer>
           </Inner>

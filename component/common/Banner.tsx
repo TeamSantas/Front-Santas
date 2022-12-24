@@ -14,11 +14,13 @@ const BannerContainer = styled.div`
   text-align: center;
   line-height: 50px;
 `
-const BannerText = styled.p`
+const BannerText = styled.div`
   margin: 0;
   color: #fff;
   font-size: 1.2em;
   cursor: default;
+  white-space: normal;
+
   @media (max-width: 600px) {
     font-size: 16px;
   }
