@@ -248,7 +248,7 @@ const InnerTitle = styled.h5`
 `;
 const InnerContent = styled.p`
   margin: 0;
-  font-size: 48px;
+  font-size: 62px;
   color: ${(props) => (props.white ? "white" : "#f5af37")};
 
   @media (max-width: 600px) {
@@ -333,6 +333,7 @@ const Page4 = styled.div`
   text-align: center;
   border-radius: 20px;
   padding: 20px 20px 40px 20px;
+  margin-bottom: 160px;
 `;
 const Counter = styled.div`
   max-width: 600px;
