@@ -77,9 +77,9 @@ const Img = styled.img`
   border-radius: 50px;
 `;
 const Text = styled.h5`
-    margin: 15px 5px;
-    text-align: center;
-  `;
+  margin: 15px 5px;
+  text-align: center;
+`;
 const FriendsList = () => {
   const router = useRouter();
   const [friendsData, setFriendsData] = useState<any>([]);
@@ -114,19 +114,13 @@ const FriendsList = () => {
       <>
         <AlignedFlex>
           <Img
-            src={
-              props.profileImgUrl.includes("http")
-                ? props.profileImgUrl
-                : "/assets/image/character/face_smile.png"
-            }
+            src={props.profileImgUrl.includes("http") ? props.profileImgUrl : "/assets/image/character/face_smile.png"}
           />
           <FriendsName>{props.name}</FriendsName>
         </AlignedFlex>
 
         <Flex>
-          <GoFriendsCalendarBtn onClick={goFriendsCalendar}>
-            친구 캘린더로 가기
-          </GoFriendsCalendarBtn>
+          <GoFriendsCalendarBtn onClick={goFriendsCalendar}>친구 캘린더로 가기</GoFriendsCalendarBtn>
         </Flex>
       </>
     );
@@ -140,18 +134,18 @@ const FriendsList = () => {
       </Flex>
       {!isLoading && friendsData.length < 1 ? (
         <LoadingContainer>
-          <img src="/assets/image/character/face_crycry.png" width="200"  alt="친구사진"/>
+          <img src='/assets/image/character/face_crycry.png' width='200' alt='친구사진' />
           <LoadingHeader>&#34;친구가...없써...!&#34;</LoadingHeader>
         </LoadingContainer>
       ) : null}
       {isLoading ? (
         <LoadingContainer>
-          <img src="/assets/image/character/spinner.gif" alt="spinner" />
+          <img src='/assets/image/character/spinner.gif' alt='spinner' />
           <LoadingHeader>친구들 모으는중</LoadingHeader>
         </LoadingContainer>
       ) : (
         friendsData?.map((friend, idx) => (
-          <FriendCard key={friend.memberId + idx}>
+          <FriendCard key={friend.friendId + idx}>
             <RenderFriendCardContents
               profileImgUrl={friend.profileImgUrl}
               name={friend.name}
