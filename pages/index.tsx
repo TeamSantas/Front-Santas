@@ -349,7 +349,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
             />
           </Flex>
         </ButtonFlex>
-        {today.getDate() === 25 ? (
+        {today.getDate() === 26 ? (
           <BottomCopyLink onClick={goEndingHandler}>
             엔딩 다시보기
           </BottomCopyLink>
