@@ -83,6 +83,14 @@ const ButtonFlex = styled(Flex)`
     width: 95%;
   }
 `;
+const EndingShareBtnFlex = styled(Flex)`
+  padding-top: 10px;
+  border-radius: 10px;
+  width: 35rem;
+  @media (max-width: 600px) {
+    width: 95%;
+  }
+`;
 
 const Text = styled.h3`
   text-align: center;
@@ -130,16 +138,36 @@ const InfoText = styled.p`
     font-size: 15px;
   }
 `;
-const BottomCopyLink = styled(Icons)`
+const BottomCopyLinkLeft = styled(Icons)`
   width: 35rem;
   height: 72px;
   font-size: 30px;
   font-weight: bold;
   margin-top: 24px;
   margin-bottom: 5px;
-  background: #ac473d;
-  /* background: #3C6C54; */
+  background: linear-gradient(
+    45deg,
+    #ac473d 25%,
+    #c0544a 0,
+    #c0544a 50%,
+    #ac473d 0,
+    #ac473d 75%,
+    #c0544a 0
+  );
+  &:hover {
+    color: white;
+    background: linear-gradient(
+      45deg,
+      #3c6c54 25%,
+      #78ab91 0,
+      #78ab91 50%,
+      #3c6c54 0,
+      #3c6c54 75%,
+      #78ab91 0
+    );
+  }
   border-radius: 12px;
+  margin-right: 5px;
   z-index: 5;
   color: white;
   @media (max-width: 600px) {
@@ -147,6 +175,31 @@ const BottomCopyLink = styled(Icons)`
     margin-top: 5px;
     height: 52px;
     font-size: 24px;
+  }
+`;
+const BottomCopyLinkRight = styled(BottomCopyLinkLeft)`
+  margin-left: 5px;
+  margin-right: 0px;
+  background: linear-gradient(
+    45deg,
+    #ac473d 25%,
+    #c0544a 0,
+    #c0544a 50%,
+    #ac473d 0,
+    #ac473d 75%,
+    #c0544a 0
+  );
+  &:hover {
+    color: white;
+    background: linear-gradient(
+      45deg,
+      #3c6c54 25%,
+      #78ab91 0,
+      #78ab91 50%,
+      #3c6c54 0,
+      #3c6c54 75%,
+      #78ab91 0
+    );
   }
 `;
 
@@ -349,15 +402,14 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
             />
           </Flex>
         </ButtonFlex>
-        {today.getDate() === 26 ? (
-          <BottomCopyLink onClick={goEndingHandler}>
+        <EndingShareBtnFlex>
+          <BottomCopyLinkLeft onClick={goEndingHandler}>
             엔딩 다시보기
-          </BottomCopyLink>
-        ) : (
-          <BottomCopyLink onClick={linkCopyHandler}>
-            내 캘린더링크 공유하기
-          </BottomCopyLink>
-        )}
+          </BottomCopyLinkLeft>
+          <BottomCopyLinkRight onClick={linkCopyHandler}>
+            링크 공유하기
+          </BottomCopyLinkRight>
+        </EndingShareBtnFlex>
 
         <Share loggedId={loggedMemberId} />
       </>
