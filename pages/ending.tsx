@@ -42,7 +42,22 @@ function ending(props) {
         </AboutDAC>
         <Page2>
           <ImgBox>
-            <Img src='' />
+            <Img src='/assets/image/ending/ending1.jpg' />
+          </ImgBox>
+          <ImgBox>
+            <Img src='/assets/image/ending/ending2.jpg' />
+          </ImgBox>
+          <ImgBox>
+            <Img src='/assets/image/ending/ending3.jpg' />
+          </ImgBox>
+          <ImgBox>
+            <Img src='/assets/image/ending/ending4.jpg' />
+          </ImgBox>
+          <ImgBox>
+            <Img src='/assets/image/ending/ending5.jpg' />
+          </ImgBox>
+          <ImgBox>
+            <Img src='/assets/image/ending/ending6.jpg' />
           </ImgBox>
           <Thanks>여러분들 덕분에 하얀코는 무지개코가 되었어요~ 정말 감사합니다❤</Thanks>
         </Page2>
@@ -168,12 +183,12 @@ const Button = styled(RedBtn)`
 `;
 
 const AboutDAC = styled.div`
-  background-color: rgba(24, 28, 35, 0.5);
+  background-color: rgba(24, 28, 35, 1);
   padding-top: 20px;
   border-radius: 20px;
   max-width: 1000px;
   margin: 0 auto;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
 `;
 
 const Thanks = styled.p`
@@ -246,7 +261,7 @@ const ImgBox = styled.div`
   position: relative;
   width: 100%;
   max-width: 600px;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   margin: 0 auto;
 
   &::after {
@@ -262,7 +277,7 @@ const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 `;
 
 const Page3 = styled.div`
@@ -277,7 +292,7 @@ const Page4 = styled.div`
   color: #fff;
   text-align: center;
   border-radius: 20px;
-  padding-bottom: 40px;
+  padding: 20px 20px 40px 20px;
 `;
 const Counter = styled.div`
   max-width: 600px;
