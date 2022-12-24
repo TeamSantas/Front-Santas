@@ -28,7 +28,7 @@ const Onboarding = () => {
     if (!interval) {
       interval = setInterval(() => {
         window.location.href = "/ending";
-      }, 10000000000);
+      }, 2000);
     }
 
     return () => (interval ? clearInterval(interval) : null);
