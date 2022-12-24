@@ -26,16 +26,16 @@ function ending(props) {
         <AboutDAC>
           <Inner>
             <InnerContainer>
-              <InnerTitle>총 사용자 수</InnerTitle>
-              <InnerContent>100만</InnerContent>
+              <InnerTitle>총 사용자수</InnerTitle>
+              <InnerContent>4.2K</InnerContent>
             </InnerContainer>
             <InnerContainer>
-              <InnerTitle>오고 간 총 선물 수</InnerTitle>
-              <InnerContent>150만</InnerContent>
+              <InnerTitle>이벤트수</InnerTitle>
+              <InnerContent>76K</InnerContent>
             </InnerContainer>
             <InnerContainer>
-              <InnerTitle>최고 트래픽 수</InnerTitle>
-              <InnerContent>600만</InnerContent>
+              <InnerTitle>총 조회수</InnerTitle>
+              <InnerContent>35K</InnerContent>
             </InnerContainer>
           </Inner>
         </AboutDAC>
@@ -144,7 +144,7 @@ const Title = styled.h2`
   margin: 0;
   padding: 20px 0;
   color: #fff;
-  font-size: 32px;
+  font-size: 28px;
   text-align: center;
 `;
 
@@ -214,11 +214,14 @@ const InnerContainer = styled.span`
 `;
 const InnerTitle = styled.h5`
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 1rem;
 `;
 const InnerContent = styled.p`
   margin: 0;
-  font-size: 46px;
+  font-size: 48px;
+  @media (max-width: 600px) {
+    font-size: 32px;
+  }
 `;
 const WinnerContentGreen = styled.div`
   position: absolute;
