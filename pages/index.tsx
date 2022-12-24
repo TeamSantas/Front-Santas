@@ -19,8 +19,8 @@ import InformationModal from "../component/index/InformationModal";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import { setCookie } from "cookies-next";
 import CopyModal from "../component/index/CopyModal";
-import {shareKakao} from "../component/share/ShareAPIButton";
-import {NextSeo} from "next-seo";
+import { shareKakao } from "../component/share/ShareAPIButton";
+import { NextSeo } from "next-seo";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -118,18 +118,18 @@ const Span = styled.span`
   display: block;
   color: #fff;
   text-shadow: 0 0 20px #fff, 0 0 2px #fff, 0 0 2px #fff, 0 0 42px #079467,
-  0 0 82px #1d5c48, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 100px #0fa;
-`
+    0 0 82px #1d5c48, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 100px #0fa;
+`;
 const MainFlex = styled(Flex)`
   margin-top: -15px;
-`
+`;
 const InfoText = styled.p`
   font-size: 20px;
   margin: 0 auto;
   @media (max-width: 600px) {
     font-size: 15px;
   }
-`
+`;
 const BottomCopyLink = styled(Icons)`
   width: 35rem;
   height: 72px;
@@ -179,13 +179,19 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     console.log(copyURL);
     try {
       await navigator.clipboard.writeText(copyURL);
-      alert("내 캘린더 링크가 복사되었습니다. 친구에게 공유해 쪽지를 주고받아보세요!");
+      alert(
+        "내 캘린더 링크가 복사되었습니다. 친구에게 공유해 쪽지를 주고받아보세요!"
+      );
     } catch (e) {
       alert(
         "내 초대링크를 복사해 보내보세요! 바로 복사를 원하신다면~? 크롬브라우저로 접속해보세요✨"
       );
       clickCopyIconHandler();
     }
+  };
+
+  const goEndingHandler = () => {
+    window.location.href = "/endingbridge";
   };
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
   const ModelComponent = lazy(() => import("/component/index/SnowBallModel"));
@@ -219,10 +225,9 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     try {
       if (currInvitationLink.length < 2) {
         setMyName(memberInfo);
-      }
-      else {
+      } else {
         const res = await setGetCurrCalendarUserInfo(currInvitationLink);
-        if(myName != res.data.data.nickname) setMyName(res.data.data.nickname);
+        if (myName != res.data.data.nickname) setMyName(res.data.data.nickname);
       }
     } catch (e) {
       // setMyName(router.asPath.slice(1))
@@ -236,7 +241,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       const res = await setGetMember();
       setMemberInfo(res.data.data.member.nickname);
       setMyLink(res.data.data.member.invitationLink);
-      setLoggedMemberId(res.data.data.member.id)
+      setLoggedMemberId(res.data.data.member.id);
       // console.log(">>>>>>>>>")
       // console.log(res.data.data.member.id)
       setCookie("invitationLink", res.data.data.member.invitationLink);
@@ -246,7 +251,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     }
   };
 
-  // cookie
+  // onboardingCookie
   const checkLocation = () => {
     const onboardingCookie = getCookie("onboarding");
     if (onboardingCookie === "" && props.data == undefined) {
@@ -262,9 +267,25 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     }
   };
 
+  // endingCookie
+  const today = new Date();
+  const showEnding = () => {
+    const endingCookie = getCookie("ending");
+    if (endingCookie === "" && props.data == undefined) {
+      router.push("/endingbridge");
+    }
+    if (endingCookie && getCookie("token") == "" && props.data === undefined) {
+      // 엔딩 봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
+      router.push("/title");
+    }
+  };
+
   useEffect(() => {
     getMyBGM();
     checkLocation();
+    if (today.getDate() === 25) {
+      showEnding();
+    }
   }, []);
 
   useEffect(() => {
@@ -294,7 +315,10 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           <Flex>
             <Friends onClick={clickFriendIconHandler} />
             {/* <LinkCopy onClick={linkCopyHandler} /> */}
-            <SearchBtn src="/assets/image/share/kakao_button.png" onClick={shareKakao} />
+            <SearchBtn
+              src="/assets/image/share/kakao_button.png"
+              onClick={shareKakao}
+            />
 
             <FriendsModal
               show={friendModalShow}
@@ -325,8 +349,17 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
             />
           </Flex>
         </ButtonFlex>
-        <BottomCopyLink onClick={linkCopyHandler}>내 캘린더링크 공유하기</BottomCopyLink>
-        <Share loggedId={loggedMemberId}/>
+        {today.getDate() === 25 ? (
+          <BottomCopyLink onClick={goEndingHandler}>
+            엔딩 다시보기
+          </BottomCopyLink>
+        ) : (
+          <BottomCopyLink onClick={linkCopyHandler}>
+            내 캘린더링크 공유하기
+          </BottomCopyLink>
+        )}
+
+        <Share loggedId={loggedMemberId} />
       </>
     );
   };
@@ -359,7 +392,9 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           </Flex>
         </ButtonFlex>
         {isLogged === true ? null : (
-        <CalendarYellowBtn onClick={()=> router.push('/title')}>내 캘린더도 만들기✨</CalendarYellowBtn>
+          <CalendarYellowBtn onClick={() => router.push("/title")}>
+            내 캘린더도 만들기✨
+          </CalendarYellowBtn>
         )}
       </>
     );
@@ -370,36 +405,40 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       <MainFlex>
         {/*<Seo title="Home" />*/}
         <NextSeo
-            openGraph={{
-              type: 'website',
-              url: 'https://pitapat-adventcalendar.site/title',
-              title: '두근두근 어드벤트 캘린더🎁',
-              description: '크리스마스다! 두근두근 어드벤트 캘린더',
-              images: [
-                {
-                  url: "https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png",
-                  width: 280,
-                  height: 280,
-                  alt: "Og Image Alt 1"
-                },
-                {
-                  url: 'https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png',
-                  width: 600,
-                  height: 600,
-                  alt: 'Og Image Alt 2',
-                },
-              ],
-            }}
-            twitter={{
-              handle: '@teamsantaz_official',
-              site: '@teamsantaz_official',
-              cardType: 'summary_large_image',
-            }}
+          openGraph={{
+            type: "website",
+            url: "https://pitapat-adventcalendar.site/title",
+            title: "두근두근 어드벤트 캘린더🎁",
+            description: "크리스마스다! 두근두근 어드벤트 캘린더",
+            images: [
+              {
+                url: "https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png",
+                width: 280,
+                height: 280,
+                alt: "Og Image Alt 1",
+              },
+              {
+                url: "https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png",
+                width: 600,
+                height: 600,
+                alt: "Og Image Alt 2",
+              },
+            ],
+          }}
+          twitter={{
+            handle: "@teamsantaz_official",
+            site: "@teamsantaz_official",
+            cardType: "summary_large_image",
+          }}
         />
         <MainContainer>
           <br />
-          <h2><Span>{myName}의 캘린더</Span></h2>
-          <InfoText>날짜조각을 클릭해 기프티콘, 짤, 응원의 메세지등을 보내보세요!</InfoText>
+          <h2>
+            <Span>{myName}의 캘린더</Span>
+          </h2>
+          <InfoText>
+            날짜조각을 클릭해 기프티콘, 짤, 응원의 메세지등을 보내보세요!
+          </InfoText>
           <InfoText>* 내 캘린더 링크를 공유해 쪽지를 받을 수 있어요 *</InfoText>
           {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
