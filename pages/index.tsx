@@ -174,7 +174,7 @@ const BottomCopyLinkLeft = styled(Icons)`
     width: 95%;
     margin-top: 5px;
     height: 52px;
-    font-size: 24px;
+    font-size: 22px;
   }
 `;
 const BottomCopyLinkRight = styled(BottomCopyLinkLeft)`
