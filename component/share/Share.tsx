@@ -7,7 +7,7 @@ import { getLoggedMember } from "../../api/hooks/useMember";
 import PresentService from "../../api/PresentService";
 import CopyModal from "../index/CopyModal";
 import { getCookie } from "cookies-next";
-import {setGetNumberOfReceivedPresents} from "../../api/hooks/useGetNumberOfReceivedPresents";
+import { setGetNumberOfReceivedPresents } from "../../api/hooks/useGetNumberOfReceivedPresents";
 
 export const RedBtn = styled(Icons)`
   width: 35rem;
@@ -17,7 +17,7 @@ export const RedBtn = styled(Icons)`
   margin-top: 5px;
   margin-bottom: 48px;
   /* background: #ac473d; */
-  background: #3C6C54;
+  background: #3c6c54;
   border-radius: 12px;
   z-index: 5;
   color: white;
@@ -104,13 +104,13 @@ const TextHeader = styled.p`
 `;
 
 const DayImage = styled.img`
-    width: 2.5rem;
-    @media (max-width: 280px) {
-      width: 2rem;
-    }
+  width: 2.5rem;
+  @media (max-width: 280px) {
+    width: 2rem;
+  }
 `;
 
-const Share = ({loggedId}) => {
+const Share = ({ loggedId }) => {
   const [shareModalShow, setShareModalShow] = useState(false);
   const [TicketURL, setTicketURl] = useState("");
   const [myData, setMyData] = useState(null);
@@ -179,14 +179,13 @@ const Share = ({loggedId}) => {
         const res = await setGetNumberOfReceivedPresents(loggedId);
         const presentList = res.data.data;
         const presentTotal = presentList.reduce((total, cur, i) => {
-          return total += Number(cur.count);
+          return (total += Number(cur.count));
         }, 0);
         setReceivePresentCount(presentTotal);
       }
-    }
+    };
     getRecivedPresentList();
-  },[])
-
+  }, []);
 
   const presentNum: number = receivePresentCount;
   const randomEmoji = require("random-unicode-emoji");
