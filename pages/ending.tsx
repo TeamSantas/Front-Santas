@@ -20,7 +20,11 @@ function ending(props) {
             <Button onClick={pushToMyCalendar}>내 캘린더 바로가기</Button>
           </Page1Left>
           <Page1Right>
-            <img src='/assets/image/character/face_heart_green.png' alt='하얀코 하트' width='360' />
+            <img
+              src="/assets/image/character/face_heart_green.png"
+              alt="하얀코 하트"
+              width="360"
+            />
           </Page1Right>
         </Page1>
         <AboutDAC>
@@ -41,38 +45,42 @@ function ending(props) {
         </AboutDAC>
         <Page2>
           <ImgBox>
-            <Img src='/assets/image/ending/ending1.jpg' />
+            <Img src="/assets/image/ending/ending1.jpg" />
           </ImgBox>
           <ImgBox>
-            <Img src='/assets/image/ending/ending2.jpg' />
+            <Img src="/assets/image/ending/ending2.jpg" />
           </ImgBox>
           <ImgBox>
-            <Img src='/assets/image/ending/ending3.jpg' />
+            <Img src="/assets/image/ending/ending3.jpg" />
           </ImgBox>
           <ImgBox>
-            <Img src='/assets/image/ending/ending4.jpg' />
+            <Img src="/assets/image/ending/ending4.jpg" />
           </ImgBox>
           <ImgBox>
-            <Img src='/assets/image/ending/ending5.jpg' />
+            <Img src="/assets/image/ending/ending5.jpg" />
           </ImgBox>
           <ImgBox>
-            <Img src='/assets/image/ending/ending6.jpg' />
+            <Img src="/assets/image/ending/ending6.jpg" />
           </ImgBox>
-          <Thanks>여러분들 덕분에 하얀코는 무지개코가 되었어요~ 정말 감사합니다❤</Thanks>
+          <Thanks>
+            여러분들 덕분에 하얀코는 무지개코가 되었어요~ <br />
+            정말 감사합니다 💗
+          </Thanks>
         </Page2>
         <Page3>
-          <Title>이벤트 당첨자 발표</Title>
+          <Title>🎉 이벤트 당첨자 발표 🎉</Title>
+          <Subtitle>12월 25일 자정 공개</Subtitle>
           <Inner>
             <InnerContainer>
               <ImgBox>
                 <WinnerContentGreen>
                   <WinnerInner>
-                    <WinnerContent>?</WinnerContent>
+                    <WinnerContent white>?</WinnerContent>
                   </WinnerInner>
                 </WinnerContentGreen>
               </ImgBox>
               <InnerTitle>
-                2등
+                🥈 2등
                 <br />
                 충전식
                 <br />
@@ -83,12 +91,12 @@ function ending(props) {
               <ImgBox>
                 <WinnerContentRed>
                   <WinnerInner>
-                    <WinnerContent>?</WinnerContent>
+                    <WinnerContent white>?</WinnerContent>
                   </WinnerInner>
                 </WinnerContentRed>
               </ImgBox>
               <InnerTitle>
-                1등
+                🥇 1등
                 <br />
                 배달의민족
                 <br />
@@ -99,12 +107,12 @@ function ending(props) {
               <ImgBox>
                 <WinnerContentGreen>
                   <WinnerInner>
-                    <WinnerContent>?</WinnerContent>
+                    <WinnerContent white>?</WinnerContent>
                   </WinnerInner>
                 </WinnerContentGreen>
               </ImgBox>
               <InnerTitle>
-                3등
+                🥉 3등
                 <br />
                 마이멜로디/쿠로미
                 <br />
@@ -114,7 +122,7 @@ function ending(props) {
           </Inner>
         </Page3>
         <Page4>
-          <Title>내 두어캘 한번에 보기</Title>
+          <Title>내 두어캘 한번에 보기 👀</Title>
           <Counter>12월 26일에 열려요!</Counter>
         </Page4>
       </EndingContainer>
@@ -142,12 +150,17 @@ const EndingContainer = styled.div`
 
 const Title = styled.h2`
   margin: 0;
-  padding: 20px 0;
+  padding-top: 20px;
   color: #fff;
   font-size: 28px;
   text-align: center;
 `;
-
+const Subtitle = styled.p`
+  margin: 0;
+  color: #aaaaaa;
+  font-size: 20px;
+  text-align: center;
+`;
 const Page1 = styled.div`
   display: flex;
 
@@ -163,6 +176,9 @@ const Page1Left = styled.div`
   /* background-color: yellow; */
   color: #fff;
   font-size: 30px;
+  @media (max-width: 600px) {
+    padding-left: 0px;
+  }
 `;
 
 const Page1Right = styled.div`
@@ -193,8 +209,19 @@ const AboutDAC = styled.div`
 const Thanks = styled.p`
   display: inline-block;
   background-color: #fff;
+  opacity: 0.7;
+  width: 100%;
+  max-width: 600px;
   margin-top: 10px;
   padding: 0 10px;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  @media (max-width: 320px) {
+    font-size: 15px;
+  }
+  @media (min-width: 321px) and (max-width: 600px) {
+    font-size: 1rem;
+  }
 `;
 
 const Inner = styled.div`
@@ -214,11 +241,16 @@ const InnerContainer = styled.span`
 `;
 const InnerTitle = styled.h5`
   margin-top: 20px;
-  font-size: 1rem;
+  font-size: 1.5rem;
+  @media (max-width: 600px) {
+    font-size: 1rem;
+  }
 `;
 const InnerContent = styled.p`
   margin: 0;
   font-size: 48px;
+  color: ${(props) => (props.white ? "white" : "#f5af37")};
+
   @media (max-width: 600px) {
     font-size: 32px;
   }

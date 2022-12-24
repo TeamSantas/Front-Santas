@@ -9,6 +9,14 @@ const OnboardingContainer = styled.div`
   justify-content: center;
 `;
 
+const StyledImage = styled.img`
+  padding-top: 2rem;
+  width: 600px;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+`;
+
 const Onboarding = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
@@ -20,7 +28,7 @@ const Onboarding = () => {
     if (!interval) {
       interval = setInterval(() => {
         window.location.href = "/ending";
-      }, 2000);
+      }, 10000000000);
     }
 
     return () => (interval ? clearInterval(interval) : null);
@@ -28,10 +36,7 @@ const Onboarding = () => {
 
   return (
     <OnboardingContainer>
-      <img
-        src="/assets/image/ending/endingbridge.gif"
-        style={{ width: "100%", paddingTop: "2rem" }}
-      />
+      <StyledImage src="/assets/image/ending/endingbridge.gif" />
     </OnboardingContainer>
   );
 };
