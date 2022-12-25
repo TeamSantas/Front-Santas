@@ -159,6 +159,9 @@ const Title = styled.h1`
   color: #fff;
   font-size: 28px;
   text-align: center;
+  @media (max-width: 600px) {
+    font-size: 19px;
+  }
 `;
 const Subtitle = styled.p`
   margin: 0;

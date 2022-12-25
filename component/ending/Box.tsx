@@ -12,8 +12,8 @@ const Image= styled.img`
 `
 const Post = styled.div`
   background-color: rgba(255,255,255,.7);
-  width: auto;
-  max-width: 250px;
+  //width: auto;
+  max-width: 160px;
   border-radius: 10px;
   text-align: left;
   padding: 5px;
