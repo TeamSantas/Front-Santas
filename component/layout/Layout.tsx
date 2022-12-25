@@ -9,7 +9,7 @@ const MainWrapper = styled.div`
   padding: 22px;
   height: 100vh;
   margin: 0 auto;
-  overflow: hidden;
+  overflow: scroll;
   /* box-shadow: 0 5px 20px 5px gray; */
   position: relative;
   background-image: url("/assets/image/snow_background.png");
