@@ -2,6 +2,7 @@ import router from "next/router";
 import React from "react";
 import styled from "styled-components";
 import { RedBtn } from "../component/share/Share";
+import ViewAll from "../component/ending/ViewAll";
 
 function ending(props) {
   const pushToMyCalendar = () => {
@@ -123,8 +124,12 @@ function ending(props) {
         </Page3>
         <Page4>
           <Title>내 두어캘 한번에 보기 👀</Title>
-          <Counter>12월 26일에 열려요!</Counter>
+          <Counter>
+            <Title>- 그동안 받은 쪽지들을 한눈에 보세요🎅-</Title>
+            <h5>(PC로 보는게 편해요!)</h5>
+          </Counter>
         </Page4>
+        <ViewAll/>
       </EndingContainer>
     </SnowContainer>
   );
@@ -148,12 +153,15 @@ const EndingContainer = styled.div`
   padding-top: 50px;
 `;
 
-const Title = styled.h2`
+const Title = styled.h1`
   margin: 0;
   padding-top: 20px;
   color: #fff;
   font-size: 28px;
   text-align: center;
+  @media (max-width: 600px) {
+    font-size: 19px;
+  }
 `;
 const Subtitle = styled.p`
   margin: 0;
@@ -333,7 +341,7 @@ const Page4 = styled.div`
   text-align: center;
   border-radius: 20px;
   padding: 20px 20px 40px 20px;
-  margin-bottom: 160px;
+  margin-bottom: 10px;
 `;
 const Counter = styled.div`
   max-width: 600px;
