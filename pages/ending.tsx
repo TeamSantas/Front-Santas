@@ -32,15 +32,15 @@ function ending(props) {
           <Inner>
             <InnerContainer>
               <InnerTitle>총 사용자수</InnerTitle>
-              <InnerContent>4.2K</InnerContent>
+              <InnerContent>4.4천</InnerContent>
             </InnerContainer>
             <InnerContainer>
               <InnerTitle>이벤트수</InnerTitle>
-              <InnerContent>76K</InnerContent>
+              <InnerContent>8만</InnerContent>
             </InnerContainer>
             <InnerContainer>
               <InnerTitle>총 조회수</InnerTitle>
-              <InnerContent>35K</InnerContent>
+              <InnerContent>3.6만</InnerContent>
             </InnerContainer>
           </Inner>
         </AboutDAC>
@@ -129,7 +129,7 @@ function ending(props) {
             <h5>(PC로 보는게 편해요!)</h5>
           </Counter>
         </Page4>
-        <ViewAll/>
+        <ViewAll />
       </EndingContainer>
     </SnowContainer>
   );
