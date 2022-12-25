@@ -70,13 +70,13 @@ function ending(props) {
         </Page2>
         <Page3>
           <Title>🎉 이벤트 당첨자 발표 🎉</Title>
-          <Subtitle>12월 25일 자정 공개</Subtitle>
+          <Subtitle>※ 당첨자는 개인적으로 연락드릴 예정입니다.</Subtitle>
           <Inner>
             <InnerContainer>
               <ImgBox>
                 <WinnerContentGreen>
                   <WinnerInner>
-                    <WinnerContent white>?</WinnerContent>
+                    <WinnerContent white>@sy*******2<br/>@z4***1</WinnerContent>
                   </WinnerInner>
                 </WinnerContentGreen>
               </ImgBox>
@@ -92,7 +92,7 @@ function ending(props) {
               <ImgBox>
                 <WinnerContentRed>
                   <WinnerInner>
-                    <WinnerContent white>?</WinnerContent>
+                    <WinnerContent white>@jw***m<br/>@zi****l</WinnerContent>
                   </WinnerInner>
                 </WinnerContentRed>
               </ImgBox>
@@ -108,7 +108,7 @@ function ending(props) {
               <ImgBox>
                 <WinnerContentGreen>
                   <WinnerInner>
-                    <WinnerContent white>?</WinnerContent>
+                    <WinnerContent white>@me*********e<br/>@sj***8</WinnerContent>
                   </WinnerInner>
                 </WinnerContentGreen>
               </ImgBox>
@@ -296,6 +296,10 @@ const WinnerContent = styled(InnerContent)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 45px;
+  @media (max-width: 600px) {
+    font-size: 12px;
+  }
 `;
 
 const Page2 = styled.div`

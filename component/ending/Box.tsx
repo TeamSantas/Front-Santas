@@ -30,6 +30,18 @@ const Post = styled.div`
     transform: scale(1.5);
     background-color: white;
   }
+  @media (max-width: 600px) {
+    &:hover{
+      transition: none;
+      transform: none;
+      background-color: rgba(255,255,255,.7);
+    }
+    &:active{
+      transition: none;
+      transform: none;
+      background-color: white;
+    }
+  }
 `
 const Upside = styled(Flex)`
   text-align: right;
