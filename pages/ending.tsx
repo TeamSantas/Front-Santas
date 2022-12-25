@@ -32,11 +32,11 @@ function ending(props) {
           <Inner>
             <InnerContainer>
               <InnerTitle>총 사용자수</InnerTitle>
-              <InnerContent>4.4천</InnerContent>
+              <InnerContent>4.5천</InnerContent>
             </InnerContainer>
             <InnerContainer>
               <InnerTitle>이벤트수</InnerTitle>
-              <InnerContent>8만</InnerContent>
+              <InnerContent>8.1만</InnerContent>
             </InnerContainer>
             <InnerContainer>
               <InnerTitle>총 조회수</InnerTitle>
@@ -76,7 +76,11 @@ function ending(props) {
               <ImgBox>
                 <WinnerContentGreen>
                   <WinnerInner>
-                    <WinnerContent white>@sy*******2<br/>@z4***1</WinnerContent>
+                    <WinnerContent white>
+                      @sy*******2
+                      <br />
+                      @z4***1
+                    </WinnerContent>
                   </WinnerInner>
                 </WinnerContentGreen>
               </ImgBox>
@@ -92,7 +96,11 @@ function ending(props) {
               <ImgBox>
                 <WinnerContentRed>
                   <WinnerInner>
-                    <WinnerContent white>@jw***m<br/>@zi****l</WinnerContent>
+                    <WinnerContent white>
+                      @jw***m
+                      <br />
+                      @zi****l
+                    </WinnerContent>
                   </WinnerInner>
                 </WinnerContentRed>
               </ImgBox>
@@ -108,7 +116,11 @@ function ending(props) {
               <ImgBox>
                 <WinnerContentGreen>
                   <WinnerInner>
-                    <WinnerContent white>@me*********e<br/>@sj***8</WinnerContent>
+                    <WinnerContent white>
+                      @me*********e
+                      <br />
+                      @sj***8
+                    </WinnerContent>
                   </WinnerInner>
                 </WinnerContentGreen>
               </ImgBox>
