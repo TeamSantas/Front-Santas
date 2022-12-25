@@ -1,5 +1,6 @@
-import { getCookie, setCookie } from 'cookies-next';
-import React, { useEffect, useState } from 'react';
+import { getCookie, setCookie } from "cookies-next";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const BannerContainer = styled.div`
@@ -13,7 +14,7 @@ const BannerContainer = styled.div`
   height: 50px;
   text-align: center;
   line-height: 50px;
-`
+`;
 const BannerText = styled.div`
   margin: 0;
   color: #fff;
@@ -42,7 +43,7 @@ const CloseBtn = styled.div`
   top: 0;
   z-index: 1;
   cursor: pointer;
-  
+
   @media (max-width: 600px) {
     font-size: 16px;
     display: none;
@@ -64,7 +65,7 @@ const BottomCloseBtn = styled.div`
   transform: translateX(-50%);
   line-height: 18px;
   cursor: pointer;
-  
+
   @media (max-width: 600px) {
     font-size: 14px;
     display: block;
@@ -77,7 +78,7 @@ function Banner() {
   const handleDisplay = () => {
     setCookie("noticeRead", true);
     setOnHide(true);
-  }
+  };
 
   useEffect(() => {
     const readStatus = getCookie("noticeRead");
@@ -85,18 +86,24 @@ function Banner() {
     setOnHide(readStatus);
   }, []);
 
-  return <>
-    {onHide ? null :
-      <BannerContainer>
-        <BannerText>
-          현재 🎄크리스마스 이벤트🎄가 진행중입니다.
-          자세한 사항은 👉 <StyledA href='https://www.notion.so/pitapatdac/c1fba79f09014848beb719d666019637' target="_blank">여기</StyledA>에서
-          <CloseBtn onClick={handleDisplay}>☓ 닫기</CloseBtn>
-        </BannerText>
-        <BottomCloseBtn onClick={handleDisplay}>☓ 닫기</BottomCloseBtn>
-      </BannerContainer>
-    }
-  </>
+  const router = useRouter();
+
+  return (
+    <>
+      {onHide ||
+      router.asPath === "/ending" ||
+      router.asPath === "/endingbridge" ? null : (
+        <BannerContainer>
+          <BannerText>
+            🎉 이벤트 당첨자 발표 🎉 혹시 내가 당첨 😳? 👉{" "}
+            <StyledA href="/endingbridge">확인하러 가기</StyledA>
+            <CloseBtn onClick={handleDisplay}>☓ 닫기</CloseBtn>
+          </BannerText>
+          <BottomCloseBtn onClick={handleDisplay}>☓ 닫기</BottomCloseBtn>
+        </BannerContainer>
+      )}
+    </>
+  );
 }
 
 export default Banner;
