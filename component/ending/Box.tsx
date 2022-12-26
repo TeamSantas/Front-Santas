@@ -12,7 +12,7 @@ const Image= styled.img`
 `
 const Post = styled.div`
   background-color: rgba(255,255,255,.7);
-  //width: auto;
+  word-break:break-all;
   max-width: 150px;
   border-radius: 10px;
   text-align: left;
@@ -52,7 +52,7 @@ const Button = styled.div`
   font-size: 20px;
 `
 const Text = styled.p`
-  display: inline
+  //display: inline
 `
 
 const Box = (props) => {
@@ -71,8 +71,7 @@ const Box = (props) => {
             </Upside>
             {props.img !== "default" ? <Image src={props.img}/>: null}
             <Text>
-              {props.content
-              }
+              {props.content}
             </Text>
           </Post>: null}
 
