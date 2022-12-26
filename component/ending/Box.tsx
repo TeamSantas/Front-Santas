@@ -5,10 +5,12 @@ import {useState} from "react";
 
 const Image= styled.img`
   width: auto;
-  height: 80px;
+  max-width: 145px;
+  max-height: 80px;
   border-radius: 10px;
   margin: 0 auto;
   display: block;
+  overflow: hidden;
 `
 const Post = styled.div`
   background-color: rgba(255,255,255,.7);
