@@ -40,7 +40,7 @@ function ending(props) {
             </InnerContainer>
             <InnerContainer>
               <InnerTitle>총 조회수</InnerTitle>
-              <InnerContent>3.6만</InnerContent>
+              <InnerContent>3.7만</InnerContent>
             </InnerContainer>
           </Inner>
         </AboutDAC>
@@ -77,7 +77,7 @@ function ending(props) {
                 <WinnerContentGreen>
                   <WinnerInner>
                     <WinnerContent white>
-                      @sy*******2
+                      @wo******e
                       <br />
                       @z4***1
                     </WinnerContent>

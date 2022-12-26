@@ -6,8 +6,9 @@ import PresentService from "../../api/PresentService";
 import {Flex} from "../../styles/styledComponentModule";
 
 const Container = styled.div`
-  height: 75vh;
   background: transparent;
+  width: 99%;
+  margin: 0 auto;
 `
 const ViewFlex = styled(Flex)`
   flex-wrap: wrap;
