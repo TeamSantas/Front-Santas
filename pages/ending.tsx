@@ -77,7 +77,7 @@ function ending(props) {
                 <WinnerContentGreen>
                   <WinnerInner>
                     <WinnerContent white>
-                      @sy*******2
+                      @wo******e
                       <br />
                       @z4***1
                     </WinnerContent>
