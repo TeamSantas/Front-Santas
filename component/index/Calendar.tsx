@@ -115,31 +115,18 @@ const Calendar = ({ ismycalendar, loggedId }) => {
     return (
       <>
         {days.map((day, idx) =>
-          day > Number(today_day) ? (
-                  <div key={day.toString()}>
-                    <NumberOfReceivedPresents day={day} receivedList={receivePresentList} />
-                    <DayImage
-                        src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
-                        onClick={() => {
-                          handleShow(idx + 1);
-                        }}
-                        alt={`day${idx + 1}`}
-                        key={day}
-                    />
-                  </div>
-              ) : (
-                  <div key={day.toString()}>
-                    <NumberOfReceivedPresents day={day} receivedList={receivePresentList}/>
-                    <DayImage
-                        src={`/assets/image/days/day${idx + 1}.svg`}
-                        onClick={() => {
-                          handleShow(idx + 1);
-                        }}
-                        alt={`day${idx + 1}`}
-                        key={day}
-                    />
-                  </div>
-              )
+          // 
+          <div key={day.toString()}>
+            <NumberOfReceivedPresents day={day} receivedList={receivePresentList}/>
+            <DayImage
+                src={`/assets/image/days/day${idx + 1}.svg`}
+                onClick={() => {
+                  handleShow(idx + 1);
+                }}
+                alt={`day${idx + 1}`}
+                key={day}
+            />
+          </div>
         )}
       </>
     );
@@ -149,25 +136,14 @@ const Calendar = ({ ismycalendar, loggedId }) => {
     return (
       <>
         {days.map((day, idx) =>
-          day > Number(today_day) ? (
-            <DayImage
-              src={`/assets/image/unopen/UnOpened_${idx + 1}.svg`}
-              onClick={() => {
-                handleShow(idx + 1);
-              }}
-              alt={`day${idx + 1}`}
-              key={day}
-            />
-          ) : (
-            <DayImage
-              src={`/assets/image/days/day${idx + 1}.svg`}
-              onClick={() => {
-                handleShow(idx + 1);
-              }}
-              alt={`day${idx + 1}`}
-              key={day}
-            />
-          )
+          <DayImage
+            src={`/assets/image/days/day${idx + 1}.svg`}
+            onClick={() => {
+              handleShow(idx + 1);
+            }}
+            alt={`day${idx + 1}`}
+            key={day}
+          />
         )}
       </>
     );
