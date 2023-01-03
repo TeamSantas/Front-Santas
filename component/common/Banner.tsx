@@ -95,8 +95,9 @@ function Banner() {
       router.asPath === "/endingbridge" ? null : (
         <BannerContainer>
           <BannerText>
-            🎉 이벤트 당첨자 발표 🎉 혹시 내가 당첨 😳? 👉{" "}
-            <StyledA href="/endingbridge">확인하러 가기</StyledA>
+            {/* 🎉 이벤트 당첨자 발표 🎉 혹시 내가 당첨 😳? 👉{" "} */}
+            💗서비스를 사랑해주셔서 감사합니다!💗 👉{" "}
+            <StyledA href="/endingbridge">엔딩페이지로 가기</StyledA>
             <CloseBtn onClick={handleDisplay}>☓ 닫기</CloseBtn>
           </BannerText>
           <BottomCloseBtn onClick={handleDisplay}>☓ 닫기</BottomCloseBtn>
