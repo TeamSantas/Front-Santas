@@ -62,37 +62,40 @@ const Calendar = ({ ismycalendar, loggedId }) => {
 
   const handleShow = (d) => {
     setSelectedDay(d);
-    const selDate = `202212${d}`;
+    // const selDate = `202212${d}`;
     if (ismycalendar) {
-        // 열기 시도한 날이 오늘보다 앞의 날
-        if (Number(selDate) <= Number(today)) {
-        setCanOpenCalendar(true);
-        setPresentModalShow(true);
-        }
-      else {
-        setCanOpenCalendar(false);
-        setNotYeModalShow(true);
-      }
+      // 열기 시도한 날이 오늘보다 앞의 날
+      //   if (Number(selDate) <= Number(today)) {
+      //   setCanOpenCalendar(true);
+      //   setPresentModalShow(true);
+      //   }
+      // else {
+      //   setCanOpenCalendar(false);
+      //   setNotYeModalShow(true);
+      // }
+      setCanOpenCalendar(true);
+      setPresentModalShow(true);
     } else {
-      if (Number(selDate)< Number(today)){
-        alert("과거로는 선물을 보낼 수 없어요 ⌛");
-      }else
-        setPresentModalShow(true);
+      alert("서비스가 종료되어 친구에게 쪽지를 보낼 수 없어요😞 12월 한달간 이용해 주셔서 감사합니다 🎁");
+      // if (Number(selDate)< Number(today)){
+      //   alert("과거로는 선물을 보낼 수 없어요 ⌛");
+      // }else
+      //   setPresentModalShow(true);
     }
   };
 
-  useEffect(() => {
-    const selectedDayToCompare =
-        Number(selectedday) < 10
-            ? "202212" + selectedday
-            : "202212" + selectedday;
-    if (Number(selectedDayToCompare) <= Number(today)) {
-      setCanOpenCalendar(true);
-    } else {
-      setCanOpenCalendar(false);
-    }
-    // console.log("선택한날>>>>>", selectedDayToCompare, "//", today,Number(selectedDayToCompare) <= Number(today));
-  }, [selectedday]);
+  // useEffect(() => {
+  //   const selectedDayToCompare =
+  //       Number(selectedday) < 10
+  //           ? "202212" + selectedday
+  //           : "202212" + selectedday;
+  //   if (Number(selectedDayToCompare) <= Number(today)) {
+  //     setCanOpenCalendar(true);
+  //   } else {
+  //     setCanOpenCalendar(false);
+  //   }
+  //   // console.log("선택한날>>>>>", selectedDayToCompare, "//", today,Number(selectedDayToCompare) <= Number(today));
+  // }, [selectedday]);
 
 
 
