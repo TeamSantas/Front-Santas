@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Switch from "react-switch";
 import { getBGMPush, setPutPush } from "../../api/hooks/useStting";
 import { kakaoLogout } from "../../api/hooks/useKakaoLogin";
-import {setCookie} from "../../businesslogics/cookie";
+import {removeCookie, setCookie} from "../../businesslogics/cookie";
+import MemberService from "../../api/MemberService";
 
 const Container = styled.div`
   background-color: #3c6c54;
@@ -113,6 +114,21 @@ const Sidebar = (props) => {
   router.events.on("routeChangeStart", () => {
     props.menuCloser();
   })
+
+  const handleSignout = async () => {
+    if (confirm("정말 탈퇴할까요🥺? 탈퇴하면 모든 회원정보와 친구, 받은/보낸 선물들은 삭제되고 되돌릴 수 없어요!")) {
+      try {
+        const res = await MemberService.signoutMember();
+        if (res) {
+          alert(res.data.message);
+          router.push("/title");
+        }
+      } catch (e) {
+        alert(e.response.data.message);
+      }
+    }
+  }
+
   return (
     <>
       {/*Background : 배경 블러처리 겸, 아무 곳이나 눌러도 사이드바 해제하는 역할*/}
@@ -194,6 +210,17 @@ const Sidebar = (props) => {
                   }}
               >
                 로그아웃
+              </Index>
+            </Li>
+            <Hr />
+          </IndexDiv>
+          <IndexDiv>
+            <Li>
+              <Img src="/assets/image/character/face_heart_white.png" />
+              <Index
+                onClick={handleSignout}
+              >
+                회원탈퇴
               </Index>
             </Li>
             <Hr />

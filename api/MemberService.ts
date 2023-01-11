@@ -13,5 +13,10 @@ class MemberService {
   //유저 정보 수정 🔑
   putLoggedMember = () =>
     MemberAuthInstance.put<ResponseData<PutMemberData>>(`/api/member`);
+
+  //회원탈퇴 🔑
+  signoutMember = () => 
+    MemberAuthInstance.post<ResponseData<MemberData>>(`/api/member/signout`);
+
 }
 export default new MemberService();
