@@ -59,8 +59,15 @@ const Text = styled.p`
     margin: 0;
     font-size: 15px;
   }
- 
-`
+`;
+
+const Text2 = styled(Text)`
+  font-size: 14px;
+  @media (max-width: 600px) {
+    margin: 0;
+    font-size: 12px;
+  }
+`;
 
 const Header = () => {
   const router = useRouter();
@@ -116,6 +123,7 @@ const Header = () => {
           </Flex>
           {menuOnOff ? <Sidebar menu={menuHandler} menuCloser={menuOffHandler}/> : null}
           <Text>🎄 오늘까지 전달된 선물 수 : {todayCount}개 🎄</Text>
+          <Text2>두어캘은 19일에 서비스가 종료되어 모든 데이터가 삭제됩니다. 종료 전 간직하고 싶은 쪽지, 선물을 따로 저장해주세요!</Text2>
         </>
       )}
     </>
