@@ -257,5 +257,5 @@
 ---
 
 ## 🎅 팀산타즈 노션링크
-[팀산타즈 노션링크](https://www.notion.so/a6a5eac2bc794e2490ed766ef35b395a)
+[팀산타즈 노션링크](https://www.notion.so/pitapatdac/36927b1bd2b24a6888c0ee786b4eb865)
 
