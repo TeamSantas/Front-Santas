@@ -76,11 +76,11 @@ const Calendar = ({ ismycalendar, loggedId }) => {
       setCanOpenCalendar(true);
       setPresentModalShow(true);
     } else {
-      alert("서비스가 종료되어 친구에게 쪽지를 보낼 수 없어요😞 12월 한달간 이용해 주셔서 감사합니다 🎁");
+      // alert("서비스가 종료되어 친구에게 쪽지를 보낼 수 없어요😞 12월 한달간 이용해 주셔서 감사합니다 🎁");
       // if (Number(selDate)< Number(today)){
       //   alert("과거로는 선물을 보낼 수 없어요 ⌛");
       // }else
-      //   setPresentModalShow(true);
+      setPresentModalShow(true);
     }
   };
 
