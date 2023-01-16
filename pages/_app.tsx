@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <CookiesProvider>
         <Store>
           <Layout>
-            {/* <PushNotification /> */}
+            <PushNotification />
             <DefaultSeo {...SeoNext}/>
             <Component {...pageProps} />
           </Layout>

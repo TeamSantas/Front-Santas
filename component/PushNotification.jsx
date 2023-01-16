@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import firebase from "firebase";
+import SettingService from '../api/SettingService';
 
 const PushNotification = () => {
   const onMessageFCM = async () => {
@@ -28,7 +29,8 @@ const PushNotification = () => {
  
       messaging.getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID }).then((currentToken) => {
         if (currentToken) {
-          // console.log(currentToken)
+          console.log(currentToken)
+          SettingService.setFcmtoken(currentToken)
         } else {
           console.log('No registration token available. Request permission to generate one.')
         }
