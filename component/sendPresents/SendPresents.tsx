@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
 import { getLoggedMember } from "../../api/hooks/useMember";
 import MemberService from "../../api/MemberService";
+import PushService from "../../api/PushService";
 
 export const PresentHeader = styled.div`
   font-size: x-large;
@@ -263,6 +264,7 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     try {
       const res = await usePostPresent(presentData);
+      PushService.postPushAlarm(currCalUserId, `누군가 ${currCalUserName}님에게 선물을 보냈어요! \n누가 보냈을까요? 두어캘에서 확인해보세요!`);
       if (res.status === 200) {
         setIsLoading(false);
         alert("선물 보내기 성공! 🎁");
