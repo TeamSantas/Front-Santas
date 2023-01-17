@@ -23,7 +23,7 @@ const Kakao : NextPage = () => {
             if(STATUS.slice(-1,CODE.length)===`=`) STATUS=STATUS.replace(/.$/,'%3D')
             // const res = await KakaoLogin(new URL(window.location.href).searchParams.get("code"), new URL(window.location.href).searchParams.get("state"));
 
-            const res = await KakaoLogin(CODE, STATUS);
+            const res = await KakaoTmpLogin(CODE, STATUS);
             await setCookie("token", res.data.data.token, 30);
             await setCookie('subToken', res.data.data.refreshToken,30);
 
