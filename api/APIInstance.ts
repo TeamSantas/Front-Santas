@@ -68,6 +68,8 @@ const FriendsInstance = APIInstance(null);
 const AuthInstance = APIInstance(null);
 const AuthAuthInstance = AuthAPIInstance(BASE_URL);
 
+const PushInstance = AuthAPIInstance(BASE_URL);
+
 export {
   PresentInstance,
   PresentAuthInstance,
@@ -78,4 +80,5 @@ export {
   FriendsInstance,
   AuthInstance,
   AuthAuthInstance,
+  PushInstance
 };
