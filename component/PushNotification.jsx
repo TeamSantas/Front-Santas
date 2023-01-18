@@ -43,7 +43,8 @@ const PushNotification = () => {
         const title = payload.notification.title;
         const body = payload.notification.body;
         const icon = "https://cdn.mkhealth.co.kr/news/photo/202102/52163_52859_5928.jpg";
-        const options = { body, icon };
+        const link = "https://pitapat-adventcalendar.site";
+        const options = { body, icon, link };
 
         new Notification(title, options);
       })
