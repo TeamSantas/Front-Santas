@@ -19,6 +19,7 @@ const AuthAPIInstance = (baseURL: string) => {
     params: {},
     headers: {
       Authorization: `Bearer ${loadAccessToken()}`,
+      // ContentType: 'text/plain'
       // Refresh : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTU1OTExNjU4Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Njk4MjQwODEsImV4cCI6MTY3MjQxNjA4MX0.PC5bhkO43TzK6oO5HR1YwkgENVSmqxgNdVr8VEjU_PU`
     },
   });
@@ -35,6 +36,19 @@ const AuthAPIInstance = (baseURL: string) => {
   //   }
   // );
   // apiInstance.defaults.withCredentials = true;
+  return apiInstance;
+};
+
+const AuthAPIPostInstance = (baseURL: string) => {
+  const apiInstance = axios.create({
+    timeout: 15000,
+    baseURL: baseURL,
+    params: {},
+    headers: {
+      Authorization: `Bearer ${loadAccessToken()}`,
+      'Content-Type': 'text/plain'
+    },
+  });
   return apiInstance;
 };
 
@@ -63,6 +77,8 @@ const MemberAuthInstance = AuthAPIInstance(BASE_URL);
 const MemberInstance = APIInstance(BASE_URL);
 
 const SettingAuthInstance = AuthAPIInstance(BASE_URL);
+const SettingAuthPostInstance = AuthAPIPostInstance(BASE_URL);
+
 const FriendsAuthInstance = AuthAPIInstance(BASE_URL);
 const FriendsInstance = APIInstance(null);
 const AuthInstance = APIInstance(null);
@@ -76,6 +92,7 @@ export {
   MemberAuthInstance,
   MemberInstance,
   SettingAuthInstance,
+  SettingAuthPostInstance,
   FriendsAuthInstance,
   FriendsInstance,
   AuthInstance,
