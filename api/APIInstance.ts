@@ -20,8 +20,7 @@ const AuthAPIInstance = (baseURL: string) => {
     headers: {
       Authorization: `Bearer ${loadAccessToken()}`,
       // ContentType: 'text/plain'
-      // Refresh : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTU1OTExNjU4Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Njk4MjQwODEsImV4cCI6MTY3MjQxNjA4MX0.PC5bhkO43TzK6oO5HR1YwkgENVSmqxgNdVr8VEjU_PU`
-    },
+   },
   });
   // 응답 인터셉터 추가
   // apiInstance.interceptors.response.use(
