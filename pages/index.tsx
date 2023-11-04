@@ -215,8 +215,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   const getMyBGM = async () => {
     try {
-      const res = await getLoggedMember();
-      setMute(res.setting.bgm);
+      // const res = await getLoggedMember();
+      // setMute(res.setting.bgm);
     } catch (e) {
       // console.log(e);
     }
@@ -290,34 +290,34 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const [isLogged, setIsLogged] = useState(true);
   // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
   const getMemberData = async () => {
-    try {
-      const res = await setGetMember();
-      setMemberInfo(res.data.data.member.nickname);
-      setMyLink(res.data.data.member.invitationLink);
-      setLoggedMemberId(res.data.data.member.id);
-      // console.log(">>>>>>>>>")
-      // console.log(res.data.data.member.id)
-      setCookie("invitationLink", res.data.data.member.invitationLink);
-    } catch (e) {
-      setIsLogged(false);
-      // console.log(e);
-    }
+    // try {
+    //   const res = await setGetMember();
+    //   setMemberInfo(res.data.data.member.nickname);
+    //   setMyLink(res.data.data.member.invitationLink);
+    //   setLoggedMemberId(res.data.data.member.id);
+    //   // console.log(">>>>>>>>>")
+    //   // console.log(res.data.data.member.id)
+    //   setCookie("invitationLink", res.data.data.member.invitationLink);
+    // } catch (e) {
+    //   setIsLogged(false);
+    //   // console.log(e);
+    // }
   };
 
   // onboardingCookie
   const checkLocation = () => {
-    const onboardingCookie = getCookie("onboarding");
-    if (onboardingCookie === "" && props.data == undefined) {
-      router.push("/onboarding");
-    }
-    if (
-      onboardingCookie &&
-      getCookie("token") == "" &&
-      props.data === undefined
-    ) {
-      // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
-      router.push("/title");
-    }
+    // const onboardingCookie = getCookie("onboarding");
+    // if (onboardingCookie === "" && props.data == undefined) {
+    //   router.push("/onboarding");
+    // }
+    // if (
+    //   onboardingCookie &&
+    //   getCookie("token") == "" &&
+    //   props.data === undefined
+    // ) {
+    //   // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
+    //   router.push("/title");
+    // }
   };
 
   // endingCookie
@@ -342,12 +342,12 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   }, []);
 
   useEffect(() => {
-    getMemberData();
-    handleCalendarOwner();
+    // getMemberData();
+    // handleCalendarOwner();
   }, [memberInfo]);
 
   useEffect(() => {
-    getCurrCalUser();
+    // getCurrCalUser();
   }, [props]);
 
   // invitation page에서 넘어온건지 확인
@@ -380,7 +380,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           </Flex>
           <Flex>
             <CopyModal
-              link={`https://pitapat-adventcalendar.site/${myLink}`}
+              // link={`https://pitapat-adventcalendar.site/${myLink}`}
+              link={`https://pitapat-adventcalendar.site`}
               show={copyModal}
               onHide={handleCopyModalClose}
             />
@@ -411,7 +412,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           </BottomCopyLinkRight>
         </EndingShareBtnFlex>
 
-        <Share loggedId={loggedMemberId} />
+        {/* <Share loggedId={loggedMemberId} /> */}
       </>
     );
   };
