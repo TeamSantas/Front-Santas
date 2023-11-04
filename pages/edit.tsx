@@ -1,9 +1,6 @@
 import { NextPage } from "next";
-import Seo from "../component/common/Seo";
-import {
-  RedButton,
-  MainContainer,
-} from "../styles/styledComponentModule";
+import Seo from "../components/common/Seo";
+import { RedButton, MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
 import { getLoggedMember } from "../api/hooks/useMember";
 import { useEffect, useState } from "react";

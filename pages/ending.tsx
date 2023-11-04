@@ -1,8 +1,8 @@
 import router from "next/router";
 import React from "react";
 import styled from "styled-components";
-import { RedBtn } from "../component/share/Share";
-import ViewAll from "../component/ending/ViewAll";
+import { RedBtn } from "../components/share/Share";
+import ViewAll from "../components/ending/ViewAll";
 
 function ending(props) {
   const pushToMyCalendar = () => {

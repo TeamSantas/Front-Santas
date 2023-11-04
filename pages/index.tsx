@@ -2,24 +2,24 @@
 import styled from "styled-components";
 import { NextPage } from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
-import Calendar from "../component/index/Calendar";
-import Share from "../component/share/Share";
+import Calendar from "../components/index/Calendar";
+import Share from "../components/share/Share";
 import { getCookie } from "../businesslogics/cookie";
 import ReactHowler from "react-howler";
 import { lazy, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import FriendsModal from "../component/friends/FriendsModal";
+import FriendsModal from "../components/friends/FriendsModal";
 import { Suspense } from "react";
 import { setGetMember } from "../api/hooks/useGetMember";
 import { dataProps, MemberData } from "../util/type";
 import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
-import InformationModal from "../component/index/InformationModal";
+import InformationModal from "../components/index/InformationModal";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import { setCookie } from "cookies-next";
-import CopyModal from "../component/index/CopyModal";
-import { shareKakao } from "../component/share/ShareAPIButton";
+import CopyModal from "../components/index/CopyModal";
+import { shareKakao } from "../components/share/ShareAPIButton";
 import { NextSeo } from "next-seo";
 
 const MainIcons = styled(Icons)`
@@ -247,7 +247,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     window.location.href = "/endingbridge";
   };
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
-  const ModelComponent = lazy(() => import("/component/index/SnowBallModel"));
+  const ModelComponent = lazy(() => import("/components/index/SnowBallModel"));
 
   // friends modal
   const [friendModalShow, setFriendModalShow] = useState(false);

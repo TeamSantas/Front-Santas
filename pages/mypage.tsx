@@ -1,9 +1,9 @@
 import { NextPage } from "next";
-import Seo from "../component/common/Seo";
+import Seo from "../components/common/Seo";
 import styled from "styled-components";
 import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
-import TabView from "../component/tab/TabView";
+import TabView from "../components/tab/TabView";
 import { getLoggedMember } from "../api/hooks/useMember";
 import { useEffect, useState } from "react";
 
@@ -13,12 +13,12 @@ const Container = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 const InnerContainer = styled(Flex)`
   justify-content: center;
   margin: 5px auto;
   align-items: center;
-`
+`;
 const Profile = styled.img`
   width: 100px;
   height: 100px;
@@ -61,15 +61,14 @@ const MyPage: NextPage = () => {
 
   const getUserData = async () => {
     try {
-      const res = await getLoggedMember()
+      const res = await getLoggedMember();
       setMyName(res.nickname);
       setMyEmail(res.email);
       setMyProfileImg(res.profileImageURL);
     } catch (e) {
-        router.push('/title')
+      router.push("/title");
     }
   };
-
 
   useEffect(() => {
     getUserData();
@@ -89,7 +88,7 @@ const MyPage: NextPage = () => {
             <Text email={"true"}>{myEmail}</Text>
           </div>
         </InnerContainer>
-      <TabView />
+        <TabView />
       </Container>
     </MainContainer>
   );
