@@ -21,6 +21,7 @@ import { setCookie } from "cookies-next";
 import CopyModal from "../components/index/CopyModal";
 import { shareKakao } from "../components/share/ShareAPIButton";
 import { NextSeo } from "next-seo";
+import LikeButtonModal from "../components/like/like";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -493,6 +494,10 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
             날짜조각을 클릭해 기프티콘, 짤, 응원의 메세지등을 보내보세요!
           </InfoText>
           <InfoText>* 내 캘린더 링크를 공유해 쪽지를 받을 수 있어요 *</InfoText>
+          {/* 나를 좋아요한 사람들의 목록 */}
+          <LikeButtonModal
+            likedFriendList={["수연", "수연", "수연", "수연", "수연"]}
+          />
           {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
