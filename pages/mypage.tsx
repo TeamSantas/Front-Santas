@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import TabView from "../component/tab/TabView";
 import { getLoggedMember } from "../api/hooks/useMember";
 import { useEffect, useState } from "react";
+import AdSense from "../component/adSense";
 
 const Container = styled.div`
   overflow: auto;
@@ -78,6 +79,7 @@ const MyPage: NextPage = () => {
   return (
     <MainContainer>
       <Seo title="MyPage" />
+      <AdSense/>
       <Container>
         <InnerContainer>
           <Profile src={myProfileImg} />

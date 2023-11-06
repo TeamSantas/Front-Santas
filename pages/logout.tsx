@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {useEffect} from "react";
 import {removeCookie} from "../businesslogics/cookie";
 import {useRouter} from "next/router";
+import AdSense from "../component/adSense";
 
 
 const Container = styled(MainContainer)`
@@ -31,6 +32,7 @@ const Logout: NextPage = () => {
   return (
     <Container>
       <img src="/assets/image/character/face_sad.png" width="222" />
+      <AdSense/>
       <h3>
         <br />
         로그아웃되었습니다!
