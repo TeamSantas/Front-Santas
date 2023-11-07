@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
+import AdSense from "../component/adSense";
 
 const Container = styled(MainContainer)`
   text-align: center;
@@ -12,6 +13,7 @@ const Container = styled(MainContainer)`
 const Custom404 = () => {
   return (
     <Container>
+        <AdSense/>
       <img src="/assets/image/character/face_crycry.png" width="222" />
       <h3>
         <br />

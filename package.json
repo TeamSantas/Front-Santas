@@ -2,7 +2,7 @@
   "name": "front-santas",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://santaz.netlify.app",
+  "homepage": "http://merry-christmas.site",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

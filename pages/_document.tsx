@@ -40,6 +40,8 @@ class MyDocument extends Document {
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
           />
+            {/*구글 애드센스(광고) 등록*/}
+           <meta name="google-adsense-account" content="ca-pub-3291465451494000"/>
           <script
             dangerouslySetInnerHTML={{
               __html: `
