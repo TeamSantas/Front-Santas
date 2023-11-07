@@ -22,9 +22,8 @@ a:active {
 
 * {
   box-sizing: border-box;
-  font-family: "BinggraeSamanco", binggraesamanco;
+  font-family: "KCC-Ganpan", KCC-Ganpan;
   white-space: pre-wrap;
-  /* color: white; */
 }
 ul {
   list-style: none;
