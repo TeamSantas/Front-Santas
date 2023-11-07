@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       router.asPath !== "promotion" &&
       process.env.NODE_ENV !== "development"
     ) {
-      router.push("/promotion");
+      router.push("/upcoming");
     }
 
     if (!getCookie("noticeRead")) {

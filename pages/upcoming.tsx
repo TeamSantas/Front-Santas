@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import PromotionLayout from "../component/layout/promotion-layout";
-import Countdown from "../component/promotion/countdown";
+import PromotionLayout from "../component/layout/upcoming-layout";
+import Countdown from "../component/upcoming/countdown";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -52,7 +52,7 @@ const StyledImage = styled(Image)`
 const Promotion = () => {
   return (
     <Div>
-      <Calendar src="/assets/image/promotion/calendar.svg" />
+      <Calendar src="/assets/image/upcoming/calendar.svg" />
       <Section background={"white"} height={"10vh"} margin={"-10vh 0 0 0"} />
       <Section
         background={"white"}
@@ -73,7 +73,7 @@ const Promotion = () => {
         {[1, 2, 3, 4, 5].map((idx) => (
           <SwiperSlide key={idx}>
             <StyledImage
-              src={`/assets/image/promotion/feature${idx}.svg`}
+              src={`/assets/image/upcoming/feature${idx}.svg`}
               alt={`feature${idx}`}
               fill
             />

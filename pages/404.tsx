@@ -13,7 +13,7 @@ const Container = styled(MainContainer)`
 
 const Custom404 = () => {
   const router = useRouter();
-  router.push("/promotion");
+  router.push("/upcoming");
   return (
     <Container>
       <AdSense />
