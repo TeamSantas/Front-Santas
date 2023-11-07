@@ -21,6 +21,7 @@ declare global {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
   const [hasMounted, setHasMounted] = useState(false);
   useEffect(() => {
     setHasMounted(true);
@@ -34,6 +35,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   useEffect(() => {
+    if (
+      router.asPath !== "promotion" &&
+      process.env.NODE_ENV !== "development"
+    ) {
+      router.push("/promotion");
+    }
+
     if (!getCookie("noticeRead")) {
       setCookie("noticeRead", false);
     }

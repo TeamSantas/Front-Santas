@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
 import AdSense from "../component/adSense";
+import { useRouter } from "next/router";
 
 const Container = styled(MainContainer)`
   text-align: center;
@@ -11,9 +12,11 @@ const Container = styled(MainContainer)`
 `;
 
 const Custom404 = () => {
+  const router = useRouter();
+  router.push("/promotion");
   return (
     <Container>
-        <AdSense/>
+      <AdSense />
       <img src="/assets/image/character/face_crycry.png" width="222" />
       <h3>
         <br />
