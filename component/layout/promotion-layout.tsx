@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Snow from "./Snow";
+import Footer from "./Footer";
 
 const PromotionWrapper = styled.div`
   background-color: #1c3249;
@@ -25,6 +26,7 @@ const PromotionLayout = ({ children }) => {
     <PromotionWrapper>
       <UpperWrapper>{children}</UpperWrapper>
       <Snow />
+      <Footer />
     </PromotionWrapper>
   );
 };

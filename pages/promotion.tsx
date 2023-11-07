@@ -1,5 +1,11 @@
 import styled from "styled-components";
 import PromotionLayout from "../component/layout/promotion-layout";
+import Countdown from "../component/promotion/countdown";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import Image from "next/image";
 
 const Div = styled.div`
   text-align: center;
@@ -9,33 +15,71 @@ const Div = styled.div`
 `;
 const Calendar = styled.img`
   display: block;
-  max-width: 300px;
+  width: 100%;
+  height: 100vh;
   margin: 0 auto;
   @media (max-width: 400px) {
     width: 100%;
-    max-width: unset;
   }
 `;
+
+const StyledSwiper = styled(Swiper)`
+  height: 50vh;
+  margin: 30px auto;
+  background-color: #1c3249;
+`;
+
 const Section = styled.div`
-  max-width: 300px;
   margin: 0 auto;
-  height: 400px;
+  margin: ${(props) => props.margin};
+  padding: ${(props) => props.padding};
+  height: ${(props) => props.height};
+  color: ${(props) => props.color};
   background-color: ${(props) => props.background};
+  font-size: ${(props) => props.fontSize};
 
   @media (max-width: 400px) {
     width: 100%;
     max-width: unset;
   }
+`;
+
+const StyledImage = styled(Image)`
+  width: calc(100vw - 40px);
+  padding-bottom: 40px;
 `;
 
 const Promotion = () => {
   return (
     <Div>
       <Calendar src="/assets/image/promotion/calendar.svg" />
-      <Section background={"white"}>~ 쪽지 주고받는 기능 설명 ~</Section>
-      <Section background={"#21499D"}>~ 카카오 친구 목록으로 쉽게 ~</Section>
-      <Section background={"#5B93BC"}>~ 신규 기능 자랑 ~</Section>
-      <Section background={"white"}>~ 팀산타즈 소개 및 footer 달기 ~</Section>
+      <Section background={"white"} height={"10vh"} margin={"-10vh 0 0 0"} />
+      <Section
+        background={"white"}
+        fontSize={"1.7rem"}
+        color={"#1E344F"}
+        padding={"20px 0"}
+      >
+        🎄 12월 1일에 만나요! 🎄
+      </Section>
+      <Countdown />
+      <StyledSwiper
+        modules={[Pagination]}
+        pagination={true}
+        spaceBetween={50}
+        slidesPerView={1}
+        loop
+      >
+        {[1, 2, 3, 4, 5].map((idx) => (
+          <SwiperSlide key={idx}>
+            <StyledImage
+              src={`/assets/image/promotion/feature${idx}.svg`}
+              alt={`feature${idx}`}
+              fill
+            />
+          </SwiperSlide>
+        ))}
+      </StyledSwiper>
     </Div>
   );
 };
