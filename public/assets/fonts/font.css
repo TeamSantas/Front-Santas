@@ -1,31 +1,39 @@
 @font-face {
-    /* 사용할 폰트의 이름 */
-    font-family: "BinggraeSamanco-Bold";
-  
-    /* 
-    src: 사용할 폰트의 위치 및 형식 
-       Safari, Android, iOS => truetype
-       Modern Browsers => woff
-       Super Modern Browsers => woff2
-       IE6-IE8 => embedded-opentype
-    */
-    src: url("./BinggraeSamanco-Bold.otf") format('woff2'),
-        url("./BinggraeSamanco-Bold.otf") format('woff'),
-        url("./BinggraeSamanco-Bold.otf") format('truetype');
-}
+  /* 사용할 폰트의 이름 */
+  font-family: "NanumSquareNeoOTF-Eb";
 
-@font-face {
-    /* 사용할 폰트의 이름 */
-    font-family: "BinggraeSamanco";
-
-    /* 
+  /* 
     src: 사용할 폰트의 위치 및 형식 
         Safari, Android, iOS => truetype
         Modern Browsers => woff
         Super Modern Browsers => woff2
         IE6-IE8 => embedded-opentype
     */
-    src: url("./BinggraeSamanco.otf") format('woff2'),
-        url("./BinggraeSamanco.otf") format('woff'),
-        url("./BinggraeSamanco.otf") format('truetype');
+  src: url("./NanumSquareNeo/NanumSquareNeoOTF-Eb.otf") format("woff2"),
+    url("./NanumSquareNeo/NanumSquareNeoOTF-Eb.otf") format("woff"),
+    url("./NanumSquareNeo/NanumSquareNeoOTF-Eb.otf") format("truetype");
+}
+
+@font-face {
+  /* 사용할 폰트의 이름 */
+  font-family: "NanumSquareNeoOTF-Rg";
+
+  /* 
+      src: 사용할 폰트의 위치 및 형식 
+          Safari, Android, iOS => truetype
+          Modern Browsers => woff
+          Super Modern Browsers => woff2
+          IE6-IE8 => embedded-opentype
+      */
+  src: url("./NanumSquareNeo/NanumSquareNeoOTF-Rg.otf") format("woff2"),
+    url("./NanumSquareNeo/NanumSquareNeoOTF-Rg.otf") format("woff"),
+    url("./NanumSquareNeo/NanumSquareNeoOTF-Rg.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "KCC-Ganpan";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCC-Ganpan.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }

@@ -4,14 +4,14 @@ import Layout from "../component/layout/Layout";
 import { AppProps } from "next/app";
 import "../public/assets/fonts/font.css";
 import PushNotification from "../component/PushNotification";
-import {useEffect, useState} from "react";
-import {useRouter} from "next/router";
-import * as ga from '../lib/gtag';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import * as ga from "../lib/gtag";
 import Store from "../store/Store";
-import {CookiesProvider} from "react-cookie";
+import { CookiesProvider } from "react-cookie";
 import Seo from "../component/common/Seo";
-import {DefaultSeo, NextSeo} from "next-seo";
-import {SeoNext} from "../component/common/SeoNext";
+import { DefaultSeo, NextSeo } from "next-seo";
+import { SeoNext } from "../component/common/SeoNext";
 import { getCookie, setCookie } from "cookies-next";
 declare global {
   interface Window {
@@ -20,38 +20,48 @@ declare global {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const router = useRouter();
-    const [hasMounted, setHasMounted] = useState(false);
-    useEffect(() => {
-        setHasMounted(true);
-        const handleRouteChange = url => {
-            ga.pageview(url);
-        };
-        router.events.on('routeChangeComplete', handleRouteChange);
-        return () => {
-            router.events.off('routeChangeComplete', handleRouteChange);
-        };
-    }, [router.events]);
+  const router = useRouter();
 
-    useEffect(() => {
-      if (!getCookie("noticeRead")) {
-        setCookie("noticeRead", false);
-      }
-    }, [])
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+    const handleRouteChange = (url) => {
+      ga.pageview(url);
+    };
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
-    if (!hasMounted) {
-        return null;
+  useEffect(() => {
+    if (
+      router.asPath !== "promotion" &&
+      process.env.NODE_ENV !== "development"
+    ) {
+      router.push("/upcoming");
     }
+
+    if (!getCookie("noticeRead")) {
+      setCookie("noticeRead", false);
+    }
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
+
+  const getLayout =
+    (Component as any).getLayout || ((page) => <Layout> {page} </Layout>);
+
   return (
-      <CookiesProvider>
-        <Store>
-          <Layout>
-            <PushNotification />
-            <DefaultSeo {...SeoNext}/>
-            <Component {...pageProps} />
-          </Layout>
-        </Store>
-      </CookiesProvider>
+    <CookiesProvider>
+      <Store>
+        <PushNotification />
+        <DefaultSeo {...SeoNext} />
+        {getLayout(<Component {...pageProps} />)}
+      </Store>
+    </CookiesProvider>
   );
 }
 

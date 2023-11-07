@@ -22,9 +22,8 @@ a:active {
 
 * {
   box-sizing: border-box;
-  font-family: "BinggraeSamanco", binggraesamanco;
+  font-family: "KCC-Ganpan", KCC-Ganpan;
   white-space: pre-wrap;
-  /* color: white; */
 }
 ul {
   list-style: none;
@@ -35,7 +34,7 @@ ul {
   height: 120px;
   overflow-x: auto;
   overflow-y: hidden;
-  margin-top: 10px
+  margin-top: 10px;
 }
 .Thumbnail_Wrapper::-webkit-scrollbar {
   width: 10px;
@@ -91,4 +90,8 @@ ul {
 }
 #file {
   display: none;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white !important;
 }
