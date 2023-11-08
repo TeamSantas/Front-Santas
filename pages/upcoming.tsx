@@ -2,10 +2,13 @@ import styled from "styled-components";
 import PromotionLayout from "../component/layout/upcoming-layout";
 import Countdown from "../component/upcoming/countdown";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/effect-fade";
 import Image from "next/image";
+import Link from "next/link";
 
 const Div = styled.div`
   text-align: center;
@@ -13,10 +16,9 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const Calendar = styled.img`
   display: block;
-  width: 100%;
-  height: 100vh;
   margin: 0 auto;
   @media (max-width: 400px) {
     width: 100%;
@@ -24,9 +26,22 @@ const Calendar = styled.img`
 `;
 
 const StyledSwiper = styled(Swiper)`
-  height: 50vh;
-  margin: 30px auto;
-  background-color: #1c3249;
+  height: 70vh;
+  padding-bottom: 50px;
+  .swiper-button-prev {
+    background-image: url(/assets/image/upcoming/prev.png);
+  }
+  .swiper-button-next {
+    background-image: url(/assets/image/upcoming/next.png);
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: white;
+    padding: 20px;
+    @media (max-width: 400px) {
+      padding: 10px;
+    }
+  }
 `;
 
 const Section = styled.div`
@@ -37,6 +52,7 @@ const Section = styled.div`
   color: ${(props) => props.color};
   background-color: ${(props) => props.background};
   font-size: ${(props) => props.fontSize};
+  text-shadow: ${(props) => props.textShadow};
 
   @media (max-width: 400px) {
     width: 100%;
@@ -45,29 +61,63 @@ const Section = styled.div`
 `;
 
 const StyledImage = styled(Image)`
-  width: calc(100vw - 40px);
-  padding-bottom: 40px;
+  height: 100%;
+  margin: 0 auto;
+  max-width: 600px;
+`;
+const ButtonWrapper = styled.div`
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4.5px);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+`;
+const StyledLink = styled(Link)`
+  border-radius: 10px;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: white;
 `;
 
 const Promotion = () => {
   return (
     <Div>
-      <Calendar src="/assets/image/upcoming/calendar.svg" />
-      <Section background={"white"} height={"10vh"} margin={"-10vh 0 0 0"} />
+      <Calendar src="/assets/image/upcoming/calendar.svg" alt="calendar" />
+      <Section background={"#F9F9F9"} height={"10vh"} margin={"-10vh 0 0 0"} />
       <Section
-        background={"white"}
+        background={"#F9F9F9"}
         fontSize={"1.7rem"}
         color={"#1E344F"}
         padding={"20px 0"}
+        textShadow={
+          "0 0 12px #fff, 0 0 2px #fff, 0 0 12px #fff, 0 0 2px #0072ff, 0 0 8px #0251b1, 0 0 22px #62c1db, 0 0 22px #4eccff, 0 0 10px #69ebff"
+        }
       >
-        🎄 12월 1일에 만나요! 🎄
+        12월 1일에 만나요!
       </Section>
       <Countdown />
+      <ButtonWrapper>
+        <StyledLink
+          href={"https://forms.gle/nDu352ZzcwwhLXsK8"}
+          target="_blank"
+        >
+          출시 알람 신청하기
+        </StyledLink>
+      </ButtonWrapper>
       <StyledSwiper
-        modules={[Pagination]}
-        pagination={true}
+        modules={[EffectFade, Navigation, Pagination]}
+        navigation
+        pagination={{
+          clickable: true,
+        }}
+        effect={"fade"}
         spaceBetween={50}
         slidesPerView={1}
+        onClickNext={(swiper) => swiper.next()}
         loop
       >
         {[1, 2, 3, 4, 5].map((idx) => (

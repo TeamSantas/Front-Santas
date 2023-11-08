@@ -25,7 +25,7 @@ const Footer = () => {
       <div>TeamSantaz</div>
       <hr />
       <Flex>
-        <Link
+        {/* <Link
           href={
             "https://team-santaz.notion.site/72766cecfe9a499f9a216e44d4fe2270?pvs=4"
           }
@@ -37,7 +37,7 @@ const Footer = () => {
             height={20}
             alt="instagram-logo"
           />
-        </Link>
+        </Link> */}
         <Link
           href={"https://www.instagram.com/teamsantaz_official/"}
           target="_blank"

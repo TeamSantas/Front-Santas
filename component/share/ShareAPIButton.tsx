@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Flex } from "../../styles/styledComponentModule";
-import {getCookie} from "../../businesslogics/cookie";
+import { getCookie } from "../../businesslogics/cookie";
 
 const SearchBtn = styled.img`
   margin: 2px;
@@ -29,7 +29,7 @@ const shareWebShare = () => {
   if (navigator.share) {
     navigator
       .share({
-        title: "두근두근 어드벤트 캘린더🎁",
+        title: "두근두근 어드벤트 캘린더 🎁",
         text: "특별한 크리스마스 즐기기✨",
         url: process.env.NEXT_PUBLIC_FRONT_URL,
       })

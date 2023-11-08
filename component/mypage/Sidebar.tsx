@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Switch from "react-switch";
 import { getBGMPush, setPutPush } from "../../api/hooks/useStting";
 import { kakaoLogout } from "../../api/hooks/useKakaoLogin";
-import {removeCookie, setCookie} from "../../businesslogics/cookie";
+import { removeCookie, setCookie } from "../../businesslogics/cookie";
 import MemberService from "../../api/MemberService";
 
 const Container = styled.div`
@@ -113,10 +113,14 @@ const Sidebar = (props) => {
 
   router.events.on("routeChangeStart", () => {
     props.menuCloser();
-  })
+  });
 
   const handleSignout = async () => {
-    if (confirm("정말 탈퇴할까요🥺? 탈퇴하면 모든 회원정보와 친구, 받은/보낸 선물들은 삭제되고 되돌릴 수 없어요!")) {
+    if (
+      confirm(
+        "정말 탈퇴할까요🥺? 탈퇴하면 모든 회원정보와 친구, 받은/보낸 선물들은 삭제되고 되돌릴 수 없어요!"
+      )
+    ) {
       try {
         const res = await MemberService.signoutMember();
         if (res) {
@@ -127,7 +131,7 @@ const Sidebar = (props) => {
         alert(e.response.data.message);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -166,8 +170,8 @@ const Sidebar = (props) => {
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index>
                 <StyledLink
-                    href={`https://www.notion.so/pitapatdac/36927b1bd2b24a6888c0ee786b4eb865`}
-                    target="_blank"
+                  href={`https://www.notion.so/pitapatdac/36927b1bd2b24a6888c0ee786b4eb865`}
+                  target="_blank"
                 >
                   공지사항
                 </StyledLink>
@@ -179,9 +183,7 @@ const Sidebar = (props) => {
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index>
-                <StyledLink
-                  href={`https://pitapat-adventcalendar.site/onboarding`}
-                >
+                <StyledLink href={`https://merry-christmas.site//onboarding`}>
                   스토리 다시보기
                 </StyledLink>
               </Index>
@@ -192,9 +194,7 @@ const Sidebar = (props) => {
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index>
-                <StyledLink
-                  href={`https://pitapat-adventcalendar.site/snowball`}
-                >
+                <StyledLink href={`https://merry-christmas.site//snowball`}>
                   스노우볼
                 </StyledLink>
               </Index>
@@ -205,9 +205,9 @@ const Sidebar = (props) => {
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index
-                  onClick={() => {
-                    if (kakaoLogout() === "logout_ok") router.push("/logout");
-                  }}
+                onClick={() => {
+                  if (kakaoLogout() === "logout_ok") router.push("/logout");
+                }}
               >
                 로그아웃
               </Index>
@@ -217,11 +217,7 @@ const Sidebar = (props) => {
           <IndexDiv>
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
-              <Index
-                onClick={handleSignout}
-              >
-                회원탈퇴
-              </Index>
+              <Index onClick={handleSignout}>회원탈퇴</Index>
             </Li>
             <Hr />
           </IndexDiv>

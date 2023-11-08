@@ -92,6 +92,7 @@ ul {
   display: none;
 }
 
+.swiper-pagination-bullet,
 .swiper-pagination-bullet-active {
   background-color: white !important;
 }

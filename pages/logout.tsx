@@ -2,11 +2,10 @@ import { NextPage } from "next";
 import Link from "next/link";
 import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
-import {useEffect} from "react";
-import {removeCookie} from "../businesslogics/cookie";
-import {useRouter} from "next/router";
+import { useEffect } from "react";
+import { removeCookie } from "../businesslogics/cookie";
+import { useRouter } from "next/router";
 import AdSense from "../component/adSense";
-
 
 const Container = styled(MainContainer)`
   text-align: center;
@@ -16,23 +15,23 @@ const Container = styled(MainContainer)`
 `;
 
 const Logout: NextPage = () => {
-    const router = useRouter();
-    useEffect(() => {
-        const preventGoBack = () => {
-            history.go(1);
-            router.push('/title')
-            console.log('prevent go back!');
-        };
+  const router = useRouter();
+  useEffect(() => {
+    const preventGoBack = () => {
+      history.go(1);
+      router.push("/title");
+      console.log("prevent go back!");
+    };
 
-        history.pushState(null, '', location.href);
-        window.addEventListener('popstate', preventGoBack);
-        removeCookie('token');
-        return () => window.removeEventListener('popstate', preventGoBack);
-    }, []);
+    history.pushState(null, "", location.href);
+    window.addEventListener("popstate", preventGoBack);
+    removeCookie("token");
+    return () => window.removeEventListener("popstate", preventGoBack);
+  }, []);
   return (
     <Container>
       <img src="/assets/image/character/face_sad.png" width="222" />
-      <AdSense/>
+      <AdSense />
       <h3>
         <br />
         로그아웃되었습니다!
@@ -41,10 +40,14 @@ const Logout: NextPage = () => {
         흑흑.. 또 올거지..? <br />
         from.하얀코..
       </p>
-        {/* <Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=http://localhost:3000/oauth/callback/kakao"}> */}
-            <Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=https://pitapat-adventcalendar.site/oauth/callback/kakao"}>
-            <img src="/assets/image/kakao_login_large_narrow.png" width="222" />
-        </Link>
+      {/* <Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=http://localhost:3000/oauth/callback/kakao"}> */}
+      <Link
+        href={
+          "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=https://merry-christmas.site//oauth/callback/kakao"
+        }
+      >
+        <img src="/assets/image/kakao_login_large_narrow.png" width="222" />
+      </Link>
     </Container>
   );
 };
