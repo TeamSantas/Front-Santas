@@ -70,17 +70,13 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4.5px);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-color: #ffcd5a;
 `;
 const StyledLink = styled(Link)`
   border-radius: 10px;
   padding: 10px 20px;
   text-decoration: none;
-  color: white;
+  color: #1c3249;
 `;
 
 const Promotion = () => {
@@ -105,7 +101,7 @@ const Promotion = () => {
           href={"https://forms.gle/nDu352ZzcwwhLXsK8"}
           target="_blank"
         >
-          출시 알람 신청하기
+          ⏰ 출시 알람 신청하기 ⏰
         </StyledLink>
       </ButtonWrapper>
       <StyledSwiper
@@ -124,7 +120,6 @@ const Promotion = () => {
           <SwiperSlide key={idx}>
             <StyledImage
               src={`/assets/image/upcoming/feature${idx}.svg`}
-              quality={100}
               alt={`feature${idx}`}
               fill
             />
