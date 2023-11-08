@@ -2,9 +2,9 @@ import { NextPage } from "next";
 import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
 import CustomModal from "../component/common/CustomModal";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import {getCookie} from "../businesslogics/cookie";
+import { getCookie } from "../businesslogics/cookie";
 
 const Container = styled(MainContainer)`
   text-align: center;
@@ -24,8 +24,8 @@ const StoryLink = styled.a`
   border-radius: 5px;
   padding: 2px 10px;
 
-  &:hover{  
-    color : white;
+  &:hover {
+    color: white;
     text-decoration: underline;
   }
 `;
@@ -46,9 +46,9 @@ const AlertContent = styled.p`
   text-align: center;
 `;
 
-const AlertHighlight =  styled.span`
+const AlertHighlight = styled.span`
   padding: 0 4px;
-  background-color: #3C6C54;
+  background-color: #3c6c54;
   color: white;
 `;
 
@@ -76,8 +76,14 @@ const Login: NextPage = () => {
           // background_img={"/assets/image/icons/warning.png"}
           body={
             <Alert>
-              <Img src="/assets/image/character/hayanco_stand_creyon.png" width="260" />
-              <AlertContent>소셜로그인시, <AlertHighlight>선택사항을 모두 동의해야</AlertHighlight></AlertContent>
+              <Img
+                src="/assets/image/character/hayanco_stand_creyon.png"
+                width="260"
+              />
+              <AlertContent>
+                소셜로그인시,{" "}
+                <AlertHighlight>선택사항을 모두 동의해야</AlertHighlight>
+              </AlertContent>
               <AlertContent>친구목록 기능사용이 가능합니다.</AlertContent>
             </Alert>
           }
@@ -90,12 +96,16 @@ const Login: NextPage = () => {
           하얀코와 함께
           <br /> 어드벤트 캘린더를 모으러 가볼까요?
         </h3>
-         {/*<Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=http://localhost:3000/oauth/callback/kakao"}>*/}
-        <div style={{marginTop: '40px'}}>
-          <Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=https://pitapat-adventcalendar.site/oauth/callback/kakao"}>
+        {/*<Link href={"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=http://localhost:3000/oauth/callback/kakao"}>*/}
+        <div style={{ marginTop: "40px" }}>
+          <Link
+            href={
+              "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3c01bf310ee0268b13dab1daa6c3a78a&scope=account_email%20profile_nickname%20profile_image%20friends&state=ZG_0J4yTF5EXpiZdBZhoTUNkRyyeclSFvLjlJAe20_g%3D&redirect_uri=https://merry-christmas.site//oauth/callback/kakao"
+            }
+          >
             <img src="/assets/image/kakao_login_large_narrow.png" width="222" />
           </Link>
-          <StoryLink href={`https://pitapat-adventcalendar.site/onboarding`}>
+          <StoryLink href={`https://merry-christmas.site//onboarding`}>
             👉 스토리 보러가기
           </StoryLink>
         </div>

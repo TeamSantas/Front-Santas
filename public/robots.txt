@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /readme.html
-Sitemap: https://pitapat-adventcalendar.site/
+Sitemap: https://merry-christmas.site//

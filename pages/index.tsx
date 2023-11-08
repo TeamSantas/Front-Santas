@@ -228,7 +228,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   };
 
   const linkCopyHandler = async () => {
-    const copyURL = `https://pitapat-adventcalendar.site/${myLink}`;
+    const copyURL = `https://merry-christmas.site//${myLink}`;
     console.log(copyURL);
     try {
       await navigator.clipboard.writeText(copyURL);
@@ -380,8 +380,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           </Flex>
           <Flex>
             <CopyModal
-              // link={`https://pitapat-adventcalendar.site/${myLink}`}
-              link={`https://pitapat-adventcalendar.site`}
+              // link={`https://merry-christmas.site//${myLink}`}
+              link={`https://merry-christmas.site/`}
               show={copyModal}
               onHide={handleCopyModalClose}
             />
@@ -460,18 +460,18 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
         <NextSeo
           openGraph={{
             type: "website",
-            url: "https://pitapat-adventcalendar.site/title",
-            title: "두근두근 어드벤트 캘린더🎁",
+            url: "https://merry-christmas.site//title",
+            title: "두근두근 어드벤트 캘린더 🎁",
             description: "크리스마스다! 두근두근 어드벤트 캘린더",
             images: [
               {
-                url: "https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png",
+                url: "https://merry-christmas.site//assets/image/onboarding/maintitle.png",
                 width: 280,
                 height: 280,
                 alt: "Og Image Alt 1",
               },
               {
-                url: "https://pitapat-adventcalendar.site/assets/image/onboarding/maintitle.png",
+                url: "https://merry-christmas.site//assets/image/onboarding/maintitle.png",
                 width: 600,
                 height: 600,
                 alt: "Og Image Alt 2",

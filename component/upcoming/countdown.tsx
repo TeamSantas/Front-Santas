@@ -4,14 +4,17 @@ import "react-awesome-animated-number/dist/index.css";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
+  background-color: #5b93bc;
+  color: white;
+  padding: 20px;
+`;
+const Counter = styled.div`
   display: flex;
   font-size: 2rem;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  background-color: #5b93bc;
   padding: 20px;
-  color: white;
 `;
 const SquareBox = styled(AnimatedNumber)`
   border-radius: 10px;
@@ -58,37 +61,39 @@ const Countdown = () => {
 
   return (
     <Wrapper>
-      <div>
-        <SquareBox
-          size={40}
-          value={days}
-          minDigits={2}
-          background={"#F15A24"}
-        />
-        <SmallText>days</SmallText>
-      </div>
-      <div>
-        <SquareBox size={40} value={hours} minDigits={2} border={"white"} />
-        <SmallText>hours</SmallText>
-      </div>
-      <div>
-        <SquareBox
-          size={40}
-          value={minutes}
-          minDigits={2}
-          background={"#1c3249"}
-        />
-        <SmallText>minutes</SmallText>
-      </div>
-      <div>
-        <SquareBox
-          size={40}
-          value={seconds}
-          minDigits={2}
-          background={"#2D62AD"}
-        />
-        <SmallText>seconds</SmallText>
-      </div>
+      <Counter>
+        <div>
+          <SquareBox
+            size={40}
+            value={days}
+            minDigits={2}
+            background={"#1c3249"}
+          />
+          <SmallText>days</SmallText>
+        </div>
+        <div>
+          <SquareBox
+            size={40}
+            value={hours}
+            minDigits={2}
+            background={"#1c3249"}
+          />
+          <SmallText>hours</SmallText>
+        </div>
+        <div>
+          <SquareBox
+            size={40}
+            value={minutes}
+            minDigits={2}
+            background={"#1c3249"}
+          />
+          <SmallText>minutes</SmallText>
+        </div>
+        <div>
+          <SquareBox size={40} value={seconds} minDigits={2} border={"white"} />
+          <SmallText>seconds</SmallText>
+        </div>
+      </Counter>
     </Wrapper>
   );
 };

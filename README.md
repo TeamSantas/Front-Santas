@@ -1,9 +1,11 @@
-# 두근두근 어드벤트 캘린더🎁
+# 두근두근 어드벤트 캘린더 🎁
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/40741363/210045864-cbcbee6b-9036-4fbb-9f64-01d46971f4fc.png" width="800"/>
 </p>
 
 ## 🎅 팀산타즈 소개
+
 <table>
   <tr>
     <td>
@@ -71,6 +73,7 @@
 ---
 
 ## 🎅 프로젝트 소개
+
 <table>
   <tr>
     <td><img src="https://user-images.githubusercontent.com/40741363/210051557-e2b34594-52c2-42cc-801c-672e6d489fd6.png" width="200"/></td>
@@ -81,25 +84,28 @@
   </tr>
 </table>
 
-
 ### ❄️ 프로젝트 기간
-- ```기획 및 설계``` : 22.10.24 ~ 22.11.25 <br/>
-- ```프로젝트 구현``` : 22.11.25 ~ 22.12.03 <br/>
-- ```배포 및 운영기간``` : 22.12.03 ~ 22.12.25
-- ```버그 수정 및 리팩토링``` : 22.12.25 ~ 22.01.19 <br/>
+
+- `기획 및 설계` : 22.10.24 ~ 22.11.25 <br/>
+- `프로젝트 구현` : 22.11.25 ~ 22.12.03 <br/>
+- `배포 및 운영기간` : 22.12.03 ~ 22.12.25
+- `버그 수정 및 리팩토링` : 22.12.25 ~ 22.01.19 <br/>
 
 ### ❄️ 프로젝트 요약
-- ```이름``` : 두근두근 어드벤트 캘린더 <br/>
-- ```공식인스타``` : @teamsantaz_official <br/>  <br/> 
-두근두근 어드벤트 캘린더는 크리스마스 맞이를 위한 어드벤트 캘린더를 온라인으로 옮긴 프로젝트입니다. <br/>
-12월 1일부터 25일까지 매일 한개씩 선물을 열어볼 수 있는 어드벤트 캘린더에서 영감을 받아, 매일 선물을 받을 수 있고, 친구의 캘린더도 채워주는 기쁨을 느낄 수 있어요🎄
 
-### ❄️  프로젝트 기획/목적
+- `이름` : 두근두근 어드벤트 캘린더 <br/>
+- `공식인스타` : @teamsantaz_official <br/> <br/>
+  두근두근 어드벤트 캘린더는 크리스마스 맞이를 위한 어드벤트 캘린더를 온라인으로 옮긴 프로젝트입니다. <br/>
+  12월 1일부터 25일까지 매일 한개씩 선물을 열어볼 수 있는 어드벤트 캘린더에서 영감을 받아, 매일 선물을 받을 수 있고, 친구의 캘린더도 채워주는 기쁨을 느낄 수 있어요🎄
+
+### ❄️ 프로젝트 기획/목적
+
 - 사람들에게 내일이 두근두근 기다려지는 마음을 만들어주기.
 - 모두 따뜻하고 행복한 크리스마스 만들기.
-더 자세한 기획은 [두근두근 어드벤트 캘린더 🎁](https://www.notion.so/0826026935e64aeb992cac9aec13227e) 에서 보실 수 있어요
+  더 자세한 기획은 [두근두근 어드벤트 캘린더 🎁](https://www.notion.so/0826026935e64aeb992cac9aec13227e) 에서 보실 수 있어요
 
 ### ❄️ 프로젝트 핵심기능
+
 <details>
 <summary>핵심기능 더보기</summary>
 <div markdown="1">
@@ -123,20 +129,23 @@
 - 프론트/백엔드 무중단 배포 및 슬랙 웹훅연동<br/>
   <img src="https://user-images.githubusercontent.com/40741363/210051074-1ace7144-4af2-41ad-aa14-4105311b1afb.png" width="400"/>
 
-  
 </div>
 </details>
 
 ---
 
 ## 🎅 프로젝트 시연영상
-### ```전체 시연영상``` : https://youtu.be/Ybjrzsv6dsk
-### ```엔딩스토리 시연영상 ```  : https://youtu.be/pxiUDfVGSfE
 
+### `전체 시연영상` : https://youtu.be/Ybjrzsv6dsk
+
+### `엔딩스토리 시연영상 ` : https://youtu.be/pxiUDfVGSfE
 
 ---
+
 ## 🎅 프로젝트 성과
+
 ※ Google Analytics 기준 <br/><br/>
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/40741363/210046336-a0556a08-6ab2-4688-90ea-5a9d4fa1a6b1.png" width="800"/>
 </p>
@@ -145,27 +154,34 @@
 <img src="https://user-images.githubusercontent.com/40741363/210051322-d74f33fe-a1ea-4648-86e4-ec9228055f14.png" width="400"/>
 </p>
 
-
 ---
+
 ## 🎅 기술스택
+
 ### BE
 
 ### FE
+
 ---
 
 ## 🎅 아키텍처
+
 ### BE 아키텍처
+
 <img src="https://user-images.githubusercontent.com/40741363/210047429-6045428b-9838-4031-afc4-0069c9e74d29.png" width="800"/><br/>
 
 ### FE 아키텍처
+
 <img src="https://user-images.githubusercontent.com/40741363/210047415-a70e7a8b-e493-47e6-abba-37722717b8bf.png" width="800"/><br/>
 
 ---
 
 ## 🎅 프로젝트 협업과정
+
 - 자세한 사항은 [해당 피그마](https://www.figma.com/file/h35UjCjnUeAK0ZwxtbXAnj/%EB%91%90%EA%B7%BC%EB%91%90%EA%B7[…]A6%B0%EB%8D%94-%F0%9F%8E%81?node-id=0%3A1&t=5FFhKkJtNoMdtYIc-1)에서 확인하실 수 있습니다.
 
 ### ❄️ 기획 및 설계 협업
+
 <details>
 <summary>Infomation Architecture</summary>
 <div markdown="1">
@@ -222,11 +238,12 @@
 - [git flow](https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html)
 
 ### ❄️ 일정/프로젝트 관리
+
 - **Git** : 프론트/백 스택별로 깃 컨벤션을 정했습니다. PR 템플릿을 사용하여 변경사항등을 관리했습니다.
 - **Jira** : Ticket 기능을 사용해 브랜치명 반영 및 1주 단위 스프린트로 일정관리, 각자 맡은 일을 한번에 볼 수 있도록 관리했습니다.
 - **Notion** : API 설계, 트러블 슈팅 등 각종 문서화를 위해서 노션을 사용헀습니다.
 - **Slack** : 빠른 소통과 배포알림, 에러관리 알림을 받기 위해서 슬랙을 사용했습니다.
- 
+
 <details>
 <summary>Jira 사용 더보기</summary>
 <div markdown="1">
@@ -234,9 +251,10 @@
 ### 전체 프로젝트 로드맵
   ![image](https://user-images.githubusercontent.com/40741363/210047791-82ed4cdb-8a93-4e64-9729-7e4c3889ec66.png)
 
-### Task/스프린트 관리 
-  ![image](https://user-images.githubusercontent.com/40741363/210047878-0ff359aa-0e14-4a93-ada9-cc46acc1e649.png)
-  ![image](https://user-images.githubusercontent.com/40741363/210047868-c80243e5-b667-40b5-8f7f-b4c31343f3d0.png)
+### Task/스프린트 관리
+
+![image](https://user-images.githubusercontent.com/40741363/210047878-0ff359aa-0e14-4a93-ada9-cc46acc1e649.png)
+![image](https://user-images.githubusercontent.com/40741363/210047868-c80243e5-b667-40b5-8f7f-b4c31343f3d0.png)
 
 </div>
 </details>
@@ -249,7 +267,8 @@
   ![image](https://user-images.githubusercontent.com/40741363/210047973-1df0e188-7f2c-4178-a568-14387395f481.png)
 
 ### 미팅로그 관리
- ![image](https://user-images.githubusercontent.com/40741363/210047999-2b7dc8e3-0d64-4e7f-8227-f2e5d14cdc0e.png)
+
+![image](https://user-images.githubusercontent.com/40741363/210047999-2b7dc8e3-0d64-4e7f-8227-f2e5d14cdc0e.png)
 
 </div>
 </details>
@@ -257,5 +276,5 @@
 ---
 
 ## 🎅 팀산타즈 노션링크
-[팀산타즈 노션링크](https://www.notion.so/pitapatdac/36927b1bd2b24a6888c0ee786b4eb865)
 
+[팀산타즈 노션링크](https://www.notion.so/pitapatdac/36927b1bd2b24a6888c0ee786b4eb865)

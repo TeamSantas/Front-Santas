@@ -138,7 +138,7 @@ const Share = ({ loggedId }) => {
   const clickCopyIconHandler = () => setCopyModal(true);
   const handleCopyModalClose = () => setCopyModal(false);
   const linkCopyHandler = async () => {
-    const copyURL = `https://pitapat-adventcalendar.site/${getCookie(
+    const copyURL = `https://merry-christmas.site//${getCookie(
       "invitationLink"
     )}`;
     // console.log(copyURL)
@@ -229,9 +229,7 @@ const Share = ({ loggedId }) => {
     <>
       <Capture id="ticket" isOn={shareModalShow}>
         <CopyModal
-          link={`https://pitapat-adventcalendar.site/${getCookie(
-            "invitationLink"
-          )}`}
+          link={`https://merry-christmas.site//${getCookie("invitationLink")}`}
           show={copyModal}
           onHide={handleCopyModalClose}
         />
