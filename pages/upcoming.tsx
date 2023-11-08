@@ -124,6 +124,7 @@ const Promotion = () => {
           <SwiperSlide key={idx}>
             <StyledImage
               src={`/assets/image/upcoming/feature${idx}.svg`}
+              quality={100}
               alt={`feature${idx}`}
               fill
             />
