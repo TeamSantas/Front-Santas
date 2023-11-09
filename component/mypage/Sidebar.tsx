@@ -183,7 +183,7 @@ const Sidebar = (props) => {
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index>
-                <StyledLink href={`https://merry-christmas.site//onboarding`}>
+                <StyledLink href={`https://merry-christmas.site/onboarding`}>
                   스토리 다시보기
                 </StyledLink>
               </Index>
@@ -194,7 +194,7 @@ const Sidebar = (props) => {
             <Li>
               <Img src="/assets/image/character/face_heart_white.png" />
               <Index>
-                <StyledLink href={`https://merry-christmas.site//snowball`}>
+                <StyledLink href={`https://merry-christmas.site/snowball`}>
                   스노우볼
                 </StyledLink>
               </Index>

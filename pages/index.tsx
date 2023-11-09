@@ -17,6 +17,7 @@ import { setBGM } from "../api/hooks/useStting";
 import { getLoggedMember } from "../api/hooks/useMember";
 import InformationModal from "../component/index/InformationModal";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
+import Seo from "../component/common/Seo";
 import { setCookie } from "cookies-next";
 import CopyModal from "../component/index/CopyModal";
 import { shareKakao } from "../component/share/ShareAPIButton";
@@ -228,7 +229,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   };
 
   const linkCopyHandler = async () => {
-    const copyURL = `https://merry-christmas.site//${myLink}`;
+    const copyURL = `https://merry-christmas.site/${myLink}`;
     console.log(copyURL);
     try {
       await navigator.clipboard.writeText(copyURL);
@@ -380,7 +381,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           </Flex>
           <Flex>
             <CopyModal
-              // link={`https://merry-christmas.site//${myLink}`}
+              // link={`https://merry-christmas.site/${myLink}`}
               link={`https://merry-christmas.site/`}
               show={copyModal}
               onHide={handleCopyModalClose}
@@ -456,22 +457,21 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   return (
     <div id="home">
       <MainFlex>
-        {/*<Seo title="Home" />*/}
         <NextSeo
           openGraph={{
             type: "website",
-            url: "https://merry-christmas.site//title",
+            url: "https://merry-christmas.site/title",
             title: "두근두근 어드벤트 캘린더 🎁",
             description: "크리스마스다! 두근두근 어드벤트 캘린더",
             images: [
               {
-                url: "https://merry-christmas.site//assets/image/onboarding/maintitle.png",
+                url: "https://merry-christmas.site/assets/image/og-img.png",
                 width: 280,
                 height: 280,
                 alt: "Og Image Alt 1",
               },
               {
-                url: "https://merry-christmas.site//assets/image/onboarding/maintitle.png",
+                url: "https://merry-christmas.site/assets/image/og-img.png",
                 width: 600,
                 height: 600,
                 alt: "Og Image Alt 2",

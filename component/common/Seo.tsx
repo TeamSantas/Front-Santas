@@ -45,12 +45,12 @@ export default function Seo({ title }) {
       />
       <meta
         property="twitter:image"
-        content="https://merry-christmas.site//assets/image/onboarding/maintitle.png"
+        content="https://merry-christmas.site/assets/image/onboarding/maintitle.png"
       />
       <meta property="twitter:creator" content="@teamsantaz_official" />
       <meta
         property="twitter:site"
-        content="https://merry-christmas.site//title"
+        content="https://merry-christmas.site/title"
       />
     </Head>
   );

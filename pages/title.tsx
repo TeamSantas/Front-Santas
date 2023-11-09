@@ -74,7 +74,7 @@ const Title = () => {
           내 캘린더 만들러가기
         </GoBtn>
       )}
-      <StoryLink href={`https://merry-christmas.site//onboarding`}>
+      <StoryLink href={`https://merry-christmas.site/onboarding`}>
         👉 스토리 보러가기
       </StoryLink>
     </Div>
