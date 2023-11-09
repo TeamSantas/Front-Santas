@@ -7,9 +7,9 @@ const ImageContainer = styled.div`
   padding-bottom: 100%;
   position: relative;
 `;
-const StyledImage = styled(NextImage)`
+const StyledImage = styled.img`
   position: absolute;
-  top: 50%;
+  /* top: 50%; */
   left: 0;
   width: 100%;
 `;
