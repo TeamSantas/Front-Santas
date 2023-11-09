@@ -58,8 +58,6 @@ export const Section = styled.div`
   @media (max-width: 400px) {
     width: 100%;
     max-width: unset;
-  }
-  @media (max-width: 300px) {
     font-size: 1rem;
   }
 `;
