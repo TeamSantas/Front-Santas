@@ -6,7 +6,7 @@ export const SeoNext = {
     url: "https://merry-christmas.site/upcoming",
     type: "website",
     title: "두근두근 어드벤트 캘린더 🎁",
-    description: "매일 한 조각씩 열어보는 크리스마스 캘린더",
+    description: "하루에 하나씩 열어보는 크리스마스 캘린더 🎄",
     images: [
       {
         url: "https://merry-christmas.site/assets/image/og-img.png",

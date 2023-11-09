@@ -36,6 +36,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
+        <Seo />
         <Head>
           <script
             async
