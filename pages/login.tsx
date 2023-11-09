@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
-import CustomModal from "../component/common/CustomModal";
+import CustomModal from "../components/common/CustomModal";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getCookie } from "../businesslogics/cookie";

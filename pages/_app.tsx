@@ -1,17 +1,17 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
-import Layout from "../component/layout/Layout";
+import Layout from "../components/layout/Layout";
 import { AppProps } from "next/app";
 import "../public/assets/fonts/font.css";
-import PushNotification from "../component/PushNotification";
+import PushNotification from "../components/PushNotification";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import * as ga from "../lib/gtag";
 import Store from "../store/Store";
 import { CookiesProvider } from "react-cookie";
-import Seo from "../component/common/Seo";
+import Seo from "../components/common/Seo";
 import { DefaultSeo, NextSeo } from "next-seo";
-import { SeoNext } from "../component/common/SeoNext";
+import { SeoNext } from "../components/common/SeoNext";
 import { getCookie, setCookie } from "cookies-next";
 declare global {
   interface Window {

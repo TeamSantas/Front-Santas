@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { removeCookie } from "../businesslogics/cookie";
 import { useRouter } from "next/router";
-import AdSense from "../component/adSense";
+import AdSense from "../components/adSense";
 
 const Container = styled(MainContainer)`
   text-align: center;

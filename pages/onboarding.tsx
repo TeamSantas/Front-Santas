@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Onboarding1 } from "../component/onboarding/Onboarding1";
-import { Onboarding2 } from "../component/onboarding/Onboarding2";
-import { Onboarding3 } from "../component/onboarding/Onboarding3";
-import { Onboarding4 } from "../component/onboarding/Onboarding4";
-import { Onboarding5 } from "../component/onboarding/Onboarding5";
+import { Onboarding1 } from "../components/onboarding/Onboarding1";
+import { Onboarding2 } from "../components/onboarding/Onboarding2";
+import { Onboarding3 } from "../components/onboarding/Onboarding3";
+import { Onboarding4 } from "../components/onboarding/Onboarding4";
+import { Onboarding5 } from "../components/onboarding/Onboarding5";
 import { setCookie } from "../businesslogics/cookie";
 
 const OnboardingContainer = styled.div`

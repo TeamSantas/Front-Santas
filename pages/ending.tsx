@@ -1,9 +1,9 @@
 import router from "next/router";
 import React from "react";
 import styled from "styled-components";
-import { RedBtn } from "../component/share/Share";
-import ViewAll from "../component/ending/ViewAll";
-import AdSense from "../component/adSense";
+import { RedBtn } from "../components/share/Share";
+import ViewAll from "../components/ending/ViewAll";
+import AdSense from "../components/adSense";
 
 function ending(props) {
   const pushToMyCalendar = () => {
@@ -13,7 +13,7 @@ function ending(props) {
   return (
     <SnowContainer>
       <EndingContainer>
-        <AdSense/>
+        <AdSense />
         <Page1>
           <Page1Left>
             <p style={{ color: "#3c6c54", margin: 0 }}>2022</p>

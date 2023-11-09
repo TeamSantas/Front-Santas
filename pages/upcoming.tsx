@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import PromotionLayout from "../component/layout/upcoming-layout";
-import Countdown from "../component/upcoming/countdown";
-import { Image } from "../component/common/Image";
+import PromotionLayout from "../components/layout/upcoming-layout";
+import Countdown from "../components/upcoming/countdown";
+import { Image } from "../components/common/Image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -9,7 +9,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import Link from "next/link";
-import Seo from "../component/common/Seo";
 
 const Div = styled.div`
   text-align: center;
@@ -81,7 +80,6 @@ const StyledLink = styled(Link)`
 const Promotion = () => {
   return (
     <>
-      <Seo />
       <Div>
         <Calendar src="/assets/image/upcoming/calendar.svg" alt="calendar" />
         <Section
