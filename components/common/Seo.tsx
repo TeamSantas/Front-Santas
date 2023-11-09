@@ -11,10 +11,7 @@ export default function Seo({ title = "두근두근 어드벤트 캘린더 🎁"
       <link rel="icon" href="/favicon.ico" />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://merry-christmas.site/" />
-      <meta
-        property="og:title"
-        content="[두어캘] 크리스마스 어드벤트 캘린더 🎁"
-      />
+      <meta property="og:title" content="두근두근 어드벤트 캘린더 🎁" />
       <meta
         property="og:image"
         content="https://merry-christmas.site/assets/image/og-img.png"
