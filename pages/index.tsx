@@ -248,7 +248,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     window.location.href = "/endingbridge";
   };
   // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
-  const ModelComponent = lazy(() => import("/component/index/SnowBallModel"));
+  const ModelComponent = lazy(() => import("/components/index/SnowBallModel"));
 
   // friends modal
   const [friendModalShow, setFriendModalShow] = useState(false);

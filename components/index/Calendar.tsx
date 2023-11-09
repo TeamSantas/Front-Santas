@@ -3,7 +3,7 @@ import PresentModal from "../receivedPresents/PresentModal";
 import { useEffect, useState } from "react";
 import CustomModal from "../common/CustomModal";
 import NumberOfReceivedPresents from "./NumberOfReceivedPresents";
-import {setGetNumberOfReceivedPresents} from "../../api/hooks/useGetNumberOfReceivedPresents";
+import { setGetNumberOfReceivedPresents } from "../../api/hooks/useGetNumberOfReceivedPresents";
 
 const CalendarWrapper = styled.div`
   // padding: 0 10px;
@@ -97,40 +97,41 @@ const Calendar = ({ ismycalendar, loggedId }) => {
   //   // console.log("선택한날>>>>>", selectedDayToCompare, "//", today,Number(selectedDayToCompare) <= Number(today));
   // }, [selectedday]);
 
-
-
   const handleClosePresentModal = () => setPresentModalShow(false);
   const handleCloseNotYetModal = () => setNotYeModalShow(false);
   const RenderMyCalendar = () => {
     const [receivePresentList, setReceivePresentList] = useState<any>([]);
 
     useEffect(() => {
-    //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
-      const getRecivedPresentList = async () =>{
-        if(loggedId!==null){
+      //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
+      const getRecivedPresentList = async () => {
+        if (loggedId !== null) {
           const res = await setGetNumberOfReceivedPresents(loggedId);
           setReceivePresentList(await res.data.data);
         }
-    }
+      };
       getRecivedPresentList();
-    },[])
+    }, []);
 
     return (
       <>
-        {days.map((day, idx) =>
-          // 
+        {days.map((day, idx) => (
+          //
           <div key={day.toString()}>
-            <NumberOfReceivedPresents day={day} receivedList={receivePresentList}/>
+            <NumberOfReceivedPresents
+              day={day}
+              receivedList={receivePresentList}
+            />
             <DayImage
-                src={`/assets/image/days/day${idx + 1}.svg`}
-                onClick={() => {
-                  handleShow(idx + 1);
-                }}
-                alt={`day${idx + 1}`}
-                key={day}
+              src={`/assets/image/days/day${idx + 1}.svg`}
+              onClick={() => {
+                handleShow(idx + 1);
+              }}
+              alt={`day${idx + 1}`}
+              key={day}
             />
           </div>
-        )}
+        ))}
       </>
     );
   };
@@ -138,7 +139,7 @@ const Calendar = ({ ismycalendar, loggedId }) => {
   const RenderFriendsCalendar = () => {
     return (
       <>
-        {days.map((day, idx) =>
+        {days.map((day, idx) => (
           <DayImage
             src={`/assets/image/days/day${idx + 1}.svg`}
             onClick={() => {
@@ -147,7 +148,7 @@ const Calendar = ({ ismycalendar, loggedId }) => {
             alt={`day${idx + 1}`}
             key={day}
           />
-        )}
+        ))}
       </>
     );
   };
@@ -180,10 +181,10 @@ const DenyAccess = () => {
   return (
     <LoadingContainer>
       <img src="/assets/image/character/face_crycry.png" width="222" />
-      <LoadingHeader>
-        "날짜가...지나지않아써...!"
-      </LoadingHeader>
-      <p>(해당 날짜가 되어야 선물을 열어볼 수 있습니다. 조금만 기다려주세요!)</p>
+      <LoadingHeader>&quot;날짜가...지나지않아써...!&quot;</LoadingHeader>
+      <p>
+        (해당 날짜가 되어야 선물을 열어볼 수 있습니다. 조금만 기다려주세요!)
+      </p>
     </LoadingContainer>
   );
 };

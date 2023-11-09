@@ -29,7 +29,9 @@ const PresentCardList = ({ selectedday }) => {
 
   useEffect(() => {
     const initReceivedPresentList = async () => {
-      const receiverId = await (await MemberService.getLoggedMember()).data.data.member.id;
+      const receiverId = await (
+        await MemberService.getLoggedMember()
+      ).data.data.member.id;
       const res = await setGetDayPresents(receiverId, receivedDay);
       // console.log("receivedPresentList >>> ", res.content)
       setReceivedPresentList(res.content);
@@ -56,10 +58,17 @@ const PresentCardList = ({ selectedday }) => {
         </TabFlex>
       ) : (
         <LoadingContainer>
-          <div style={{maxWidth: '18rem', margin: '0 auto'}}>
-            <img src="/assets/image/character/face_crycry.png" width="222" style={{display: 'block', margin: '0 auto', marginTop: '20px'}}/>
-            <LoadingHeader>"받은선물이...없써...!"</LoadingHeader>
-            <p>(아직 받은 선물이 없어요, 내 캘린더 링크를 공유해 친구에게 선물을 받아보는건 어떨까요?)</p>
+          <div style={{ maxWidth: "18rem", margin: "0 auto" }}>
+            <img
+              src="/assets/image/character/face_crycry.png"
+              width="222"
+              style={{ display: "block", margin: "0 auto", marginTop: "20px" }}
+            />
+            <LoadingHeader>&quot;받은선물이...없써...!&quot;</LoadingHeader>
+            <p>
+              (아직 받은 선물이 없어요, 내 캘린더 링크를 공유해 친구에게 선물을
+              받아보는건 어떨까요?)
+            </p>
           </div>
         </LoadingContainer>
       )}

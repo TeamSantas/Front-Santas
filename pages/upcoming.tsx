@@ -28,12 +28,6 @@ const Calendar = styled.img`
 const StyledSwiper = styled(Swiper)`
   max-width: 50%;
   padding-bottom: 50px;
-  .swiper-button-prev {
-    background-image: url(/assets/image/upcoming/prev.png);
-  }
-  .swiper-button-next {
-    background-image: url(/assets/image/upcoming/next.png);
-  }
   .swiper-button-prev,
   .swiper-button-next {
     color: white;
@@ -119,7 +113,7 @@ const Promotion = () => {
             <Image
               src={`/assets/image/upcoming/feature-${idx}.png`}
               alt={`feature${idx}`}
-              fill
+              // fill
             />
           </SwiperSlide>
         ))}
