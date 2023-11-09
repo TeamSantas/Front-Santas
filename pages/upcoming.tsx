@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import PromotionLayout from "../component/layout/upcoming-layout";
 import Countdown from "../component/upcoming/countdown";
+import { Image } from "../component/common/Image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
-import Image from "next/image";
 import Link from "next/link";
 
 const Div = styled.div`
@@ -26,7 +26,7 @@ const Calendar = styled.img`
 `;
 
 const StyledSwiper = styled(Swiper)`
-  height: 70vh;
+  max-width: 50%;
   padding-bottom: 50px;
   .swiper-button-prev {
     background-image: url(/assets/image/upcoming/prev.png);
@@ -41,6 +41,10 @@ const StyledSwiper = styled(Swiper)`
     @media (max-width: 400px) {
       padding: 10px;
     }
+  }
+
+  @media (max-width: 786px) {
+    max-width: unset;
   }
 `;
 
@@ -58,12 +62,6 @@ const Section = styled.div`
     width: 100%;
     max-width: unset;
   }
-`;
-
-const StyledImage = styled(Image)`
-  height: 100%;
-  margin: 0 auto;
-  max-width: 600px;
 `;
 const ButtonWrapper = styled.div`
   height: 50px;
@@ -118,8 +116,8 @@ const Promotion = () => {
       >
         {[1, 2, 3, 4, 5].map((idx) => (
           <SwiperSlide key={idx}>
-            <StyledImage
-              src={`/assets/image/upcoming/feature${idx}.svg`}
+            <Image
+              src={`/assets/image/upcoming/feature${idx}.png`}
               alt={`feature${idx}`}
               fill
             />
