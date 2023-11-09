@@ -37,10 +37,14 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <Seo />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          />
+          {/*네이버 검색엔진 등록*/}
+          <meta
+            name="naver-site-verification"
+            content="09946e86a7ef8d94f057b0f634f96410720f566c"
           />
           {/*구글 애드센스(광고) 등록*/}
           <meta

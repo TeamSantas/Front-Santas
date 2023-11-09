@@ -10,8 +10,8 @@ export const SeoNext = {
     images: [
       {
         url: "https://merry-christmas.site/assets/image/og-img.png",
-        width: 1304,
-        height: 1306,
+        width: 1200,
+        height: 630,
         alt: "캘린더 이미지",
       },
     ],

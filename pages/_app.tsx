@@ -10,6 +10,8 @@ import * as ga from "../lib/gtag";
 import Store from "../store/Store";
 import { CookiesProvider } from "react-cookie";
 import { getCookie, setCookie } from "cookies-next";
+import { DefaultSeo } from "next-seo";
+import { SeoNext } from "../components/common/SeoNext";
 declare global {
   interface Window {
     Kakao: any;
@@ -48,6 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <CookiesProvider>
       <Store>
         <PushNotification />
+        <DefaultSeo {...SeoNext} />
         {getLayout(<Component {...pageProps} />)}
       </Store>
     </CookiesProvider>
