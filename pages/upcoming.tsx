@@ -55,7 +55,12 @@ export const Section = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 400px) {
+  @media (max-width: 420px) {
+    width: 100%;
+    max-width: unset;
+    font-size: 1.4rem;
+  }
+  @media (max-width: 330px) {
     width: 100%;
     max-width: unset;
     font-size: 1rem;
