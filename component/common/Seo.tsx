@@ -16,7 +16,7 @@ export default function Seo({ title = "두근두근 어드벤트 캘린더 🎁"
         content="09946e86a7ef8d94f057b0f634f96410720f566c"
       />
       {/*웹에 설정해줘야하는 og 메타태그*/}
-      <link rel="icon" href="/assets/image/favicon.ico" />
+      <link rel="icon" href="/favicon.ico" />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://merry-christmas.site/" />
       <meta property="og:title" content="다함께 크리스마스 즐기기✨" />
