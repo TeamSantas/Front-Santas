@@ -59,6 +59,9 @@ export const Section = styled.div`
     width: 100%;
     max-width: unset;
   }
+  @media (max-width: 300px) {
+    font-size: 1rem;
+  }
 `;
 const ButtonWrapper = styled.div`
   height: 50px;
@@ -133,7 +136,7 @@ const Promotion = () => {
           href={"https://forms.gle/nDu352ZzcwwhLXsK8"}
           target="_blank"
         >
-          ⏰ 출시 알람 신청하기 ⏰
+          ⏰ 오픈 알림 신청하기 ⏰
         </StyledLink>
       </ButtonWrapper>
       <StyledSwiper
