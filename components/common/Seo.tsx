@@ -13,7 +13,7 @@ export default function Seo({ title = "두근두근 어드벤트 캘린더 🎁"
       <meta property="og:url" content="https://merry-christmas.site/" />
       <meta
         property="og:title"
-        content="두근두근 어드벤트 캘린더 🎁 (ver.2023)"
+        content="[두어캘] 크리스마스 어드벤트 캘린더 🎁"
       />
       <meta
         property="og:image"
@@ -21,7 +21,7 @@ export default function Seo({ title = "두근두근 어드벤트 캘린더 🎁"
       />
       <meta
         property="og:description"
-        content="하루에 하나씩 열어보는 크리스마스 캘린더 🎄"
+        content="하루에 하나씩 열어보며 기다려요. 🎄"
       />
       <meta property="og:site_name" content="두근두근 어드벤트 캘린더 🎁" />
       <meta property="og:locale" content="ko_KR" />
