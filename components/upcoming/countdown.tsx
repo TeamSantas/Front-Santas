@@ -8,6 +8,10 @@ const Wrapper = styled.div`
   background-color: #5b93bc;
   color: white;
   padding: 20px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 const Counter = styled.div`
   display: flex;

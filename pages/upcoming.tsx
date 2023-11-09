@@ -119,7 +119,7 @@ const Promotion = () => {
       <Section background={"#F9F9F9"} height={"10vh"} margin={"-10vh 0 0 0"} />
       <Section
         background={"#F9F9F9"}
-        height={"20vh"}
+        height={"250px"}
         fontSize={"1.5rem"}
         color={"#1E344F"}
         padding={"20px 0"}
