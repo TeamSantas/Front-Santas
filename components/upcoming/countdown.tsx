@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import AnimatedNumber from "react-awesome-animated-number";
 import "react-awesome-animated-number/dist/index.css";
 import styled from "styled-components";
+import { Section } from "../../pages/upcoming";
 
 const Wrapper = styled.div`
   background-color: #5b93bc;
@@ -69,7 +70,7 @@ const Countdown = () => {
             minDigits={2}
             background={"#1c3249"}
           />
-          <SmallText>days</SmallText>
+          <SmallText>일</SmallText>
         </div>
         <div>
           <SquareBox
@@ -78,7 +79,7 @@ const Countdown = () => {
             minDigits={2}
             background={"#1c3249"}
           />
-          <SmallText>hours</SmallText>
+          <SmallText>시간</SmallText>
         </div>
         <div>
           <SquareBox
@@ -87,13 +88,22 @@ const Countdown = () => {
             minDigits={2}
             background={"#1c3249"}
           />
-          <SmallText>minutes</SmallText>
+          <SmallText>분</SmallText>
         </div>
         <div>
           <SquareBox size={40} value={seconds} minDigits={2} border={"white"} />
-          <SmallText>seconds</SmallText>
+          <SmallText>초</SmallText>
         </div>
       </Counter>
+      <Section
+        fontSize={"1.7rem"}
+        color={"#1E344F"}
+        textShadow={
+          "0 0 12px #fff, 0 0 2px #fff, 0 0 12px #fff, 0 0 2px #0072ff, 0 0 8px #0251b1, 0 0 22px #62c1db, 0 0 22px #4eccff, 0 0 10px #69ebff"
+        }
+      >
+        후에 특별한 캘린더로 초대할게요!
+      </Section>
     </Wrapper>
   );
 };

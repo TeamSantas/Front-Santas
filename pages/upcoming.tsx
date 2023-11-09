@@ -42,7 +42,7 @@ const StyledSwiper = styled(Swiper)`
   }
 `;
 
-const Section = styled.div`
+export const Section = styled.div`
   margin: 0 auto;
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
@@ -51,6 +51,9 @@ const Section = styled.div`
   background-color: ${(props) => props.background};
   font-size: ${(props) => props.fontSize};
   text-shadow: ${(props) => props.textShadow};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 400px) {
     width: 100%;
@@ -110,14 +113,19 @@ const Promotion = () => {
       <Section background={"#F9F9F9"} height={"10vh"} margin={"-10vh 0 0 0"} />
       <Section
         background={"#F9F9F9"}
-        fontSize={"1.7rem"}
+        height={"20vh"}
+        fontSize={"1.5rem"}
         color={"#1E344F"}
         padding={"20px 0"}
         textShadow={
-          "0 0 12px #fff, 0 0 2px #fff, 0 0 12px #fff, 0 0 2px #0072ff, 0 0 8px #0251b1, 0 0 22px #62c1db, 0 0 22px #4eccff, 0 0 10px #69ebff"
+          "0 0 12px #fff, 0 0 2px #fff, 0 0 12px #fff, 0 0 2px #00fff7, 0 0 8px #0251b1, 0 0 22px #62c1db, 0 0 22px #4eccff, 0 0 10px #69ebff"
         }
       >
-        12월 1일에 만나요!
+        하루 한 개의 날짜 조각을 열어보며
+        <br />
+        크리스마스를 기다려요.
+        <br />
+        🦌🛷🎁🎅💨 ✨🎄💓
       </Section>
       <Countdown />
       <ButtonWrapper>
