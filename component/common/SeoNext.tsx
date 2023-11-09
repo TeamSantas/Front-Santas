@@ -10,7 +10,7 @@ export const SeoNext = {
     site_name: "두근두근 어드벤트 캘린더 🎁",
     images: [
       {
-        url: "https://merry-christmas.site/assets/image/onboarding/maintitle.png",
+        url: "https://merry-christmas.site/assets/image/og-img.png",
         width: 285,
         height: 167,
         alt: "이미지",

@@ -22,7 +22,7 @@ export default function Seo({ title }) {
       <meta property="og:title" content="다함께 크리스마스 즐기기✨" />
       <meta
         property="og:image"
-        content="https://merry-christmas.site/assets/image/onboarding/maintitle.png"
+        content="https://merry-christmas.site/assets/image/og-img.png"
       />
       <meta
         property="og:description"
@@ -45,7 +45,7 @@ export default function Seo({ title }) {
       />
       <meta
         property="twitter:image"
-        content="https://merry-christmas.site/assets/image/onboarding/maintitle.png"
+        content="https://merry-christmas.site/assets/image/og-img.png"
       />
       <meta property="twitter:creator" content="@teamsantaz_official" />
       <meta
