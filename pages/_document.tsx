@@ -1,5 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
+import Seo from "../components/common/Seo";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -36,12 +37,16 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <Seo />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
           />
-            {/*구글 애드센스(광고) 등록*/}
-           <meta name="google-adsense-account" content="ca-pub-3291465451494000"/>
+          {/*구글 애드센스(광고) 등록*/}
+          <meta
+            name="google-adsense-account"
+            content="ca-pub-3291465451494000"
+          />
           <script
             dangerouslySetInnerHTML={{
               __html: `

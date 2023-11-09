@@ -9,9 +9,6 @@ import { useRouter } from "next/router";
 import * as ga from "../lib/gtag";
 import Store from "../store/Store";
 import { CookiesProvider } from "react-cookie";
-import Seo from "../components/common/Seo";
-import { DefaultSeo, NextSeo } from "next-seo";
-import { SeoNext } from "../components/common/SeoNext";
 import { getCookie, setCookie } from "cookies-next";
 declare global {
   interface Window {
@@ -51,7 +48,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <CookiesProvider>
       <Store>
         <PushNotification />
-        <DefaultSeo {...SeoNext} />
         {getLayout(<Component {...pageProps} />)}
       </Store>
     </CookiesProvider>

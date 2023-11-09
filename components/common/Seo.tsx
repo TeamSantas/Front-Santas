@@ -1,15 +1,11 @@
-import Head from "next/head";
-
 export default function Seo({ title = "두근두근 어드벤트 캘린더 🎁" }) {
   return (
-    <Head>
+    <>
       <title>{title}</title>
       <meta
         name="description"
         content="크리스마스다! 두근두근 어드벤트 캘린더"
       />
-      {/*구글 애드센스(광고) 등록*/}
-      <meta name="google-adsense-account" content="ca-pub-3291465451494000" />
       {/*네이버 검색엔진 등록*/}
       <meta
         name="naver-site-verification"
@@ -52,6 +48,6 @@ export default function Seo({ title = "두근두근 어드벤트 캘린더 🎁"
         property="twitter:site"
         content="https://merry-christmas.site/title"
       />
-    </Head>
+    </>
   );
 }
