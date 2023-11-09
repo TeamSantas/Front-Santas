@@ -117,7 +117,7 @@ const Promotion = () => {
         {[1, 2, 3, 4, 5].map((idx) => (
           <SwiperSlide key={idx}>
             <Image
-              src={`/assets/image/upcoming/feature${idx}.png`}
+              src={`/assets/image/upcoming/feature-${idx}.png`}
               alt={`feature${idx}`}
               fill
             />
