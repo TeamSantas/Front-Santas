@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import Link from "next/link";
+import Seo from "../component/common/Seo";
 
 const Div = styled.div`
   text-align: center;
@@ -79,52 +80,59 @@ const StyledLink = styled(Link)`
 
 const Promotion = () => {
   return (
-    <Div>
-      <Calendar src="/assets/image/upcoming/calendar.svg" alt="calendar" />
-      <Section background={"#F9F9F9"} height={"10vh"} margin={"-10vh 0 0 0"} />
-      <Section
-        background={"#F9F9F9"}
-        fontSize={"1.7rem"}
-        color={"#1E344F"}
-        padding={"20px 0"}
-        textShadow={
-          "0 0 12px #fff, 0 0 2px #fff, 0 0 12px #fff, 0 0 2px #0072ff, 0 0 8px #0251b1, 0 0 22px #62c1db, 0 0 22px #4eccff, 0 0 10px #69ebff"
-        }
-      >
-        12월 1일에 만나요!
-      </Section>
-      <Countdown />
-      <ButtonWrapper>
-        <StyledLink
-          href={"https://forms.gle/nDu352ZzcwwhLXsK8"}
-          target="_blank"
+    <>
+      <Seo />
+      <Div>
+        <Calendar src="/assets/image/upcoming/calendar.svg" alt="calendar" />
+        <Section
+          background={"#F9F9F9"}
+          height={"10vh"}
+          margin={"-10vh 0 0 0"}
+        />
+        <Section
+          background={"#F9F9F9"}
+          fontSize={"1.7rem"}
+          color={"#1E344F"}
+          padding={"20px 0"}
+          textShadow={
+            "0 0 12px #fff, 0 0 2px #fff, 0 0 12px #fff, 0 0 2px #0072ff, 0 0 8px #0251b1, 0 0 22px #62c1db, 0 0 22px #4eccff, 0 0 10px #69ebff"
+          }
         >
-          ⏰ 출시 알람 신청하기 ⏰
-        </StyledLink>
-      </ButtonWrapper>
-      <StyledSwiper
-        modules={[EffectFade, Navigation, Pagination]}
-        navigation
-        pagination={{
-          clickable: true,
-        }}
-        effect={"fade"}
-        spaceBetween={50}
-        slidesPerView={1}
-        onClickNext={(swiper) => swiper.next()}
-        loop
-      >
-        {[1, 2, 3, 4, 5].map((idx) => (
-          <SwiperSlide key={idx}>
-            <Image
-              src={`/assets/image/upcoming/feature-${idx}.png`}
-              alt={`feature${idx}`}
-              fill
-            />
-          </SwiperSlide>
-        ))}
-      </StyledSwiper>
-    </Div>
+          12월 1일에 만나요!
+        </Section>
+        <Countdown />
+        <ButtonWrapper>
+          <StyledLink
+            href={"https://forms.gle/nDu352ZzcwwhLXsK8"}
+            target="_blank"
+          >
+            ⏰ 출시 알람 신청하기 ⏰
+          </StyledLink>
+        </ButtonWrapper>
+        <StyledSwiper
+          modules={[EffectFade, Navigation, Pagination]}
+          navigation
+          pagination={{
+            clickable: true,
+          }}
+          effect={"fade"}
+          spaceBetween={50}
+          slidesPerView={1}
+          onClickNext={(swiper) => swiper.next()}
+          loop
+        >
+          {[1, 2, 3, 4, 5].map((idx) => (
+            <SwiperSlide key={idx}>
+              <Image
+                src={`/assets/image/upcoming/feature-${idx}.png`}
+                alt={`feature${idx}`}
+                fill
+              />
+            </SwiperSlide>
+          ))}
+        </StyledSwiper>
+      </Div>
+    </>
   );
 };
 
