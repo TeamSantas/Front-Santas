@@ -10,8 +10,7 @@ import * as ga from "../lib/gtag";
 import Store from "../store/Store";
 import { CookiesProvider } from "react-cookie";
 import { getCookie, setCookie } from "cookies-next";
-import { DefaultSeo } from "next-seo";
-import Seo from "../components/common/Seo";
+
 declare global {
   interface Window {
     Kakao: any;
