@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import Snow from "./Snow";
 import Banner from "../common/Banner";
+import { checkDuration, endingBannerStartDate } from "../utils/checkDuration";
 
 const MainWrapper = styled.div`
   background-color: #181c23;
@@ -27,15 +28,17 @@ const UpperWrapper = styled.div`
 `;
 
 const Layout = ({ children }) => {
+  const showEndingBanner = checkDuration({ startDate: endingBannerStartDate });
   useEffect(() => {
     if (window.Kakao.isInitialized()) {
       window.Kakao.cleanup();
     }
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_JS_KEY);
   }, []);
+
   return (
     <>
-      <Banner />
+      {showEndingBanner && <Banner />}
       <MainWrapper>
         <Header />
         <UpperWrapper>{children}</UpperWrapper>
