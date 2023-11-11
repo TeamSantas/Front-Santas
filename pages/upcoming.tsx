@@ -159,7 +159,6 @@ const Promotion = () => {
             <Image
               src={`/assets/image/upcoming/feature-${idx}.png`}
               alt={`feature${idx}`}
-              fill
             />
           </SwiperSlide>
         ))}

@@ -17,7 +17,7 @@ const StyledImage = styled(NextImage)`
 export const Image = (props) => {
   return (
     <ImageContainer>
-      <StyledImage {...props} />
+      <StyledImage {...props} fill />
     </ImageContainer>
   );
 };
