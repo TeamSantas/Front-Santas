@@ -33,6 +33,7 @@ const SquareBox = styled(AnimatedNumber)`
 `;
 const SmallText = styled.div`
   font-size: 1rem;
+  font-family: "KCC-Ganpan", KCC-Ganpan, serif;
 `;
 
 const Countdown = () => {
