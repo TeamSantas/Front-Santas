@@ -31,6 +31,27 @@
 }
 
 @font-face {
+  /* 1) 가장 두꺼움 */
+  font-family: "NanumSquareNeoOTF-Hv";
+  src: url("./NanumSquareNeo/NanumSquareNeoOTF-Hv.otf") format("woff2"),
+  url("./NanumSquareNeo/NanumSquareNeoOTF-Hv.otf") format("woff"),
+  url("./NanumSquareNeo/NanumSquareNeoOTF-Hv.otf") format("truetype");
+}
+@font-face {
+  /* 2) 두번째로 두꺼움 */
+  font-family: "NanumSquareNeoOTF-Bd";
+  src: url("./NanumSquareNeo/NanumSquareNeoOTF-Bd.otf") format("woff2"),
+  url("./NanumSquareNeo/NanumSquareNeoOTF-Bd.otf") format("woff"),
+  url("./NanumSquareNeo/NanumSquareNeoOTF-Bd.otf") format("truetype");
+}
+@font-face {
+  /* 5) 얇음 */
+  font-family: "NanumSquareNeoOTF-Lt";
+  src: url("./NanumSquareNeo/NanumSquareNeoOTF-Lt.otf") format("woff2"),
+  url("./NanumSquareNeo/NanumSquareNeoOTF-Lt.otf") format("woff"),
+  url("./NanumSquareNeo/NanumSquareNeoOTF-Lt.otf") format("truetype");
+}
+@font-face {
   font-family: "KCC-Ganpan";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCC-Ganpan.woff2")
     format("woff2");

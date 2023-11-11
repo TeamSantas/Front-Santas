@@ -17,7 +17,9 @@ const CenteredModalFooter = styled.div`
   padding-bottom: 1rem;
 `;
 
-
+const Title = styled.div`
+  font-family: "NanumSquareNeoOTF-Hv", KCC-Ganpan, serif;
+`;
 
 const FriendsModal = (props) => {
   const [friendsData, setFriendsData] = useState<any>([]);
@@ -67,7 +69,7 @@ const FriendsModal = (props) => {
       centered
     >
       <CustomHeader>
-        <Modal.Title id="contained-modal-title-vcenter">친구 목록</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter"><Title>친구 목록</Title></Modal.Title>
         <GreenCloseButton onClick={props.onHide} />
       </CustomHeader>
       <CustomBody>
@@ -87,7 +89,7 @@ const FriendsModal = (props) => {
               alert("친구목록은 10분에 한번 갱신됩니다. 10분 뒤 다시 시도해주세요🎁");
             }}
           >
-            친구목록 새로고침
+            친구 목록 새로고침  <img src={'/assets/image/icons/loading.svg'}/>
           </UpdateBtn>
           {/*<UpdateBtn*/}
           {/*  onClick={() => {*/}
@@ -109,9 +111,11 @@ const ButtonFlex = styled(Flex)`
 `;
 
 const UpdateBtn = styled(Button)`
-  background-color: #8d362d;
-  border-color: #8d362d;
-
+  background-color: #2C6B51;
+  border-color: #2C6B51;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radiçus: 13px;
   &:hover {
     background-color: #3C6C54;
     border-color: #3C6C54;
