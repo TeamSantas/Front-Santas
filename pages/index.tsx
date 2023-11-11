@@ -21,7 +21,6 @@ import Seo from "../components/common/Seo";
 import { setCookie } from "cookies-next";
 import CopyModal from "../components/index/CopyModal";
 import { shareKakao } from "../components/share/ShareAPIButton";
-import { NextSeo } from "next-seo";
 
 const MainIcons = styled(Icons)`
   height: 35px;
