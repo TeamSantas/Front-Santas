@@ -11,6 +11,14 @@ const nextConfig = {
       },
     removeConsole: process.env.NODE_ENV === "production",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'merry-christmas.site',
+      },
+    ],
+  },
 };
 module.exports = nextConfig;
 
