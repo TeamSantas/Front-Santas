@@ -138,33 +138,17 @@ const InfoText = styled.p`
     font-size: 15px;
   }
 `;
-const BottomCopyLinkLeft = styled(Icons)`
+const ShareBtn = styled(Icons)`
   width: 35rem;
   height: 72px;
   font-size: 30px;
   font-weight: bold;
   margin-top: 24px;
   margin-bottom: 5px;
-  background: linear-gradient(
-    45deg,
-    #ac473d 25%,
-    #c0544a 0,
-    #c0544a 50%,
-    #ac473d 0,
-    #ac473d 75%,
-    #c0544a 0
-  );
+  background: #275085;
   &:hover {
     color: white;
-    background: linear-gradient(
-      45deg,
-      #3c6c54 25%,
-      #78ab91 0,
-      #78ab91 50%,
-      #3c6c54 0,
-      #3c6c54 75%,
-      #78ab91 0
-    );
+    background: #1a3a65;
   }
   border-radius: 12px;
   margin-right: 5px;
@@ -177,32 +161,6 @@ const BottomCopyLinkLeft = styled(Icons)`
     font-size: 22px;
   }
 `;
-const BottomCopyLinkRight = styled(BottomCopyLinkLeft)`
-  margin-left: 5px;
-  margin-right: 0px;
-  background: linear-gradient(
-    45deg,
-    #ac473d 25%,
-    #c0544a 0,
-    #c0544a 50%,
-    #ac473d 0,
-    #ac473d 75%,
-    #c0544a 0
-  );
-  &:hover {
-    color: white;
-    background: linear-gradient(
-      45deg,
-      #3c6c54 25%,
-      #78ab91 0,
-      #78ab91 50%,
-      #3c6c54 0,
-      #3c6c54 75%,
-      #78ab91 0
-    );
-  }
-`;
-
 const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
@@ -404,14 +362,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           </Flex>
         </ButtonFlex>
         <EndingShareBtnFlex>
-          <BottomCopyLinkLeft onClick={goEndingHandler}>
-            엔딩 다시보기
-          </BottomCopyLinkLeft>
-          <BottomCopyLinkRight onClick={linkCopyHandler}>
-            링크 공유하기
-          </BottomCopyLinkRight>
+          <ShareBtn>캘린더 공유하기</ShareBtn>
         </EndingShareBtnFlex>
-
         {/* <Share loggedId={loggedMemberId} /> */}
       </>
     );
@@ -458,13 +410,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       <MainFlex>
         <MainContainer>
           <br />
-          <h2>
-            <Span>{myName}의 캘린더</Span>
-          </h2>
-          <InfoText>
-            날짜조각을 클릭해 기프티콘, 짤, 응원의 메세지등을 보내보세요!
-          </InfoText>
-          <InfoText>* 내 캘린더 링크를 공유해 쪽지를 받을 수 있어요 *</InfoText>
           {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}

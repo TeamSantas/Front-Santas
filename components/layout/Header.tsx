@@ -6,18 +6,17 @@ import Sidebar from "../mypage/Sidebar";
 import {getTodayPresentCount} from "../../api/hooks/useGetPresentDetail";
 
 const Logo = styled.button`
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 50px auto 0px auto;
   background: none;
-  background-image: url("/assets/image/Logo.svg");
+  background-image: url("/asset_ver2/image/title_long_logo.svg");
   background-repeat: no-repeat;
-  width: 120px;
-  height: 40px;
+  width: 500px;
+  height: 90px;
   border: none;
-  margin-left: 20px;
   z-index: 5;
   @media (max-width: 600px) {
-    margin-left: 0;
+    width: 359px;
+    height: 65px;
   }
 `;
 
@@ -107,23 +106,21 @@ const Header = () => {
                 router.push("/");
                 menuOffHandler();
               }}
-            ></Logo>
-            {currPath === "mypage" ? (
-              <Menu
-                src="/assets/image/icons/menu-icon.svg"
-                onClick={menuHandler}
-              />
-            ) : (
-              <MyPage
-                onClick={() => {
-                  router.push("/mypage");
-                }}
-              />
-            )}
+            />
+            {/*{currPath === "mypage" ? (*/}
+            {/*  <Menu*/}
+            {/*    src="/assets/image/icons/menu-icon.svg"*/}
+            {/*    onClick={menuHandler}*/}
+            {/*  />*/}
+            {/*) : (*/}
+            {/*  <MyPage*/}
+            {/*    onClick={() => {*/}
+            {/*      router.push("/mypage");*/}
+            {/*    }}*/}
+            {/*  />*/}
+            {/*)}*/}
           </Flex>
           {menuOnOff ? <Sidebar menu={menuHandler} menuCloser={menuOffHandler}/> : null}
-          <Text>🎄 오늘까지 전달된 선물 수 : {todayCount}개 🎄</Text>
-          <Text2>두어캘은 19일에 서비스가 종료되어 모든 데이터가 삭제됩니다. 종료 전 간직하고 싶은 쪽지, 선물을 따로 저장해주세요!</Text2>
         </>
       )}
     </>
