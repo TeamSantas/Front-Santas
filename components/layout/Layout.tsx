@@ -35,7 +35,8 @@ const Layout = ({ children }) => {
   }, []);
   return (
     <>
-      <Banner />
+      {/*서비스 종료시 띄우기*/}
+      {/*<Banner />*/}
       <MainWrapper>
         <Header />
         <UpperWrapper>{children}</UpperWrapper>
