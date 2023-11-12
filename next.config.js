@@ -1,4 +1,3 @@
-const imageLoader = require("./components/common/ImageLoader");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -14,7 +13,7 @@ const nextConfig = {
   },
   images: {
     loader: "custom",
-    loaderFile: imageLoader(),
+    loaderFile: "./components/common/ImageLoader.ts"
   },
 };
 module.exports = nextConfig;
