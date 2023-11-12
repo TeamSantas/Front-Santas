@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import Link from "next/link";
+import imageLoader from "../components/common/ImageLoader";
 
 const Div = styled.div`
   text-align: center;
@@ -116,6 +117,7 @@ const Promotion = () => {
 
 
   `);
+
   return (
     <Div>
       <Calendar src="/assets/image/upcoming/calendar.svg" alt="calendar" />
@@ -162,6 +164,7 @@ const Promotion = () => {
             <SquareImage
               src={`/assets/image/upcoming/feature-${idx}.png`}
               alt={`feature${idx}`}
+              loader={imageLoader}
             />
           </SwiperSlide>
         ))}
