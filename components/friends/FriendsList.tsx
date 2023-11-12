@@ -10,8 +10,9 @@ export const AlignedFlex = styled(Flex)`
 `;
 
 const GoFriendsCalendarBtn = styled(Button)`
-  background-color: #8d362d;
-  border-color: #8d362d;
+  background-color: #D84D23;
+  border-color: #D84D23;
+  border-radius: 13px;
   @media (max-width: 600px) {
     font-size: small;
   }
@@ -23,9 +24,9 @@ const GoFriendsCalendarBtn = styled(Button)`
 
 const FriendsName = styled.div`
   margin-left: 5px;
-  font-size: normal;
+  font-size: 21px;
   @media (max-width: 600px) {
-    font-size: smaller;
+    font-size: 17px;
   }
   @media (max-width: 300px) {
     max-width: 40px;
@@ -40,7 +41,7 @@ const FriendCard = styled.div`
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 10px;
-  background: #3c6c54;
+  background: #1C3249;
   border-radius: 12px;
   z-index: 5;
   color: white;
@@ -77,8 +78,9 @@ const Img = styled.img`
   border-radius: 50px;
 `;
 const Text = styled.h5`
-  margin: 15px 5px;
+  margin: 15px auto;
   text-align: center;
+  font-family: "NanumSquareNeoOTF-Lt", KCC-Ganpan, serif;
 `;
 const FriendsList = () => {
   const router = useRouter();
@@ -89,8 +91,25 @@ const FriendsList = () => {
     let res = [];
     setIsLoading(true);
     try {
-      const res = await setGetFriend();
-      if (res.data.data) setFriendsData(res.data.data);
+      //TODO: 디비 연결되면 밑에 목데이터 지우고 이 코드 살리기
+      // const res = await setGetFriend();
+      // if (res.data.data) setFriendsData(res.data.data);
+      //----
+      const tmpFriendsData = [{
+        profileImgUrl: '이미지 URL',
+        name: '정소연',
+        invitationLink: '초대 링크',
+        isFavorite: true // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
+      },
+        {
+          profileImgUrl: '이미지 URL',
+          name: '박수연',
+          invitationLink: '초대 링크',
+          isFavorite: true // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
+        }];
+      setFriendsData(tmpFriendsData);
+      //---
+
     } catch (e) {
       console.log(e);
     }
@@ -114,7 +133,7 @@ const FriendsList = () => {
       <>
         <AlignedFlex>
           <Img
-            src={props.profileImgUrl.includes("http") ? props.profileImgUrl : "/assets/image/character/face_smile.png"}
+            src={props.profileImgUrl.includes("http") ? props.profileImgUrl : "/assets/image/character/character.svg"}
           />
           <FriendsName>{props.name}</FriendsName>
         </AlignedFlex>
@@ -129,8 +148,7 @@ const FriendsList = () => {
   return (
     <Container>
       <Flex>
-        <Text>📜서비스에 가입한 친구목록만 나와요 </Text>
-        <Text>({friendsData.length}명)</Text>
+        <Text>서비스에 가입한 친구 목록이에요. </Text>
       </Flex>
       {!isLoading && friendsData.length < 1 ? (
         <LoadingContainer>

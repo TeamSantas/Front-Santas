@@ -22,7 +22,7 @@ a:active {
 
 * {
   box-sizing: border-box;
-  font-family: "KCC-Ganpan", KCC-Ganpan;
+  font-family: "NanumSquareNeoOTF-Rg", KCC-Ganpan, serif;
   white-space: pre-wrap;
 }
 ul {

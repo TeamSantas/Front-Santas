@@ -9,6 +9,7 @@ const Wrapper = styled.div`
 `;
 const P = styled.p`
   font-size: ${(props) => props.fontSize};
+  font-family: "KCC-Ganpan", KCC-Ganpan, serif;
 `;
 const Flex = styled.div`
   display: flex;
@@ -18,11 +19,15 @@ const Mail = styled(Link)`
   text-decoration: none;
   color: #999;
   font-size: 0.7rem;
+  font-family: "KCC-Ganpan", KCC-Ganpan, serif;
+`;
+const Team = styled.div`
+  font-family: "KCC-Ganpan", KCC-Ganpan, serif;
 `;
 const Footer = () => {
   return (
     <Wrapper>
-      <div>TeamSantaz</div>
+      <Team>TeamSantaz</Team>
       <hr />
       <Flex>
         {/* <Link

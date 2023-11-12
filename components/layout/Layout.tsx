@@ -5,7 +5,7 @@ import Snow from "./Snow";
 import Banner from "../common/Banner";
 
 const MainWrapper = styled.div`
-  background-color: #181c23;
+  background-color: #1E344F;
   padding: 22px;
   height: 100vh;
   margin: 0 auto;
