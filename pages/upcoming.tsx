@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PromotionLayout from "../components/layout/upcoming-layout";
 import Countdown from "../components/upcoming/countdown";
-import { Image } from "../components/common/Image";
+import { SquareImage } from "../components/common/Image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -156,10 +156,9 @@ const Promotion = () => {
       >
         {[1, 2, 3, 4, 5].map((idx) => (
           <SwiperSlide key={idx}>
-            <Image
+            <SquareImage
               src={`/assets/image/upcoming/feature-${idx}.png`}
               alt={`feature${idx}`}
-              // fill
             />
           </SwiperSlide>
         ))}
