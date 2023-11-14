@@ -5,18 +5,15 @@ import {useEffect, useState} from "react";
 import Sidebar from "../mypage/Sidebar";
 import {getTodayPresentCount} from "../../api/hooks/useGetPresentDetail";
 
-const Logo = styled.button`
-  margin: 50px auto 0px auto;
-  background: none;
-  background-image: url("/asset_ver2/image/title_long_logo.svg");
-  background-repeat: no-repeat;
-  width: 500px;
-  height: 90px;
+const Logo = styled.img`
+  margin: 30px auto 0px auto;
+  width: 60vw;
+  max-width: 800px;
+  height: auto;
   border: none;
   z-index: 5;
   @media (max-width: 600px) {
     width: 359px;
-    height: 65px;
   }
 `;
 
@@ -46,25 +43,6 @@ const Menu = styled.img`
     width: 30px;
     height: 30px;
     margin-right: 0;
-  }
-`;
-
-const Text = styled.p`
-  color: white;
-  font-size: 25px;
-  margin: 0 auto;
-  text-align: center;
-  @media (max-width: 600px) {
-    margin: 0;
-    font-size: 15px;
-  }
-`;
-
-const Text2 = styled(Text)`
-  font-size: 14px;
-  @media (max-width: 600px) {
-    margin: 0;
-    font-size: 12px;
   }
 `;
 
@@ -101,7 +79,7 @@ const Header = () => {
         currPath === "title" ? <></> : (
         <>
           <Flex>
-            <Logo
+            <Logo src={`/asset_ver2/image/title_long_logo.png`}
               onClick={() => {
                 router.push("/");
                 menuOffHandler();

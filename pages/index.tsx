@@ -121,22 +121,8 @@ const CalendarYellowBtn = styled(Icons)`
     font-size: 24px;
   }
 `;
-const Span = styled.span`
-  margin-top: 5px;
-  display: block;
-  color: #fff;
-  text-shadow: 0 0 20px #fff, 0 0 2px #fff, 0 0 2px #fff, 0 0 42px #079467,
-    0 0 82px #1d5c48, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 100px #0fa;
-`;
 const MainFlex = styled(Flex)`
   margin-top: -15px;
-`;
-const InfoText = styled.p`
-  font-size: 20px;
-  margin: 0 auto;
-  @media (max-width: 600px) {
-    font-size: 15px;
-  }
 `;
 const ShareBtn = styled(Icons)`
   width: 35rem;
