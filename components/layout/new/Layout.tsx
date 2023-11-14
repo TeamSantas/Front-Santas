@@ -3,8 +3,6 @@ import Snow from "../Snow";
 
 const MainWrapper = styled.div`
   background-color: #1c3249;
-  margin-top: calc(env(safe-area-inset-top) + 60px);
-  margin-bottom: calc(env(safe-area-inset-bottom) + 60px);
   height: 100vh;
   margin: 0 auto;
   overflow: scroll;
@@ -19,9 +17,11 @@ const MainWrapper = styled.div`
 
 const UpperWrapper = styled.div`
   position: relative;
+  width: 100%;
   z-index: 1;
+  margin-top: env(safe-area-inset-top);
+  margin-bottom: env(safe-area-inset-bottom);
 `;
-
 const Layout = ({ children }) => {
   return (
     <>

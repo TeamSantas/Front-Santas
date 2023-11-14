@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
-import Layout from "../components/layout/login/Layout";
+import Layout from "../components/layout/new/Layout";
 
 const Login = () => {
   const handleKakaoLogin = () => {
@@ -43,32 +43,20 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-  margin-top: 10vh;
-  width: 55vw;
-  max-width: 300px;
-  height: auto;
+  height: 220px;
   z-index: 1;
+  padding-top: 60px;
+  max-height: 250px;
+  flex: 1;
 `;
 
 const Tree = styled.img`
-  width: 40vh;
-  max-width: 100%;
+  width: 100%;
   height: auto;
+  max-height: 70vh;
+  max-width: 40vh;
   z-index: 1;
-`;
-
-const Ground = styled.div`
-  background-color: #d9d9d9;
-  width: 100vw;
-  margin-top: -60px;
-  display: flex;
-  justify-content: center;
-  padding: 22px;
   flex: 1;
-
-  @media (max-width: 375px) {
-    margin-top: -40px;
-  }
 `;
 
 const KakaoLoginButton = styled.button`
@@ -81,7 +69,7 @@ const KakaoLoginButton = styled.button`
   width: 100%;
   max-width: 40vh;
   gap: 6px;
-  margin-top: 30px;
+  margin-top: 40px;
   border-radius: 6px;
   border: none;
   text-align: left;
@@ -90,9 +78,23 @@ const KakaoLoginButton = styled.button`
 const KakaoLoginText = styled.div`
   color: #181818;
   font-family: "NanumSquareNeoOTF-Bd";
-  font-size: 1.2rem;
+  font-size: 16px;
 
   @media (max-width: 375px) {
     font-size: 14px;
+  }
+`;
+
+const Ground = styled.div`
+  background-color: #d9d9d9;
+  width: 100%;
+  min-height: 150px;
+  margin-top: -50px;
+  display: flex;
+  justify-content: center;
+  padding: 0 22px;
+
+  @media (max-width: 375px) {
+    margin-top: -45px;
   }
 `;
