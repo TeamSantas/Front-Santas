@@ -6,29 +6,22 @@ import NumberOfReceivedPresents from "./NumberOfReceivedPresents";
 import { setGetNumberOfReceivedPresents } from "../../api/hooks/useGetNumberOfReceivedPresents";
 
 const CalendarWrapper = styled.div`
-  // padding: 0 10px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   margin: 5px auto;
   z-index: 1;
-
   @media (max-width: 600px) {
     margin: 5px auto;
   }
 `;
-
-const DayImage = styled.img`
+const BasicDayImg = styled.img` 
   justify-content: center;
   padding: 2px;
   align-items: center;
   cursor: pointer;
-  width: 7rem;
+  width: 100%;
+  height: 100%;
   z-index: 10;
-  @media (max-width: 600px) {
-    width: 100%;
-  }
 `;
 
 const LoadingContainer = styled.div`
@@ -44,6 +37,12 @@ const LoadingHeader = styled.h2`
   text-align: center;
 `;
 
+const Table = styled.table`
+  width: 400px;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+`;
 const Calendar = ({ ismycalendar, loggedId }) => {
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -116,22 +115,52 @@ const Calendar = ({ ismycalendar, loggedId }) => {
     return (
       <>
         {days.map((day, idx) => (
-          //
           <div key={day.toString()}>
             <NumberOfReceivedPresents
               day={day}
               receivedList={receivePresentList}
             />
-            <DayImage
-              src={`/assets/image/days/day${idx + 1}.svg`}
-              onClick={() => {
-                handleShow(idx + 1);
-              }}
-              alt={`day${idx + 1}`}
-              key={day}
-            />
           </div>
         ))}
+          <Table>
+              <tr>
+                  <td colSpan="2"><BasicDayImg src={`/asset_ver2/image/days/day1.svg`} key={1} alt={1}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day2.svg`} key={2} alt={2}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day3.svg`} key={3} alt={3}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day4.svg`} key={4} alt={4}/></td>
+              </tr>
+              <tr>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day5.svg`} key={5} alt={5}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day6.svg`} key={6} alt={6}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day7.svg`} key={7} alt={7}/></td>
+                  <td rowSpan="2"><BasicDayImg src={`/asset_ver2/image/days/day8.svg`} key={8} alt={8}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day9.svg`} key={9} alt={9}/></td>
+              </tr>
+              <tr>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day10.svg`} key={10}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day11.svg`} key={11}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day12.svg`} key={12}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day13.svg`} key={13}/></td>
+              </tr>
+              <tr>
+                  <td colspan="2"><BasicDayImg src={`/asset_ver2/image/days/day14.svg`} key={14}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day15.svg`} key={15}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day16.svg`} key={16}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day17.svg`} key={17}/></td>
+              </tr>
+              <tr>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day18.svg`} key={18}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day19.svg`} key={19}/></td>
+                  <td rowSpan="2"><BasicDayImg src={`/asset_ver2/image/days/day22.svg`} key={22}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day23.svg`} key={23}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day24.svg`} key={24}/></td>
+              </tr>
+              <tr>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day20.svg`} key={20}/></td>
+                  <td><BasicDayImg src={`/asset_ver2/image/days/day21.svg`} key={21}/></td>
+                  <td colSpan="2"><BasicDayImg src={`/asset_ver2/image/days/day25.svg`} key={25}/></td>
+              </tr>
+          </Table>
       </>
     );
   };
