@@ -18,7 +18,7 @@ const Logo = styled.img`
   }
   @media (max-width: 600px) and (min-height: 800px) {
     width: 359px;
-    margin: 80px auto 30px auto;
+    margin: 50px auto 30px auto;
   }
 `;
 
