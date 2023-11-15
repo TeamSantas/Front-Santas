@@ -23,7 +23,18 @@ const BasicDayImg = styled.img`
   height: 100%;
   z-index: 10;
 `;
-
+const BackGround = styled.img`
+  position: absolute;
+  width: 520px;
+  top : 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  @media (max-width: 600px) {
+    top : 37%;
+    width: 390px;
+  }
+`;
 const LoadingContainer = styled.div`
   position: absolute;
   top: 50%;
@@ -39,8 +50,10 @@ const LoadingHeader = styled.h2`
 
 const Table = styled.table`
   width: 400px;
+  margin-top: 130px;
   @media (max-width: 600px) {
-    width: 100%;
+    margin-top: 70px;
+    width: 310px;
   }
 `;
 const Calendar = ({ ismycalendar, loggedId }) => {
@@ -122,6 +135,7 @@ const Calendar = ({ ismycalendar, loggedId }) => {
             />
           </div>
         ))}
+          <BackGround src={`/asset_ver2/image/back_house.png`}/>
           <Table>
               <tr>
                   <td colSpan="2"><BasicDayImg src={`/asset_ver2/image/days/day1.svg`} key={1} alt={1}/></td>

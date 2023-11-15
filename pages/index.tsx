@@ -78,7 +78,7 @@ const ButtonFlex = styled(Flex)`
   padding: 5px 10px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.3);
-  width: 35rem;
+  width: 450px;
   @media (max-width: 600px) {
     width: 95%;
   }
