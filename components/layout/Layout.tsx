@@ -19,13 +19,31 @@ const MainWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none; /* Chrome */
   }
+  @media (max-width: 600px) {
+    height: 35%;
+    padding: 0px;
+  }
 `;
 
 const UpperWrapper = styled.div`
   position: relative;
   z-index: 1;
 `;
-
+const BackStepImg = styled.img`
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-52%);
+  height: 25%;
+  z-index: 0;
+  overflow: hidden;
+  @media (max-width: 600px) and (min-height: 800px) {
+    height: 33%;
+  }
+  @media (max-height: 700px) {
+    height: 20%;
+  }
+`;
 const Layout = ({ children }) => {
   useEffect(() => {
     if (window.Kakao.isInitialized()) {
@@ -41,6 +59,7 @@ const Layout = ({ children }) => {
         <Header />
         <UpperWrapper>{children}</UpperWrapper>
         <Snow />
+        <BackStepImg src={`/asset_ver2/image/step_background.png`}/>
       </MainWrapper>
     </>
   );

@@ -7,8 +7,7 @@ import { setGetNumberOfReceivedPresents } from "../../api/hooks/useGetNumberOfRe
 
 const CalendarWrapper = styled.div`
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.1);
-  margin: 5px auto;
+  margin: 0px auto;
   z-index: 1;
   @media (max-width: 600px) {
     margin: 5px auto;
@@ -25,14 +24,14 @@ const BasicDayImg = styled.img`
 `;
 const BackGround = styled.img`
   position: absolute;
-  width: 520px;
-  top : 40%;
+  width: 450px;
+  top : 42%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: -1;
   @media (max-width: 600px) {
     top : 37%;
-    width: 390px;
+    width: 340px;
   }
 `;
 const LoadingContainer = styled.div`
@@ -49,11 +48,11 @@ const LoadingHeader = styled.h2`
 `;
 
 const Table = styled.table`
-  width: 400px;
+  width: 370px;
   margin-top: 130px;
   @media (max-width: 600px) {
     margin-top: 70px;
-    width: 310px;
+    width: 280px;
   }
 `;
 const Calendar = ({ ismycalendar, loggedId }) => {

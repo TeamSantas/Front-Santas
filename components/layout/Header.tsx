@@ -6,15 +6,19 @@ import Sidebar from "../mypage/Sidebar";
 import {getTodayPresentCount} from "../../api/hooks/useGetPresentDetail";
 
 const Logo = styled.img`
-  margin: 0px auto 20px auto;
+  margin: 0px auto 0px auto;
   width: 60vw;
-  max-width: 600px;
+  max-width: 550px;
   height: auto;
   border: none;
   z-index: 5;
   @media (max-width: 600px) {
     width: 359px;
     margin: 20px auto 30px auto;
+  }
+  @media (max-width: 600px) and (min-height: 800px) {
+    width: 359px;
+    margin: 80px auto 30px auto;
   }
 `;
 

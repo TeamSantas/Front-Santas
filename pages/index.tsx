@@ -75,20 +75,21 @@ const GoBackMyCal = styled.div`
 `;
 
 const ButtonFlex = styled(Flex)`
-  padding: 5px 10px;
+  padding-top: 20px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 450px;
+  width: 380px;
+  z-index: 1;
   @media (max-width: 600px) {
-    width: 95%;
+    padding: 10px 10px;
+    width: 320px;
+    margin-top: 5%;
   }
 `;
 const EndingShareBtnFlex = styled(Flex)`
-  padding-top: 10px;
   border-radius: 10px;
-  width: 35rem;
+  width: 30rem;
   @media (max-width: 600px) {
-    width: 95%;
+    width: 85%;
   }
 `;
 
@@ -125,19 +126,17 @@ const MainFlex = styled(Flex)`
   margin-top: -15px;
 `;
 const ShareBtn = styled(Icons)`
-  width: 35rem;
-  height: 72px;
-  font-size: 30px;
+  width: 26rem;
+  height: 60px;
+  font-size: 25px;
   font-weight: bold;
-  margin-top: 24px;
-  margin-bottom: 5px;
   background: #275085;
+  margin: 0 auto;
   &:hover {
     color: white;
     background: #1a3a65;
   }
   border-radius: 12px;
-  margin-right: 5px;
   z-index: 5;
   color: white;
   @media (max-width: 600px) {

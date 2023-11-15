@@ -10,21 +10,6 @@ export const MainContainer = styled.div`
   color: white;
 `;
 
-export const CenteredWrapper = styled.div`
-  margin: auto;
-`;
-
-export const Logo = styled.button`
-  margin-top: 16px;
-  margin-bottom: 20px;
-  background: none;
-  background-image: url("/assets/image/Logo.svg");
-  background-repeat: no-repeat;
-  width: 120px;
-  height: 40px;
-  border: none;
-`;
-
 export const Flex = styled.div`
   display: flex;
   justify-content: space-between;
