@@ -23,7 +23,6 @@ a:active {
 * {
   box-sizing: border-box;
   font-family: "NanumSquareNeoOTF-Rg", KCC-Ganpan, serif;
-  white-space: pre-wrap;
 }
 ul {
   list-style: none;
