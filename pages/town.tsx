@@ -3,6 +3,7 @@ import Image from "next/image";
 import AnimatedText from "../components/common/AnimatedText";
 import ContentInput from "../components/town/content-input";
 import TownContentList from "../components/town/content-list";
+import Layout from "../components/layout/new/Layout";
 
 const messages = [
   {
@@ -40,9 +41,13 @@ const Town = () => {
 };
 export default Town;
 
+Town.getLayout = (page) => {
+  return <Layout logo={"/assets/image/layout/town-logo.png"}>{page}</Layout>;
+};
+
 const Container = styled.div`
   position: absolute;
-  bottom: -100vh;
+  bottom: calc(-100vh + env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
 

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
+import Layout from "../components/layout/new/Layout";
 
 const Login = () => {
   const handleKakaoLogin = () => {
@@ -22,6 +23,10 @@ const Login = () => {
   );
 };
 export default Login;
+
+Login.getLayout = (page) => {
+  return <Layout logo={"/assets/image/layout/logo.png"}>{page}</Layout>;
+};
 
 const Container = styled.div`
   position: absolute;

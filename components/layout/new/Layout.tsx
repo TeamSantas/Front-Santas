@@ -1,15 +1,12 @@
 import styled from "styled-components";
 import Snow from "../Snow";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, logo = null }) => {
   return (
     <MainWrapper>
-      <ImgWrapper>
-        <Buildings src={"/assets/image/layout/buildings.png"} />
-      </ImgWrapper>
-      <ImgWrapper>
-        <Tree src={"/assets/image/layout/tree.svg"} />
-      </ImgWrapper>
+      <Logo src={logo} />
+      <Buildings src={"/assets/image/layout/buildings.png"} />
+      <Tree src={"/assets/image/layout/tree.svg"} />
       <UpperWrapper>{children}</UpperWrapper>
       <Ground />
       <Snow />
@@ -31,25 +28,33 @@ const UpperWrapper = styled.div`
   z-index: 1;
 `;
 
-const Buildings = styled.img`
-  height: 50vh;
-`;
-
-const Tree = styled.img`
-  height: 50vh;
-`;
-
-const Ground = styled.img`
+const AbsoluteImg = styled.img`
   position: absolute;
-  width: 100%;
-  height: 15vh;
-  bottom: env(safe-area-inset-bottom);
-  background-color: #d9d9d9;
-`;
-
-const ImgWrapper = styled.div`
-  position: absolute;
-  bottom: calc(env(safe-area-inset-bottom) + 15vh);
+  bottom: calc(env(safe-area-inset-bottom) + 17vh);
   left: 50%;
   transform: translateX(-50%);
+`;
+
+const Logo = styled(AbsoluteImg)`
+  height: 180px;
+  max-height: 18vh;
+  top: calc(env(safe-area-inset-top) + 5vh);
+`;
+
+const Buildings = styled(AbsoluteImg)`
+  height: 35vh;
+`;
+
+const Tree = styled(AbsoluteImg)`
+  height: 55vh;
+  z-index: 1;
+  bottom: calc(env(safe-area-inset-bottom) + 14vh);
+`;
+
+const Ground = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 17vh;
+  bottom: env(safe-area-inset-bottom);
+  background-color: #d9d9d9;
 `;
