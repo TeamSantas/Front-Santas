@@ -18,7 +18,7 @@ const ContentInput = () => {
           <CheckboxLabel>{"익명"}</CheckboxLabel>
         </Flex>
       </Name>
-      <Flex>
+      <InputArea>
         <Input placeholder="댓글을 입력해 주세요. 악플은 삭제될 수 있습니다. (500자)" />
         <SendWrapper>
           <Send
@@ -31,7 +31,7 @@ const ContentInput = () => {
             }}
           />
         </SendWrapper>
-      </Flex>
+      </InputArea>
     </Wrapper>
   );
 };
@@ -40,7 +40,6 @@ export default ContentInput;
 const Input = styled.textarea`
   padding: 10px 15px;
   width: 100%;
-  height: 60px;
   border-radius: 0 0 0 10px;
   border: none;
   background-color: #1e344f;
@@ -74,7 +73,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: 40vw;
   height: 140px;
   padding: 20px;
   font-size: 13px;
@@ -97,8 +95,12 @@ const Name = styled.div`
   font-family: "NanumSquareNeoOTF-Bd";
 `;
 
-const Flex = styled.label`
+const Flex = styled.div`
   display: flex;
+`;
+
+const InputArea = styled(Flex)`
+  flex: 1;
 `;
 
 const CheckboxLabel = styled.label`
@@ -109,7 +111,6 @@ const SendWrapper = styled.div`
   border-radius: 0 0 10px 0;
   background-color: #1e344f;
   padding: 10px 15px;
-  height: 60px;
   display: flex;
   align-items: flex-end;
 `;
