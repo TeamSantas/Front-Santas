@@ -25,13 +25,8 @@ const Wrapper = styled.div`
 `;
 
 const Img = styled.img`
-  width: 40px;
-  height: 40px;
-
-  @media (max-width: 768px) {
-    width: 30px;
-    height: 30px;
-  }
+  width: 48px;
+  height: 48px;
 `;
 
 const Profile = styled(Img)`
