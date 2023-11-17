@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
+import PlainLayout from "../components/layout/new/PlainLayout";
 
 const Login = () => {
   const handleKakaoLogin = () => {
@@ -12,7 +13,7 @@ const Login = () => {
       <KakaoLoginButton onClick={handleKakaoLogin}>
         <Image
           alt="kakao-logo"
-          src="/assets/image/login/kakao-logo.png"
+          src="/assets/image/login/kakao-logo.svg"
           width={22}
           height={22}
         />
@@ -22,6 +23,12 @@ const Login = () => {
   );
 };
 export default Login;
+
+Login.getLayout = (page) => {
+  return (
+    <PlainLayout logo={"/assets/image/layout/logo.png"}>{page}</PlainLayout>
+  );
+};
 
 const Container = styled.div`
   position: absolute;
