@@ -1,19 +1,23 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { useAtom } from "jotai";
+import { gnbActiveAtom, modalStateAtom } from "../../../store/globalState";
 
 const Gnb = () => {
   const router = useRouter();
-  const [activeOption, setActiveOption] = useState(null);
+  const [activeOption, setActiveOption] = useAtom(gnbActiveAtom);
+  const [, setShowModal] = useAtom(modalStateAtom);
   const isHome = router.pathname === "/";
 
-  // TODO: 전역 상태관리 - 아이콘 클릭 여부 / 해당하는 모달 등 꺼졌을 때 default로 설정되도록
-  const handleClickMenu = (option) => {
+  const handleClickOption = (option) => {
     setActiveOption(option);
 
     switch (option) {
       case "friends":
-        // TODO: 친구 목록 창 띄우기
+        setShowModal({
+          label: "friends",
+          show: true,
+        });
         break;
       case "snowball":
         router.push("/snowball");
@@ -24,8 +28,11 @@ const Gnb = () => {
       case "home":
         router.push(isHome ? "/town" : "/");
         break;
-      case "heart":
-        // TODO: 좋아요 모달 켜기
+      case "like":
+        setShowModal({
+          label: "like",
+          show: true,
+        });
         break;
       default:
         break;
@@ -33,10 +40,7 @@ const Gnb = () => {
   };
 
   const getImagePath = (option) => {
-    const condition =
-      option === "home"
-        ? activeOption === option && isHome
-        : activeOption === option;
+    const condition = option === "home" ? isHome : activeOption === option;
 
     return `/assets/image/layout/${option}${
       condition ? "-click" : "-default"
@@ -48,23 +52,23 @@ const Gnb = () => {
       <IconWrapper>
         <Img
           src={getImagePath("friends")}
-          onClick={() => handleClickMenu("friends")}
+          onClick={() => handleClickOption("friends")}
         />
         <Img
           src={getImagePath("snowball")}
-          onClick={() => handleClickMenu("snowball")}
+          onClick={() => handleClickOption("snowball")}
         />
         <Img
           src={getImagePath("home")}
-          onClick={() => handleClickMenu("home")}
+          onClick={() => handleClickOption("home")}
         />
         <Img
           src={getImagePath("message")}
-          onClick={() => handleClickMenu("message")}
+          onClick={() => handleClickOption("message")}
         />
         <Img
-          src={getImagePath("heart")}
-          onClick={() => handleClickMenu("heart")}
+          src={getImagePath("like")}
+          onClick={() => handleClickOption("like")}
         />
       </IconWrapper>
     </Wrapper>
