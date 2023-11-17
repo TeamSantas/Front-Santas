@@ -1,32 +1,14 @@
-import { useRouter } from "next/router";
 import styled from "styled-components";
 
 const Header = () => {
-  const router = useRouter();
-  const handleClickMenu = (option) => {
-    switch (option) {
-      case "link":
-        return; // TODO: 링크 복사 or 카카오 공유
-      case "hamburger":
-        return router.push("/town");
-      default:
-        return;
-    }
+  const handleClickMenu = () => {
+    console.log("click setting");
   };
 
   return (
     <Wrapper>
-      <Flex>
-        <Profile src="/assets/image/layout/default-profile.png" />
-        <Img
-          src="/assets/image/layout/link.svg"
-          onClick={() => handleClickMenu("link")}
-        />
-      </Flex>
-      <Img
-        src="/assets/image/layout/hamburger.svg"
-        onClick={() => handleClickMenu("hamburger")}
-      />
+      <Profile src="/assets/image/layout/default-profile.png" />
+      <Img src="/assets/image/layout/setting.svg" onClick={handleClickMenu} />
     </Wrapper>
   );
 };
@@ -50,12 +32,6 @@ const Img = styled.img`
     width: 30px;
     height: 30px;
   }
-`;
-
-const Flex = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
 `;
 
 const Profile = styled(Img)`
