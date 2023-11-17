@@ -8,7 +8,7 @@ import {
   Flex,
   GreenCloseButton,
 } from "../../styles/styledComponentModule";
-import FriendsList from "./FriendsList";
+import FriendsList from "../friends/FriendsList";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
 import { useAtom } from "jotai";
 import { friendsAtom } from "../../store/globalState";
