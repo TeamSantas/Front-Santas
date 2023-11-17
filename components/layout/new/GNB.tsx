@@ -45,23 +45,28 @@ const Gnb = () => {
 
   return (
     <Wrapper>
-      <Img
-        src={getImagePath("friends")}
-        onClick={() => handleClickMenu("friends")}
-      />
-      <Img
-        src={getImagePath("snowball")}
-        onClick={() => handleClickMenu("snowball")}
-      />
-      <Img src={getImagePath("home")} onClick={() => handleClickMenu("home")} />
-      <Img
-        src={getImagePath("message")}
-        onClick={() => handleClickMenu("message")}
-      />
-      <Img
-        src={getImagePath("heart")}
-        onClick={() => handleClickMenu("heart")}
-      />
+      <IconWrapper>
+        <Img
+          src={getImagePath("friends")}
+          onClick={() => handleClickMenu("friends")}
+        />
+        <Img
+          src={getImagePath("snowball")}
+          onClick={() => handleClickMenu("snowball")}
+        />
+        <Img
+          src={getImagePath("home")}
+          onClick={() => handleClickMenu("home")}
+        />
+        <Img
+          src={getImagePath("message")}
+          onClick={() => handleClickMenu("message")}
+        />
+        <Img
+          src={getImagePath("heart")}
+          onClick={() => handleClickMenu("heart")}
+        />
+      </IconWrapper>
     </Wrapper>
   );
 };
@@ -71,6 +76,16 @@ export default Gnb;
 const Wrapper = styled.div`
   position: absolute;
   width: 100%;
+  height: 60px;
+  background-color: #1a2838;
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  max-width: 500px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   height: 60px;
   align-items: center;
@@ -83,9 +98,4 @@ const Img = styled.img`
   width: 40px;
   height: 40px;
   cursor: pointer;
-
-  @media (max-width: 768px) {
-    width: 30px;
-    height: 30px;
-  }
 `;
