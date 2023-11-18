@@ -55,7 +55,7 @@ export const Section = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "KCC-Ganpan", KCC-Ganpan, serif;
+  font-family: "KCC-Ganpan", KCC-Ganpan, sans-serif;
 
   @media (max-width: 420px) {
     width: 100%;
@@ -80,7 +80,7 @@ const StyledLink = styled(Link)`
   padding: 10px 20px;
   text-decoration: none;
   color: #1c3249;
-  font-family: "KCC-Ganpan", KCC-Ganpan, serif;
+  font-family: "KCC-Ganpan", KCC-Ganpan, sans-serif;
 
 `;
 

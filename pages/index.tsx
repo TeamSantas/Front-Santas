@@ -6,7 +6,7 @@ import Calendar from "../components/index/Calendar";
 import Share from "../components/share/Share";
 import { getCookie } from "../businesslogics/cookie";
 import ReactHowler from "react-howler";
-import { lazy, useEffect, useState } from "react";
+import {Component, lazy, ReactElement, useEffect, useState} from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../components/friends/FriendsModal";
 import { Suspense } from "react";
@@ -22,28 +22,13 @@ import { setCookie } from "cookies-next";
 import CopyModal from "../components/index/CopyModal";
 import { shareKakao } from "../components/share/ShareAPIButton";
 import { Modals } from "../components/modals/modals";
+import PlainLayout from "../components/layout/new/PlainLayout";
+import Login from "./login";
+import MainLayout from "../components/layout/new/MainLayout";
+import Layout from "../components/layout/new/Layout";
 
 const MainIcons = styled(Icons)`
   height: 35px;
-`;
-const SearchBtn = styled.img`
-  margin: 3px;
-  margin-left: 10px;
-  height: 28px;
-  cursor: pointer;
-`;
-const LinkCopy = styled(MainIcons)`
-  margin: 0 2px;
-  background-image: url("/assets/image/icons/Link.svg");
-`;
-const Friends = styled(MainIcons)`
-  margin: 0 2px;
-  background-image: url("/assets/image/icons/Users.svg");
-`;
-const Info = styled(MainIcons)`
-  width: 25px;
-  margin-left: 10px;
-  background-image: url("/assets/image/icons/information.svg");
 `;
 const Snowball = styled(MainIcons)`
   margin-left: 10px;
@@ -52,56 +37,12 @@ const Snowball = styled(MainIcons)`
     display: none;
   }
 `;
-const SnowballMobile = styled(MainIcons)`
-  margin-left: 15px;
-  background-image: url("/assets/image/icons/snowball.svg");
-  display: none;
-  @media (max-width: 1000px) {
-    display: flex;
-  }
-`;
-
-const Bgm = styled(MainIcons)`
-  background-image: url("/assets/image/icons/SpeakerHigh.svg");
-`;
-const MuteBgm = styled(MainIcons)`
-  background-image: url("/assets/image/icons/muteSpeaker.svg");
-`;
 const GoBackMyCal = styled.div`
   background: #ac473d;
   border-radius: 12px;
   color: white;
   padding: 6px 15px;
   text-align: center;
-`;
-
-const ButtonFlex = styled(Flex)`
-  padding: 5px 10px;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 35rem;
-  @media (max-width: 600px) {
-    width: 95%;
-  }
-`;
-const EndingShareBtnFlex = styled(Flex)`
-  padding-top: 10px;
-  border-radius: 10px;
-  width: 35rem;
-  @media (max-width: 600px) {
-    width: 95%;
-  }
-`;
-
-const Text = styled.h3`
-  text-align: center;
-  color: white;
-`;
-const SnowballContainer = styled(MainContainer)`
-  height: 80vh;
-  @media (max-width: 600px) {
-    display: none;
-  }
 `;
 
 const CalendarYellowBtn = styled(Icons)`
@@ -122,86 +63,8 @@ const CalendarYellowBtn = styled(Icons)`
     font-size: 24px;
   }
 `;
-const Span = styled.span`
-  margin-top: 5px;
-  display: block;
-  color: #fff;
-  text-shadow: 0 0 20px #fff, 0 0 2px #fff, 0 0 2px #fff, 0 0 42px #079467,
-    0 0 82px #1d5c48, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 100px #0fa;
-`;
 const MainFlex = styled(Flex)`
   margin-top: -15px;
-`;
-const InfoText = styled.p`
-  font-size: 20px;
-  margin: 0 auto;
-  @media (max-width: 600px) {
-    font-size: 15px;
-  }
-`;
-const BottomCopyLinkLeft = styled(Icons)`
-  width: 35rem;
-  height: 72px;
-  font-size: 30px;
-  font-weight: bold;
-  margin-top: 24px;
-  margin-bottom: 5px;
-  background: linear-gradient(
-    45deg,
-    #ac473d 25%,
-    #c0544a 0,
-    #c0544a 50%,
-    #ac473d 0,
-    #ac473d 75%,
-    #c0544a 0
-  );
-  &:hover {
-    color: white;
-    background: linear-gradient(
-      45deg,
-      #3c6c54 25%,
-      #78ab91 0,
-      #78ab91 50%,
-      #3c6c54 0,
-      #3c6c54 75%,
-      #78ab91 0
-    );
-  }
-  border-radius: 12px;
-  margin-right: 5px;
-  z-index: 5;
-  color: white;
-  @media (max-width: 600px) {
-    width: 95%;
-    margin-top: 5px;
-    height: 52px;
-    font-size: 22px;
-  }
-`;
-const BottomCopyLinkRight = styled(BottomCopyLinkLeft)`
-  margin-left: 5px;
-  margin-right: 0px;
-  background: linear-gradient(
-    45deg,
-    #ac473d 25%,
-    #c0544a 0,
-    #c0544a 50%,
-    #ac473d 0,
-    #ac473d 75%,
-    #c0544a 0
-  );
-  &:hover {
-    color: white;
-    background: linear-gradient(
-      45deg,
-      #3c6c54 25%,
-      #78ab91 0,
-      #78ab91 50%,
-      #3c6c54 0,
-      #3c6c54 75%,
-      #78ab91 0
-    );
-  }
 `;
 
 const Home: NextPage<dataProps> = (props: dataProps) => {
@@ -247,8 +110,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const goEndingHandler = () => {
     window.location.href = "/endingbridge";
   };
-  // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
-  const ModelComponent = lazy(() => import("/components/index/SnowBallModel"));
 
   // friends modal
   const [friendModalShow, setFriendModalShow] = useState(false);
@@ -305,22 +166,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     // }
   };
 
-  // onboardingCookie
-  const checkLocation = () => {
-    // const onboardingCookie = getCookie("onboarding");
-    // if (onboardingCookie === "" && props.data == undefined) {
-    //   router.push("/onboarding");
-    // }
-    // if (
-    //   onboardingCookie &&
-    //   getCookie("token") == "" &&
-    //   props.data === undefined
-    // ) {
-    //   // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
-    //   router.push("/title");
-    // }
-  };
-
   // endingCookie
   const today = new Date();
   const showEnding = () => {
@@ -336,7 +181,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   useEffect(() => {
     getMyBGM();
-    checkLocation();
     if (today.getDate() === 25) {
       showEnding();
     }
@@ -366,55 +210,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     return (
       <>
         <Modals />
-        <ButtonFlex>
-          <Flex>
-            <Friends onClick={clickFriendIconHandler} />
-            {/* <LinkCopy onClick={linkCopyHandler} /> */}
-            <SearchBtn
-              src="/assets/image/share/kakao_button.png"
-              onClick={shareKakao}
-            />
-
-            <FriendsModal
-              show={friendModalShow}
-              onHide={handleFriendsModalClose}
-            />
-          </Flex>
-          <Flex>
-            <CopyModal
-              // link={`https://merry-christmas.site/${myLink}`}
-              link={`https://merry-christmas.site/`}
-              show={copyModal}
-              onHide={handleCopyModalClose}
-            />
-          </Flex>
-          <Flex>
-            {/*BGM react-howler 라이브러리*/}
-            <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
-            {mute ? (
-              <Bgm onClick={() => muteHandler(mute)} />
-            ) : (
-              <MuteBgm onClick={() => muteHandler(mute)} />
-            )}
-            <Snowball onClick={clickSnowballIconHandler} />
-            <SnowballMobile onClick={() => router.push("/snowball")} />
-            <Info onClick={clickInformationIconHandler} />
-            <InformationModal
-              show={informationModalShow}
-              onHide={handleInformationModalClose}
-            />
-          </Flex>
-        </ButtonFlex>
-        <EndingShareBtnFlex>
-          <BottomCopyLinkLeft onClick={goEndingHandler}>
-            엔딩 다시보기
-          </BottomCopyLinkLeft>
-          <BottomCopyLinkRight onClick={linkCopyHandler}>
-            링크 공유하기
-          </BottomCopyLinkRight>
-        </EndingShareBtnFlex>
-
-        {/* <Share loggedId={loggedMemberId} /> */}
       </>
     );
   };
@@ -426,26 +221,27 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const FriendsCalendarBtn = () => {
     return (
       <>
-        <ButtonFlex>
-          {isLogged === false ? null : (
-            <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>
-          )}
-          <Flex>
-            {/*BGM react-howler 라이브러리*/}
-            <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
-            {mute ? (
-              <Bgm onClick={() => muteHandler(mute)} />
-            ) : (
-              <MuteBgm onClick={() => muteHandler(mute)} />
-            )}
-            <Snowball onClick={clickSnowballIconHandler} />
-            <Info onClick={clickInformationIconHandler} />
-            <InformationModal
-              show={informationModalShow}
-              onHide={handleInformationModalClose}
-            />
-          </Flex>
-        </ButtonFlex>
+        {/*TODO: 내 캘린더로 이동하기/친구 캘린더 가기에 필요한 함수들*/}
+        {/*<ButtonFlex>*/}
+        {/*  {isLogged === false ? null : (*/}
+        {/*    <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>*/}
+        {/*  )}*/}
+        {/*  <Flex>*/}
+        {/*    /!*BGM react-howler 라이브러리*!/*/}
+        {/*    <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />*/}
+        {/*    {mute ? (*/}
+        {/*      <Bgm onClick={() => muteHandler(mute)} />*/}
+        {/*    ) : (*/}
+        {/*      <MuteBgm onClick={() => muteHandler(mute)} />*/}
+        {/*    )}*/}
+        {/*    <Snowball onClick={clickSnowballIconHandler} />*/}
+        {/*    <Info onClick={clickInformationIconHandler} />*/}
+        {/*    <InformationModal*/}
+        {/*      show={informationModalShow}*/}
+        {/*      onHide={handleInformationModalClose}*/}
+        {/*    />*/}
+        {/*  </Flex>*/}
+        {/*</ButtonFlex>*/}
         {isLogged === true ? null : (
           <CalendarYellowBtn onClick={() => router.push("/title")}>
             내 캘린더도 만들기✨
@@ -460,40 +256,20 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
       <MainFlex>
         <MainContainer>
           <br />
-          <h2>
-            <Span>{myName}의 캘린더</Span>
-          </h2>
-          <InfoText>
-            날짜조각을 클릭해 기프티콘, 짤, 응원의 메세지등을 보내보세요!
-          </InfoText>
-          <InfoText>* 내 캘린더 링크를 공유해 쪽지를 받을 수 있어요 *</InfoText>
           {/* 실제 invitation Link 로 보내기 */}
           <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
-        {snowballModalShow ? (
-          <SnowballContainer>
-            <Suspense
-              fallback={
-                <div>
-                  <Text>로딩 중.....</Text>
-                  <img
-                    src="/assets/image/character/spinner.gif"
-                    alt="spinner"
-                  />
-                </div>
-              }
-            >
-              <Text>스노우볼을 움직여보세요</Text>
-              <Canvas>
-                <ModelComponent />
-              </Canvas>
-            </Suspense>
-          </SnowballContainer>
-        ) : null}
+        {snowballModalShow ? (<Snowball/>) : null}
       </MainFlex>
     </div>
   );
 };
 
 export default Home;
+// //TODO : 여기 손봐서 집모양 나오게 해야함
+Home.getLayout = (page: ReactElement) => {
+  return (
+      <MainLayout>{page}</MainLayout>
+  );
+};

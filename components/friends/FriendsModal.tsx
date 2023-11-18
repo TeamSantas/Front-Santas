@@ -18,7 +18,7 @@ const CenteredModalFooter = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: "NanumSquareNeoOTF-Hv", KCC-Ganpan, serif;
+  font-family: "NanumSquareNeoOTF-Hv", KCC-Ganpan, sans-serif;
 `;
 
 const FriendsModal = (props) => {

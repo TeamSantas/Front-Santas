@@ -4,45 +4,10 @@ import { useEffect, useState } from "react";
 import CustomModal from "../common/CustomModal";
 import NumberOfReceivedPresents from "./NumberOfReceivedPresents";
 import { setGetNumberOfReceivedPresents } from "../../api/hooks/useGetNumberOfReceivedPresents";
-
-const CalendarWrapper = styled.div`
-  // padding: 0 10px;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  margin: 5px auto;
-  z-index: 1;
-
-  @media (max-width: 600px) {
-    margin: 5px auto;
-  }
-`;
-
-const DayImage = styled.img`
-  justify-content: center;
-  padding: 2px;
-  align-items: center;
-  cursor: pointer;
-  width: 7rem;
-  z-index: 10;
-  @media (max-width: 600px) {
-    width: 100%;
-  }
-`;
-
-const LoadingContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -38%);
-  text-align: center;
-`;
-const LoadingHeader = styled.h2`
-  margin: 0;
-  padding: 0;
-  text-align: center;
-`;
+import Image from "next/image";
+import WideDay from "./day/WideDay";
+import BasicDay from "./day/BasicDay";
+import LongDay from "./day/LongDay";
 
 const Calendar = ({ ismycalendar, loggedId }) => {
   const days = [
@@ -112,43 +77,79 @@ const Calendar = ({ ismycalendar, loggedId }) => {
       };
       getRecivedPresentList();
     }, []);
+      const dayRow_1 = [1,2,3,4];
+      const dayRow_2 = [5,6,7,8,9];
+      const dayRow_3 = [10,11,12,13];
+      const dayRow_4 = [14,15,16,17];
+      const dayRow_5 = [18,19,22,23,24];
+      const dayRow_6 = [20,21,25];
 
     return (
-      <>
+      <TitleContainer>
+         <Title>23 컴퓨터공학과 팀산타즈의 캘린더</Title>
         {days.map((day, idx) => (
-          //
           <div key={day.toString()}>
             <NumberOfReceivedPresents
               day={day}
               receivedList={receivePresentList}
             />
-            <DayImage
-              src={`/assets/image/days/day${idx + 1}.svg`}
-              onClick={() => {
-                handleShow(idx + 1);
-              }}
-              alt={`day${idx + 1}`}
-              key={day}
-            />
           </div>
         ))}
-      </>
+          <BackGround src={`/asset_ver2/image/layout/back_house.png`} width={`450`} height={`1000`}/>
+          <Table>
+              <tr>
+                  {dayRow_1.map((day,idx)=>{
+                      if(day===1) return <WideDay day={day} idx={idx}/>
+                      else return <BasicDay day={day} idx={idx}/>
+                  })}
+              </tr>
+              <tr>
+                  {dayRow_2.map((day,idx)=>{
+                      if(day===8) return <LongDay day={day} idx={idx}/>
+                      else return <BasicDay day={day} idx={idx}/>
+                  })}
+              </tr>
+              <tr>
+                  {dayRow_3.map((day,idx)=><BasicDay day={day} idx={idx} key={idx}/>)}
+              </tr>
+              <tr>
+                  {dayRow_4.map((day,idx)=>{
+                      if(day===14) return <WideDay day={day} idx={idx}/>
+                      else return <BasicDay day={day} idx={idx}/>
+                  })}
+              </tr>
+              <tr>
+                  {dayRow_5.map((day,idx)=>{
+                      if(day===22) return <LongDay day={day} idx={idx}/>
+                      else return <BasicDay day={day} idx={idx}/>
+                  })}
+              </tr>
+              <tr>
+                  {dayRow_6.map((day,idx)=>{
+                      if(day===25) return <WideDay day={day} idx={idx}/>
+                      else return <BasicDay day={day} idx={idx}/>
+                  })}
+              </tr>
+          </Table>
+      </TitleContainer>
     );
   };
 
   const RenderFriendsCalendar = () => {
     return (
       <>
-        {days.map((day, idx) => (
-          <DayImage
-            src={`/assets/image/days/day${idx + 1}.svg`}
-            onClick={() => {
-              handleShow(idx + 1);
-            }}
-            alt={`day${idx + 1}`}
-            key={day}
-          />
-        ))}
+          <BackGround src={`/asset_ver2/image/layout/back_house.png`}/>
+          {/*TODO:친구달력 레이아웃도 위처럼 만들기(너무 겹치면 컴포넌트로 빼주기)*/}
+        {/*{days.map((day, idx) => (*/}
+        {/*  <BasicDay*/}
+        {/*    day={}*/}
+        {/*    onClick={() => {*/}
+        {/*      handleShow(idx + 1);*/}
+        {/*    }}*/}
+        {/*    alt={`day${idx + 1}`}*/}
+        {/*    key={day}*/}
+        {/*  />*/}
+        {/*))}*/}
       </>
     );
   };
@@ -190,3 +191,105 @@ const DenyAccess = () => {
 };
 
 export default Calendar;
+
+
+
+
+const CalendarWrapper = styled.div`
+  border-radius: 10px;
+  margin: 0px auto;
+  z-index: 1;
+  @media (max-width: 600px) {
+    margin: 5px auto;
+  }
+`;
+const LoadingContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -38%);
+  text-align: center;
+`;
+const LoadingHeader = styled.h2`
+  margin: 0;
+  padding: 0;
+  text-align: center;
+`;
+
+const Table = styled.table`
+  width: 380px;
+  position: fixed;
+  bottom: 165px;
+  z-index: -1;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  @media (max-width: 600px) {
+    bottom: 135px;
+    width: 315px;
+  }
+  @media (max-width: 380px) {
+    bottom: 125px;
+    width: 270px;
+  }
+  @media (max-width: 300px) {
+    bottom: 120px;
+    width: 220px;
+  }
+  @media (min-width: 1000px) {
+    bottom: 120px;
+    width: 280px;
+  }
+`;
+const TitleContainer = styled.div`
+  position: relative;
+  top:5vh;
+  text-align: center;
+  @media (max-height: 700px) {
+    top: -3vh;
+  }
+  @media (max-height: 700px) {
+    top: 0;
+  }  
+  @media (max-width: 300px) {
+  top: 7vh;
+  }
+`;
+const Title = styled.h1`
+  font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
+  width: 260px;
+  margin: 0 auto;
+  font-size: 30px;
+  text-align: center;
+  @media (max-height: 700px) {
+    font-size: 20px;
+    width: 200px;
+  }
+  @media (max-width: 400px) {
+    font-size: 20px;
+    width: 200px;
+   }
+`;
+const BackGround = styled(Image)`
+  width: 480px;
+  height: auto;
+  position: fixed;
+  bottom: 60px;
+  z-index: -1;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  @media (max-width: 600px) {
+    width: 390px;
+  }
+  @media (max-width: 380px) {
+    width: 330px;
+  }
+  @media (max-width: 300px) {
+    width: 280px;
+  }
+  @media (min-width: 1000px) {
+    width: 360px;
+  }
+`;

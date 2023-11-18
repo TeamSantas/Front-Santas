@@ -5,19 +5,20 @@ import {useEffect, useState} from "react";
 import Sidebar from "../mypage/Sidebar";
 import {getTodayPresentCount} from "../../api/hooks/useGetPresentDetail";
 
-const Logo = styled.button`
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background: none;
-  background-image: url("/assets/image/Logo.svg");
-  background-repeat: no-repeat;
-  width: 120px;
-  height: 40px;
+const Logo = styled.img`
+  margin: 0px auto 0px auto;
+  width: 60vw;
+  max-width: 550px;
+  height: auto;
   border: none;
-  margin-left: 20px;
   z-index: 5;
   @media (max-width: 600px) {
-    margin-left: 0;
+    width: 359px;
+    margin: 20px auto 30px auto;
+  }
+  @media (max-width: 600px) and (min-height: 800px) {
+    width: 359px;
+    margin: 50px auto 30px auto;
   }
 `;
 
@@ -47,25 +48,6 @@ const Menu = styled.img`
     width: 30px;
     height: 30px;
     margin-right: 0;
-  }
-`;
-
-const Text = styled.p`
-  color: white;
-  font-size: 25px;
-  margin: 0 auto;
-  text-align: center;
-  @media (max-width: 600px) {
-    margin: 0;
-    font-size: 15px;
-  }
-`;
-
-const Text2 = styled(Text)`
-  font-size: 14px;
-  @media (max-width: 600px) {
-    margin: 0;
-    font-size: 12px;
   }
 `;
 
@@ -102,28 +84,26 @@ const Header = () => {
         currPath === "title" ? <></> : (
         <>
           <Flex>
-            <Logo
+            <Logo src={`/asset_ver2/image/title_long_logo.png`}
               onClick={() => {
                 router.push("/");
                 menuOffHandler();
               }}
-            ></Logo>
-            {currPath === "mypage" ? (
-              <Menu
-                src="/assets/image/icons/menu-icon.svg"
-                onClick={menuHandler}
-              />
-            ) : (
-              <MyPage
-                onClick={() => {
-                  router.push("/mypage");
-                }}
-              />
-            )}
+            />
+            {/*{currPath === "mypage" ? (*/}
+            {/*  <Menu*/}
+            {/*    src="/assets/image/icons/menu-icon.svg"*/}
+            {/*    onClick={menuHandler}*/}
+            {/*  />*/}
+            {/*) : (*/}
+            {/*  <MyPage*/}
+            {/*    onClick={() => {*/}
+            {/*      router.push("/mypage");*/}
+            {/*    }}*/}
+            {/*  />*/}
+            {/*)}*/}
           </Flex>
           {menuOnOff ? <Sidebar menu={menuHandler} menuCloser={menuOffHandler}/> : null}
-          <Text>🎄 오늘까지 전달된 선물 수 : {todayCount}개 🎄</Text>
-          <Text2>두어캘은 19일에 서비스가 종료되어 모든 데이터가 삭제됩니다. 종료 전 간직하고 싶은 쪽지, 선물을 따로 저장해주세요!</Text2>
         </>
       )}
     </>
