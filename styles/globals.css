@@ -22,7 +22,7 @@ a:active {
 
 * {
   box-sizing: border-box;
-  font-family: "NanumSquareNeoOTF-Rg", KCC-Ganpan, serif;
+  font-family: "NanumSquareNeoOTF-Rg", KCC-Ganpan, sans-serif;
 }
 ul {
   list-style: none;

@@ -30,23 +30,12 @@ import Layout from "../components/layout/new/Layout";
 const MainIcons = styled(Icons)`
   height: 35px;
 `;
-const Info = styled(MainIcons)`
-  width: 25px;
-  margin-left: 10px;
-  background-image: url("/assets/image/icons/information.svg");
-`;
 const Snowball = styled(MainIcons)`
   margin-left: 10px;
   background-image: url("/assets/image/icons/snowball.svg");
   @media (max-width: 1000px) {
     display: none;
   }
-`;
-const Bgm = styled(MainIcons)`
-  background-image: url("/assets/image/icons/SpeakerHigh.svg");
-`;
-const MuteBgm = styled(MainIcons)`
-  background-image: url("/assets/image/icons/muteSpeaker.svg");
 `;
 const GoBackMyCal = styled.div`
   background: #ac473d;
@@ -56,17 +45,6 @@ const GoBackMyCal = styled.div`
   text-align: center;
 `;
 
-const ButtonFlex = styled(Flex)`
-  padding-top: 20px;
-  border-radius: 10px;
-  width: 380px;
-  z-index: 1;
-  @media (max-width: 600px) {
-    padding: 10px 10px;
-    width: 320px;
-    margin-top: 5%;
-  }
-`;
 const CalendarYellowBtn = styled(Icons)`
   width: 35rem;
   height: 72px;

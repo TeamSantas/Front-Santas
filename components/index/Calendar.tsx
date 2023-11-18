@@ -85,7 +85,8 @@ const Calendar = ({ ismycalendar, loggedId }) => {
       const dayRow_6 = [20,21,25];
 
     return (
-      <>
+      <TitleContainer>
+         <Title>23 컴퓨터공학과 팀산타즈의 캘린더</Title>
         {days.map((day, idx) => (
           <div key={day.toString()}>
             <NumberOfReceivedPresents
@@ -130,7 +131,7 @@ const Calendar = ({ ismycalendar, loggedId }) => {
                   })}
               </tr>
           </Table>
-      </>
+      </TitleContainer>
     );
   };
 
@@ -203,7 +204,7 @@ const CalendarWrapper = styled.div`
   }
 `;
 const BackGround = styled(Image)`
-  width: 500px;
+  width: 480px;
   height: auto;
   position: fixed;
   bottom: 60px;
@@ -216,6 +217,12 @@ const BackGround = styled(Image)`
     width: 390px;
   }
   @media (max-width: 380px) {
+    width: 340px;
+  }
+  @media (max-width: 300px) {
+    width: 280px;
+  }
+  @media (min-width: 1000px) {
     width: 360px;
   }
 `;
@@ -233,7 +240,7 @@ const LoadingHeader = styled.h2`
 `;
 
 const Table = styled.table`
-  width: 390px;
+  width: 380px;
   position: fixed;
   bottom: 165px;
   z-index: -1;
@@ -246,6 +253,43 @@ const Table = styled.table`
   }
   @media (max-width: 380px) {
     bottom: 125px;
+    width: 280px;
+  }
+  @media (max-width: 300px) {
+    bottom: 120px;
+    width: 220px;
+  }
+  @media (min-width: 1000px) {
+    bottom: 120px;
     width: 300px;
   }
+`;
+const TitleContainer = styled.div`
+  position: relative;
+  top:5vh;
+  text-align: center;
+  @media (max-height: 700px) {
+    top: -3vh;
+  }
+  @media (max-height: 700px) {
+    top: -3vh;
+  }  
+  @media (max-width: 300px) {
+  top: 7vh;
+  }
+`;
+const Title = styled.h1`
+  font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
+  width: 260px;
+  margin: 0 auto;
+  font-size: 30px;
+  text-align: center;
+  @media (max-height: 700px) {
+    font-size: 20px;
+    width: 200px;
+  }
+  @media (max-width: 400px) {
+    font-size: 23px;
+    width: 200px;
+   }
 `;

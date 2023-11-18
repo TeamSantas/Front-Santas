@@ -80,7 +80,7 @@ const Img = styled.img`
 const Text = styled.h5`
   margin: 15px auto;
   text-align: center;
-  font-family: "NanumSquareNeoOTF-Lt", KCC-Ganpan, serif;
+  font-family: "NanumSquareNeoOTF-Lt", KCC-Ganpan, sans-serif;
 `;
 const FriendsList = () => {
   const router = useRouter();
