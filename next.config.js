@@ -13,14 +13,13 @@ const nextConfig = {
   },
   images: {
     loader: "custom",
-    loaderFile: "./components/common/ImageLoader.ts"
+    loaderFile: "./components/common/ImageLoader.ts",
   },
 };
-module.exports = nextConfig;
 
 //React Three Fiber 의존성
 const withTM = require("next-transpile-modules")(["three"]);
-module.exports = withTM();
+module.exports = withTM(nextConfig);
 
 if (process.env.NODE_ENV === "production") {
   console.log = function no_console() {};
