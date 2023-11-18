@@ -4,57 +4,11 @@ import { useEffect, useState } from "react";
 import CustomModal from "../common/CustomModal";
 import NumberOfReceivedPresents from "./NumberOfReceivedPresents";
 import { setGetNumberOfReceivedPresents } from "../../api/hooks/useGetNumberOfReceivedPresents";
+import Image from "next/image";
+import WideDay from "./day/WideDay";
+import BasicDay from "./day/BasicDay";
+import LongDay from "./day/LongDay";
 
-const CalendarWrapper = styled.div`
-  border-radius: 10px;
-  margin: 0px auto;
-  z-index: 1;
-  @media (max-width: 600px) {
-    margin: 5px auto;
-  }
-`;
-const BasicDayImg = styled.img` 
-  justify-content: center;
-  padding: 2px;
-  align-items: center;
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-`;
-const BackGround = styled.img`
-  position: absolute;
-  width: 450px;
-  top : 42%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  @media (max-width: 600px) {
-    top : 37%;
-    width: 340px;
-  }
-`;
-const LoadingContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -38%);
-  text-align: center;
-`;
-const LoadingHeader = styled.h2`
-  margin: 0;
-  padding: 0;
-  text-align: center;
-`;
-
-const Table = styled.table`
-  width: 370px;
-  margin-top: 130px;
-  @media (max-width: 600px) {
-    margin-top: 70px;
-    width: 280px;
-  }
-`;
 const Calendar = ({ ismycalendar, loggedId }) => {
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -123,6 +77,12 @@ const Calendar = ({ ismycalendar, loggedId }) => {
       };
       getRecivedPresentList();
     }, []);
+      const dayRow_1 = [1,2,3,4];
+      const dayRow_2 = [5,6,7,8,9];
+      const dayRow_3 = [10,11,12,13];
+      const dayRow_4 = [14,15,16,17];
+      const dayRow_5 = [18,19,22,23,24];
+      const dayRow_6 = [20,21,25];
 
     return (
       <>
@@ -134,44 +94,40 @@ const Calendar = ({ ismycalendar, loggedId }) => {
             />
           </div>
         ))}
-          <BackGround src={`/asset_ver2/image/back_house.png`}/>
+          <BackGround src={`/asset_ver2/image/layout/back_house.png`}/>
           <Table>
               <tr>
-                  <td colSpan="2"><BasicDayImg src={`/asset_ver2/image/days/day1.svg`} key={1} alt={1}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day2.svg`} key={2} alt={2}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day3.svg`} key={3} alt={3}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day4.svg`} key={4} alt={4}/></td>
+                  {dayRow_1.map((day,idx)=>{
+                      if(day===1) return <WideDay day={day} idx={idx}/>
+                      else return <BasicDay day={day} idx={idx}/>
+                  })}
               </tr>
               <tr>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day5.svg`} key={5} alt={5}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day6.svg`} key={6} alt={6}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day7.svg`} key={7} alt={7}/></td>
-                  <td rowSpan="2"><BasicDayImg src={`/asset_ver2/image/days/day8.svg`} key={8} alt={8}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day9.svg`} key={9} alt={9}/></td>
+                  {dayRow_2.map((day,idx)=>{
+                      if(day===8) return <LongDay day={day} idx={idx}/>
+                      else return <BasicDay day={day} idx={idx}/>
+                  })}
               </tr>
               <tr>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day10.svg`} key={10}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day11.svg`} key={11}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day12.svg`} key={12}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day13.svg`} key={13}/></td>
+                  {dayRow_3.map((day,idx)=><BasicDay day={day} idx={idx} key={idx}/>)}
               </tr>
               <tr>
-                  <td colspan="2"><BasicDayImg src={`/asset_ver2/image/days/day14.svg`} key={14}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day15.svg`} key={15}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day16.svg`} key={16}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day17.svg`} key={17}/></td>
+                  {dayRow_4.map((day,idx)=>{
+                      if(day===14) return <WideDay day={day} idx={idx}/>
+                      else return <BasicDay day={day} idx={idx}/>
+                  })}
               </tr>
               <tr>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day18.svg`} key={18}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day19.svg`} key={19}/></td>
-                  <td rowSpan="2"><BasicDayImg src={`/asset_ver2/image/days/day22.svg`} key={22}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day23.svg`} key={23}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day24.svg`} key={24}/></td>
+                  {dayRow_5.map((day,idx)=>{
+                      if(day===22) return <LongDay day={day} idx={idx}/>
+                      else return <BasicDay day={day} idx={idx}/>
+                  })}
               </tr>
               <tr>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day20.svg`} key={20}/></td>
-                  <td><BasicDayImg src={`/asset_ver2/image/days/day21.svg`} key={21}/></td>
-                  <td colSpan="2"><BasicDayImg src={`/asset_ver2/image/days/day25.svg`} key={25}/></td>
+                  {dayRow_6.map((day,idx)=>{
+                      if(day===25) return <WideDay day={day} idx={idx}/>
+                      else return <BasicDay day={day} idx={idx}/>
+                  })}
               </tr>
           </Table>
       </>
@@ -232,3 +188,60 @@ const DenyAccess = () => {
 };
 
 export default Calendar;
+
+
+
+
+const CalendarWrapper = styled.div`
+  border-radius: 10px;
+  margin: 0px auto;
+  z-index: 1;
+  @media (max-width: 600px) {
+    margin: 5px auto;
+  }
+`;
+const DayImg = styled(Image)` 
+  justify-content: center;
+  padding: 2px;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+`;
+const BackGround = styled.img`
+  width: 450px;
+  position: fixed;
+  bottom: 80px;
+  z-index: -1;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  @media (max-width: 600px) {
+    width: 340px;
+  }
+`;
+const LoadingContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -38%);
+  text-align: center;
+`;
+const LoadingHeader = styled.h2`
+  margin: 0;
+  padding: 0;
+  text-align: center;
+`;
+
+const Table = styled.table`
+  width: 370px;
+  position: fixed;
+  bottom: 93px;
+  z-index: -1;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  @media (max-width: 600px) {
+    margin-top: 70px;
+    width: 280px;
+  }
+`;

@@ -59,7 +59,7 @@ const Layout = ({ children }) => {
         <Header />
         <UpperWrapper>{children}</UpperWrapper>
         <Snow />
-        <BackStepImg src={`/asset_ver2/image/step_background.png`}/>
+        <BackStepImg src={`/asset_ver2/image/layout/step_background.png`}/>
       </MainWrapper>
     </>
   );

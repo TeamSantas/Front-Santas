@@ -6,7 +6,7 @@ import Calendar from "../components/index/Calendar";
 import Share from "../components/share/Share";
 import { getCookie } from "../businesslogics/cookie";
 import ReactHowler from "react-howler";
-import {lazy, ReactElement, useEffect, useState} from "react";
+import {Component, lazy, ReactElement, useEffect, useState} from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../components/friends/FriendsModal";
 import { Suspense } from "react";
@@ -25,23 +25,10 @@ import { Modals } from "../components/modals/modals";
 import PlainLayout from "../components/layout/new/PlainLayout";
 import Login from "./login";
 import MainLayout from "../components/layout/new/MainLayout";
+import Layout from "../components/layout/new/Layout";
 
 const MainIcons = styled(Icons)`
   height: 35px;
-`;
-const SearchBtn = styled.img`
-  margin: 3px;
-  margin-left: 10px;
-  height: 28px;
-  cursor: pointer;
-`;
-const LinkCopy = styled(MainIcons)`
-  margin: 0 2px;
-  background-image: url("/assets/image/icons/Link.svg");
-`;
-const Friends = styled(MainIcons)`
-  margin: 0 2px;
-  background-image: url("/assets/image/icons/Users.svg");
 `;
 const Info = styled(MainIcons)`
   width: 25px;
@@ -55,15 +42,6 @@ const Snowball = styled(MainIcons)`
     display: none;
   }
 `;
-const SnowballMobile = styled(MainIcons)`
-  margin-left: 15px;
-  background-image: url("/assets/image/icons/snowball.svg");
-  display: none;
-  @media (max-width: 1000px) {
-    display: flex;
-  }
-`;
-
 const Bgm = styled(MainIcons)`
   background-image: url("/assets/image/icons/SpeakerHigh.svg");
 `;
@@ -89,14 +67,6 @@ const ButtonFlex = styled(Flex)`
     margin-top: 5%;
   }
 `;
-const EndingShareBtnFlex = styled(Flex)`
-  border-radius: 10px;
-  width: 30rem;
-  @media (max-width: 600px) {
-    width: 85%;
-  }
-`;
-
 const CalendarYellowBtn = styled(Icons)`
   width: 35rem;
   height: 72px;
@@ -118,27 +88,7 @@ const CalendarYellowBtn = styled(Icons)`
 const MainFlex = styled(Flex)`
   margin-top: -15px;
 `;
-const ShareBtn = styled(Icons)`
-  width: 26rem;
-  height: 60px;
-  font-size: 25px;
-  font-weight: bold;
-  background: #275085;
-  margin: 0 auto;
-  &:hover {
-    color: white;
-    background: #1a3a65;
-  }
-  border-radius: 12px;
-  z-index: 5;
-  color: white;
-  @media (max-width: 600px) {
-    width: 95%;
-    margin-top: 5px;
-    height: 52px;
-    font-size: 22px;
-  }
-`;
+
 const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
@@ -238,22 +188,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     // }
   };
 
-  // onboardingCookie
-  const checkLocation = () => {
-    // const onboardingCookie = getCookie("onboarding");
-    // if (onboardingCookie === "" && props.data == undefined) {
-    //   router.push("/onboarding");
-    // }
-    // if (
-    //   onboardingCookie &&
-    //   getCookie("token") == "" &&
-    //   props.data === undefined
-    // ) {
-    //   // 온보딩봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
-    //   router.push("/title");
-    // }
-  };
-
   // endingCookie
   const today = new Date();
   const showEnding = () => {
@@ -269,7 +203,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   useEffect(() => {
     getMyBGM();
-    checkLocation();
     if (today.getDate() === 25) {
       showEnding();
     }
@@ -310,26 +243,27 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const FriendsCalendarBtn = () => {
     return (
       <>
-        <ButtonFlex>
-          {isLogged === false ? null : (
-            <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>
-          )}
-          <Flex>
-            {/*BGM react-howler 라이브러리*/}
-            <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
-            {mute ? (
-              <Bgm onClick={() => muteHandler(mute)} />
-            ) : (
-              <MuteBgm onClick={() => muteHandler(mute)} />
-            )}
-            <Snowball onClick={clickSnowballIconHandler} />
-            <Info onClick={clickInformationIconHandler} />
-            <InformationModal
-              show={informationModalShow}
-              onHide={handleInformationModalClose}
-            />
-          </Flex>
-        </ButtonFlex>
+        {/*TODO: 내 캘린더로 이동하기/친구 캘린더 가기에 필요한 함수들*/}
+        {/*<ButtonFlex>*/}
+        {/*  {isLogged === false ? null : (*/}
+        {/*    <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>*/}
+        {/*  )}*/}
+        {/*  <Flex>*/}
+        {/*    /!*BGM react-howler 라이브러리*!/*/}
+        {/*    <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />*/}
+        {/*    {mute ? (*/}
+        {/*      <Bgm onClick={() => muteHandler(mute)} />*/}
+        {/*    ) : (*/}
+        {/*      <MuteBgm onClick={() => muteHandler(mute)} />*/}
+        {/*    )}*/}
+        {/*    <Snowball onClick={clickSnowballIconHandler} />*/}
+        {/*    <Info onClick={clickInformationIconHandler} />*/}
+        {/*    <InformationModal*/}
+        {/*      show={informationModalShow}*/}
+        {/*      onHide={handleInformationModalClose}*/}
+        {/*    />*/}
+        {/*  </Flex>*/}
+        {/*</ButtonFlex>*/}
         {isLogged === true ? null : (
           <CalendarYellowBtn onClick={() => router.push("/title")}>
             내 캘린더도 만들기✨
@@ -356,8 +290,11 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
 export default Home;
 // //TODO : 여기 손봐서 집모양 나오게 해야함
-// Home.getLayout = (page: ReactElement) => {
-//   return (
-//       <MainLayout logo={"/assets/image/layout/logo.png"}>{page}</MainLayout>
-//   );
-// };
+Home.getLayout = (page: ReactElement) => {
+  return (
+      <MainLayout
+      // isLogged={isLogged}
+      // ismycalendar={ismycalendar}
+      logo={"/assets/image/layout/logo.png"}>{page}</MainLayout>
+  );
+};
