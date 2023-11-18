@@ -1,6 +1,8 @@
-import {ImageLoaderProps} from "next/image";
+import { ImageLoaderProps } from "next/image";
 
-const imageLoader = ({src, width, quality}: ImageLoaderProps) => {
-    return `${process.env.NEXT_PUBLIC_DOMAIN}/${src}?w=${width}&q=${quality || 75}`;
+const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  return `${process.env.NEXT_PUBLIC_DOMAIN}/${src}?w=${width}&q=${
+    quality || 75
+  }`;
 };
 export default imageLoader;
