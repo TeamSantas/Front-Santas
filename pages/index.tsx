@@ -6,7 +6,7 @@ import Calendar from "../components/index/Calendar";
 import Share from "../components/share/Share";
 import { getCookie } from "../businesslogics/cookie";
 import ReactHowler from "react-howler";
-import { lazy, useEffect, useState } from "react";
+import {lazy, ReactElement, useEffect, useState} from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../components/friends/FriendsModal";
 import { Suspense } from "react";
@@ -22,6 +22,9 @@ import { setCookie } from "cookies-next";
 import CopyModal from "../components/index/CopyModal";
 import { shareKakao } from "../components/share/ShareAPIButton";
 import { Modals } from "../components/modals/modals";
+import PlainLayout from "../components/layout/new/PlainLayout";
+import Login from "./login";
+import MainLayout from "../components/layout/new/MainLayout";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -91,17 +94,6 @@ const EndingShareBtnFlex = styled(Flex)`
   width: 30rem;
   @media (max-width: 600px) {
     width: 85%;
-  }
-`;
-
-const Text = styled.h3`
-  text-align: center;
-  color: white;
-`;
-const SnowballContainer = styled(MainContainer)`
-  height: 80vh;
-  @media (max-width: 600px) {
-    display: none;
   }
 `;
 
@@ -190,8 +182,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const goEndingHandler = () => {
     window.location.href = "/endingbridge";
   };
-  // @ts-ignore : glb 파일을 담아오는 type이 하나뿐이라 그냥 ignore 처리
-  const ModelComponent = lazy(() => import("/components/index/SnowBallModel"));
 
   // friends modal
   const [friendModalShow, setFriendModalShow] = useState(false);
@@ -309,49 +299,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     return (
       <>
         <Modals />
-        <ButtonFlex>
-          <Flex>
-            <Friends onClick={clickFriendIconHandler} />
-            {/* <LinkCopy onClick={linkCopyHandler} /> */}
-            <SearchBtn
-              src="/assets/image/share/kakao_button.png"
-              onClick={shareKakao}
-            />
-
-            <FriendsModal
-              show={friendModalShow}
-              onHide={handleFriendsModalClose}
-            />
-          </Flex>
-          <Flex>
-            <CopyModal
-              // link={`https://merry-christmas.site/${myLink}`}
-              link={`https://merry-christmas.site/`}
-              show={copyModal}
-              onHide={handleCopyModalClose}
-            />
-          </Flex>
-          <Flex>
-            {/*BGM react-howler 라이브러리*/}
-            <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
-            {mute ? (
-              <Bgm onClick={() => muteHandler(mute)} />
-            ) : (
-              <MuteBgm onClick={() => muteHandler(mute)} />
-            )}
-            <Snowball onClick={clickSnowballIconHandler} />
-            <SnowballMobile onClick={() => router.push("/snowball")} />
-            <Info onClick={clickInformationIconHandler} />
-            <InformationModal
-              show={informationModalShow}
-              onHide={handleInformationModalClose}
-            />
-          </Flex>
-        </ButtonFlex>
-        <EndingShareBtnFlex>
-          <ShareBtn>캘린더 공유하기</ShareBtn>
-        </EndingShareBtnFlex>
-        {/* <Share loggedId={loggedMemberId} /> */}
       </>
     );
   };
@@ -401,29 +348,16 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
-        {snowballModalShow ? (
-          <SnowballContainer>
-            <Suspense
-              fallback={
-                <div>
-                  <Text>로딩 중.....</Text>
-                  <img
-                    src="/assets/image/character/spinner.gif"
-                    alt="spinner"
-                  />
-                </div>
-              }
-            >
-              <Text>스노우볼을 움직여보세요</Text>
-              <Canvas>
-                <ModelComponent />
-              </Canvas>
-            </Suspense>
-          </SnowballContainer>
-        ) : null}
+        {snowballModalShow ? (<Snowball/>) : null}
       </MainFlex>
     </div>
   );
 };
 
 export default Home;
+// //TODO : 여기 손봐서 집모양 나오게 해야함
+// Home.getLayout = (page: ReactElement) => {
+//   return (
+//       <MainLayout logo={"/assets/image/layout/logo.png"}>{page}</MainLayout>
+//   );
+// };
