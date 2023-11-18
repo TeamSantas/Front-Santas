@@ -1,16 +1,12 @@
 import Image from "next/image";
 import styled from "styled-components";
 import PlainLayout from "../components/layout/new/PlainLayout";
+import { kakaoLogin } from "../api/hooks/useKakaoLogin";
 
 const Login = () => {
-  const handleKakaoLogin = () => {
-    console.log("로그인 버튼 클릭");
-    return;
-  };
-
   return (
     <Container>
-      <KakaoLoginButton onClick={handleKakaoLogin}>
+      <KakaoLoginButton onClick={kakaoLogin}>
         <Image
           alt="kakao-logo"
           src="/assets/image/login/kakao-logo.svg"
