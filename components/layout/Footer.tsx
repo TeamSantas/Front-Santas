@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
+import imageLoader from "../common/ImageLoader";
 const Wrapper = styled.div`
   background-color: white;
   padding: 20px;
@@ -51,6 +52,7 @@ const Footer = () => {
             src={"/assets/image/icons/sns/instagram.svg"}
             width={20}
             height={20}
+            loader={imageLoader}
             alt="instagram-logo"
           />
         </Link>
