@@ -292,9 +292,6 @@ export default Home;
 // //TODO : 여기 손봐서 집모양 나오게 해야함
 Home.getLayout = (page: ReactElement) => {
   return (
-      <MainLayout
-      // isLogged={isLogged}
-      // ismycalendar={ismycalendar}
-      logo={"/assets/image/layout/logo.png"}>{page}</MainLayout>
+      <MainLayout>{page}</MainLayout>
   );
 };

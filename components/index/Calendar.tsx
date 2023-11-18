@@ -94,7 +94,7 @@ const Calendar = ({ ismycalendar, loggedId }) => {
             />
           </div>
         ))}
-          <BackGround src={`/asset_ver2/image/layout/back_house.png`}/>
+          <BackGround src={`/asset_ver2/image/layout/back_house.png`} width={`450`} height={`1000`}/>
           <Table>
               <tr>
                   {dayRow_1.map((day,idx)=>{
@@ -137,16 +137,18 @@ const Calendar = ({ ismycalendar, loggedId }) => {
   const RenderFriendsCalendar = () => {
     return (
       <>
-        {days.map((day, idx) => (
-          <DayImage
-            src={`/assets/image/days/day${idx + 1}.svg`}
-            onClick={() => {
-              handleShow(idx + 1);
-            }}
-            alt={`day${idx + 1}`}
-            key={day}
-          />
-        ))}
+          <BackGround src={`/asset_ver2/image/layout/back_house.png`}/>
+          {/*TODO:친구달력 레이아웃도 위처럼 만들기(너무 겹치면 컴포넌트로 빼주기)*/}
+        {/*{days.map((day, idx) => (*/}
+        {/*  <BasicDay*/}
+        {/*    day={}*/}
+        {/*    onClick={() => {*/}
+        {/*      handleShow(idx + 1);*/}
+        {/*    }}*/}
+        {/*    alt={`day${idx + 1}`}*/}
+        {/*    key={day}*/}
+        {/*  />*/}
+        {/*))}*/}
       </>
     );
   };
@@ -200,23 +202,21 @@ const CalendarWrapper = styled.div`
     margin: 5px auto;
   }
 `;
-const DayImg = styled(Image)` 
-  justify-content: center;
-  padding: 2px;
-  align-items: center;
-  cursor: pointer;
-  z-index: 10;
-`;
-const BackGround = styled.img`
-  width: 450px;
+const BackGround = styled(Image)`
+  width: 500px;
+  height: auto;
   position: fixed;
-  bottom: 80px;
+  bottom: 60px;
   z-index: -1;
   margin: 0 auto;
   left: 0;
   right: 0;
+  overflow: hidden;
   @media (max-width: 600px) {
-    width: 340px;
+    width: 390px;
+  }
+  @media (max-width: 380px) {
+    width: 360px;
   }
 `;
 const LoadingContainer = styled.div`
@@ -233,15 +233,19 @@ const LoadingHeader = styled.h2`
 `;
 
 const Table = styled.table`
-  width: 370px;
+  width: 390px;
   position: fixed;
-  bottom: 93px;
+  bottom: 165px;
   z-index: -1;
   margin: 0 auto;
   left: 0;
   right: 0;
   @media (max-width: 600px) {
-    margin-top: 70px;
-    width: 280px;
+    bottom: 135px;
+    width: 315px;
+  }
+  @media (max-width: 380px) {
+    bottom: 125px;
+    width: 300px;
   }
 `;

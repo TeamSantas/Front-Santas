@@ -11,8 +11,8 @@ const BasicDay = (props:BasicDayProps) => {
     return (
         <td key={idx}>
             <DayImg src={`/asset_ver2/image/days/day${day}.svg`}
-                    width={`100`}
-                    height={`100`}
+                    width={100}
+                    height={100}
                     layout="responsive"
                     key={idx}
                     alt={`day${day}`}/>
@@ -25,7 +25,7 @@ const DayImg = styled(Image)`
   padding: 2px;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: auto;
   cursor: pointer;
   z-index: 10;
 `;
