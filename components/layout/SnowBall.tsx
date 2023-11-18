@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Canvas} from "@react-three/fiber";
 import {MainContainer} from "../../styles/styledComponentModule";
 import styled from "styled-components";
+import Image from "next/image";
 
 class SnowBall extends Component {
     render() {
@@ -12,7 +13,7 @@ class SnowBall extends Component {
                     fallback={
                         <div>
                             <Text>로딩 중.....</Text>
-                            <img
+                            <Image
                                 src="/assets/image/character/spinner.gif"
                                 alt="spinner"
                             />
