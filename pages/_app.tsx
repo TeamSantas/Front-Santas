@@ -1,6 +1,5 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
-import Layout from "../components/layout/Layout";
 import { AppProps } from "next/app";
 import "../public/assets/fonts/font.css";
 import PushNotification from "../components/PushNotification";
@@ -10,6 +9,7 @@ import * as ga from "../lib/gtag";
 import Store from "../store/Store";
 import { CookiesProvider } from "react-cookie";
 import { getCookie, setCookie } from "cookies-next";
+import Layout from "../components/layout/new/Layout";
 
 declare global {
   interface Window {
@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <CookiesProvider>
       <Store>
-        <PushNotification />
+        {/* <PushNotification /> */}
         {getLayout(<Component {...pageProps} />)}
       </Store>
     </CookiesProvider>

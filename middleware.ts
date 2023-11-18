@@ -3,8 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(req: NextRequest) {
   // 현재 경로가 '/upcoming'과 /adx.txt 이 아닌 경우 리다이렉트
   const url = req.nextUrl;
-  if (url.pathname !== "/upcoming" && process.env.NODE_ENV !== "development"
-      && url.pathname !== "/ads.txt" && url.pathname !== "/robots.txt")  {
+  const isAdmin = req.cookies.get("admin");
+  if (
+    url.pathname !== "/upcoming" &&
+    process.env.NODE_ENV !== "development" &&
+    url.pathname !== "/ads.txt" &&
+    url.pathname !== "/robots.txt" &&
+    !isAdmin
+  ) {
     url.pathname = "/upcoming";
     return NextResponse.redirect(url);
   }
