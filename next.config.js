@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const env = process.env.APP_ENV || "local";
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -11,16 +13,19 @@ const nextConfig = {
       },
     removeConsole: process.env.NODE_ENV === "production",
   },
-  images: {
-    loader: "custom",
-    loaderFile: "./components/common/ImageLoader.ts"
-  },
+  ...(process.env.NODE_ENV === "production"
+    ? {
+        images: {
+          loader: "custom",
+          loaderFile: "./components/common/ImageLoader.ts",
+        },
+      }
+    : {}),
 };
-module.exports = nextConfig;
 
 //React Three Fiber 의존성
 const withTM = require("next-transpile-modules")(["three"]);
-module.exports = withTM();
+module.exports = withTM(nextConfig);
 
 if (process.env.NODE_ENV === "production") {
   console.log = function no_console() {};

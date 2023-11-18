@@ -1,15 +1,14 @@
 import axios from "axios";
-import {getCookie} from "../businesslogics/reactCookie";
-
+import { getCookie } from "../businesslogics/reactCookie";
 
 // const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const BASE_URL = "https://pitapat-adventcalendar.shop"
+const BASE_URL =
+  "https://port-0-back-santas-euegqv2llojq1wch.sel5.cloudtype.app";
 
-const loadAccessToken = () => {  //여기서 getCookie로 토큰을 가져와서 만약 없으면 로그인링크로 푸시 / 있으면 로그인도있구나 판단 후 정상연결
-  return getCookie('token');
-}
-// console.log(">>>내쿠키어딧써")
-// console.log(getCookie('token'))
+const loadAccessToken = () => {
+  //여기서 getCookie로 토큰을 가져와서 만약 없으면 로그인링크로 푸시 / 있으면 로그인도있구나 판단 후 정상연결
+  return getCookie("token");
+};
 
 // Token 필요한 Axios
 const AuthAPIInstance = (baseURL: string) => {
@@ -19,33 +18,6 @@ const AuthAPIInstance = (baseURL: string) => {
     params: {},
     headers: {
       Authorization: `Bearer ${loadAccessToken()}`,
-      // ContentType: 'text/plain'
-   },
-  });
-  // 응답 인터셉터 추가
-  // apiInstance.interceptors.response.use(
-  //   // 응답 데이터를 가공
-  //   (response) => response,
-  //   // 에러 처리하기 (error handling)
-  //   (error) => {
-  //       console.log(error);
-  //     // console.log(error.response.data.code);
-  //     // if(error.response.data.code === '403')
-  //       //여기에 403(만료에러) 반환되면 엑세스토큰 대신 리프레시 넣어서 재요청하게
-  //   }
-  // );
-  // apiInstance.defaults.withCredentials = true;
-  return apiInstance;
-};
-
-const AuthAPIPostInstance = (baseURL: string) => {
-  const apiInstance = axios.create({
-    timeout: 15000,
-    baseURL: baseURL,
-    params: {},
-    headers: {
-      Authorization: `Bearer ${loadAccessToken()}`,
-      'Content-Type': 'text/plain'
     },
   });
   return apiInstance;
@@ -58,29 +30,21 @@ const APIInstance = (baseURL: string) => {
     baseURL: baseURL,
     params: {},
   });
-  // 응답 인터셉터 추가
-  // apiInstance.interceptors.response.use(
-  //   // 응답 데이터를 가공
-  //   (response) => response,
-  //   // 에러 처리하기 (error handling)
-  //   (error) => console.log(error)
-  // );
-  // apiInstance.defaults.withCredentials = true;
   return apiInstance;
 };
 
-const PresentInstance = APIInstance(BASE_URL);
+const PresentInstance = AuthAPIInstance(BASE_URL);
 const PresentAuthInstance = AuthAPIInstance(BASE_URL);
 
 const MemberAuthInstance = AuthAPIInstance(BASE_URL);
-const MemberInstance = APIInstance(BASE_URL);
+const MemberInstance = AuthAPIInstance(BASE_URL);
 
 const SettingAuthInstance = AuthAPIInstance(BASE_URL);
-const SettingAuthPostInstance = AuthAPIPostInstance(BASE_URL);
+const SettingAuthPostInstance = AuthAPIInstance(BASE_URL);
 
 const FriendsAuthInstance = AuthAPIInstance(BASE_URL);
-const FriendsInstance = APIInstance(null);
-const AuthInstance = APIInstance(null);
+const FriendsInstance = AuthAPIInstance(null);
+const AuthInstance = AuthAPIInstance(BASE_URL);
 const AuthAuthInstance = AuthAPIInstance(BASE_URL);
 
 const PushInstance = AuthAPIInstance(BASE_URL);
@@ -96,5 +60,5 @@ export {
   FriendsInstance,
   AuthInstance,
   AuthAuthInstance,
-  PushInstance
+  PushInstance,
 };
