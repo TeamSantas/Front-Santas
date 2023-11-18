@@ -3,6 +3,8 @@ import Image from "next/image";
 import AnimatedText from "../components/common/AnimatedText";
 import ContentInput from "../components/town/content-input";
 import TownContentList from "../components/town/content-list";
+import Layout from "../components/layout/new/Layout";
+import { Modals } from "../components/modals/modals";
 
 const messages = [
   {
@@ -21,28 +23,35 @@ const messages = [
 
 const Town = () => {
   return (
-    <Container>
-      <ContentWrapper>
-        <Notice>
-          <Image
-            alt="announce"
-            src="/assets/image/town/announce.png"
-            width={22}
-            height={22}
-          />
-          <AnimatedText messages={messages} />
-        </Notice>
-        <TownContentList />
-      </ContentWrapper>
-      <ContentInput />
-    </Container>
+    <>
+      <Modals />
+      <Container>
+        <ContentWrapper>
+          <Notice>
+            <Image
+              alt="announce"
+              src="/assets/image/town/announce.png"
+              width={22}
+              height={22}
+            />
+            <AnimatedText messages={messages} />
+          </Notice>
+          <TownContentList />
+        </ContentWrapper>
+        <ContentInput />
+      </Container>
+    </>
   );
 };
 export default Town;
 
+Town.getLayout = (page) => {
+  return <Layout logo={"/assets/image/layout/town-logo.png"}>{page}</Layout>;
+};
+
 const Container = styled.div`
   position: absolute;
-  bottom: -100vh;
+  bottom: calc(-100vh + 130px + env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
 
@@ -56,7 +65,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: 60vh;
+  height: 50vh;
   border-radius: 10px 10px 0 0;
   width: 100%;
   max-width: 500px;

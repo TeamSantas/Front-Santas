@@ -21,6 +21,7 @@ import Seo from "../components/common/Seo";
 import { setCookie } from "cookies-next";
 import CopyModal from "../components/index/CopyModal";
 import { shareKakao } from "../components/share/ShareAPIButton";
+import { Modals } from "../components/modals/modals";
 
 const MainIcons = styled(Icons)`
   height: 35px;
@@ -307,6 +308,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     ``;
     return (
       <>
+        <Modals />
         <ButtonFlex>
           <Flex>
             <Friends onClick={clickFriendIconHandler} />

@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import Seo from "../components/common/Seo";
 import styled from "styled-components";
 import { Flex, Icons, MainContainer } from "../styles/styledComponentModule";
 import { useRouter } from "next/router";
@@ -58,38 +57,26 @@ const MyPage: NextPage = () => {
   const router = useRouter();
   const [myName, setMyName] = useState<any>(null);
   const [myEmail, setMyEmail] = useState<any>(null);
-  const [myProfileImg, setMyProfileImg] = useState<any>(null);
 
-  const getUserData = async () => {
-    try {
-      const res = await getLoggedMember();
-      setMyName(res.nickname);
-      setMyEmail(res.email);
-      setMyProfileImg(res.profileImageURL);
-    } catch (e) {
-      router.push("/title");
-    }
-  };
+  // const getUserData = async () => {
+  //   try {
+  //     const res = await getLoggedMember();
+  //     setMyName(res.nickname);
+  //     setMyEmail(res.email);
+  //     setMyProfileImg(res.profileImageURL);
+  //   } catch (e) {
+  //     router.push("/title");
+  //   }
+  // };
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+  // useEffect(() => {
+  //   // getUserData();
+  // }, []);
 
   return (
     <MainContainer>
-      <Seo title="MyPage" />
       <AdSense />
       <Container>
-        <InnerContainer>
-          <Profile src={myProfileImg} />
-          <div>
-            <CenterFlex>
-              <Text name={"true"}>{myName}</Text>
-              <Edit onClick={() => router.push(`/edit`)}></Edit>
-            </CenterFlex>
-            <Text email={"true"}>{myEmail}</Text>
-          </div>
-        </InnerContainer>
         <TabView />
       </Container>
     </MainContainer>
