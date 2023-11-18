@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <CookiesProvider>
       <Store>
-        <PushNotification />
+        {/* <PushNotification /> */}
         {getLayout(<Component {...pageProps} />)}
       </Store>
     </CookiesProvider>
