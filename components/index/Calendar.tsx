@@ -203,29 +203,6 @@ const CalendarWrapper = styled.div`
     margin: 5px auto;
   }
 `;
-const BackGround = styled(Image)`
-  width: 480px;
-  height: auto;
-  position: fixed;
-  bottom: 60px;
-  z-index: -1;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  @media (max-width: 600px) {
-    width: 390px;
-  }
-  @media (max-width: 380px) {
-    width: 340px;
-  }
-  @media (max-width: 300px) {
-    width: 280px;
-  }
-  @media (min-width: 1000px) {
-    width: 360px;
-  }
-`;
 const LoadingContainer = styled.div`
   position: absolute;
   top: 50%;
@@ -253,7 +230,7 @@ const Table = styled.table`
   }
   @media (max-width: 380px) {
     bottom: 125px;
-    width: 280px;
+    width: 270px;
   }
   @media (max-width: 300px) {
     bottom: 120px;
@@ -261,7 +238,7 @@ const Table = styled.table`
   }
   @media (min-width: 1000px) {
     bottom: 120px;
-    width: 300px;
+    width: 280px;
   }
 `;
 const TitleContainer = styled.div`
@@ -272,7 +249,7 @@ const TitleContainer = styled.div`
     top: -3vh;
   }
   @media (max-height: 700px) {
-    top: -3vh;
+    top: 0;
   }  
   @media (max-width: 300px) {
   top: 7vh;
@@ -289,7 +266,30 @@ const Title = styled.h1`
     width: 200px;
   }
   @media (max-width: 400px) {
-    font-size: 23px;
+    font-size: 20px;
     width: 200px;
    }
+`;
+const BackGround = styled(Image)`
+  width: 480px;
+  height: auto;
+  position: fixed;
+  bottom: 60px;
+  z-index: -1;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  @media (max-width: 600px) {
+    width: 390px;
+  }
+  @media (max-width: 380px) {
+    width: 330px;
+  }
+  @media (max-width: 300px) {
+    width: 280px;
+  }
+  @media (min-width: 1000px) {
+    width: 360px;
+  }
 `;
