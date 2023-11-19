@@ -15,7 +15,8 @@ import MemberService from "../../api/MemberService";
 import PushService from "../../api/PushService";
 
 export const PresentHeader = styled.div`
-  font-size: x-large;
+  font-size: large;
+  font-family: "NanumSquareNeoOTF-Bd", NanumSquareNeoOTF-Bd, sans-serif;
 `;
 
 const ImageFormWrapper = styled.div`
@@ -30,14 +31,22 @@ const JustifiedAlignedFlex = styled(Flex)`
 
 export const TextArea = styled.div`
   outline-color: #ac473d;
+  font-family: "NanumSquareNeoOTF-Bd", KCC-Ganpan, sans-serif;
   text-align: center;
   color: white;
-  background-image: url(/assets/image/message-background.svg);
+  background-image: url(/asset_ver2/image/presents/message-background.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  height: 16rem;
-  padding: 4.5rem;
+  margin-top: 1rem;
+  height: 17rem;
+  padding: 1rem 4rem;
+  @media (min-width: 768px) { //태블릿 대응
+    padding: 1rem 6rem;
+  }
+  @media (max-width: 300px) { //갤폴드 대응
+    padding: 3rem 1rem;
+  }
 `;
 
 export const SendPresentsWrapper = styled.div`
