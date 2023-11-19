@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Context } from "../core/context";
 import { getLoggedMember } from "../../../api/hooks/useMember";
 import { MemberData } from "../../../util/type";
+import { useRouter } from "next/router";
 
 interface Props {
   children: React.ReactNode;
@@ -12,13 +13,13 @@ export default function AuthProvider({ children }: Props) {
     {} as MemberData
   );
   const [storeRefreshToken, setStoreRefreshToken] = useState<string>("");
-
+  const router = useRouter();
   const updateUserData = async () => {
     try {
       const res = await getLoggedMember();
-      setStoreUserdata(res.data.data);
+      setStoreUserdata(res?.data?.data);
     } catch (e) {
-      console.log(e);
+      throw new Error("🔑 로그인이 필요합니다. \n", e);
     }
   };
 
@@ -27,7 +28,9 @@ export default function AuthProvider({ children }: Props) {
   };
 
   useEffect(() => {
-    updateUserData();
+    if (!router.pathname.includes("upcoming")) {
+      updateUserData();
+    }
   }, []);
 
   const value = {
