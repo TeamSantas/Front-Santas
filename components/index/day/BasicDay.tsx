@@ -3,18 +3,18 @@ import styled from "styled-components";
 
 interface BasicDayProps {
     day: number;
-    idx: number;
+    handleShow(day: number): void;
 }
 
 const BasicDay = (props:BasicDayProps) => {
-    const {day, idx} = props;
+    const {day,handleShow} = props;
     return (
-        <td key={idx}>
+        <td>
             <DayImg src={`/asset_ver2/image/days/day${day}.svg`}
                     width={100}
                     height={100}
                     layout="responsive"
-                    key={idx}
+                    onClick={() => handleShow(day)}
                     alt={`day${day}`}/>
         </td>
     );

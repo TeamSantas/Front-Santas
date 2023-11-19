@@ -3,23 +3,24 @@ import styled from "styled-components";
 
 interface WideDayProps {
     day: number;
-    idx: number;
+    handleShow(day: number): void;
 }
 
 const WideDay = (props:WideDayProps) => {
-    const {day, idx} = props;
+    const {day,handleShow} = props;
     return (
-        <td colSpan={2} key={idx}>
+        <td colSpan={2}>
             <DayImg src={`/asset_ver2/image/days/day${day}.svg`}
                     width={100}
                     height={100}
                     layout="responsive"
-                    key={idx}
+                    onClick={() => handleShow(day)}
                     alt={`day${day}`}/>
         </td>
     );
 };
 export default WideDay;
+
 const DayImg = styled(Image)` 
   justify-content: center;
   padding: 2px;
