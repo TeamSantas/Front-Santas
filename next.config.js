@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const env = process.env.APP_ENV || "local";
+const production = process.env.NODE_ENV === "production";
 
 const nextConfig = {
   reactStrictMode: true,
@@ -11,16 +11,17 @@ const nextConfig = {
         displayName: true,
         ssr: true,
       },
-    removeConsole: process.env.NODE_ENV === "production",
+    removeConsole: production,
   },
-  ...(process.env.NODE_ENV === "production"
-    ? {
-        images: {
-          loader: "custom",
-          loaderFile: "./components/common/ImageLoader.ts",
-        },
-      }
-    : {}),
+  images: {
+    remotePatterns: [
+      {
+        hostname: "*",
+      },
+    ],
+    loader: production && "custom",
+    loaderFile: production && "./components/common/ImageLoader.ts",
+  },
 };
 
 //React Three Fiber 의존성
