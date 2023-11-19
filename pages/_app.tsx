@@ -2,14 +2,12 @@ import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { AppProps } from "next/app";
 import "../public/assets/fonts/font.css";
-import PushNotification from "../components/PushNotification";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import * as ga from "../lib/gtag";
-import Store from "../store/Store";
 import { CookiesProvider } from "react-cookie";
-import { getCookie, setCookie } from "cookies-next";
 import Layout from "../components/layout/new/Layout";
+import AuthProvider from "../store/contexts/components/auth-provider";
 
 declare global {
   interface Window {
@@ -20,9 +18,7 @@ declare global {
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
-  const [hasMounted, setHasMounted] = useState(false);
   useEffect(() => {
-    setHasMounted(true);
     const handleRouteChange = (url) => {
       ga.pageview(url);
     };
@@ -32,25 +28,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
   }, [router.events]);
 
-  useEffect(() => {
-    if (!getCookie("noticeRead")) {
-      setCookie("noticeRead", false);
-    }
-  }, []);
-
-  if (!hasMounted) {
-    return null;
-  }
-
   const getLayout =
     (Component as any).getLayout || ((page) => <Layout> {page} </Layout>);
 
   return (
     <CookiesProvider>
-      <Store>
-        {/* <PushNotification /> */}
-        {getLayout(<Component {...pageProps} />)}
-      </Store>
+      <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
     </CookiesProvider>
   );
 }

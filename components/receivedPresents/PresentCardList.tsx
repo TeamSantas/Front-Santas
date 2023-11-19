@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { setGetDayPresents } from "../../api/hooks/useGetDayPresents";
 import MemberService from "../../api/MemberService";
-import { storeContext } from "../../store/Store";
 import { Flex } from "../../styles/styledComponentModule";
 import Card from "./Card";
 
