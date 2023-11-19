@@ -8,6 +8,7 @@ import * as ga from "../lib/gtag";
 import { CookiesProvider } from "react-cookie";
 import Layout from "../components/layout/new/Layout";
 import AuthProvider from "../store/contexts/components/auth-provider";
+import { getCookie } from "../businesslogics/reactCookie";
 
 declare global {
   interface Window {
@@ -19,6 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
+    if (getCookie("admin")) return;
+
     const handleRouteChange = (url) => {
       ga.pageview(url);
     };
