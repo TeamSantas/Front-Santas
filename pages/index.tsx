@@ -188,7 +188,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   useEffect(() => {
     // getMemberData();
-    // handleCalendarOwner();
+    handleCalendarOwner();
   }, [memberInfo]);
 
   useEffect(() => {
@@ -207,11 +207,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   const MyCalendarBtn = () => {
     ``;
-    return (
-      <>
-        <Modals />
-      </>
-    );
+    return <Modals />
   };
 
   const handleGoMyCal = () => {
@@ -257,6 +253,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
         <MainContainer>
           <br />
           {/* 실제 invitation Link 로 보내기 */}
+          {/*TODO: 여기서 시작하기! 여기가 친구 or 내 캘린더로 보내는 지점이야*/}
           <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
@@ -267,7 +264,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 };
 
 export default Home;
-// //TODO : 여기 손봐서 집모양 나오게 해야함
 Home.getLayout = (page: ReactElement) => {
   return (
       <MainLayout>{page}</MainLayout>

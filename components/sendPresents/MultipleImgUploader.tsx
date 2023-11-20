@@ -39,7 +39,7 @@ const MultipleImgUploader = () => {
           <div className="imageContainer" key={id}>
             <img id="present_img" src={image} alt={`${image}-${id}`} onClick={() => handleDeleteImage(id)}/>
           </div>
-        ))}
+        ))}z
       </Flex>
     </div>
   );
