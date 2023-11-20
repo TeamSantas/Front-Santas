@@ -2,55 +2,46 @@ import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { AppProps } from "next/app";
 import "../public/assets/fonts/font.css";
-import PushNotification from "../components/PushNotification";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import * as ga from "../lib/gtag";
-import Store from "../store/Store";
 import { CookiesProvider } from "react-cookie";
-import { getCookie, setCookie } from "cookies-next";
 import Layout from "../components/layout/new/Layout";
+import AuthProvider from "../store/contexts/components/auth-provider";
+import { measurePageView } from "../lib/gtag";
 
 declare global {
   interface Window {
     Kakao: any;
+    dataLayer: Record<string, any>[];
   }
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
-  const [hasMounted, setHasMounted] = useState(false);
   useEffect(() => {
-    setHasMounted(true);
-    const handleRouteChange = (url) => {
-      ga.pageview(url);
-    };
-    router.events.on("routeChangeComplete", handleRouteChange);
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [router.events]);
-
-  useEffect(() => {
-    if (!getCookie("noticeRead")) {
-      setCookie("noticeRead", false);
+    if (window.dataLayer) {
+      window.dataLayer.push({ event: "optimize.activate" });
+      window.dataLayer.push({
+        event: "virtualPageview",
+        pageUrl: window.location.href,
+        pageTitle: document.title,
+      });
     }
-  }, []);
 
-  if (!hasMounted) {
-    return null;
-  }
+    measurePageView({
+      page_title: document.title,
+      page_location: window.location.href,
+      page_referrer: document.referrer,
+    });
+  }, [router.asPath]);
 
   const getLayout =
     (Component as any).getLayout || ((page) => <Layout> {page} </Layout>);
 
   return (
     <CookiesProvider>
-      <Store>
-        {/* <PushNotification /> */}
-        {getLayout(<Component {...pageProps} />)}
-      </Store>
+      <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
     </CookiesProvider>
   );
 }

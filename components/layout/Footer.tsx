@@ -52,7 +52,6 @@ const Footer = () => {
             src={"/assets/image/icons/sns/instagram.svg"}
             width={20}
             height={20}
-            loader={imageLoader}
             alt="instagram-logo"
           />
         </Link>

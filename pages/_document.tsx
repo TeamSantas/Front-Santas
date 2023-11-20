@@ -42,6 +42,17 @@ class MyDocument extends Document {
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
           />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+        `,
+            }}
+          />
           {/*네이버 검색엔진 등록*/}
           <meta
             name="naver-site-verification"
@@ -53,22 +64,9 @@ class MyDocument extends Document {
             content="ca-pub-3291465451494000"
           />
           <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                  page_path: window.location.pathname,
-                });
-        `,
-            }}
-          />
-          <script
             defer
             src="https://developers.kakao.com/sdk/js/kakao.min.js"
-          ></script>
+          />
         </Head>
         <body>
           <Main />

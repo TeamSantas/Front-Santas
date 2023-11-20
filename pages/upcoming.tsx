@@ -9,7 +9,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import Link from "next/link";
-import imageLoader from "../components/common/ImageLoader";
 
 const Div = styled.div`
   text-align: center;
@@ -81,7 +80,6 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: #1c3249;
   font-family: "KCC-Ganpan", KCC-Ganpan, sans-serif;
-
 `;
 
 const Promotion = () => {
@@ -162,9 +160,8 @@ const Promotion = () => {
         {[1, 2, 3, 4, 5].map((idx) => (
           <SwiperSlide key={idx}>
             <SquareImage
-              src={`assets/image/upcoming/feature-${idx}.png`}
+              src={`/assets/image/upcoming/feature-${idx}.png`}
               alt={`feature${idx}`}
-              loader={imageLoader}
             />
           </SwiperSlide>
         ))}
