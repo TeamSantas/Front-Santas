@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const production = process.env.NODE_ENV === "production";
+const env = process.env.APP_ENV || "local";
 
 const nextConfig = {
   reactStrictMode: true,
@@ -12,6 +13,10 @@ const nextConfig = {
         ssr: true,
       },
     removeConsole: production,
+  },
+  publicRuntimeConfig: {
+    env: env,
+    GA4_TEST_MODE: process.env.GA4_TEST_MODE,
   },
   images: {
     remotePatterns: [

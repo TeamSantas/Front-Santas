@@ -3,6 +3,7 @@ import { Context } from "../core/context";
 import { getLoggedMember } from "../../../api/hooks/useMember";
 import { MemberData } from "../../../util/type";
 import { useRouter } from "next/router";
+import { measureUser } from "../../../lib/gtag";
 
 interface Props {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ export default function AuthProvider({ children }: Props) {
     try {
       const res = await getLoggedMember();
       setStoreUserdata(res?.data?.data);
+      measureUser({ user_id: res?.data?.data?.member?.id }); //TODO: 멤버 데이터 확인
     } catch (e) {
       throw new Error("🔑 로그인이 필요합니다. \n", e);
     }

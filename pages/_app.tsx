@@ -4,15 +4,15 @@ import { AppProps } from "next/app";
 import "../public/assets/fonts/font.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import * as ga from "../lib/gtag";
 import { CookiesProvider } from "react-cookie";
 import Layout from "../components/layout/new/Layout";
 import AuthProvider from "../store/contexts/components/auth-provider";
-import { getCookie } from "../businesslogics/reactCookie";
+import { measurePageView } from "../lib/gtag";
 
 declare global {
   interface Window {
     Kakao: any;
+    dataLayer: Record<string, any>[];
   }
 }
 
@@ -20,16 +20,21 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
-    if (getCookie("admin")) return;
+    if (window.dataLayer) {
+      window.dataLayer.push({ event: "optimize.activate" });
+      window.dataLayer.push({
+        event: "virtualPageview",
+        pageUrl: window.location.href,
+        pageTitle: document.title,
+      });
+    }
 
-    const handleRouteChange = (url) => {
-      ga.pageview(url);
-    };
-    router.events.on("routeChangeComplete", handleRouteChange);
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [router.events]);
+    measurePageView({
+      page_title: document.title,
+      page_location: window.location.href,
+      page_referrer: document.referrer,
+    });
+  }, [router.asPath]);
 
   const getLayout =
     (Component as any).getLayout || ((page) => <Layout> {page} </Layout>);
