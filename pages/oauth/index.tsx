@@ -4,9 +4,9 @@ const OAuthLogin = () => {
   return <></>;
 };
 
-export async function getServerSideProps({ query }) {
-  const { token } = query;
-  setCookie("token", token);
+export async function getServerSideProps(context) {
+  const { token } = context.query;
+  setCookie("token", token, context);
 
   return {
     props: { token },
