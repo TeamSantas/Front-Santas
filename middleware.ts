@@ -1,43 +1,63 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const handleUpcomingRedirect = (url, request) => {
-  const isAdmin = request.cookies.get("admin");
+const handleUpcomingRedirect = (url, req) => {
+  const isAdmin = req.cookies.get("admin");
+  const targetPaths = ["/upcoming", "/ads.txt", "/robots.txt"];
+  const isTargetPath = targetPaths.some((path) => url.pathname.includes(path));
 
-  // 현재 경로가 '/upcoming'과 /adx.txt 이 아닌 경우 리다이렉트
-  return (
-    url.pathname !== "/upcoming" &&
-    process.env.NODE_ENV !== "development" &&
-    url.pathname !== "/ads.txt" &&
-    url.pathname !== "/robots.txt" &&
-    !isAdmin
-  );
+  // 현재 경로가
+  // 1. targetPaths가 아니면서
+  // 2. 일반 접속자면서 (어드민 x)
+  // 3. 운영 환경일 때
+  // upcoming으로 리다이렉트
+  return !isTargetPath && !isAdmin && process.env.NODE_ENV !== "development";
 };
 
-const handleLoginRedirect = (tokenCookie, isRequireLoginPath) => {
-  return !tokenCookie && isRequireLoginPath;
-};
-
-export function middleware(request: NextRequest) {
-  const url = request.nextUrl;
-  const tokenCookie = request.cookies.get("token");
+const handleLoginRedirect = (url, req) => {
+  const tokenCookie = req.cookies.get("token");
   const requireLoginPath = ["message"];
   const isRequireLoginPath = requireLoginPath.some((path) =>
     url.pathname.includes(path)
   );
+  return !tokenCookie && isRequireLoginPath;
+};
 
-  const upcomingRedirect = handleUpcomingRedirect(url, request);
-  const loginRedirect = handleLoginRedirect(tokenCookie, isRequireLoginPath);
+const handleAuthRedirect = (url, req) => {
+  const tokenCookie = req.cookies.get("token");
+  return url.pathname.includes("oauth") && !tokenCookie;
+};
+
+export function middleware(req: NextRequest) {
+  const url = req.nextUrl;
+  const newToken = url.searchParams.get("token"); // 쿼리에서 가져온 토큰
+  const upcomingRedirect = handleUpcomingRedirect(url, req);
+  const loginRedirect = handleLoginRedirect(url, req);
+  const oauthRedirect = handleAuthRedirect(url, req);
 
   if (upcomingRedirect) {
     url.pathname = "/upcoming";
+    return NextResponse.redirect(url);
   }
   if (loginRedirect) {
     url.pathname = "/login";
+    return NextResponse.redirect(url);
+  }
+  if (oauthRedirect) {
+    url.pathname = "/";
+    url.searchParams.delete("token"); // parameter masking
+
+    // 브라우저 쿠키에 token 세팅
+    const response = NextResponse.redirect(url);
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 2); // 2년
+    response.cookies.set("token", newToken, {
+      expires: expirationDate,
+      // 다른 옵션들도 필요한 경우 추가할 수 있습니다.
+    });
+    return response;
   }
 
-  return upcomingRedirect || loginRedirect
-    ? NextResponse.redirect(url) // redirect url이 있는 경우에는 넘김
-    : NextResponse.next(); // 다른 경우에는 원래 요청을 유지
+  return NextResponse.next(); // 다른 경우에는 원래 요청을 유지
 }
 
 export const config = {
