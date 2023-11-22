@@ -7,12 +7,10 @@ const OAuthLogin = () => {
 export async function getServerSideProps(context) {
   const { token } = context.query;
   setCookie("token", token, context);
-
+  context.query = {}; // 쿼리 삭제
   return {
-    props: { token },
-    redirect: {
-      destination: "/",
-    },
+    props: {},
+    redirect: { destination: "/" },
   };
 }
 
