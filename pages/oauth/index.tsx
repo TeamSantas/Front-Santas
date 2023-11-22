@@ -5,11 +5,14 @@ const OAuthLogin = () => {
 };
 export default OAuthLogin;
 
-export async function getServerSideProps(context) {
+export const getServerSideProps = async (context) => {
   const { token } = context.query;
-  setCookie("token", token, context);
+  const { cookies } = context.req;
 
-  return {
-    props: {},
-  };
-}
+  if (!cookies["token"] && token) {
+    setCookie("token", token, context);
+    context.res.writeHead(302, { Location: "/" });
+    context.res.end();
+  }
+  return { props: {} };
+};
