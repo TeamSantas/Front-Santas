@@ -22,9 +22,8 @@ const handleLoginRedirect = (url, req) => {
   return !tokenCookie && isRequireLoginPath;
 };
 
-const handleAuthRedirect = (url, req) => {
-  const tokenCookie = req.cookies.get("token");
-  return url.pathname.includes("oauth") && !tokenCookie;
+const handleAuthRedirect = (url) => {
+  return url.pathname.includes("oauth");
 };
 
 export function middleware(req: NextRequest) {
@@ -32,7 +31,7 @@ export function middleware(req: NextRequest) {
   const newToken = url.searchParams.get("token"); // 쿼리에서 가져온 토큰
   const upcomingRedirect = handleUpcomingRedirect(url, req);
   const loginRedirect = handleLoginRedirect(url, req);
-  const oauthRedirect = handleAuthRedirect(url, req);
+  const oauthRedirect = handleAuthRedirect(url);
 
   if (upcomingRedirect) {
     url.pathname = "/upcoming";
@@ -43,17 +42,20 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
   if (oauthRedirect) {
+    const tokenCookie = req.cookies.get("token");
     url.pathname = "/";
     url.searchParams.delete("token"); // parameter masking
 
     // 브라우저 쿠키에 token 세팅
     const response = NextResponse.redirect(url);
-    const expirationDate = new Date();
-    expirationDate.setFullYear(expirationDate.getFullYear() + 2); // 2년
-    response.cookies.set("token", newToken, {
-      expires: expirationDate,
-      // 다른 옵션들도 필요한 경우 추가할 수 있습니다.
-    });
+    if (tokenCookie) {
+      const expirationDate = new Date();
+      expirationDate.setFullYear(expirationDate.getFullYear() + 2); // 2년
+      response.cookies.set("token", newToken, {
+        expires: expirationDate,
+        // 다른 옵션들도 필요한 경우 추가할 수 있습니다.
+      });
+    }
     return response;
   }
 
