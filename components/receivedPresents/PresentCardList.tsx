@@ -29,42 +29,12 @@ const PresentCardList = ({ selectedday }) => {
 
   useEffect(() => {
     const initReceivedPresentList = async () => {
-      const receiverId = (
-          await MemberService.getLoggedMember()
-      ).data.data.member.id;
+      const receiverId = await (
+        await MemberService.getLoggedMember()
+      ).data.data.id;
       const res = await setGetDayPresents(receiverId, receivedDay);
-      console.log("receivedPresentList >>> ", res.content)
-      //TODO: 받은 선물 목데이터-----------
-      const mockPresentData = [
-        {
-          "id": 0,
-          "senderId": 0,
-          "receiverName": "하얀코입니다",
-          "nickname": "팀산타즈",
-          "isPublic": true,
-          "imageURL": "assets/image/face.svg",
-          "title": "내가 보내는 선물이야.돼라 좀!!",
-          "contents": "대충 내용내용 편지편지 좋은말 좋은 말",
-          "receivedDate": "2023-11-19",
-          "isRead": true
-        },
-        {
-          "id": 0,
-          "senderId": 0,
-          "receiverName": "하얀코입니다",
-          "nickname": "팀산타즈",
-          "isPublic": true,
-          "imageURL": "assets/image/face.svg",
-          "title": "내가 보내는 선물이야.돼라 좀!!",
-          "contents": "대충 내용내용 편지편지 좋은말 좋은 말",
-          "receivedDate": "2023-11-19",
-          "isRead": true
-        }
-      ]
-      console.log("========mockData", mockPresentData);
-      setReceivedPresentList(mockPresentData);
-      // TODO---------목데이터 필요 없으면 이거 밑에꺼 주석풀기!
-      // setReceivedPresentList(res.content);
+      // console.log("receivedPresentList >>> ", res.content)
+      setReceivedPresentList(res.content);
     };
     initReceivedPresentList();
   }, []);

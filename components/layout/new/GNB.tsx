@@ -42,7 +42,7 @@ const Gnb = () => {
   const getImagePath = (option) => {
     const condition = option === "home" ? isHome : activeOption === option;
 
-    return `/assets/image/layout/${option}${
+    return `/asset_ver2/image/layout/gnb/${option}${
       condition ? "-click" : "-default"
     }.svg`;
   };

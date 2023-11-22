@@ -103,8 +103,8 @@ const SendPresents = ({ onHide, selectedday }) => {
     try {
       // const res = await getLoggedMember();
       const res = await MemberService.getLoggedMember();
-      // console.log("선물보낼사람정보>>>>>>>>>>>>", res.data.data.member);
-      setMemberInfo(res.data.data.member);
+      // console.log("선물보낼사람정보>>>>>>>>>>>>", res.data.data);
+      setMemberInfo(res.data.data);
       setIsLogged(true);
     } catch (e) {
       // console.log(e);
@@ -271,7 +271,10 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     try {
       const res = await usePostPresent(presentData);
-      PushService.postPushAlarm(currCalUserId, `누군가 ${currCalUserName}님에게 선물을 보냈어요! \n누가 보냈을까요? 두어캘에서 확인해보세요!`);
+      PushService.postPushAlarm(
+        currCalUserId,
+        `누군가 ${currCalUserName}님에게 선물을 보냈어요! \n누가 보냈을까요? 두어캘에서 확인해보세요!`
+      );
       if (res.status === 200) {
         setIsLoading(false);
         alert("선물 보내기 성공! 🎁");
@@ -283,6 +286,7 @@ const SendPresents = ({ onHide, selectedday }) => {
       alert("선물 보내기에 실패했어요. 🥺");
     }
   };
+
   const placeholder = `여기에 쪽지를 적어주세요. 
 (최대 100자)`;
   return (
@@ -338,6 +342,8 @@ const SendPresents = ({ onHide, selectedday }) => {
           ))}
         </Flex>
       </div>
+      <GreenButton onClick={handleClickSendPresent}>쪽지보내기</GreenButton>
+      {isLoading ? (
       <SubmitFlex>
         <JustifiedAlignedFlex>
           <Form.Check
@@ -365,14 +371,7 @@ const SendPresents = ({ onHide, selectedday }) => {
           <Image src={`/asset_ver2/image/send.png`} alt={"쪽지보내기"} width={13} height={13}/>
         </GreenButton>
       </SubmitFlex>
-      {isLoading ?
-        <LoadingScreenBack>
-          <LoadingContainer>
-            <img src="/assets/image/character/spinner.gif" alt="로딩하얀코"/>
-            <p>선물을 보내는 중입니다...</p>
-          </LoadingContainer>
-        </LoadingScreenBack>
-        : null}
+      ) : null}
     </SendPresentsWrapper>
   );
 };

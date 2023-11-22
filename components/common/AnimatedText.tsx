@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
@@ -14,9 +13,7 @@ const AnimatedText = ({ messages }) => {
 
   return (
     <Wrap>
-      <NoticeLink href={messages[index].url} target="_blank">
-        {messages[index].content}
-      </NoticeLink>
+      <Notice>{messages[index].content}</Notice>
     </Wrap>
   );
 };
@@ -38,7 +35,7 @@ const slide = keyframes`
   }
 `;
 
-const NoticeLink = styled(Link)`
+const Notice = styled.div`
   position: absolute;
   width: 100%;
   color: #f2f2f2;

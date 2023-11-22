@@ -1,34 +1,53 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
+import { postBoard } from "../../api/hooks/useTownData";
+import { useAuthContext } from "../../store/contexts/components/hooks";
+import { checkMemberAndRedirect } from "../utils/clickWithCheckMember";
 
 const ContentInput = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const handleCheckboxChange = () => setIsChecked((prev) => !prev);
+  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [input, setInput] = useState("");
+  const { storeUserData } = useAuthContext();
+  const handleCheckboxChange = () => setIsAnonymous((prev) => !prev);
+  const handleClickSend = () => {
+    if (checkMemberAndRedirect(storeUserData)) return;
+
+    postBoard({
+      contents: input,
+      writerId: storeUserData?.id,
+      writerName: storeUserData?.nickname,
+      isAnonymous,
+    });
+    setInput("");
+  };
+
   return (
     <Wrapper>
       <Name>
-        내 이름
-        <Flex>
+        {storeUserData?.nickname ?? "이름"}
+        <Flex gap="5px">
+          <CheckboxLabel>{"익명"}</CheckboxLabel>
           <input
             type="checkbox"
-            checked={isChecked}
+            checked={isAnonymous}
             onChange={handleCheckboxChange}
           />
-          <CheckboxLabel>{"익명"}</CheckboxLabel>
         </Flex>
       </Name>
       <InputArea>
-        <Input placeholder="댓글을 입력해 주세요. 악플은 삭제될 수 있습니다. (500자)" />
+        <Input
+          placeholder="댓글을 입력해 주세요. 부적절한 댓글은 삭제될 수 있습니다. (300자)"
+          onChange={(e) => setInput(e.target.value)}
+          value={input}
+        />
         <SendWrapper>
           <Send
-            alt="announce"
-            src="/assets/image/town/send.png"
+            alt="send-icon"
+            src="/asset_ver2/image/town/send.png"
             width={30}
             height={30}
-            onClick={() => {
-              console.log("first");
-            }}
+            onClick={handleClickSend}
           />
         </SendWrapper>
       </InputArea>
@@ -97,6 +116,7 @@ const Name = styled.div`
 
 const Flex = styled.div`
   display: flex;
+  gap: ${({ gap }) => gap};
 `;
 
 const InputArea = styled(Flex)`

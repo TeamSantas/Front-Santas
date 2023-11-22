@@ -5,23 +5,10 @@ import ContentInput from "../components/town/content-input";
 import TownContentList from "../components/town/content-list";
 import Layout from "../components/layout/new/Layout";
 import { Modals } from "../components/modals/modals";
+import { getBoard, getBoardPopular } from "../api/hooks/useTownData";
+import { notices } from "../components/town/notices";
 
-const messages = [
-  {
-    url: "/",
-    content: "💡 댓글의 이름 영역을 누르면 캘린더로 이동해요. 💡",
-  },
-  {
-    url: "/",
-    content: "🩷 캘린더에 방문해 쪽지를 남겨보세요. 🩷",
-  },
-  {
-    url: "/",
-    content: "🚨 부적절한 댓글은 신고 꾹- 눌러주세요. 🚨",
-  },
-];
-
-const Town = () => {
+const Town = ({ allContents, popularContents }) => {
   return (
     <>
       <Modals />
@@ -30,13 +17,16 @@ const Town = () => {
           <Notice>
             <Image
               alt="announce"
-              src="/assets/image/town/announce.png"
+              src="/asset_ver2/image/town/announce.png"
               width={22}
               height={22}
             />
-            <AnimatedText messages={messages} />
+            <AnimatedText messages={notices} />
           </Notice>
-          <TownContentList />
+          <TownContentList
+            allContents={allContents}
+            popularContents={popularContents}
+          />
         </ContentWrapper>
         <ContentInput />
       </Container>
@@ -46,8 +36,30 @@ const Town = () => {
 export default Town;
 
 Town.getLayout = (page) => {
-  return <Layout logo={"/assets/image/layout/town-logo.png"}>{page}</Layout>;
+  return (
+    <Layout logo={"/asset_ver2/image/layout/town-logo.png"}>{page}</Layout>
+  );
 };
+
+export async function getServerSideProps() {
+  try {
+    // 최초 게시글 fetch
+    const [allContents, popularContents] = await Promise.all([
+      getBoard(0),
+      getBoardPopular(),
+    ]);
+    const sanitizedAllContents = allContents || [];
+    const sanitizedPopularContents = popularContents || [];
+    return {
+      props: {
+        allContents: sanitizedAllContents,
+        popularContents: sanitizedPopularContents,
+      },
+    };
+  } catch (e) {
+    throw new Error(e);
+  }
+}
 
 const Container = styled.div`
   position: absolute;
@@ -67,7 +79,7 @@ const ContentWrapper = styled.div`
   gap: 20px;
   height: 50vh;
   border-radius: 10px 10px 0 0;
-  width: 100%;
+  width: 100vw;
   max-width: 500px;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.5);

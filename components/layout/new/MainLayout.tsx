@@ -3,7 +3,7 @@ import Snow from "../Snow";
 import Header from "./Header";
 import Gnb from "./GNB";
 
-const Layout = ({ children = null  }) => {
+const Layout = ({ children = null }) => {
   return (
     <Wrapper>
       <Header />

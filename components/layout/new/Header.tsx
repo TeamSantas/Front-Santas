@@ -7,8 +7,11 @@ const Header = () => {
 
   return (
     <Wrapper>
-      <Profile src="/assets/image/layout/default-profile.png" />
-      <Img src="/assets/image/layout/setting.svg" onClick={handleClickMenu} />
+      <Profile src="/asset_ver2/image/common/default-profile.png" />
+      <Img
+        src="/asset_ver2/image/layout/header/setting.svg"
+        onClick={handleClickMenu}
+      />
     </Wrapper>
   );
 };

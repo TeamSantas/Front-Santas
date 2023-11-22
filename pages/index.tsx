@@ -6,7 +6,7 @@ import Calendar from "../components/index/Calendar";
 import Share from "../components/share/Share";
 import { getCookie } from "../businesslogics/cookie";
 import ReactHowler from "react-howler";
-import {Component, lazy, ReactElement, useEffect, useState} from "react";
+import { Component, lazy, ReactElement, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import FriendsModal from "../components/friends/FriendsModal";
 import { Suspense } from "react";
@@ -154,12 +154,12 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const getMemberData = async () => {
     // try {
     //   const res = await setGetMember();
-    //   setMemberInfo(res.data.data.member.nickname);
-    //   setMyLink(res.data.data.member.invitationLink);
-    //   setLoggedMemberId(res.data.data.member.id);
+    //   setMemberInfo(res.data.data.nickname);
+    //   setMyLink(res.data.data.invitationLink);
+    //   setLoggedMemberId(res.data.data.id);
     //   // console.log(">>>>>>>>>")
-    //   // console.log(res.data.data.member.id)
-    //   setCookie("invitationLink", res.data.data.member.invitationLink);
+    //   // console.log(res.data.data.id)
+    //   setCookie("invitationLink", res.data.data.invitationLink);
     // } catch (e) {
     //   setIsLogged(false);
     //   // console.log(e);
@@ -258,7 +258,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
           <Calendar ismycalendar={false} loggedId={loggedMemberId} />
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
-        {snowballModalShow ? (<Snowball/>) : null}
+        {snowballModalShow ? <Snowball /> : null}
       </MainFlex>
     </div>
   );
@@ -266,7 +266,5 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
 export default Home;
 Home.getLayout = (page: ReactElement) => {
-  return (
-      <MainLayout>{page}</MainLayout>
-  );
+  return <MainLayout>{page}</MainLayout>;
 };
