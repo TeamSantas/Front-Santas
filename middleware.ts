@@ -1,8 +1,7 @@
-import { RequestCookies } from "@edge-runtime/cookies";
 import { NextRequest, NextResponse } from "next/server";
 
-const handleUpcomingRedirect = (url, cookies) => {
-  const isAdmin = cookies.get("admin");
+const handleUpcomingRedirect = (url, request) => {
+  const isAdmin = request.cookies.get("admin");
 
   // 현재 경로가 '/upcoming'과 /adx.txt 이 아닌 경우 리다이렉트
   return (
@@ -20,14 +19,13 @@ const handleLoginRedirect = (tokenCookie, isRequireLoginPath) => {
 
 export function middleware(request: NextRequest) {
   const url = request.nextUrl;
-  const cookies = new RequestCookies(request.headers);
-  const tokenCookie = cookies.get("token");
+  const tokenCookie = request.cookies.get("token");
   const requireLoginPath = ["message"];
   const isRequireLoginPath = requireLoginPath.some((path) =>
     url.pathname.includes(path)
   );
 
-  const upcomingRedirect = handleUpcomingRedirect(url, cookies);
+  const upcomingRedirect = handleUpcomingRedirect(url, request);
   const loginRedirect = handleLoginRedirect(tokenCookie, isRequireLoginPath);
 
   if (upcomingRedirect) {
