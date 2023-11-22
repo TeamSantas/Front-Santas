@@ -1,12 +1,15 @@
 import Image from "next/image";
 import styled from "styled-components";
 import PlainLayout from "../components/layout/new/PlainLayout";
-import { kakaoLogin } from "../api/hooks/useKakaoLogin";
 
 const Login = () => {
   return (
     <Container>
-      <KakaoLoginButton onClick={kakaoLogin}>
+      <KakaoLoginButton
+        href={
+          "https://port-0-back-santas-euegqv2llojq1wch.sel5.cloudtype.app/oauth2/authorization/kakao"
+        }
+      >
         <Image
           alt="kakao-logo"
           src="/assets/image/login/kakao-logo.svg"
@@ -33,10 +36,11 @@ const Container = styled.div`
   transform: translateX(-50%);
 `;
 
-const KakaoLoginButton = styled.button`
+const KakaoLoginButton = styled.a`
   width: 360px;
   display: flex;
   justify-content: center;
+  text-decoration: none;
   align-items: center;
   background-color: #fee500;
   height: 52px;
