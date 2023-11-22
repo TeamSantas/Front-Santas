@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const handleUpcomingRedirect = (url, isAdmin) => {
+  // 다음 조건에 해당하면 upcoming 페이지로 보냄
   return url.pathname !== "/upcoming" &&
     process.env.NODE_ENV !== "development" &&
     url.pathname !== "/ads.txt" &&
@@ -15,7 +16,6 @@ const handleLoginRedirect = (isLoggedIn, isRequireLoginPath) => {
 };
 
 export function middleware(req: NextRequest) {
-  // 현재 경로가 '/upcoming'과 /adx.txt 이 아닌 경우 리다이렉트
   const url = req.nextUrl;
   const isAdmin = req.cookies.get("admin");
   const isLoggedIn = req.cookies.get("token");
