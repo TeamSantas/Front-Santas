@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Snow from "../Snow";
 import Header from "./Header";
 import Gnb from "./GNB";
+import {ShareLink} from "../../share/ShareLink";
+import {QuestionLink} from "../../share/QuestionLink";
 
 const Layout = ({ children = null }) => {
   return (
@@ -13,6 +15,8 @@ const Layout = ({ children = null }) => {
         <Ground />
       </MainWrapper>
       <Snow />
+      <QuestionLink/>
+      <ShareLink/>
       <Gnb />
     </Wrapper>
   );
