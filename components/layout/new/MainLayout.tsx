@@ -3,13 +3,13 @@ import Snow from "../Snow";
 import Header from "./Header";
 import Gnb from "./GNB";
 
-const Layout = ({ children = null  }) => {
+const Layout = ({ children = null }) => {
   return (
     <Wrapper>
       <Header />
       <MainWrapper>
         <Buildings src={"/asset_ver2/image/layout/forest_background.png"} />
-        {/*<Tree src={"/assets/image/layout/tree.svg"} />*/}
+        {/*<Tree src={"/asset_ver2/image/layout/tree.svg"} />*/}
         <UpperWrapper>{children}</UpperWrapper>
         <Ground />
       </MainWrapper>

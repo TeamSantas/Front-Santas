@@ -17,11 +17,11 @@ export default function AuthProvider({ children }: Props) {
   const router = useRouter();
   const updateUserData = async () => {
     try {
-      const res = await getLoggedMember();
-      setStoreUserdata(res?.data?.data);
-      measureUser({ user_id: res?.data?.data?.member?.id }); //TODO: 멤버 데이터 확인
+      const userData = await getLoggedMember();
+      setStoreUserdata(userData);
+      measureUser({ user_id: userData?.id });
     } catch (e) {
-      throw new Error("🔑 로그인이 필요합니다. \n", e);
+      // 같은 페이지에 auth 필요한 / 필요 없는 기능 모두 있어서 우선 에러 캐치 스킵할게요!
     }
   };
 

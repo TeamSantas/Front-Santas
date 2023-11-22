@@ -1,15 +1,12 @@
 import Image from "next/image";
 import styled from "styled-components";
 import PlainLayout from "../components/layout/new/PlainLayout";
+import { kakaoLoginUrl } from "../components/common/urls";
 
 const Login = () => {
   return (
     <Container>
-      <KakaoLoginButton
-        href={
-          "https://port-0-back-santas-euegqv2llojq1wch.sel5.cloudtype.app/oauth2/authorization/kakao"
-        }
-      >
+      <KakaoLoginButton href={kakaoLoginUrl}>
         <Image
           alt="kakao-logo"
           src="/assets/image/login/kakao-logo.svg"
@@ -25,7 +22,7 @@ export default Login;
 
 Login.getLayout = (page) => {
   return (
-    <PlainLayout logo={"/assets/image/layout/logo.png"}>{page}</PlainLayout>
+    <PlainLayout logo={"/asset_ver2/image/layout/logo.png"}>{page}</PlainLayout>
   );
 };
 
