@@ -4,21 +4,32 @@ import { useState } from "react";
 import { postBoard } from "../../api/hooks/useTownData";
 import { useAuthContext } from "../../store/contexts/components/hooks";
 import { checkMemberAndRedirect } from "../utils/clickWithCheckMember";
+import { ResponseData } from "../../util/type";
 
 const ContentInput = () => {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [input, setInput] = useState("");
   const { storeUserData } = useAuthContext();
   const handleCheckboxChange = () => setIsAnonymous((prev) => !prev);
-  const handleClickSend = () => {
+  const handleClickSend = async () => {
     if (checkMemberAndRedirect(storeUserData)) return;
 
-    postBoard({
-      contents: input,
-      writerId: storeUserData?.id,
-      writerName: storeUserData?.nickname,
-      isAnonymous,
-    });
+    try {
+      const response: ResponseData<string> = await postBoard({
+        contents: input,
+        writerId: storeUserData?.id,
+        writerName: storeUserData?.nickname,
+        isAnonymous,
+      });
+      if (response.status === 200) {
+        alert("게시글 작성이 완료되었습니다.");
+        // TODO: 내 댓글 보기로 이동
+      } else {
+        alert("게시글 작성에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+      }
+    } catch (e) {
+      console.error("Error: ", e);
+    }
     setInput("");
   };
 

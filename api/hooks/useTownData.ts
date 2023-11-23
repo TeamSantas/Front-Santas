@@ -34,7 +34,7 @@ export async function getBoard(boardId) {
 export async function postBoard(formData: BoardForm) {
   try {
     const res = await TownService.postBoard(formData);
-    return res.data.data;
+    return res.data;
   } catch (e) {
     console.log(e);
   }
@@ -58,7 +58,7 @@ export async function getBoardPopular() {
 export async function report(reportForm: ReportData) {
   try {
     const res = await TownService.postBoardReport({ reportInfo: reportForm });
-    return res.data.data;
+    return res.data;
   } catch (e) {
     console.log(e);
   }

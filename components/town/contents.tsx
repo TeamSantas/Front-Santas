@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Image from "next/image";
-import Link from "next/link";
 import { BoardData } from "../../util/type";
 import ThumbsUp from "./thumbs-up";
 import Report from "./report";
@@ -13,7 +12,7 @@ interface IContentTemplate {
   isPopular?: boolean;
 }
 
-const ContentTemplate = ({ contents, isPopular = false }: IContentTemplate) => {
+const Contents = ({ contents, isPopular = false }: IContentTemplate) => {
   const [blurredId, setBlurredId] = useState(null);
   const router = useRouter();
   const { storeUserData } = useAuthContext();
@@ -41,12 +40,14 @@ const ContentTemplate = ({ contents, isPopular = false }: IContentTemplate) => {
                   ({comment.createdAt})
                 </CreatedAt>
               </NameWrapper>
-              <Report
-                boardId={comment.boardId}
-                handleSetBlurredId={handleSetBlurredId}
-                isMyComment={() => isMyContent(comment)}
-                reportedId={comment.writerId}
-              />
+              {!isMyContent(comment) && (
+                <Report
+                  boardId={comment.boardId}
+                  reportedId={comment.writerId}
+                  isPopular={isPopular}
+                  handleSetBlurredId={handleSetBlurredId}
+                />
+              )}
             </Flex>
             {/* 댓글 Header 끝 -------- */}
             {/* 댓글 Body 시작 ------ */}
@@ -61,18 +62,15 @@ const ContentTemplate = ({ contents, isPopular = false }: IContentTemplate) => {
                 width={44}
                 height={44}
               />
-              <GoCalendar
-                alt="profile"
-                src={
-                  comment.isAnonymous
-                    ? comment.profile
-                    : "/asset_ver2/image/town/go-profile.svg"
-                }
-                width={20}
-                height={20}
-                anonymous={comment.isAnonymous.toString()}
-                onClick={() => handleClickProfile(comment)}
-              />
+              {!comment.isAnonymous && (
+                <GoCalendar
+                  alt="go-profile"
+                  src={"/asset_ver2/image/town/go-profile.svg"}
+                  width={20}
+                  height={20}
+                  onClick={() => handleClickProfile(comment)}
+                />
+              )}
               {isPopular && (
                 <Image
                   alt="best"
@@ -98,13 +96,13 @@ const ContentTemplate = ({ contents, isPopular = false }: IContentTemplate) => {
   );
 };
 
-export default ContentTemplate;
+export default Contents;
 
 const GoCalendar = styled(Image)`
   position: absolute;
   top: 62px;
   left: 45px;
-  cursor: ${({ anonymous }) => (anonymous === "false" ? "pointer" : "unset")};
+  cursor: pointer;
 `;
 const CircularImage = styled(Image)`
   border-radius: 100%;
@@ -148,7 +146,7 @@ const NameWrapper = styled.div`
 
 const CreatedAt = styled.small`
   font-size: 12px;
-  color: ${({ popular }) => (popular === "true" ? "#4D4D4D" : "#ccc")};
+  color: ${({ popular }) => (popular === "true" ? "#333" : "#ccc")};
 `;
 
 const Flex = styled.div`
