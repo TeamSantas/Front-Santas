@@ -13,31 +13,37 @@ import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUs
 import { getLoggedMember } from "../../api/hooks/useMember";
 import MemberService from "../../api/MemberService";
 import PushService from "../../api/PushService";
+import Image from "next/image";
 
 export const PresentHeader = styled.div`
-  font-size: x-large;
+  font-size: large;
+  font-family: "NanumSquareNeoOTF-Bd", NanumSquareNeoOTF-Bb, sans-serif;
 `;
-
-const ImageFormWrapper = styled.div`
-  display: flex;
-`;
-
 const JustifiedAlignedFlex = styled(Flex)`
   align-items: center;
-  justify-content: center !important;
-  margin-bottom: 1rem;
+  @media (max-width: 300px) {
+    font-size: 12px;
+  }
 `;
 
 export const TextArea = styled.div`
   outline-color: #ac473d;
+  font-family: "NanumSquareNeoOTF-Bd", KCC-Ganpan, sans-serif;
   text-align: center;
   color: white;
-  background-image: url(/assets/image/message-background.svg);
+  background-image: url(/asset_ver2/image/presents/message-background.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  height: 16rem;
-  padding: 4.5rem;
+  margin-top: 1rem;
+  height: 17rem;
+  padding: 1rem 4rem;
+  @media (min-width: 768px) { //태블릿 대응
+    padding: 1rem 6rem;
+  }
+  @media (max-width: 300px) { //갤폴드 대응
+    padding: 3rem 1rem;
+  }
 `;
 
 export const SendPresentsWrapper = styled.div`
@@ -107,7 +113,9 @@ const SendPresents = ({ onHide, selectedday }) => {
     }
   };
 
+  //TODO: 새 도메인 기준으로수정해줘야함
   // 현재 캘린더 주인 유저 정보
+  console.log("=======router", router.asPath);
   const currInvitationLink = router.asPath.slice(1).slice(0, 36);
 
   // console.log("currInvitationLink >>> ", currInvitationLink);
@@ -161,7 +169,6 @@ const SendPresents = ({ onHide, selectedday }) => {
     } else if (memberInfo.nickname) {
       setNickname(memberInfo.nickname); // << 익명아닐때 닉네임(자동주입)
     }
-
     HandleImageSubmit();
     // onHide();
   };
@@ -300,37 +307,32 @@ const SendPresents = ({ onHide, selectedday }) => {
         />
       </TextArea>
 
-      <JustifiedAlignedFlex>
-        {isAnonymous || !isLogged ? (
-          <input
-            className="inputNickname"
-            type="text"
-            placeholder="닉네임 (최대 20자)"
-            ref={nicknameRef}
-            maxLength={20}
-          />
-        ) : (
-          <div className="inputNickname" />
-        )}
-        <Form.Check
-          type="checkbox"
-          id={`default-checkbox`}
-          label={`익명`}
-          onClick={handleCheckAnonymous}
-          disabled={!isLogged}
-          checked={!isLogged || isAnonymous}
-        />
-      </JustifiedAlignedFlex>
       <div className="Thumbnail_Wrapper">
-        <label id="present_img" htmlFor="file" onChange={handleAddImages}>
-          <div className="addButton"></div>
-          <input
-            id="file"
-            type="file"
-            accept="image/png, image/jpeg, image/jpg, image/heic"
-            multiple
-          />
-        </label>
+        {showImages.length === 0 ?
+            <label className="submitImg" htmlFor="file" onChange={handleAddImages}>
+              <div className="addButton">
+                <input
+                    id="file"
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg, image/heic"
+                    multiple
+                />
+              </div>
+            </label>
+            :
+            <ThumbnailContainer>
+              <label id="present_img" htmlFor="file" onChange={handleAddImages}>
+                <input
+                    id="file"
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg, image/heic"
+                    multiple
+                />
+              </label>
+            </ThumbnailContainer>
+        }
+
+
         <Flex>
           {showImages.map((image, id) => (
             <div className="imageContainer" key={id}>
@@ -342,15 +344,43 @@ const SendPresents = ({ onHide, selectedday }) => {
       </div>
       <GreenButton onClick={handleClickSendPresent}>쪽지보내기</GreenButton>
       {isLoading ? (
-        <LoadingScreenBack>
-          <LoadingContainer>
-            <img src="/assets/image/character/spinner.gif" alt="로딩하얀코" />
-            <p>선물을 보내는 중입니다...</p>
-          </LoadingContainer>
-        </LoadingScreenBack>
+      <SubmitFlex>
+        <JustifiedAlignedFlex>
+          <Form.Check
+              type="checkbox"
+              id={`default-checkbox`}
+              label={`익명`}
+              onClick={handleCheckAnonymous}
+              disabled={!isLogged}
+              checked={!isLogged || isAnonymous}
+          />
+          {isAnonymous || !isLogged ? (
+              <input
+                  className="inputNickname"
+                  type="text"
+                  placeholder="닉네임(최대 20자)"
+                  ref={nicknameRef}
+                  maxLength={20}
+              />
+          ) : (
+              <div className="inputNickname" />
+          )}
+        </JustifiedAlignedFlex>
+        <GreenButton onClick={handleClickSendPresent}>
+          쪽지보내기
+          <Image src={`/asset_ver2/image/send.png`} alt={"쪽지보내기"} width={13} height={13}/>
+        </GreenButton>
+      </SubmitFlex>
       ) : null}
     </SendPresentsWrapper>
   );
 };
 
 export default SendPresents;
+
+const SubmitFlex = styled(Flex)`
+    justify-content: space-between;
+`;
+const ThumbnailContainer = styled.div`
+  width: 80vw;
+`;

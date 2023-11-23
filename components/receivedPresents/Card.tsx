@@ -111,8 +111,23 @@ const Card = (props) => {
   // prop된 카드정보를 가지고 세부정보를 가져온다.
   const initPresentDetail = async () => {
     try {
-      const res = await setGetPresentDetail(props.id);
-      setPresentDetail(res.data.data);
+        //TODO: 목데이터 필요없으면 주석풀기
+      // const res = await setGetPresentDetail(props.id);
+      //   setPresentDetail(res.data.data);
+        const mockDataPresentDetail : presentDetail = {
+            "id": 0,
+            "receiverId": 0,
+            "senderId": 0,
+            "nickname": "팀산타즈",
+            "isAnonymous": false,
+            "isPublic": true,
+            "title": "제목",
+            "contents": "대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용",
+            "imageURL": [],
+            "receivedDate": "2023-11-19",
+            "isRead": true
+        }
+        setPresentDetail(mockDataPresentDetail);
     } catch (e) {
       // console.log(e);
     }
@@ -151,12 +166,11 @@ const Card = (props) => {
                                 {props.contents && props.contents.length > 5 ? `${props.contents.slice(0, 5)}..`
                                 :  props.contents && props.contents.slice(0, 5)}</Text>
                 }
-
             </CardFlex>
       </TabCard>
       <CustomModal
         haveImage={haveImage}
-        color={"#ac473d"}
+        color={"#1E344F"}
         show={presentCardShow}
         onHide={handleClose}
         selectedcard={selectedcard}

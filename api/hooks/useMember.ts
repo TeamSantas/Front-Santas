@@ -3,7 +3,7 @@ import MemberService from "../MemberService";
 export async function getLoggedMember() {
   try {
     const res = await MemberService.getLoggedMember();
-    return res.data.data;
+    return res.data.data.member;
   } catch (e) {
     return e;
   }

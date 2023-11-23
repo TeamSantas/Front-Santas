@@ -4,6 +4,7 @@ import { setGetDayPresents } from "../../api/hooks/useGetDayPresents";
 import MemberService from "../../api/MemberService";
 import { Flex } from "../../styles/styledComponentModule";
 import Card from "./Card";
+import Image from "next/image";
 
 const TabFlex = styled(Flex)`
   flex-direction: row;
@@ -58,11 +59,12 @@ const PresentCardList = ({ selectedday }) => {
       ) : (
         <LoadingContainer>
           <div style={{ maxWidth: "18rem", margin: "0 auto" }}>
-            <img
+            <Image
               src="/assets/image/character/face_crycry.png"
               width="222"
+              height="222"
               style={{ display: "block", margin: "0 auto", marginTop: "20px" }}
-            />
+             alt="우는사진"/>
             <LoadingHeader>&quot;받은선물이...없써...!&quot;</LoadingHeader>
             <p>
               (아직 받은 선물이 없어요, 내 캘린더 링크를 공유해 친구에게 선물을

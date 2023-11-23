@@ -2,17 +2,17 @@ import Image from "next/image";
 import styled from "styled-components";
 interface LongDayProps {
     day: number;
-    idx: number;
+    handleShow(day: number): void;
 }
 
 const LongDay = (props:LongDayProps) => {
-    const {day, idx} = props;
+    const {day,handleShow} = props;
     return (
-        <td rowSpan={2} key={idx}>
+        <td rowSpan={2}>
             <DayImg src={`/asset_ver2/image/days/day${day}.svg`}
                     width={`100`}
                     height={`100`}
-                    key={idx}
+                    onClick={() => handleShow(day)}
                     alt={`day${day}`}/>
         </td>
     );

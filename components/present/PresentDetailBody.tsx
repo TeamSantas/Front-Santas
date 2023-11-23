@@ -113,9 +113,8 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     <SendPresentsWrapper>
       <PresentHeader>
         {/* TODO : 닉넴 고민 */}
-        {type === "SEND" ? body.targetNickname : body.nickname} 님께 <br />
-        {type === "SEND" ? "보낸" : "받은"}
-        선물이에요 🎁
+        {type === "SEND" ? body.targetNickname : body.nickname} 님에게 <br />
+        {type === "SEND" ? "쪽지를 보내보세요" : "받은 쪽지에요"}
       </PresentHeader>
       <GotTextArea>
         <IsAnonymous>

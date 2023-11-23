@@ -32,7 +32,9 @@ export interface MemberData {
     fcmtokens: string;
   };
 }
-
+export interface MemberRawData {
+ member: MemberData;
+}
 export interface NewMemberData {
   id: number;
   nickname: string;
