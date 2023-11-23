@@ -24,7 +24,7 @@ const ThumbsUp = ({
   const [newLikeCounts, setNewLikeCounts] = useState(likeCounts);
 
   const handleLikeCounts = async () => {
-    const response = putBoardLikeAndUnlike(boardId);
+    const response = await putBoardLikeAndUnlike(boardId);
     if (!response) {
       setNewLikeCounts(likeCounts); // 프론트에서 미리 세팅한 값 원복
       setLiked((prev) => !prev);
@@ -40,13 +40,15 @@ const ThumbsUp = ({
     }
     setNewLikeCounts(liked ? likeCounts : likeCounts + 1);
     setLiked((prev) => !prev);
+
+    handleLikeCounts();
   };
 
   return (
     <Like theme={theme} liked={liked} onClick={handleClickLike}>
       <Image
         alt="thumbs-up"
-        src="/asset_ver2/image/town/thumbs-up.png"
+        src={`/asset_ver2/image/town/thumbs-up${liked ? "-red" : ""}.png`}
         width={11}
         height={11}
       />
