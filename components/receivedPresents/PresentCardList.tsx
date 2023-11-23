@@ -31,7 +31,7 @@ const PresentCardList = ({ selectedday }) => {
     const initReceivedPresentList = async () => {
       const receiverId = await (
         await MemberService.getLoggedMember()
-      ).data.data.id;
+      ).data.data.member.id;
       const res = await setGetDayPresents(receiverId, receivedDay);
       // console.log("receivedPresentList >>> ", res.content)
       setReceivedPresentList(res.content);
@@ -64,7 +64,8 @@ const PresentCardList = ({ selectedday }) => {
               width="222"
               height="222"
               style={{ display: "block", margin: "0 auto", marginTop: "20px" }}
-             alt="우는사진"/>
+              alt="우는사진"
+            />
             <LoadingHeader>&quot;받은선물이...없써...!&quot;</LoadingHeader>
             <p>
               (아직 받은 선물이 없어요, 내 캘린더 링크를 공유해 친구에게 선물을
