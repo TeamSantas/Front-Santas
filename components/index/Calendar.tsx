@@ -78,9 +78,13 @@ const Calendar = ({
     useEffect(() => {
       //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
       const getRecivedPresentList = async () => {
-        if (loggedId !== null) {
-          const res = await setGetNumberOfReceivedPresents(loggedId);
-          setReceivePresentList(await res.data.data);
+        if (loggedId !== undefined && loggedId !== null) {
+            try{
+                const res = await setGetNumberOfReceivedPresents(loggedId);
+                setReceivePresentList(await res.data.data);
+            }catch (e){
+                console.log("===>선물을 찾지 못했습니다.",e);
+            }
         }
       };
       getRecivedPresentList();

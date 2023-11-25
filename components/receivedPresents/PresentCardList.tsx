@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { setGetDayPresents } from "../../api/hooks/useGetDayPresents";
-import MemberService from "../../api/MemberService";
 import { Flex } from "../../styles/styledComponentModule";
 import Card from "./Card";
 import Image from "next/image";
+import {useAuthContext} from "../../store/contexts/components/hooks";
 
 const TabFlex = styled(Flex)`
   flex-direction: row;
@@ -24,18 +24,17 @@ const LoadingHeader = styled.h2`
 
 const PresentCardList = ({ selectedday }) => {
   const receivedDay =
-    selectedday < 10 ? `2022-12-0${selectedday}` : `2022-12-${selectedday}`;
+    selectedday < 10 ? `2023-12-0${selectedday}` : `2023-12-${selectedday}`;
   const [receivedPresentList, setReceivedPresentList] = useState([]);
+  const userData = useAuthContext();
+
+  const initReceivedPresentList = async () => {
+    const receiverId = userData.storeUserData.id;
+    const res = await setGetDayPresents(receiverId, receivedDay);
+    setReceivedPresentList(res.content);
+  };
 
   useEffect(() => {
-    const initReceivedPresentList = async () => {
-      const receiverId = await (
-        await MemberService.getLoggedMember()
-      ).data.data.id;
-      const res = await setGetDayPresents(receiverId, receivedDay);
-      // console.log("receivedPresentList >>> ", res.content)
-      setReceivedPresentList(res.content);
-    };
     initReceivedPresentList();
   }, []);
 
