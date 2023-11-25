@@ -16,6 +16,19 @@ export async function putBoardLikeAndUnlike(boardId) {
 }
 
 /**
+ * 내 게시글 조회
+ */
+export async function getMyBoard(boardId) {
+  const config = { boardId };
+  try {
+    const res = await TownService.getMyBoard(config);
+    return res.data.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+/**
  * 게시글 조회
  */
 export async function getBoard(boardId) {

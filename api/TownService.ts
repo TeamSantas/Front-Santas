@@ -14,6 +14,12 @@ class TownService {
       params,
     });
 
+  // 나의 게시글 조회
+  getMyBoard = (params: { boardId: number }) =>
+    TownAuthInstance.get<ResponseData<BoardData[]>>(`/api/board/my`, {
+      params,
+    });
+
   // 게시글 작성
   postBoard = (formData: BoardForm) =>
     TownAuthInstance.post<ResponseData<string>>(`/api/board`, formData);
