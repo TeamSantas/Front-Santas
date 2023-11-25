@@ -35,13 +35,7 @@ const MainWrapper = styled.div`
   height: calc(100vh - 130px);
   background-color: #1c3249;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  -ms-overflow-style: none; /* Explorer */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome */
-  }
+  overflow: hidden;
 `;
 
 const UpperWrapper = styled.div`
