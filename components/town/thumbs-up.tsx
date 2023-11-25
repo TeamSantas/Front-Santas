@@ -8,14 +8,14 @@ import { checkMemberAndRedirect } from "../utils/clickWithCheckMember";
 interface IThumbsUp {
   isLiked: boolean;
   boardId: number;
-  isMyComment: () => boolean;
+  isMyComment: boolean;
   likeCounts: number;
 }
+
 const ThumbsUp = ({ isLiked, boardId, isMyComment, likeCounts }: IThumbsUp) => {
   const { storeUserData } = useAuthContext();
   const [liked, setLiked] = useState(isLiked);
   const [newLikeCounts, setNewLikeCounts] = useState(likeCounts);
-
   const handleLikeCounts = async () => {
     const response = await putBoardLikeAndUnlike(boardId);
     if (!response) {
