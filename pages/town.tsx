@@ -7,22 +7,29 @@ import Layout from "../components/layout/new/Layout";
 import { Modals } from "../components/modals/modals";
 import { getBoard, getBoardPopular } from "../api/hooks/useTownData";
 import { notices } from "../components/town/notices";
+import { Flex } from "../styles/styledComponentModule";
 
 const Town = ({ allContents, popularContents }) => {
+  const handleClickClose = () => {
+    return;
+  };
   return (
     <>
       <Modals />
       <Container>
         <ContentWrapper>
-          <Notice>
-            <Image
-              alt="announce"
-              src="/asset_ver2/image/town/announce.png"
-              width={22}
-              height={22}
-            />
-            <AnimatedText messages={notices} />
-          </Notice>
+          <Flex>
+            <Notice>
+              <Image
+                alt="announce"
+                src="/asset_ver2/image/town/announce.png"
+                width={22}
+                height={22}
+              />
+              <AnimatedText messages={notices} />
+            </Notice>
+            <GreenCloseButton onClick={handleClickClose} />
+          </Flex>
           <TownContentList
             allContents={allContents}
             popularContents={popularContents}
@@ -109,6 +116,16 @@ const Notice = styled.div`
   gap: 10px;
   height: 50px;
   background-color: rgba(30, 52, 79, 0.53);
+  backdrop-filter: blur(3px);
+  width: 100%;
   padding: 10px 15px;
   border-radius: 10px;
+`;
+
+const GreenCloseButton = styled.div`
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 3rem;
+  height: 3rem;
+  background-image: url("/asset_ver2/image/common/green-close.svg");
 `;

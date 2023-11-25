@@ -48,7 +48,11 @@ const ContentInput = () => {
       </Name>
       <InputArea>
         <Input
-          placeholder="댓글을 입력해 주세요. 부적절한 댓글은 삭제될 수 있습니다. (300자)"
+          placeholder={
+            storeUserData?.nickname
+              ? "댓글을 입력해 주세요. 부적절한 댓글은 삭제될 수 있습니다. (300자)"
+              : "로그인 후 이용 가능합니다."
+          }
           onChange={(e) => setInput(e.target.value)}
           value={input}
         />

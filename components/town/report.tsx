@@ -7,16 +7,10 @@ import { ResponseData } from "../../util/type";
 interface IReport {
   boardId: number;
   reportedId: number;
-  isPopular: boolean;
   handleSetBlurredId: (boardId: number) => void;
 }
 
-const Report = ({
-  boardId,
-  reportedId,
-  isPopular,
-  handleSetBlurredId,
-}: IReport) => {
+const Report = ({ boardId, reportedId, handleSetBlurredId }: IReport) => {
   const { storeUserData } = useAuthContext();
   const handleClickReport = async () => {
     if (checkMemberAndRedirect(storeUserData)) return;
@@ -42,7 +36,7 @@ const Report = ({
   };
 
   return (
-    <ReportButton alt="report" popular={isPopular} onClick={handleClickReport}>
+    <ReportButton alt="report" onClick={handleClickReport}>
       신고하기
     </ReportButton>
   );
@@ -52,5 +46,5 @@ export default Report;
 
 const ReportButton = styled.div`
   cursor: pointer;
-  color: ${({ popular }) => (popular ? "#fff" : "#D9D9D9")};
+  color: #fff;
 `;
