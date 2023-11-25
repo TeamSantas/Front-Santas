@@ -16,78 +16,76 @@ const Contents = ({ contents, isPopular = false }: IContentTemplate) => {
   const [blurredId, setBlurredId] = useState(null);
   const router = useRouter();
   const { storeUserData } = useAuthContext();
-  const isMyContent = (comment) => comment.writerId === storeUserData?.id;
+  const isMyContent = (content) => content.writerId === storeUserData.id;
   const handleSetBlurredId = (boardId) => setBlurredId(boardId);
-  const handleClickProfile = (comment) => {
-    if (comment.isAnonymous) return;
-    router.push(`/${comment.invitationLink}`);
+  const handleClickProfile = (content) => {
+    if (content.isAnonymous) return;
+    if (confirm(`${content.writerName}님의 캘린더로 이동하시겠어요?`)) {
+      router.push(`/${content.invitationLink}`);
+    }
   };
 
   return (
     <>
-      {contents?.map((comment) => {
-        return blurredId === comment.boardId ? (
-          <BlurWrapper key={comment.boardId} popular={isPopular.toString()}>
+      {contents.map((content) => {
+        return blurredId === content.boardId || content.isBlur ? (
+          <BlurWrapper key={content.boardId}>
             🚨신고한 게시글입니다.🚨 검토 후 삭제처리할게요.
           </BlurWrapper>
         ) : (
-          <ContentWrapper key={comment.boardId} popular={isPopular.toString()}>
+          <ContentWrapper key={content.boardId}>
             {/* 댓글 Header 시작 ------ */}
             <Flex justifyContent={"space-between"}>
-              <NameWrapper popular={isPopular.toString()}>
-                <>{comment.isAnonymous ? "익명" : comment.writerName}</>
-                <CreatedAt popular={isPopular.toString()}>
-                  ({comment.createdAt})
-                </CreatedAt>
+              <NameWrapper>
+                {isPopular && (
+                  <Image
+                    alt="best"
+                    src="/asset_ver2/image/town/best.svg"
+                    width={35}
+                    height={18}
+                  />
+                )}
+                <Name>{content.isAnonymous ? "익명" : content.writerName}</Name>
+                <CreatedAt>({content.createdAt})</CreatedAt>
               </NameWrapper>
-              {!isMyContent(comment) && (
+              {!isMyContent(content) && (
                 <Report
-                  boardId={comment.boardId}
-                  reportedId={comment.writerId}
-                  isPopular={isPopular}
+                  boardId={content.boardId}
+                  writerId={content.writerId}
                   handleSetBlurredId={handleSetBlurredId}
                 />
               )}
             </Flex>
             {/* 댓글 Header 끝 -------- */}
             {/* 댓글 Body 시작 ------ */}
-            <Flex>
+            <Flex padding={"0 0 20px 0"}>
               <CircularImage
                 alt="profile"
                 src={
-                  comment.isAnonymous
+                  content.isAnonymous
                     ? "/asset_ver2/image/common/default-profile.png"
-                    : comment.profile
+                    : content.profile
                 }
                 width={44}
                 height={44}
               />
-              {!comment.isAnonymous && (
+              {!content.isAnonymous && (
                 <GoCalendar
                   alt="go-profile"
                   src={"/asset_ver2/image/town/go-profile.svg"}
                   width={20}
                   height={20}
-                  onClick={() => handleClickProfile(comment)}
+                  onClick={() => handleClickProfile(content)}
                 />
               )}
-              {isPopular && (
-                <Image
-                  alt="best"
-                  src="/asset_ver2/image/town/best.png"
-                  width={35}
-                  height={18}
-                />
-              )}
-              <>{comment.contents}</>
+              <Content>{content.contents}</Content>
+              {/* 댓글 Body 끝 -------- */}
             </Flex>
-            {/* 댓글 Body 끝 -------- */}
             <ThumbsUp
-              isLiked={comment.isLiked}
-              boardId={comment.boardId}
-              isMyComment={() => isMyContent(comment)}
-              theme={isPopular ? "light" : "dark"}
-              likeCounts={comment.likeCounts}
+              isLiked={content.isLiked}
+              boardId={content.boardId}
+              isMyComment={isMyContent(content)}
+              likeCounts={content.likeCounts}
             />
           </ContentWrapper>
         );
@@ -100,26 +98,26 @@ export default Contents;
 
 const GoCalendar = styled(Image)`
   position: absolute;
-  top: 62px;
+  top: 60px;
   left: 45px;
   cursor: pointer;
 `;
+
 const CircularImage = styled(Image)`
   border-radius: 100%;
 `;
 
 const ContentWrapper = styled.div`
   flex-shrink: 0;
-  font-size: 13px;
+  font-size: 12px;
+  width: 100%;
   padding: 10px 15px;
   height: fit-content;
-  min-height: 100px;
-  overflow-y: scroll;
-  color: ${({ popular }) => (popular === "true" ? "#333" : "#F2F2F2")};
+  min-height: 90px;
+  color: #333;
   border-radius: 10px;
-  background-color: ${({ popular }) =>
-    popular === "true" ? "rgba(255, 255, 255, 0.7)" : "rgba(30, 52, 79, 0.53)"};
-  backdrop-filter: blur(10px);
+  background-color: rgb(255, 255, 255, 0.8);
+  backdrop-filter: blur(3px);
   -ms-overflow-style: none; /* Explorer */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -127,30 +125,43 @@ const ContentWrapper = styled.div`
   }
 `;
 
+const Content = styled.div`
+  word-wrap: break-word;
+  overflow: auto;
+  flex: 1;
+`;
+
 const BlurWrapper = styled(ContentWrapper)`
-  height: 100px;
+  height: 90px;
   display: flex;
   align-items: center;
 `;
 
 const NameWrapper = styled.div`
   display: flex;
-  gap: 3px;
-  width: fit-comment;
-  text-decoration: none;
-  color: ${({ popular }) => (popular === "true" ? "#333" : "#E6E6E6")};
-  font-family: "NanumSquareNeoOTF-Bd";
+  flex-wrap: nowrap;
+  gap: 4px;
+  color: #333;
   align-items: center;
   padding-bottom: 7px;
 `;
 
+const Name = styled.div`
+  font-family: "NanumSquareNeoOTF-Bd";
+  flex: 0 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 15vw; /* 최소 너비 설정 */
+`;
+
 const CreatedAt = styled.small`
-  font-size: 12px;
-  color: ${({ popular }) => (popular === "true" ? "#333" : "#ccc")};
+  font-size: 10px;
 `;
 
 const Flex = styled.div`
   display: flex;
   gap: 10px;
+  padding: ${({ padding }) => padding};
   justify-content: ${({ justifyContent }) => justifyContent || "normal"};
 `;
