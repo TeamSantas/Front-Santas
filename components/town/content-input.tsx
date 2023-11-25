@@ -10,9 +10,25 @@ const ContentInput = () => {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [input, setInput] = useState("");
   const { storeUserData } = useAuthContext();
+  const placeHolderOptions = {
+    default: "댓글을 입력해 주세요.",
+    login: "로그인 후 이용 가능합니다.",
+    focus: "부적절한 댓글은 삭제될 수 있습니다.",
+  };
+  const [placeHolder, setPlaceHolder] = useState(placeHolderOptions.default);
   const handleCheckboxChange = () => setIsAnonymous((prev) => !prev);
+  const handleInput = (e) => {
+    const value = e.target.value;
+    if (value.length <= 300) {
+      setInput(value);
+    }
+  };
   const handleClickSend = async () => {
     if (checkMemberAndRedirect(storeUserData)) return;
+    if (input.length === 0) {
+      alert("댓글을 입력해 주세요.");
+      return;
+    }
 
     try {
       const response: ResponseData<string> = await postBoard({
@@ -36,8 +52,9 @@ const ContentInput = () => {
   return (
     <Wrapper>
       <Name>
-        {storeUserData?.nickname ?? "이름"}
+        {isAnonymous ? <>익명</> : <>{storeUserData?.nickname ?? "이름"}</>}
         <Flex gap="5px">
+          <ContentLength>{input.length} / 300</ContentLength>
           <CheckboxLabel>{"익명"}</CheckboxLabel>
           <input
             type="checkbox"
@@ -49,11 +66,11 @@ const ContentInput = () => {
       <InputArea>
         <Input
           placeholder={
-            storeUserData?.nickname
-              ? "댓글을 입력해 주세요. 부적절한 댓글은 삭제될 수 있습니다. (300자)"
-              : "로그인 후 이용 가능합니다."
+            storeUserData?.nickname ? placeHolder : placeHolderOptions.login
           }
-          onChange={(e) => setInput(e.target.value)}
+          onFocus={() => setPlaceHolder(placeHolderOptions.focus)}
+          onBlur={() => setPlaceHolder(placeHolderOptions.default)}
+          onChange={handleInput}
           value={input}
         />
         <SendWrapper>
@@ -114,6 +131,10 @@ const Wrapper = styled.div`
   @media (max-width: 768px) {
     width: 100%;
   }
+`;
+
+const ContentLength = styled.div`
+  color: #5a758e;
 `;
 
 const Name = styled.div`
