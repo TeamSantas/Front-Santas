@@ -30,7 +30,7 @@ export const Icons = styled.button`
 `;
 
 export const RedButton = styled.button`
-  border-radius: 5px;
+  border-radius: 10px;
   border: none;
   margin-bottom: 10px;
   font-size: 30px;
@@ -45,6 +45,13 @@ export const RedButton = styled.button`
 export const GreenButton = styled(RedButton)`
   background-color: #3C6C54;
   color: white;
+  width: 42%;
+  font-size: 18px;
+  padding: 10px 0;
+  /*갤폴드 대응*/
+  @media (max-width: 300px) {
+    font-size: 13px;
+  }
 `;
 
 export const GreenCloseButton = styled.div`

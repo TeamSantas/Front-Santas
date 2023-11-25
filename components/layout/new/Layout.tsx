@@ -9,8 +9,8 @@ const Layout = ({ children, logo = null }) => {
       <Header />
       <MainWrapper>
         <Logo src={logo} />
-        <Buildings src={"/assets/image/layout/buildings.png"} />
-        <Tree src={"/assets/image/layout/tree.svg"} />
+        <Buildings src={"/asset_ver2/image/layout/buildings.png"} />
+        <Tree src={"/asset_ver2/image/layout/tree.svg"} />
         <UpperWrapper>{children}</UpperWrapper>
         <Ground />
       </MainWrapper>
@@ -35,8 +35,8 @@ const MainWrapper = styled.div`
   height: calc(100vh - 130px);
   background-color: #1c3249;
   position: relative;
-
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
   -ms-overflow-style: none; /* Explorer */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -51,6 +51,7 @@ const UpperWrapper = styled.div`
 
 const AbsoluteImg = styled.img`
   position: absolute;
+  overflow: hidden;
   bottom: calc(env(safe-area-inset-bottom) + 17vh);
   left: 50%;
   transform: translateX(-50%);

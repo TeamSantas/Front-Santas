@@ -13,46 +13,41 @@ export const pageview = (url) => {
 };
 
 export type ResponseData<T> = {
-  status: string;
+  status: number;
   message: string;
   data: T;
 };
 
 // Member types ------------------------------------
 export interface MemberData {
-  member: {
-    id: string;
-    nickname: string;
-    profileImageURL: string;
-    email: string;
-    invitationLink: string;
-    setting: {
-      id: number;
-      isAlert: boolean;
-      bgm: boolean;
-      fcmtokens: string;
-    };
-  }
+  id: number;
+  nickname: string;
+  profileImageURL: string;
+  email: string;
+  invitationLink: string;
+  setting: {
+    id: number;
+    isAlert: boolean;
+    bgm: boolean;
+    fcmtokens: string;
+  };
 }
-
+export interface MemberRawData {
+ member: MemberData;
+}
 export interface NewMemberData {
-  dateCount: number;
-  member: {
-    id: string;
-    nickname: string;
-    profileImageURL: string;
-    email: string;
-    invitationLink: string;
-    setting: {
-      id: number;
-      isAlert: boolean;
-      bgm: boolean;
-      fcmtokens: string;
-    };
-  }
-  presentCount: number;
+  id: number;
+  nickname: string;
+  profileImageURL: string;
+  email: string;
+  invitationLink: string;
+  setting: {
+    id: number;
+    isAlert: boolean;
+    bgm: boolean;
+    fcmtokens: string;
+  };
 }
-
 
 export interface PutMemberData {
   nickname: string;
@@ -61,21 +56,17 @@ export interface PutMemberData {
 }
 
 export const defaultMemberData = {
-  dateCount: -1,
-  member : {
-    id: "",
-    nickname: "",
-    profileImageURL: "",
-    email: "",
-    invitationLink: "",
-    setting: {
-      id: -1,
-      isAlert: false,
-      bgm: false,
-      fcmtokens: "",
-    },
+  id: -1,
+  nickname: "",
+  profileImageURL: "",
+  email: "",
+  invitationLink: "",
+  setting: {
+    id: -1,
+    isAlert: false,
+    bgm: false,
+    fcmtokens: "",
   },
-  presentCount: -1
 };
 
 // Friends types ------------------------------------
@@ -131,4 +122,35 @@ export interface putBGMData {
 export interface dataProps {
   data: object;
   link: string;
+}
+
+// Town(Board) types ------------------------------------
+
+export interface BoardData {
+  boardId: number;
+  contents: string;
+  createdAt: string;
+  invitationLink: string;
+  isAnonymous: boolean;
+  likeCounts: number;
+  reportCounts: number;
+  profile: string;
+  writerId: number;
+  writerName: string;
+  isBlur: boolean;
+  isLiked: boolean;
+}
+
+export interface BoardForm {
+  contents: string;
+  writerId: number;
+  writerName: string;
+  isAnonymous: boolean;
+}
+
+export interface ReportData {
+  boardId: number;
+  writerId: number;
+  type: "BOARD";
+  reason?: string;
 }

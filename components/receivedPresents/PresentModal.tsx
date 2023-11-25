@@ -3,10 +3,9 @@ import PresentCardList from "./PresentCardList";
 import SendPresents from "../sendPresents/SendPresents";
 import styled, { css } from "styled-components";
 
-const RedBackground = styled.div`
-  background-color: #ac473d;
+const BlueBackground = styled.div`
+  background-color: #1E344F;
   border-radius: 5px;
-
   ${(props) =>
     props.ismycalendar &&
     css`
@@ -18,13 +17,19 @@ const CustomHeader = styled(Modal.Body)`
   border: none;
   display: flex;
   justify-content: space-between;
+  color: white;
 `;
-
-const WhiteCloseButton = styled.div`
+const DateText = styled.p`
+  font-size: 1.2rem;
+  align-items: center;
+`;
+const GreenCloseButton = styled.div`
   background-repeat: no-repeat;
   background-position: center;
-  width: 2rem;
-  background-image: url("/assets/image/XCircle.svg");
+  background-size: contain;
+  width: 1.8rem;
+  margin-top: -20px;
+  background-image: url("/asset_ver2/image/btn/green_closeBtn.png");
 
   ${(props) =>
     props.ismycalendar &&
@@ -58,12 +63,12 @@ const PresentModal = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <RedBackground ismycalendar={props.ismycalendar}>
+      <BlueBackground ismycalendar={props.ismycalendar}>
         <CustomHeader closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            12월 {props.selectedday}일
+            <DateText>12월 {props.selectedday}일</DateText>
           </Modal.Title>
-          <WhiteCloseButton
+          <GreenCloseButton
             onClick={props.onHide}
             ismycalendar={props.ismycalendar}
           />
@@ -71,7 +76,7 @@ const PresentModal = (props) => {
         <CustomBody>
           <RenderBody />
         </CustomBody>
-      </RedBackground>
+      </BlueBackground>
     </Modal>
   );
 };

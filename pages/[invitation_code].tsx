@@ -4,31 +4,42 @@ import Home from ".";
 import FriendsService from "../api/FriendsService";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import MemberService from "../api/MemberService";
+import {useAuthContext} from "../store/contexts/components/hooks";
 
 export default function OtherCalendar() {
   const router = useRouter();
   const [code, setCode] = useState("");
   const [userData, setUserData] = useState({});
 
-  const isMyCode = async (code:string) => {
+  const currUserData = useAuthContext().storeUserData;
+  useEffect(() => {
+    const link = handleInvitationCode();
+    getLinkMember(link);
+  }, []);
+  
+  const isMyCode = async (code: string) => {
     try {
-      const myLink = await (await MemberService.getLoggedMember()).data.data.member.invitationLink;
+      const myLink = currUserData.invitationLink;
+      console.log("---code",code);
+      console.log("----myLink",myLink);
       if (myLink === code) {
-        alert("자기 자신은 친구코드로 접근할 수 없습니다! 내 캘린더 페이지로 이동합니다🎅")
-        router.push('/');
+        alert(
+          "자기 자신은 친구코드로 접근할 수 없습니다! 내 캘린더 페이지로 이동합니다🎅"
+        );
+        router.push("/");
       }
     } catch (e) {
       // console.log(e);
     }
-  }
+  };
 
   const handleInvitationCode = () => {
     if (typeof window !== "undefined") {
       const path = window.location.pathname;
       if (path.length == 37) {
         const tmp = window.location.pathname.split("/");
-        setCode(tmp[1].slice(0,36));
-        return tmp[1].slice(0,36);
+        setCode(tmp[1].slice(0, 36));
+        return tmp[1].slice(0, 36);
       }
     }
   };
@@ -49,11 +60,8 @@ export default function OtherCalendar() {
       router.replace("/404");
     }
   };
+  
 
-  useEffect(() => {
-    const link = handleInvitationCode();
-    getLinkMember(link);
-  }, []);
 
   return <Home data={userData} link={code} />;
 }

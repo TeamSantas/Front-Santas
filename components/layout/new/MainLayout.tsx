@@ -2,18 +2,21 @@ import styled from "styled-components";
 import Snow from "../Snow";
 import Header from "./Header";
 import Gnb from "./GNB";
+import {ShareLink} from "../../share/ShareLink";
+import {QuestionLink} from "../../share/QuestionLink";
 
-const Layout = ({ children = null  }) => {
+const Layout = ({ children = null }) => {
   return (
     <Wrapper>
       <Header />
       <MainWrapper>
         <Buildings src={"/asset_ver2/image/layout/forest_background.png"} />
-        {/*<Tree src={"/assets/image/layout/tree.svg"} />*/}
         <UpperWrapper>{children}</UpperWrapper>
         <Ground />
       </MainWrapper>
       <Snow />
+      <QuestionLink/>
+      <ShareLink/>
       <Gnb />
     </Wrapper>
   );
@@ -53,13 +56,6 @@ const AbsoluteImg = styled.img`
   bottom: calc(env(safe-area-inset-bottom) + 17vh);
   left: 50%;
   transform: translateX(-50%);
-`;
-
-const Logo = styled(AbsoluteImg)`
-  width: 220px;
-  max-width: 50vw;
-  min-width: 200px;
-  top: calc(env(safe-area-inset-top) + 5vh);
 `;
 
 const Buildings = styled(AbsoluteImg)`

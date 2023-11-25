@@ -5,8 +5,8 @@ const Layout = ({ children, logo = null }) => {
   return (
     <MainWrapper>
       <Logo src={logo} />
-      <Buildings src={"/assets/image/layout/buildings.png"} />
-      <Tree src={"/assets/image/layout/tree.svg"} />
+      <Buildings src={"/asset_ver2/image/layout/buildings.png"} />
+      <Tree src={"/asset_ver2/image/layout/tree.svg"} />
       <UpperWrapper>{children}</UpperWrapper>
       <Ground />
       <Snow />

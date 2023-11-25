@@ -3,69 +3,17 @@ import styled from "styled-components";
 import { NextPage } from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import Calendar from "../components/index/Calendar";
-import Share from "../components/share/Share";
 import { getCookie } from "../businesslogics/cookie";
+import { Component, lazy, ReactElement, useEffect, useState } from "react";
 import ReactHowler from "react-howler";
-import {Component, lazy, ReactElement, useEffect, useState} from "react";
-import { Canvas } from "@react-three/fiber";
-import FriendsModal from "../components/friends/FriendsModal";
-import { Suspense } from "react";
-import { setGetMember } from "../api/hooks/useGetMember";
 import { dataProps, MemberData } from "../util/type";
 import { useRouter } from "next/router";
 import { setBGM } from "../api/hooks/useStting";
-import { getLoggedMember } from "../api/hooks/useMember";
-import InformationModal from "../components/index/InformationModal";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
-import Seo from "../components/common/Seo";
-import { setCookie } from "cookies-next";
-import CopyModal from "../components/index/CopyModal";
-import { shareKakao } from "../components/share/ShareAPIButton";
 import { Modals } from "../components/modals/modals";
-import PlainLayout from "../components/layout/new/PlainLayout";
-import Login from "./login";
 import MainLayout from "../components/layout/new/MainLayout";
-import Layout from "../components/layout/new/Layout";
-
-const MainIcons = styled(Icons)`
-  height: 35px;
-`;
-const Snowball = styled(MainIcons)`
-  margin-left: 10px;
-  background-image: url("/assets/image/icons/snowball.svg");
-  @media (max-width: 1000px) {
-    display: none;
-  }
-`;
-const GoBackMyCal = styled.div`
-  background: #ac473d;
-  border-radius: 12px;
-  color: white;
-  padding: 6px 15px;
-  text-align: center;
-`;
-
-const CalendarYellowBtn = styled(Icons)`
-  width: 35rem;
-  height: 72px;
-  font-size: 30px;
-  font-weight: bold;
-  margin-top: 5px;
-  margin-bottom: 48px;
-  background: #ac473d;
-  border-radius: 12px;
-  z-index: 5;
-  color: white;
-  @media (max-width: 600px) {
-    width: 90%;
-    margin-top: 45px;
-    height: 62px;
-    font-size: 24px;
-  }
-`;
-const MainFlex = styled(Flex)`
-  margin-top: -15px;
-`;
+import {useAuthContext} from "../store/contexts/components/hooks";
+import {setCookie} from "cookies-next";
 
 const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
@@ -75,7 +23,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const [loggedMemberId, setLoggedMemberId] = useState(null);
   const [myName, setMyName] = useState<string>("나");
   const [mute, setMute] = useState(false);
-  const [myLink, setMyLink] = useState<string>("");
+  const [isLogged, setIsLogged] = useState(true);
+
 
   const getMyBGM = async () => {
     try {
@@ -91,80 +40,46 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     setBGM(!value);
   };
 
-  const linkCopyHandler = async () => {
-    const copyURL = `https://merry-christmas.site/${myLink}`;
-    console.log(copyURL);
-    try {
-      await navigator.clipboard.writeText(copyURL);
-      alert(
-        "내 캘린더 링크가 복사되었습니다. 친구에게 공유해 쪽지를 주고받아보세요!"
-      );
-    } catch (e) {
-      alert(
-        "내 초대링크를 복사해 보내보세요! 바로 복사를 원하신다면~? 크롬브라우저로 접속해보세요✨"
-      );
-      clickCopyIconHandler();
-    }
-  };
 
+//엔딩 떄 사용하기
   const goEndingHandler = () => {
     window.location.href = "/endingbridge";
   };
 
-  // friends modal
-  const [friendModalShow, setFriendModalShow] = useState(false);
-  const clickFriendIconHandler = () => {
-    setFriendModalShow(true);
-  };
-  const handleFriendsModalClose = () => setFriendModalShow(false);
 
-  // info modal
-  const [informationModalShow, setInformationModalShow] = useState(false);
-  const clickInformationIconHandler = () => {
-    setInformationModalShow(true);
-  };
-  const handleInformationModalClose = () => setInformationModalShow(false);
+  // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
 
-  const [copyModal, setCopyModal] = useState<boolean>(false);
-  const clickCopyIconHandler = () => setCopyModal(true);
-  const handleCopyModalClose = () => setCopyModal(false);
+  const userData = useAuthContext().storeUserData;
 
-  // snowball modal
-  const [snowballModalShow, setSnawballModalShow] = useState(false);
-  const clickSnowballIconHandler = () => {
-    setSnawballModalShow(!snowballModalShow);
-  };
+  useEffect(() => {
+    if(userData){
+      setMemberInfo(userData.nickname);
+      setLoggedMemberId(userData.id);
+      setCookie("invitationLink", userData.invitationLink);
+    }else{
+      setIsLogged(false);
+    }
+  }, [userData]);
 
+// TODO:새로만든 훅으로 현재 로그인 된 유저정보 가져오기
   const getCurrCalUser = async () => {
+    console.log("======props",props);
     let currInvitationLink = props.link;
     try {
       if (currInvitationLink.length < 2) {
         setMyName(memberInfo);
       } else {
         const res = await setGetCurrCalendarUserInfo(currInvitationLink);
-        if (myName != res.data.data.nickname) setMyName(res.data.data.nickname);
+        if (myName != userData.nickname) setMyName(userData.nickname);
       }
     } catch (e) {
       // setMyName(router.asPath.slice(1))
     }
   };
 
-  const [isLogged, setIsLogged] = useState(true);
-  // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
-  const getMemberData = async () => {
-    // try {
-    //   const res = await setGetMember();
-    //   setMemberInfo(res.data.data.member.nickname);
-    //   setMyLink(res.data.data.member.invitationLink);
-    //   setLoggedMemberId(res.data.data.member.id);
-    //   // console.log(">>>>>>>>>")
-    //   // console.log(res.data.data.member.id)
-    //   setCookie("invitationLink", res.data.data.member.invitationLink);
-    // } catch (e) {
-    //   setIsLogged(false);
-    //   // console.log(e);
-    // }
-  };
+  useEffect(() => {
+    getCurrCalUser();
+  }, [props]);
 
   // endingCookie
   const today = new Date();
@@ -188,7 +103,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   useEffect(() => {
     // getMemberData();
-    // handleCalendarOwner();
+    handleCalendarOwner();
   }, [memberInfo]);
 
   useEffect(() => {
@@ -207,11 +122,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   const MyCalendarBtn = () => {
     ``;
-    return (
-      <>
-        <Modals />
-      </>
-    );
+    return <Modals />
   };
 
   const handleGoMyCal = () => {
@@ -222,26 +133,14 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
     return (
       <>
         {/*TODO: 내 캘린더로 이동하기/친구 캘린더 가기에 필요한 함수들*/}
-        {/*<ButtonFlex>*/}
-        {/*  {isLogged === false ? null : (*/}
-        {/*    <GoBackMyCal onClick={handleGoMyCal}>내 캘린더로 이동</GoBackMyCal>*/}
-        {/*  )}*/}
-        {/*  <Flex>*/}
-        {/*    /!*BGM react-howler 라이브러리*!/*/}
-        {/*    <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />*/}
-        {/*    {mute ? (*/}
-        {/*      <Bgm onClick={() => muteHandler(mute)} />*/}
-        {/*    ) : (*/}
-        {/*      <MuteBgm onClick={() => muteHandler(mute)} />*/}
-        {/*    )}*/}
-        {/*    <Snowball onClick={clickSnowballIconHandler} />*/}
-        {/*    <Info onClick={clickInformationIconHandler} />*/}
-        {/*    <InformationModal*/}
-        {/*      show={informationModalShow}*/}
-        {/*      onHide={handleInformationModalClose}*/}
-        {/*    />*/}
-        {/*  </Flex>*/}
-        {/*</ButtonFlex>*/}
+            {/*BGM react-howler 라이브러리*/}
+            <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
+            {/*TODO: 사이드바에 넣어야 할 기능*/}
+            {/*{mute ? (*/}
+            {/*  <Bgm onClick={() => muteHandler(mute)} />*/}
+            {/*) : (*/}
+            {/*  <MuteBgm onClick={() => muteHandler(mute)} />*/}
+            {/*)}*/}
         {isLogged === true ? null : (
           <CalendarYellowBtn onClick={() => router.push("/title")}>
             내 캘린더도 만들기✨
@@ -257,19 +156,40 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
         <MainContainer>
           <br />
           {/* 실제 invitation Link 로 보내기 */}
+          {/*TODO: 여기서 시작하기! 여기가 친구 or 내 캘린더로 보내는 지점이야*/}
           <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
+          {/*<Calendar ismycalendar={false} loggedId={loggedMemberId} />*/}
           {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
         </MainContainer>
-        {snowballModalShow ? (<Snowball/>) : null}
       </MainFlex>
     </div>
   );
 };
 
 export default Home;
-// //TODO : 여기 손봐서 집모양 나오게 해야함
 Home.getLayout = (page: ReactElement) => {
-  return (
-      <MainLayout>{page}</MainLayout>
-  );
+  return <MainLayout>{page}</MainLayout>;
 };
+
+
+const CalendarYellowBtn = styled(Icons)`
+  width: 35rem;
+  height: 72px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 48px;
+  background: #ac473d;
+  border-radius: 12px;
+  z-index: 5;
+  color: white;
+  @media (max-width: 600px) {
+    width: 90%;
+    margin-top: 45px;
+    height: 62px;
+    font-size: 24px;
+  }
+`;
+const MainFlex = styled(Flex)`
+  margin-top: -15px;
+`;
