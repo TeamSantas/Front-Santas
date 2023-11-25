@@ -148,10 +148,7 @@ export interface BoardForm {
 
 export interface ReportData {
   boardId: number;
-  reportedId: number;
+  writerId: number;
   type: "BOARD";
   reason?: string;
-}
-export interface ReportForm {
-  reportInfo: ReportData;
 }

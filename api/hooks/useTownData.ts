@@ -68,9 +68,9 @@ export async function getBoardPopular() {
 /**
  * 게시글 신고
  */
-export async function report(reportForm: ReportData) {
+export async function report(ReportData: ReportData) {
   try {
-    const res = await TownService.postBoardReport({ reportInfo: reportForm });
+    const res = await TownService.postBoardReport(ReportData);
     return res.data;
   } catch (e) {
     console.log(e);
