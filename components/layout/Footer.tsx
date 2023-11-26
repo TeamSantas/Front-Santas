@@ -1,11 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import imageLoader from "../common/ImageLoader";
+
 const Wrapper = styled.div`
   background-color: white;
   padding: 20px;
-  border-top: 1px solid #1c3249;
   color: #999;
 `;
 const P = styled.p`
@@ -60,8 +59,9 @@ const Footer = () => {
         teamsantaz1225@gmail.com
       </Mail>
       <P fontSize={"0.7rem"}>Copyright ©TeamSantaz. All rights reserved.</P>
-      <P fontSize={"0.7rem"}>상호명 : 머지고래  | 사업자등록번호 : 775-06-01556</P>
-
+      <P fontSize={"0.7rem"}>
+        상호명 : 머지고래 | 사업자등록번호 : 775-06-01556
+      </P>
     </Wrapper>
   );
 };
