@@ -4,39 +4,43 @@ import SentFriendsList from "../components/todays-heart/sent-list";
 import ReceivedFriendsList from "../components/todays-heart/received-list";
 import { useState } from "react";
 import { Flex } from "../styles/styledComponentModule";
+import { Modals } from "../components/modals/modals";
 
 const TodaysHeart = () => {
   const [tab, setTab] = useState("sent");
   const handleClickTab = (option) => setTab(option);
-  console.log(tab);
+
   return (
-    <Wrapper>
-      <Logo src={"/asset_ver2/image/layout/todays-heart-logo.png"} />
-      <Text>
-        매일 달라지는 질문에 마음을 담아 하트를 보내요!
-        <br />( 하트는 하루 최대 5명에게 보낼 수 있어요 )
-      </Text>
-      <Card>
-        <Question>Q. 누구와 함께 크리스마스를 보내고 싶나요?</Question>
-      </Card>
-      <Flex>
-        <Tab
-          tab={(tab === "sent").toString()}
-          onClick={() => handleClickTab("sent")}
-        >
-          보낸 목록
-        </Tab>
-        <Tab
-          tab={(tab === "received").toString()}
-          onClick={() => handleClickTab("received")}
-        >
-          받은 목록
-        </Tab>
-      </Flex>
-      <ContentWrapper>
-        {tab === "sent" ? <SentFriendsList /> : <ReceivedFriendsList />}
-      </ContentWrapper>
-    </Wrapper>
+    <>
+      <Modals />
+      <Wrapper>
+        <Logo src={"/asset_ver2/image/layout/todays-heart-logo.png"} />
+        <Text>
+          매일 달라지는 질문에 마음을 담아 하트를 보내요!
+          <br />( 하트는 하루 최대 5명에게 보낼 수 있어요 )
+        </Text>
+        <Card>
+          <Question>Q. 누구와 함께 크리스마스를 보내고 싶나요?</Question>
+        </Card>
+        <Flex>
+          <Tab
+            tab={(tab === "sent").toString()}
+            onClick={() => handleClickTab("sent")}
+          >
+            보낸 목록
+          </Tab>
+          <Tab
+            tab={(tab === "received").toString()}
+            onClick={() => handleClickTab("received")}
+          >
+            받은 목록
+          </Tab>
+        </Flex>
+        <ContentWrapper>
+          {tab === "sent" ? <SentFriendsList /> : <ReceivedFriendsList />}
+        </ContentWrapper>
+      </Wrapper>
+    </>
   );
 };
 
