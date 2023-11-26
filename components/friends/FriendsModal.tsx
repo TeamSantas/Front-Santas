@@ -10,11 +10,13 @@ import {
 } from "../../styles/styledComponentModule";
 import FriendsList from "./FriendsList";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
+import AdFitModal from "../advertisement/adFitModal";
+import { friendsModalAdID } from "../advertisement/ad-ids";
 
 const CenteredModalFooter = styled.div`
   width: 90%;
   margin: auto;
-  padding-bottom: 1rem;
+  padding-top: 20px;
 `;
 
 const Title = styled.div`
@@ -52,8 +54,7 @@ const FriendsModal = (props) => {
       await setGetFriend().then((res) => {
         setFriendsData(res.data.data);
       });
-    } catch (e) {
-    }
+    } catch (e) {}
     setIsLoading(false);
   };
 
@@ -62,45 +63,37 @@ const FriendsModal = (props) => {
   }, []);
 
   return (
-    <Modal
+    <AdFitModal
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      adFitId={friendsModalAdID}
     >
       <CustomHeader>
-        <Modal.Title id="contained-modal-title-vcenter"><Title>친구 목록</Title></Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          <Title>친구 목록</Title>
+        </Modal.Title>
         <GreenCloseButton onClick={props.onHide} />
       </CustomHeader>
       <CustomBody>
         <FriendsList friendsData={friendsData} isLoading={isLoading} />
       </CustomBody>
-      {/*<CustomBody>*/}
-      {/*  <Text>*/}
-      {/*    준비중인 기능이에요.*/}
-      {/*    <br />더 편해져서 돌아올게요! 🎅*/}
-      {/*  </Text>*/}
-      {/*</CustomBody>*/}
       <CenteredModalFooter>
-       <ButtonFlex>
+        <ButtonFlex>
           <UpdateBtn
             onClick={() => {
               getFriendsData();
-              alert("친구목록은 10분에 한번 갱신됩니다. 10분 뒤 다시 시도해주세요🎁");
+              alert(
+                "친구목록은 10분에 한번 갱신됩니다. 10분 뒤 다시 시도해주세요🎁"
+              );
             }}
           >
-            친구 목록 새로고침  <img src={'/assets/image/icons/loading.svg'}/>
+            친구 목록 새로고침 <img src={"/assets/image/icons/loading.svg"} />
           </UpdateBtn>
-          {/*<UpdateBtn*/}
-          {/*  onClick={() => {*/}
-          {/*    getKakaoFriendsData();*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  친구목록 업데이트*/}
-          {/*</UpdateBtn>*/}
         </ButtonFlex>
       </CenteredModalFooter>
-    </Modal>
+    </AdFitModal>
   );
 };
 
@@ -111,14 +104,14 @@ const ButtonFlex = styled(Flex)`
 `;
 
 const UpdateBtn = styled(Button)`
-  background-color: #2C6B51;
-  border-color: #2C6B51;
+  background-color: #2c6b51;
+  border-color: #2c6b51;
   padding: 10px 20px;
   font-size: 16px;
-  border-radiçus: 13px;
+  border-radius: 13px;
   &:hover {
-    background-color: #3C6C54;
-    border-color: #3C6C54;
+    background-color: #3c6c54;
+    border-color: #3c6c54;
   }
 `;
 
