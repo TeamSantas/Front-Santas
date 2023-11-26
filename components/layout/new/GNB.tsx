@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useAtom } from "jotai";
-import { gnbActiveAtom, modalStateAtom } from "../../../store/globalState";
+import { gnbActivePathAtom, modalStateAtom } from "../../../store/globalState";
 
 const Gnb = () => {
   const router = useRouter();
-  const [activeOption, setActiveOption] = useAtom(gnbActiveAtom);
+  const [activePathOption, setActivePathOption] = useAtom(gnbActivePathAtom);
   const [, setShowModal] = useAtom(modalStateAtom);
   const isHome = router.pathname === "/";
 
   const handleClickOption = (option) => {
-    setActiveOption(option);
+    setActivePathOption(option);
 
     switch (option) {
       case "friends":
@@ -40,7 +40,7 @@ const Gnb = () => {
   };
 
   const getImagePath = (option) => {
-    const condition = option === "home" ? isHome : activeOption === option;
+    const condition = option === "home" ? isHome : activePathOption === option;
 
     return `/asset_ver2/image/layout/gnb/${option}${
       condition ? "-click" : "-default"
@@ -82,6 +82,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 60px;
   background-color: #1a2838;
+  z-index: 10;
 `;
 
 const IconWrapper = styled.div`
