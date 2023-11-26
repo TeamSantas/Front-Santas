@@ -27,10 +27,16 @@ interface ToggleButtonProps {
   toggle: () => void;
 }
 
-const ToggleButton: React.FC<ToggleButtonProps> = ({ on, toggle }) => (
-  <ToggleButtonContainer on={on.toString()} onClick={toggle}>
-    <Circle on={on.toString()} />
-  </ToggleButtonContainer>
-);
+const ToggleButton: React.FC<ToggleButtonProps> = ({ on, toggle }) => {
+  const handleClick = (e) => {
+    e.stopPropagation();
+    toggle();
+  };
+  return (
+    <ToggleButtonContainer on={on.toString()} onClick={handleClick}>
+      <Circle on={on.toString()} />
+    </ToggleButtonContainer>
+  );
+};
 
 export default ToggleButton;
