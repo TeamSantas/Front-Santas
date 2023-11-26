@@ -6,6 +6,7 @@ import TabView from "../components/tab/TabView";
 import { getLoggedMember } from "../api/hooks/useMember";
 import { useEffect, useState } from "react";
 import AdSense from "../components/adSense";
+import { Modals } from "../components/modals/modals";
 
 const Container = styled.div`
   overflow: auto;
@@ -74,12 +75,15 @@ const MyPage: NextPage = () => {
   // }, []);
 
   return (
-    <MainContainer>
-      <AdSense />
-      <Container>
-        <TabView />
-      </Container>
-    </MainContainer>
+    <>
+      <Modals />
+      <MainContainer>
+        <AdSense />
+        <Container>
+          <TabView />
+        </Container>
+      </MainContainer>
+    </>
   );
 };
 
