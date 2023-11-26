@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Snow from "./Snow";
 import Footer from "./Footer";
 import KakaoAdFit from "../advertisement/KakaoAdFit";
+import { upcomingAdID } from "../advertisement/ad-ids";
 
 const PromotionWrapper = styled.div`
   background-color: #1c3249;
@@ -22,12 +23,18 @@ const UpperWrapper = styled.div`
   z-index: 1;
 `;
 
+const AdWrapper = styled.div`
+  margin-top: 50px;
+`;
+
 const PromotionLayout = ({ children }) => {
   return (
     <PromotionWrapper>
       <UpperWrapper>{children}</UpperWrapper>
       <Snow />
-      <KakaoAdFit/>
+      <AdWrapper>
+        <KakaoAdFit id={upcomingAdID} />
+      </AdWrapper>
       <Footer />
     </PromotionWrapper>
   );
