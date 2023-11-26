@@ -8,18 +8,17 @@ import ProfileModal from "../../index/ProfileModal";
 const Header = () => {
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
   const userData = useAuthContext();
-  let profileImg = null;
-    profileImg = userData?.storeUserData.profileImageURL;
+  let profileImg = userData?.storeUserData.profileImageURL;
 
   //사이드바(설정창)
   const handleClickMenu = () => {
+    //여기서 사이드바 온오프 작업해주시면 됩니다.
     console.log("사이드바 click setting");
   };
     // setLoggedMemberInfo
   //프로필이미지
   const handleProfileClick = () => setIsImgModalOpen(true);
   const handleCloseModal = () => setIsImgModalOpen(false);
-  console.log("-----profile", profileImg);
   return (
     <Wrapper>
       <Profile
