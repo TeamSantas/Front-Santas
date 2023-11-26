@@ -1,21 +1,16 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import {
-  sidebarBgmAtom,
-  sidebarNotificationAtom,
-  sidebarOpenAtom,
-} from "../../store/globalState";
+import { sidebarOpenAtom } from "../../store/globalState";
 import { useAtom } from "jotai";
-import ToggleButton from "../common/toggle";
 import Link from "next/link";
 import Logout from "./logout";
 import { useAuthContext } from "../../store/contexts/components/hooks";
 import Login from "./login";
+import NotificationToggle from "./notification";
+import BgmToggle from "./bgm";
 
 const SettingSideBar = () => {
   const [isOpen, setIsOpen] = useAtom(sidebarOpenAtom);
-  const [notificationOn, setNotificationOn] = useAtom(sidebarNotificationAtom);
-  const [bgmOn, setBgmOn] = useAtom(sidebarBgmAtom);
   const { storeUserData } = useAuthContext();
 
   const handleClickOutside = (e) => {
@@ -23,10 +18,6 @@ const SettingSideBar = () => {
       setIsOpen(false);
     }
   };
-
-  const handleClickNotificationToggle = () =>
-    setNotificationOn((prev) => !prev);
-  const handleClickBgmToggle = () => setBgmOn((prev) => !prev);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -41,17 +32,8 @@ const SettingSideBar = () => {
       <SidebarContainer id="sidebar" open={isOpen}>
         <ContentWrapper>
           <div>
-            <Content onClick={handleClickNotificationToggle}>
-              알림 수신 동의
-              <ToggleButton
-                on={notificationOn}
-                toggle={handleClickNotificationToggle}
-              />
-            </Content>
-            <Content onClick={handleClickBgmToggle}>
-              배경음
-              <ToggleButton on={bgmOn} toggle={handleClickBgmToggle} />
-            </Content>
+            {storeUserData?.id && <NotificationToggle />}
+            {storeUserData?.id && <BgmToggle />}
             <LinkContent href={"https://pf.kakao.com/_wDRPxj"} target="_blank">
               신고 및 문의
             </LinkContent>
@@ -104,13 +86,6 @@ const SidebarContainer = styled.div`
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
 `;
 
-const Content = styled.div`
-  cursor: pointer;
-  padding: 15px 0;
-  display: flex;
-  justify-content: space-between;
-`;
-
 const LinkContent = styled(Link)`
   cursor: pointer;
   padding: 15px 0;
@@ -126,11 +101,4 @@ const ContentWrapper = styled.div`
   justify-content: space-between;
   height: 100%;
   flex-direction: column;
-`;
-const LogIn = styled(Link)`
-  color: #8e8e8e;
-  border: 1px solid #8e8e8e;
-  width: 100%;
-  height: 48px;
-  background-color: unset;
 `;
