@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { BoardData } from "../../util/type";
@@ -6,6 +7,7 @@ import Report from "./report";
 import { useAuthContext } from "../../store/contexts/components/hooks";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import KakaoAdFit from "../advertisement/KakaoAdFit";
 
 interface IContentTemplate {
   contents: BoardData[];
@@ -17,6 +19,7 @@ const Contents = ({ contents, isPopular = false }: IContentTemplate) => {
   const router = useRouter();
   const { storeUserData } = useAuthContext();
   const isMyContent = (content) => content.writerId === storeUserData.id;
+
   const handleSetBlurredId = (boardId) => setBlurredId(boardId);
   const handleClickProfile = (content) => {
     if (content.isAnonymous) return;
@@ -29,65 +32,75 @@ const Contents = ({ contents, isPopular = false }: IContentTemplate) => {
     <>
       {contents.map((content) => {
         return blurredId === content.boardId || content.isBlur ? (
-          <BlurWrapper key={content.boardId}>
+          <BlurWrapper key={`${content.boardId}_${content.writerId}`}>
             🚨신고한 게시글입니다.🚨 검토 후 삭제처리할게요.
           </BlurWrapper>
         ) : (
-          <ContentWrapper key={content.boardId}>
-            {/* 댓글 Header 시작 ------ */}
-            <Flex justifyContent={"space-between"}>
-              <NameWrapper>
-                {isPopular && (
-                  <Image
-                    alt="best"
-                    src="/asset_ver2/image/town/best.svg"
-                    width={35}
-                    height={18}
+          <Fragment key={`${content.boardId}_${content.writerId}`}>
+            {content.writerName === "adFit" ? (
+              <AdFitWrapper key={`${content.contents}_${content.writerId}`}>
+                <KakaoAdFit id={content.contents} />
+              </AdFitWrapper>
+            ) : (
+              <ContentWrapper key={`${content.boardId}_${content.writerId}`}>
+                {/* 댓글 Header 시작 ------ */}
+                <Flex justifyContent={"space-between"}>
+                  <NameWrapper>
+                    {isPopular && (
+                      <Image
+                        alt="best"
+                        src="/asset_ver2/image/town/best.svg"
+                        width={35}
+                        height={18}
+                      />
+                    )}
+                    <Name>
+                      {content.isAnonymous ? "익명" : content.writerName}
+                    </Name>
+                    <CreatedAt>({content.createdAt})</CreatedAt>
+                  </NameWrapper>
+                  {!isMyContent(content) && (
+                    <Report
+                      boardId={content.boardId}
+                      writerId={content.writerId}
+                      handleSetBlurredId={handleSetBlurredId}
+                    />
+                  )}
+                </Flex>
+                {/* 댓글 Header 끝 -------- */}
+                {/* 댓글 Body 시작 ------ */}
+                <Flex padding={"0 0 20px 0"}>
+                  <CircularImage
+                    alt="profile"
+                    src={
+                      content.isAnonymous
+                        ? "/asset_ver2/image/common/default-profile.png"
+                        : content.profile
+                    }
+                    width={44}
+                    height={44}
                   />
-                )}
-                <Name>{content.isAnonymous ? "익명" : content.writerName}</Name>
-                <CreatedAt>({content.createdAt})</CreatedAt>
-              </NameWrapper>
-              {!isMyContent(content) && (
-                <Report
+                  {!content.isAnonymous && (
+                    <GoCalendar
+                      alt="go-profile"
+                      src={"/asset_ver2/image/town/go-profile.svg"}
+                      width={20}
+                      height={20}
+                      onClick={() => handleClickProfile(content)}
+                    />
+                  )}
+                  <Content>{content.contents}</Content>
+                  {/* 댓글 Body 끝 -------- */}
+                </Flex>
+                <ThumbsUp
+                  isLiked={content.isLiked}
                   boardId={content.boardId}
-                  writerId={content.writerId}
-                  handleSetBlurredId={handleSetBlurredId}
+                  isMyComment={isMyContent(content)}
+                  likeCounts={content.likeCounts}
                 />
-              )}
-            </Flex>
-            {/* 댓글 Header 끝 -------- */}
-            {/* 댓글 Body 시작 ------ */}
-            <Flex padding={"0 0 20px 0"}>
-              <CircularImage
-                alt="profile"
-                src={
-                  content.isAnonymous
-                    ? "/asset_ver2/image/common/default-profile.png"
-                    : content.profile
-                }
-                width={44}
-                height={44}
-              />
-              {!content.isAnonymous && (
-                <GoCalendar
-                  alt="go-profile"
-                  src={"/asset_ver2/image/town/go-profile.svg"}
-                  width={20}
-                  height={20}
-                  onClick={() => handleClickProfile(content)}
-                />
-              )}
-              <Content>{content.contents}</Content>
-              {/* 댓글 Body 끝 -------- */}
-            </Flex>
-            <ThumbsUp
-              isLiked={content.isLiked}
-              boardId={content.boardId}
-              isMyComment={isMyContent(content)}
-              likeCounts={content.likeCounts}
-            />
-          </ContentWrapper>
+              </ContentWrapper>
+            )}
+          </Fragment>
         );
       })}
     </>
@@ -123,6 +136,16 @@ const ContentWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none; /* Chrome */
   }
+`;
+
+const AdFitWrapper = styled.div`
+  flex-shrink: 0;
+  width: 100%;
+  padding: 10px 15px;
+  height: fit-content;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255, 0.8);
+  backdrop-filter: blur(3px);
 `;
 
 const Content = styled.div`
