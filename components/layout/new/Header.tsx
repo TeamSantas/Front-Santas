@@ -46,6 +46,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px 22px;
+  z-index: 10;
 `;
 
 const SettingImg = styled.img`

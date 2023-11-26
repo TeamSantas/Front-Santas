@@ -1,5 +1,5 @@
 import { TownAuthInstance, TownInstance } from "./APIInstance";
-import { ResponseData, BoardData, BoardForm, ReportForm } from "../util/type";
+import { ResponseData, BoardData, BoardForm, ReportData } from "../util/type";
 
 class TownService {
   // 게시글 좋아요
@@ -14,15 +14,21 @@ class TownService {
       params,
     });
 
+  // 나의 게시글 조회
+  getMyBoard = (params: { boardId: number }) =>
+    TownAuthInstance.get<ResponseData<BoardData[]>>(`/api/board/my`, {
+      params,
+    });
+
   // 게시글 작성
   postBoard = (formData: BoardForm) =>
     TownAuthInstance.post<ResponseData<string>>(`/api/board`, formData);
 
   // 게시글 신고
-  postBoardReport = (reportForm: ReportForm) =>
+  postBoardReport = (ReportData: ReportData) =>
     TownAuthInstance.post<ResponseData<string>>(
       `/api/board/report`,
-      reportForm
+      ReportData
     );
 
   // 인기 게시글 조회

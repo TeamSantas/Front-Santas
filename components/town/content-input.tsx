@@ -4,29 +4,57 @@ import { useState } from "react";
 import { postBoard } from "../../api/hooks/useTownData";
 import { useAuthContext } from "../../store/contexts/components/hooks";
 import { checkMemberAndRedirect } from "../utils/clickWithCheckMember";
+import { ResponseData } from "../../util/type";
 
 const ContentInput = () => {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [input, setInput] = useState("");
   const { storeUserData } = useAuthContext();
+  const placeHolderOptions = {
+    default: "댓글을 입력해 주세요.",
+    login: "로그인 후 이용 가능합니다.",
+    focus: "부적절한 댓글은 삭제될 수 있습니다.",
+  };
+  const [placeHolder, setPlaceHolder] = useState(placeHolderOptions.default);
   const handleCheckboxChange = () => setIsAnonymous((prev) => !prev);
-  const handleClickSend = () => {
+  const handleInput = (e) => {
+    const value = e.target.value;
+    if (value.length <= 300) {
+      setInput(value);
+    }
+  };
+  const handleClickSend = async () => {
     if (checkMemberAndRedirect(storeUserData)) return;
+    if (input.length === 0) {
+      alert("댓글을 입력해 주세요.");
+      return;
+    }
 
-    postBoard({
-      contents: input,
-      writerId: storeUserData?.id,
-      writerName: storeUserData?.nickname,
-      isAnonymous,
-    });
+    try {
+      const response: ResponseData<string> = await postBoard({
+        contents: input,
+        writerId: storeUserData?.id,
+        writerName: storeUserData?.nickname,
+        isAnonymous,
+      });
+      if (response.status === 200) {
+        alert("게시글 작성이 완료되었습니다.");
+        // TODO: 내 댓글 보기로 이동
+      } else {
+        alert("게시글 작성에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+      }
+    } catch (e) {
+      console.error("Error: ", e);
+    }
     setInput("");
   };
 
   return (
     <Wrapper>
       <Name>
-        {storeUserData?.nickname ?? "이름"}
+        {isAnonymous ? <>익명</> : <>{storeUserData?.nickname ?? "이름"}</>}
         <Flex gap="5px">
+          <ContentLength>{input.length} / 300</ContentLength>
           <CheckboxLabel>{"익명"}</CheckboxLabel>
           <input
             type="checkbox"
@@ -37,8 +65,12 @@ const ContentInput = () => {
       </Name>
       <InputArea>
         <Input
-          placeholder="댓글을 입력해 주세요. 부적절한 댓글은 삭제될 수 있습니다. (300자)"
-          onChange={(e) => setInput(e.target.value)}
+          placeholder={
+            storeUserData?.nickname ? placeHolder : placeHolderOptions.login
+          }
+          onFocus={() => setPlaceHolder(placeHolderOptions.focus)}
+          onBlur={() => setPlaceHolder(placeHolderOptions.default)}
+          onChange={handleInput}
           value={input}
         />
         <SendWrapper>
@@ -99,6 +131,10 @@ const Wrapper = styled.div`
   @media (max-width: 768px) {
     width: 100%;
   }
+`;
+
+const ContentLength = styled.div`
+  color: #5a758e;
 `;
 
 const Name = styled.div`

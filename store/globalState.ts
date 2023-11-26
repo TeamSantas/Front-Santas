@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-export const gnbActiveAtom = atom("home");
+export const gnbActivePathAtom = atom("home");
 
 export const modalStateAtom = atom({
   label: "",
