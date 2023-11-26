@@ -4,12 +4,12 @@ import {
   sidebarBgmAtom,
   sidebarNotificationAtom,
   sidebarOpenAtom,
-} from "../../../store/globalState";
+} from "../../store/globalState";
 import { useAtom } from "jotai";
-import ToggleButton from "../../common/toggle";
+import ToggleButton from "../common/toggle";
 import Link from "next/link";
 import Logout from "./logout";
-import { useAuthContext } from "../../../store/contexts/components/hooks";
+import { useAuthContext } from "../../store/contexts/components/hooks";
 import Login from "./login";
 
 const SettingSideBar = () => {

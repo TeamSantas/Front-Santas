@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import MemberService from "../../../api/MemberService";
+import MemberService from "../../api/MemberService";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 
