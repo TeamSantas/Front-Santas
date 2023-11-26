@@ -7,6 +7,40 @@ export default function Seo({ title = "두근두근 어드벤트 캘린더 🎁"
         content="[두어캘] 하루에 하나씩 열어보며 기다려요. 🎄"
       />
 
+      {/* favicon */}
+      <link rel="icon" href="/favicon.ico" />
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/apple-touch-icon.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/favicon-32x32.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/favicon-16x16.png"
+      />
+      <link rel="manifest" href="/site.webmanifest" />
+      <link rel="shortcut icon" href="/favicon.ico" />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="192x192"
+        href="/android-chrome-192x192.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="512x512"
+        href="/android-chrome-512x512.png"
+      />
+
       {/*웹에 설정해줘야하는 og 메타태그*/}
       <link rel="icon" href="/favicon.ico" />
       <meta property="og:type" content="website" />
