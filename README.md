@@ -1,4 +1,4 @@
-# 두근두근 어드벤트 캘린더 🎁
+# 두근두근 어드벤트 캘린더
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/40741363/210045864-cbcbee6b-9036-4fbb-9f64-01d46971f4fc.png" width="800"/>
@@ -102,7 +102,7 @@
 
 - 사람들에게 내일이 두근두근 기다려지는 마음을 만들어주기.
 - 모두 따뜻하고 행복한 크리스마스 만들기.
-  더 자세한 기획은 [두근두근 어드벤트 캘린더 🎁](https://www.notion.so/0826026935e64aeb992cac9aec13227e) 에서 보실 수 있어요
+  더 자세한 기획은 [두근두근 어드벤트 캘린더](https://www.notion.so/0826026935e64aeb992cac9aec13227e) 에서 보실 수 있어요
 
 ### ❄️ 프로젝트 핵심기능
 
