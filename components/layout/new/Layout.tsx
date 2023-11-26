@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Snow from "../Snow";
 import Header from "./Header";
 import Gnb from "./GNB";
+import SettingSideBar from "../setting/SettingSideBar";
 
 const Layout = ({ children, logo = null }) => {
   return (
@@ -14,6 +15,7 @@ const Layout = ({ children, logo = null }) => {
         <UpperWrapper>{children}</UpperWrapper>
         <Ground />
       </MainWrapper>
+      <SettingSideBar />
       <Snow />
       <Gnb />
     </Wrapper>

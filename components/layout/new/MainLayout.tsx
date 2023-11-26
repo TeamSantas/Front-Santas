@@ -4,7 +4,7 @@ import Header from "./Header";
 import Gnb from "./GNB";
 import {ShareLink} from "../../share/ShareLink";
 import {QuestionLink} from "../../share/QuestionLink";
-import {SettingSideBar} from "../SettingSideBar";
+import SettingSideBar from "../setting/SettingSideBar";
 
 const Layout = ({ children = null }) => {
   return (
