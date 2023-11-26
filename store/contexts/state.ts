@@ -6,4 +6,5 @@ export const defaultAuthState: valueType = {
   updateUserData: () => {},
   storeRefreshToken: "",
   updateRefreshToken: "",
+  storeSettingStatus: false,
 };

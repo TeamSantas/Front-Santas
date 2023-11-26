@@ -8,11 +8,14 @@ import Image from "next/image";
 import WideDay from "./day/WideDay";
 import BasicDay from "./day/BasicDay";
 import LongDay from "./day/LongDay";
+import {useAuthContext} from "../../store/contexts/components/hooks";
+import {setGetCurrCalendarUserInfo} from "../../api/hooks/useGetCurrCalendarUserInfo";
 
 const Calendar = ({
                       ismycalendar,
                       loggedId,
-                      nickName
+                      nickName,
+                      currCode
                   }) => {
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -23,16 +26,17 @@ const Calendar = ({
   const date = new Date();
   const today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
   const today_day = date.getDate();
-
+  const loggedUserData = useAuthContext().storeUserData;
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [notYetModalShow, setNotYeModalShow] = useState(false);
   const [selectedday, setSelectedDay] = useState(date.getDate());
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
+  const [friendName, setFriendsData] = useState('친구');
 
   const handleShow = (d) => {
     setSelectedDay(d);
     let selDate :string = `202312${d}`;
-    if(process.env.NODE_ENV === "development") selDate = `202311${d}`;
+    if(process.env.NODE_ENV === "development") selDate = `202312${d}`;
     if (ismycalendar) {
       // 열기 시도한 날이 오늘보다 앞의 날
         if (Number(selDate) <= Number(today)) {
@@ -73,14 +77,18 @@ const Calendar = ({
 
   const RenderMyCalendar = () => {
     const [receivePresentList, setReceivePresentList] = useState<any>([]);
-    const nickName : string = "나"; //TODO:이거 api 받아와야함
+    const nickName : string = "나";
 
     useEffect(() => {
       //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
       const getRecivedPresentList = async () => {
-        if (loggedId !== null) {
-          const res = await setGetNumberOfReceivedPresents(loggedId);
-          setReceivePresentList(await res.data.data);
+        if (loggedId !== undefined && loggedId !== null) {
+          try{
+              const res = await setGetNumberOfReceivedPresents(loggedId);
+              setReceivePresentList(await res.data.data);
+          }catch (e){
+            console.log("===>선물을 찾지 못했습니다.",e);
+          }
         }
       };
       getRecivedPresentList();
@@ -101,10 +109,20 @@ const Calendar = ({
   };
 
   const RenderFriendsCalendar = () => {
-      const nickName = "친구"; //TODO:이거 받아와야함
+    useEffect(() => {
+      const getFriendsData = async () => {
+        try {
+          const currfriendsData = await setGetCurrCalendarUserInfo(currCode);
+          setFriendsData(currfriendsData.data.data.nickname);
+        } catch (error) {
+          console.error("Error fetching friends data:", error);
+        }
+      };
+      getFriendsData();
+    }, []);
     return (
       <TitleContainer>
-          <CalendarForm nickName={nickName}/>
+          <CalendarForm nickName={friendName}/>
       </TitleContainer>
     );
   };
@@ -168,7 +186,7 @@ const Calendar = ({
   return (
     <>
       <CalendarWrapper>
-        {ismycalendar ? <RenderMyCalendar /> : <RenderFriendsCalendar />}
+        {ismycalendar ? <RenderMyCalendar /> : <RenderFriendsCalendar/>}
       </CalendarWrapper>
       <PresentModal
         // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달

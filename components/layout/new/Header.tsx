@@ -1,17 +1,38 @@
 import styled from "styled-components";
+import {useAuthContext} from "../../../store/contexts/components/hooks";
+import {useEffect, useState} from "react";
+import {setLoggedMemberInfo} from "../../../api/hooks/useGetMember";
+import Image from "next/image";
+import ProfileModal from "../../index/ProfileModal";
 
 const Header = () => {
-  const handleClickMenu = () => {
-    console.log("click setting");
-  };
+  const [isImgModalOpen, setIsImgModalOpen] = useState(false);
+  const userData = useAuthContext();
+  let profileImg = userData?.storeUserData.profileImageURL;
 
+  //사이드바(설정창)
+  const handleClickMenu = () => {
+    //여기서 사이드바 온오프 작업해주시면 됩니다.
+    console.log("사이드바 click setting");
+  };
+    // setLoggedMemberInfo
+  //프로필이미지
+  const handleProfileClick = () => setIsImgModalOpen(true);
+  const handleCloseModal = () => setIsImgModalOpen(false);
   return (
     <Wrapper>
-      <Profile src="/asset_ver2/image/common/default-profile.png" />
-      <Img
+      <Profile
+        src={profileImg || "/asset_ver2/image/common/default-profile.png"}
+        onClick={handleProfileClick}
+      />
+      <SettingImg
         src="/asset_ver2/image/layout/header/setting.svg"
         onClick={handleClickMenu}
       />
+        <ProfileModal
+            show={isImgModalOpen}
+            onHide={handleCloseModal}
+        />
     </Wrapper>
   );
 };
@@ -28,15 +49,19 @@ const Wrapper = styled.div`
   z-index: 10;
 `;
 
-const Img = styled.img`
+const SettingImg = styled.img`
   width: 48px;
   height: 48px;
+  z-index: 10;
 `;
 
-const Profile = styled(Img)`
+const Profile = styled.img`
   width: 50px;
   height: 50px;
-
+  z-index: 10;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
   @media (max-width: 768px) {
     width: 40px;
     height: 40px;

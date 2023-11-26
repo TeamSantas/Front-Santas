@@ -34,12 +34,13 @@ export default function AuthProvider({ children }: Props) {
       updateUserData();
     }
   }, []);
-
+  const [storeSettingStatus, setStoreSettingStatus] = useState<boolean>(false);
   const value = {
     storeUserData,
     updateUserData,
     storeRefreshToken,
     updateRefreshToken,
+    storeSettingStatus,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

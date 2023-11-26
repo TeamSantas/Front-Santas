@@ -11,8 +11,8 @@ class MemberService {
     MemberAuthInstance.get<ResponseData<MemberData>>(`/api/member`, config);
 
   //유저 정보 수정 🔑
-  putLoggedMember = () =>
-    MemberAuthInstance.put<ResponseData<PutMemberData>>(`/api/member`);
+  putLoggedMember = (config) =>
+    MemberAuthInstance.put<ResponseData<PutMemberData>>(`/api/member`,config);
 
   //회원탈퇴 🔑
   signoutMember = () => 

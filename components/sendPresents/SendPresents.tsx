@@ -115,7 +115,6 @@ const SendPresents = ({ onHide, selectedday }) => {
 
   //TODO: 새 도메인 기준으로수정해줘야함
   // 현재 캘린더 주인 유저 정보
-  console.log("=======router", router.asPath);
   const currInvitationLink = router.asPath.slice(1).slice(0, 36);
 
   // console.log("currInvitationLink >>> ", currInvitationLink);
@@ -340,6 +339,7 @@ const SendPresents = ({ onHide, selectedday }) => {
               <GreenDeleteButton onClick={() => handleDeleteImage(id)} />
             </div>
           ))}
+
         </Flex>
       </div>
       <GreenButton onClick={handleClickSendPresent}>쪽지보내기</GreenButton>
