@@ -63,7 +63,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
 // TODO:새로만든 훅으로 현재 로그인 된 유저정보 가져오기
   const getCurrCalUser = async () => {
-    console.log("======props",props);
     let currInvitationLink = props.link;
     try {
       if (currInvitationLink.length < 2) {
