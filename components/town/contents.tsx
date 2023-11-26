@@ -8,6 +8,7 @@ import { useAuthContext } from "../../store/contexts/components/hooks";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import KakaoAdFit from "../advertisement/KakaoAdFit";
+import Delete from "./delete";
 
 interface IContentTemplate {
   contents: BoardData[];
@@ -59,7 +60,9 @@ const Contents = ({ contents, isPopular = false }: IContentTemplate) => {
                     </Name>
                     <CreatedAt>({content.createdAt})</CreatedAt>
                   </NameWrapper>
-                  {!isMyContent(content) && (
+                  {isMyContent(content) ? (
+                    <Delete />
+                  ) : (
                     <Report
                       boardId={content.boardId}
                       writerId={content.writerId}
