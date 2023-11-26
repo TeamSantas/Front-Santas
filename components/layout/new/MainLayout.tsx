@@ -15,7 +15,7 @@ const Layout = ({ children = null }) => {
         <UpperWrapper>{children}</UpperWrapper>
         <Ground />
       </MainWrapper>
-      <SettingSideBar/>
+      {/*<SettingSideBar/>*/}
       <Snow />
       <QuestionLink/>
       <ShareLink/>
