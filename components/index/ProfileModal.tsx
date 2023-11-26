@@ -36,7 +36,7 @@ const ProfileModal = (props) => {
       centered
     >
       <CustomHeader>
-        <GreenCloseButton onClick={props.onHide} />
+        <CloseBtn onClick={props.onHide} />
       </CustomHeader>
       <CustomDescriptionBody>
         <ProfileImg
@@ -47,8 +47,13 @@ const ProfileModal = (props) => {
         />
       </CustomDescriptionBody>
       {/*TODO:만약 내 프로필버튼이면 버튼 보이고 아니면 안보임으로 바꿔두기*/}
-      <input type="file" accept="image/*" ref={inputRef} onChange={onUploadImage} />
-      <button onClick={onUploadImageButtonClick}>수정하기</button>
+      <FileInput type="file" accept="image/*" ref={inputRef} onChange={onUploadImage} />
+      <UploadImg src={'/asset_ver2/image/common/default-profile.png'}
+                 width={50}
+                 height={50}
+                 alt={'수정하기'}
+                 onClick={onUploadImageButtonClick}/>
+      <ImgSubmitBtn>확인</ImgSubmitBtn>
       <CustomFooter />
     </Modal>
   );
@@ -57,14 +62,37 @@ export default ProfileModal;
 
 const ProfileImg = styled(Image)`
   margin: 10px;
+  width: 90%;
   height: auto;
-  @media (min-width: 700px){
-    width: 400px;
-    height: auto;
-  }
-  //갤폴드 대응
-  @media (max-width: 280px){
-    width: 190px;
-    height: auto;
+`;
+
+const CloseBtn = styled(GreenCloseButton)`
+  margin-top: 1rem;
+`;
+
+const UploadImg = styled(Image)`
+  position: absolute;
+  right: 1rem;
+  bottom: 3rem;
+`;
+
+const FileInput = styled.input`
+  display: none;
+`;
+const ImgSubmitBtn = styled.label`
+  width: 50%;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77, 77, 77);
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  &:hover {
+    background: rgb(77, 77, 77);
+    color: #fff;
   }
 `;
