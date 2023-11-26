@@ -60,6 +60,8 @@ const Profile = styled.img`
   height: 50px;
   z-index: 10;
   border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
   @media (max-width: 768px) {
     width: 40px;
     height: 40px;
