@@ -156,8 +156,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
             <br />
             {/* 실제 invitation Link 로 보내기 */}
             {/*TODO: 여기서 시작하기! 여기가 친구 or 내 캘린더로 보내는 지점이야*/}
-            <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
-            {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
+            <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} nickName={props.data} currCode={props.link}/>
+            {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn/>}
           </MainContainer>
         </MainFlex>
       </div>
