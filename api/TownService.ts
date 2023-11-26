@@ -31,6 +31,10 @@ class TownService {
       ReportData
     );
 
+  // 게시글 삭제
+  postBoardDelete = () =>
+    TownAuthInstance.delete<ResponseData<string>>(`/api/board`);
+
   // 인기 게시글 조회
   getBoardPopular = () =>
     TownInstance.get<ResponseData<BoardData[]>>(`/api/board/popular`);
