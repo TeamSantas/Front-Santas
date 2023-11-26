@@ -29,10 +29,7 @@ const Gnb = () => {
         router.push(isHome ? "/town" : "/");
         break;
       case "like":
-        setShowModal({
-          label: "like",
-          show: true,
-        });
+        router.push("/todays-heart");
         break;
       default:
         break;
