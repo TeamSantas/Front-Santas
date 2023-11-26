@@ -82,6 +82,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 60px;
   background-color: #1a2838;
+  z-index: 10;
 `;
 
 const IconWrapper = styled.div`
