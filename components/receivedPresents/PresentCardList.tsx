@@ -58,11 +58,10 @@ const PresentCardList = ({ selectedday }) => {
 
   const initReceivedPresentList = async () => {
     const receiverId = userData.storeUserData.id;
-    //TODO: 특정날짜에 받은 선물 보는 API 500뜸 다시보기
+    //TODO: 특정날짜에 받은 선물(작동잘됨. 작업 후 주석풀기)
     const res = await setGetDayPresents(receiverId, receivedDay);
     // setReceivedPresentList(res.content);
     setReceivedPresentList(mockData);
-    console.log("========>>", mockData);
   };
 
   useEffect(() => {

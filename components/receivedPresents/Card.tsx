@@ -123,7 +123,7 @@ const Card = (props) => {
             "isPublic": true,
             "title": "제목",
             "contents": "대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대은내용대충좋은내용대충좋은내용대충좋은내용대은내용대충좋은내용대충좋은내용대충좋은내용대은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용",
-            "imageURL": [],
+            "imageURL": ['http://k.kakaocdn.net/dn/eedE0K/btr5Q3qj4EQ/sgDBGD2EScuMP27dmPFiQ1/img_640x640.jpg','http://k.kakaocdn.net/dn/1G9kp/btsAot8liOn/8CWudi3uy07rvFNUkk3ER0/img_640x640.jpg','http://k.kakaocdn.net/dn/1G9kp/btsAot8liOn/8CWudi3uy07rvFNUkk3ER0/img_640x640.jpg','http://k.kakaocdn.net/dn/1G9kp/btsAot8liOn/8CWudi3uy07rvFNUkk3ER0/img_640x640.jpg','http://k.kakaocdn.net/dn/1G9kp/btsAot8liOn/8CWudi3uy07rvFNUkk3ER0/img_640x640.jpg',],
             "receivedDate": "2023-12-19",
             "isRead": true,
 
