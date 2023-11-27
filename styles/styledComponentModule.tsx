@@ -57,11 +57,12 @@ export const GreenButton = styled(RedButton)`
 export const GreenCloseButton = styled.div`
   background-repeat: no-repeat;
   background-position: center;
-  width: 3rem;
-  height: 3rem;
-  background-image: url("/assets/image/greenXCircle.svg"); ;
+  background-size: cover;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-image: url("/asset_ver2/image/btn/green_closeBtn.png");
   position: absolute;
-  right: 5px;
+  right: 10px;
 `;
 
 export const CustomHeader = styled(Modal.Header)`

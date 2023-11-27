@@ -104,9 +104,10 @@ ul {
 }
 
 #present_img {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
+  object-fit: cover;
   background-color: yellow;
 }
 #file {

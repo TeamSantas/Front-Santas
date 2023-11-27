@@ -104,7 +104,7 @@ export interface presentDetail {
   isPublic: boolean;
   title: string;
   contents: string;
-  imageURL: [];
+  imageURL: string[];
   receivedDate: string;
   isRead: boolean;
 }

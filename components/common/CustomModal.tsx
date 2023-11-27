@@ -1,12 +1,13 @@
 import styled, { css } from "styled-components";
 import RedButton from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { CenteredFlex } from "../../styles/styledComponentModule";
+import {CenteredFlex, GreenCloseButton} from "../../styles/styledComponentModule";
 
+//TODO:이거 배경의 배경 redius 왜 안바뀜?
 const ColorBackground = styled.div`
   background-color: ${(props) => props.color};
   border-radius: 5px;
-  height: ${(props) => (props.haveImage ? "40rem" : "35em")};
+  height: ${(props) => (props.haveImage ? "37rem" : "35em")};
 `;
 
 const CustomButtons = styled(RedButton)`
@@ -42,7 +43,7 @@ const CustomFooter = styled(Modal.Footer)`
 const Button = styled.div`
   width: 300px;
   height: 50px;
-  background-color: #ac473d;
+  background-color: #1E344F;
   border-radius: 10px;
   margin: 60px auto 0 auto;
   color: white;
@@ -67,10 +68,11 @@ const CustomModal = (props) => {
         color={props.color}
         type={props.type}
       >
-        <CustomHeader closeButton>
+        <CustomHeader>
           <Modal.Title id="contained-modal-title-vcenter">
             {props.header}
           </Modal.Title>
+          <GreenCloseButton onClick={props.onHide} />
         </CustomHeader>
 
         {/* ----------- body ----------- */}
