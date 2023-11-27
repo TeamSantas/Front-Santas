@@ -163,7 +163,7 @@ const Share = ({ loggedId }) => {
   };
 
   let today = new Date();
-  const DDAY = new Date("2022-12-25");
+  const DDAY = new Date("2023-12-25");
   let date: number = DDAY.getDate() - today.getDate();
 
   let Dday: number = -1;

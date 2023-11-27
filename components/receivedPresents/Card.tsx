@@ -116,16 +116,17 @@ const Card = (props) => {
       //   setPresentDetail(res.data.data);
         const mockDataPresentDetail : presentDetail = {
             "id": 0,
-            "receiverId": 0,
-            "senderId": 0,
+            "receiverId": 2549190237,
+            "senderId": 2549153474,
             "nickname": "팀산타즈",
             "isAnonymous": false,
             "isPublic": true,
             "title": "제목",
-            "contents": "대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용",
+            "contents": "대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대은내용대충좋은내용대충좋은내용대충좋은내용대은내용대충좋은내용대충좋은내용대충좋은내용대은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용",
             "imageURL": [],
-            "receivedDate": "2023-11-19",
-            "isRead": true
+            "receivedDate": "2023-12-19",
+            "isRead": true,
+
         }
         setPresentDetail(mockDataPresentDetail);
     } catch (e) {

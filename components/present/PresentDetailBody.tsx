@@ -11,13 +11,20 @@ import {
   TextArea,
 } from "../sendPresents/SendPresents";
 import { RedBtn } from "../share/Share";
+import Image from "next/image";
+import {processEnv} from "@next/env";
 
 const GotTextArea = styled(TextArea)`
   overflow: auto;
+  background-image: url("/asset_ver2/image/presents/present_background.png");
 `;
 
 const BlackContents = styled.div`
   color: black;
+  margin: 0 auto;
+  max-width: 277px;
+  overflow: auto;
+  word-break: break-all;
 `;
 
 const IsAnonymous = styled.div`
@@ -26,10 +33,13 @@ const IsAnonymous = styled.div`
 `;
 
 const Contents = styled.div`
+  max-width: 277px;
   width: 100%;
-  height: 80px;
-  overflow: scroll;
+  margin: 0 auto;
+  height: 80%;
+  overflow: auto;
   word-break: break-all;
+  z-index: 100;
 `;
 
 const MyGreenBtn = styled(RedBtn)`
@@ -44,7 +54,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
   const [isReceived, setIsReceived] = useState(false);
 
   const router = useRouter();
-  const btnText = type === "SEND" ? "또 보내러 가기" : "나도 보내주러 가기";
+  const btnText = type === "SEND" ? "또 보내러 가기" : "답장 보내기";
 
   function handleSaveClick(url) {
     const link = document.createElement("a");
@@ -64,6 +74,11 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     }
   };
 
+  const handleClickSendPresent = () => {
+    // TODO
+    console.log("보내준사람 초대코드 알아오기");
+    // router.push(`process.env["NEXT_PUBLIC_DOMAIN "]/${}`);
+  }
   useEffect(() => {
     setIsPublic(body.isPublic);
     handleType(type);
@@ -97,6 +112,7 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     getReceiverUserById();
   }, []);
 
+  //TODO: 답장보내기api/present/detail/ 한번 보기
   const handleClickGoCalendarBtn = () => {
     let url = "";
     if (type && type === "SEND") {
@@ -108,11 +124,10 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
     }
     router.push(url);
   };
-
+console.log("===body",body);
   return (
     <SendPresentsWrapper>
       <PresentHeader>
-        {/* TODO : 닉넴 고민 */}
         {type === "SEND" ? body.targetNickname : body.nickname} 님에게 <br />
         {type === "SEND" ? "쪽지를 보내보세요" : "받은 쪽지에요"}
       </PresentHeader>
@@ -120,7 +135,9 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
         <IsAnonymous>
           {body.isAnonymous ? "이 선물은 익명으로 보내졌어요" : ""}
         </IsAnonymous>
+        <Contents>
         <BlackContents>{body.contents}</BlackContents>
+        </Contents>
       </GotTextArea>
       {body.imageURL.length > 0 ? (
         <div className="Thumbnail_Wrapper">
@@ -144,8 +161,11 @@ export default function PresentDetailBody({ body, handleDetail, type }) {
         <div style={{ height: "50px" }}></div>
       )}
       {body.senderId === 0 || body.isAnonymous ? null : (
-        <GreenButton onClick={handleClickGoCalendarBtn}>{btnText}</GreenButton>
+        <GreenSendButton onClick={handleClickGoCalendarBtn}>{btnText}</GreenSendButton>
       )}
     </SendPresentsWrapper>
   );
 }
+const GreenSendButton = styled(GreenButton)`
+  width: 100%;
+`;
