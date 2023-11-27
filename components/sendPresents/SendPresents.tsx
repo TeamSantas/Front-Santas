@@ -269,7 +269,8 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     try {
       const res = await usePostPresent(presentData);
-      PushService.postPushAlarm(currCalUserId, `누군가 ${currCalUserName}님에게 선물을 보냈어요! \n누가 보냈을까요? 두어캘에서 확인해보세요!`);
+      //TODO: 푸시알림
+      // PushService.postPushAlarm(currCalUserId, `누군가 ${currCalUserName}님에게 선물을 보냈어요! \n누가 보냈을까요? 두어캘에서 확인해보세요!`);
       if (res.status === 200) {
         setIsLoading(false);
         alert("선물 보내기 성공! 🎁");
@@ -316,12 +317,14 @@ const SendPresents = ({ onHide, selectedday }) => {
           :
           <ThumbnailContainer>
             <label id="present_img" htmlFor="file" onChange={handleAddImages}>
+              <div className="addButton addButtonSM">
               <input
                 id="file"
                 type="file"
                 accept="image/png, image/jpeg, image/jpg, image/heic"
                 multiple
               />
+              </div>
             </label>
           </ThumbnailContainer>
         }
