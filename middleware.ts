@@ -13,15 +13,6 @@ const handleUpcomingRedirect = (url, req) => {
   return !isTargetPath && !isAdmin && process.env.NODE_ENV !== "development";
 };
 
-const handleLoginRedirect = (url, req) => {
-  const tokenCookie = req.cookies.get("token");
-  const requireLoginPath = ["message"];
-  const isRequireLoginPath = requireLoginPath.some((path) =>
-    url.pathname.includes(path)
-  );
-  return !tokenCookie && isRequireLoginPath;
-};
-
 const handleAuthRedirect = (url) => {
   return url.pathname.includes("oauth");
 };
@@ -30,15 +21,10 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const newToken = url.searchParams.get("token"); // 쿼리에서 가져온 토큰
   const upcomingRedirect = handleUpcomingRedirect(url, req);
-  const loginRedirect = handleLoginRedirect(url, req);
   const oauthRedirect = handleAuthRedirect(url);
 
   if (upcomingRedirect) {
     url.pathname = "/upcoming";
-    return NextResponse.redirect(url);
-  }
-  if (loginRedirect) {
-    url.pathname = "/login";
     return NextResponse.redirect(url);
   }
   if (oauthRedirect) {

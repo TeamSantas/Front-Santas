@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { setGetDayPresents } from "../../api/hooks/useGetDayPresents";
-import MemberService from "../../api/MemberService";
 import { Flex } from "../../styles/styledComponentModule";
 import Card from "./Card";
 import Image from "next/image";
+import {useAuthContext} from "../../store/contexts/components/hooks";
 
 const TabFlex = styled(Flex)`
   flex-direction: row;
@@ -24,18 +24,48 @@ const LoadingHeader = styled.h2`
 
 const PresentCardList = ({ selectedday }) => {
   const receivedDay =
-    selectedday < 10 ? `2022-12-0${selectedday}` : `2022-12-${selectedday}`;
+    selectedday < 10 ? `2023-12-0${selectedday}` : `2023-12-${selectedday}`;
   const [receivedPresentList, setReceivedPresentList] = useState([]);
+  const userData = useAuthContext();
+
+  //TODO: 목데이터로 날짜별 선물 임시로 채우기
+  const mockData = [
+    {
+      "id": 0,
+      "senderId": 0,
+      "receiverName": "string",
+      "nickname": "string",
+      "isPublic": true,
+      "imageURL": "assets/image/face.svg",
+      "title": "string",
+      "contents": "string",
+      "receivedDate": "2023-12-25",
+      "isRead": true
+    },
+    {
+      "id": 0,
+      "senderId": 0,
+      "receiverName": "string",
+      "nickname": "string",
+      "isPublic": true,
+      "imageURL": "assets/image/face.svg",
+      "title": "string",
+      "contents": "string",
+      "receivedDate": "2023-12-25",
+      "isRead": true
+    }
+  ];
+
+  const initReceivedPresentList = async () => {
+    const receiverId = userData.storeUserData.id;
+    //TODO: 특정날짜에 받은 선물 보는 API 500뜸 다시보기
+    const res = await setGetDayPresents(receiverId, receivedDay);
+    // setReceivedPresentList(res.content);
+    setReceivedPresentList(mockData);
+    console.log("========>>", mockData);
+  };
 
   useEffect(() => {
-    const initReceivedPresentList = async () => {
-      const receiverId = await (
-        await MemberService.getLoggedMember()
-      ).data.data.member.id;
-      const res = await setGetDayPresents(receiverId, receivedDay);
-      // console.log("receivedPresentList >>> ", res.content)
-      setReceivedPresentList(res.content);
-    };
     initReceivedPresentList();
   }, []);
 
@@ -64,8 +94,7 @@ const PresentCardList = ({ selectedday }) => {
               width="222"
               height="222"
               style={{ display: "block", margin: "0 auto", marginTop: "20px" }}
-              alt="우는사진"
-            />
+             alt="우는사진"/>
             <LoadingHeader>&quot;받은선물이...없써...!&quot;</LoadingHeader>
             <p>
               (아직 받은 선물이 없어요, 내 캘린더 링크를 공유해 친구에게 선물을

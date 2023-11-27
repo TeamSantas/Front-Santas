@@ -1,17 +1,39 @@
 import styled from "styled-components";
+import {useAuthContext} from "../../../store/contexts/components/hooks";
+import {useEffect, useState} from "react";
+import {setLoggedMemberInfo} from "../../../api/hooks/useGetMember";
+import Image from "next/image";
+import ProfileModal from "../../index/ProfileModal";
+import { useAtom } from "jotai";
+import { sidebarOpenAtom } from "../../../store/globalState";
 
 const Header = () => {
-  const handleClickMenu = () => {
-    console.log("click setting");
-  };
+  const [isImgModalOpen, setIsImgModalOpen] = useState(false);
+  const userData = useAuthContext();
+  const [, setIsOpen] = useAtom(sidebarOpenAtom);
+  let profileImg = userData?.storeUserData.profileImageURL;
 
+  const handleClickSetting = () => {
+    setIsOpen(true);
+  };
+    // setLoggedMemberInfo
+  //프로필이미지
+  const handleProfileClick = () => setIsImgModalOpen(true);
+  const handleCloseModal = () => setIsImgModalOpen(false);
   return (
     <Wrapper>
-      <Profile src="/asset_ver2/image/common/default-profile.png" />
-      <Img
-        src="/asset_ver2/image/layout/header/setting.svg"
-        onClick={handleClickMenu}
+      <Profile
+        src={profileImg || "/asset_ver2/image/common/default-profile.png"}
+        onClick={handleProfileClick}
       />
+      <SettingImg
+        src="/asset_ver2/image/layout/header/setting.svg"
+        onClick={handleClickSetting}
+      />
+        <ProfileModal
+            show={isImgModalOpen}
+            onHide={handleCloseModal}
+        />
     </Wrapper>
   );
 };
@@ -25,17 +47,22 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px 22px;
+  z-index: 10;
 `;
 
-const Img = styled.img`
+const SettingImg = styled.img`
   width: 48px;
   height: 48px;
+  z-index: 10;
 `;
 
-const Profile = styled(Img)`
+const Profile = styled.img`
   width: 50px;
   height: 50px;
-
+  z-index: 10;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
   @media (max-width: 768px) {
     width: 40px;
     height: 40px;

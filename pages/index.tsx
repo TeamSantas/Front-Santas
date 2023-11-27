@@ -63,7 +63,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
 // TODO:새로만든 훅으로 현재 로그인 된 유저정보 가져오기
   const getCurrCalUser = async () => {
-    console.log("======props",props);
     let currInvitationLink = props.link;
     try {
       if (currInvitationLink.length < 2) {
@@ -83,23 +82,23 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   // endingCookie
   const today = new Date();
-  const showEnding = () => {
-    const endingCookie = getCookie("ending");
-    if (endingCookie === "" && props.data == undefined) {
-      router.push("/endingbridge");
-    }
-    if (endingCookie && getCookie("token") == "" && props.data === undefined) {
-      // 엔딩 봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
-      router.push("/title");
-    }
-  };
+  // const showEnding = () => {
+  //   const endingCookie = getCookie("ending");
+  //   if (endingCookie === "" && props.data == undefined) {
+  //     router.push("/endingbridge");
+  //   }
+  //   if (endingCookie && getCookie("token") == "" && props.data === undefined) {
+  //     // 엔딩 봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
+  //     router.push("/title");
+  //   }
+  // };
 
-  useEffect(() => {
-    getMyBGM();
-    if (today.getDate() === 25) {
-      showEnding();
-    }
-  }, []);
+  // useEffect(() => {
+  //   getMyBGM();
+  //   if (today.getDate() === 25) {
+  //     showEnding();
+  //   }
+  // }, []);
 
   useEffect(() => {
     // getMemberData();
@@ -131,38 +130,37 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   const FriendsCalendarBtn = () => {
     return (
-      <>
-        {/*TODO: 내 캘린더로 이동하기/친구 캘린더 가기에 필요한 함수들*/}
-            {/*BGM react-howler 라이브러리*/}
-            <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
-            {/*TODO: 사이드바에 넣어야 할 기능*/}
-            {/*{mute ? (*/}
-            {/*  <Bgm onClick={() => muteHandler(mute)} />*/}
-            {/*) : (*/}
-            {/*  <MuteBgm onClick={() => muteHandler(mute)} />*/}
-            {/*)}*/}
-        {isLogged === true ? null : (
-          <CalendarYellowBtn onClick={() => router.push("/title")}>
-            내 캘린더도 만들기✨
-          </CalendarYellowBtn>
-        )}
-      </>
+        <>
+          {/*TODO: 내 캘린더로 이동하기/친구 캘린더 가기에 필요한 함수들*/}
+          {/*BGM react-howler 라이브러리*/}
+          <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
+          {/*TODO: 사이드바에 넣어야 할 기능*/}
+          {/*{mute ? (*/}
+          {/*  <Bgm onClick={() => muteHandler(mute)} />*/}
+          {/*) : (*/}
+          {/*  <MuteBgm onClick={() => muteHandler(mute)} />*/}
+          {/*)}*/}
+          {isLogged === true ? null : (
+              <CalendarYellowBtn onClick={() => router.push("/title")}>
+                내 캘린더도 만들기✨
+              </CalendarYellowBtn>
+          )}
+        </>
     );
   };
 
   return (
-    <div id="home">
-      <MainFlex>
-        <MainContainer>
-          <br />
-          {/* 실제 invitation Link 로 보내기 */}
-          {/*TODO: 여기서 시작하기! 여기가 친구 or 내 캘린더로 보내는 지점이야*/}
-          <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} />
-          {/*<Calendar ismycalendar={false} loggedId={loggedMemberId} />*/}
-          {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
-        </MainContainer>
-      </MainFlex>
-    </div>
+      <div id="home">
+        <MainFlex>
+          <MainContainer>
+            <br />
+            {/* 실제 invitation Link 로 보내기 */}
+            {/*TODO: 여기서 시작하기! 여기가 친구 or 내 캘린더로 보내는 지점이야*/}
+            <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} nickName={props.data} currCode={props.link}/>
+            {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn/>}
+          </MainContainer>
+        </MainFlex>
+      </div>
   );
 };
 
@@ -193,3 +191,4 @@ const CalendarYellowBtn = styled(Icons)`
 const MainFlex = styled(Flex)`
   margin-top: -15px;
 `;
+

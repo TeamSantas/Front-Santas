@@ -27,21 +27,21 @@ const JustifiedAlignedFlex = styled(Flex)`
 `;
 
 export const TextArea = styled.div`
-  outline-color: #ac473d;
+  outline-color: #3d4cac;
   font-family: "NanumSquareNeoOTF-Bd", KCC-Ganpan, sans-serif;
   text-align: center;
   color: white;
-  background-image: url(/asset_ver2/image/presents/message-background.png);
+  background-image: url('/asset_ver2/image/presents/present_background.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   margin-top: 1rem;
   height: 17rem;
   padding: 1rem 4rem;
-  @media (min-width: 768px) { //태블릿 대응
+  @media (min-width: 768px) {//태블릿 대응
     padding: 1rem 6rem;
   }
-  @media (max-width: 300px) { //갤폴드 대응
+  @media (max-width: 300px) {//갤폴드 대응
     padding: 3rem 1rem;
   }
 `;
@@ -68,7 +68,7 @@ const LoadingScreenBack = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: #ac473d;
+  background-color: #1E344F;
   z-index: 10;
 `;
 
@@ -103,8 +103,8 @@ const SendPresents = ({ onHide, selectedday }) => {
     try {
       // const res = await getLoggedMember();
       const res = await MemberService.getLoggedMember();
-      // console.log("선물보낼사람정보>>>>>>>>>>>>", res.data.data);
-      setMemberInfo(res.data.data);
+      // console.log("선물보낼사람정보>>>>>>>>>>>>", res.data.data.member);
+      setMemberInfo(res.data.data.member);
       setIsLogged(true);
     } catch (e) {
       // console.log(e);
@@ -113,9 +113,7 @@ const SendPresents = ({ onHide, selectedday }) => {
     }
   };
 
-  //TODO: 새 도메인 기준으로수정해줘야함
   // 현재 캘린더 주인 유저 정보
-  console.log("=======router", router.asPath);
   const currInvitationLink = router.asPath.slice(1).slice(0, 36);
 
   // console.log("currInvitationLink >>> ", currInvitationLink);
@@ -238,7 +236,7 @@ const SendPresents = ({ onHide, selectedday }) => {
     presentData.append("contents", ref.current?.value);
     presentData.append(
       "receivedDate",
-      `2022-12-${selectedday.toString().padStart(2, "0")}`
+      `2023-12-${selectedday.toString().padStart(2, "0")}`
     );
     presentData.append("isAnonymous", isAnonymous);
 
@@ -271,10 +269,7 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     try {
       const res = await usePostPresent(presentData);
-      PushService.postPushAlarm(
-        currCalUserId,
-        `누군가 ${currCalUserName}님에게 선물을 보냈어요! \n누가 보냈을까요? 두어캘에서 확인해보세요!`
-      );
+      PushService.postPushAlarm(currCalUserId, `누군가 ${currCalUserName}님에게 선물을 보냈어요! \n누가 보냈을까요? 두어캘에서 확인해보세요!`);
       if (res.status === 200) {
         setIsLoading(false);
         alert("선물 보내기 성공! 🎁");
@@ -286,7 +281,6 @@ const SendPresents = ({ onHide, selectedday }) => {
       alert("선물 보내기에 실패했어요. 🥺");
     }
   };
-
   const placeholder = `여기에 쪽지를 적어주세요. 
 (최대 100자)`;
   return (
@@ -309,27 +303,27 @@ const SendPresents = ({ onHide, selectedday }) => {
 
       <div className="Thumbnail_Wrapper">
         {showImages.length === 0 ?
-            <label className="submitImg" htmlFor="file" onChange={handleAddImages}>
-              <div className="addButton">
-                <input
-                    id="file"
-                    type="file"
-                    accept="image/png, image/jpeg, image/jpg, image/heic"
-                    multiple
-                />
-              </div>
+          <label className="submitImg" htmlFor="file" onChange={handleAddImages}>
+            <div className="addButton">
+              <input
+                id="file"
+                type="file"
+                accept="image/png, image/jpeg, image/jpg, image/heic"
+                multiple
+              />
+            </div>
+          </label>
+          :
+          <ThumbnailContainer>
+            <label id="present_img" htmlFor="file" onChange={handleAddImages}>
+              <input
+                id="file"
+                type="file"
+                accept="image/png, image/jpeg, image/jpg, image/heic"
+                multiple
+              />
             </label>
-            :
-            <ThumbnailContainer>
-              <label id="present_img" htmlFor="file" onChange={handleAddImages}>
-                <input
-                    id="file"
-                    type="file"
-                    accept="image/png, image/jpeg, image/jpg, image/heic"
-                    multiple
-                />
-              </label>
-            </ThumbnailContainer>
+          </ThumbnailContainer>
         }
 
 
@@ -342,28 +336,26 @@ const SendPresents = ({ onHide, selectedday }) => {
           ))}
         </Flex>
       </div>
-      <GreenButton onClick={handleClickSendPresent}>쪽지보내기</GreenButton>
-      {isLoading ? (
       <SubmitFlex>
         <JustifiedAlignedFlex>
           <Form.Check
-              type="checkbox"
-              id={`default-checkbox`}
-              label={`익명`}
-              onClick={handleCheckAnonymous}
-              disabled={!isLogged}
-              checked={!isLogged || isAnonymous}
+            type="checkbox"
+            id={`default-checkbox`}
+            label={`익명`}
+            onClick={handleCheckAnonymous}
+            disabled={!isLogged}
+            checked={!isLogged || isAnonymous}
           />
           {isAnonymous || !isLogged ? (
-              <input
-                  className="inputNickname"
-                  type="text"
-                  placeholder="닉네임(최대 20자)"
-                  ref={nicknameRef}
-                  maxLength={20}
-              />
+            <input
+              className="inputNickname"
+              type="text"
+              placeholder="닉네임(최대 20자)"
+              ref={nicknameRef}
+              maxLength={20}
+            />
           ) : (
-              <div className="inputNickname" />
+            <div className="inputNickname" />
           )}
         </JustifiedAlignedFlex>
         <GreenButton onClick={handleClickSendPresent}>
@@ -371,7 +363,14 @@ const SendPresents = ({ onHide, selectedday }) => {
           <Image src={`/asset_ver2/image/send.png`} alt={"쪽지보내기"} width={13} height={13}/>
         </GreenButton>
       </SubmitFlex>
-      ) : null}
+      {isLoading ?
+        <LoadingScreenBack>
+          <LoadingContainer>
+            <img src="/assets/image/character/spinner.gif" alt="로딩하얀코"/>
+            <p>선물을 보내는 중입니다...</p>
+          </LoadingContainer>
+        </LoadingScreenBack>
+        : null}
     </SendPresentsWrapper>
   );
 };
@@ -379,7 +378,7 @@ const SendPresents = ({ onHide, selectedday }) => {
 export default SendPresents;
 
 const SubmitFlex = styled(Flex)`
-    justify-content: space-between;
+  justify-content: space-between;
 `;
 const ThumbnailContainer = styled.div`
   width: 80vw;

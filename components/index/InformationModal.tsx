@@ -6,6 +6,8 @@ import {
   CustomFooter,
   CustomDescriptionBody,
 } from "../../styles/styledComponentModule";
+import AdFitModal from "../advertisement/adFitModal";
+import { informationModalAdID } from "../advertisement/ad-ids";
 
 const InformationModal = (props) => {
   // info modal
@@ -23,11 +25,12 @@ const InformationModal = (props) => {
       친구들이 내 캘린더에 찾아와 선물을 줄거에요.
 -------------`;
   return (
-    <Modal
+    <AdFitModal
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      adFitId={informationModalAdID}
     >
       <CustomHeader>
         <Modal.Title id="contained-modal-title-vcenter">{header}</Modal.Title>
@@ -35,9 +38,8 @@ const InformationModal = (props) => {
       </CustomHeader>
       <CustomDescriptionBody>{text}</CustomDescriptionBody>
       <CustomFooter />
-    </Modal>
+    </AdFitModal>
   );
 };
-
 
 export default InformationModal;
