@@ -3,15 +3,18 @@ import styled from "styled-components";
 import { sidebarNotificationAtom } from "../../store/globalState";
 import { useAtom } from "jotai";
 import ToggleButton from "../common/toggle";
+import { setPutPush } from "../../api/hooks/useStting";
 
 const NotificationToggle = () => {
   const [notificationOn, setNotificationOn] = useAtom(sidebarNotificationAtom);
 
   const handleClickNotificationToggle = async () => {
     try {
-      // TODO: 알림 수신 / 거부 처리
-      setNotificationOn((prev) => !prev);
-    } catch (e) {}
+      await setPutPush(notificationOn);
+    } catch (e) {
+      console.log(e);
+    }
+    setNotificationOn((prev) => !prev);
   };
 
   return (

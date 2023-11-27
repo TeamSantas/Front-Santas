@@ -5,15 +5,13 @@ import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import Calendar from "../components/index/Calendar";
 import { getCookie } from "../businesslogics/cookie";
 import { Component, lazy, ReactElement, useEffect, useState } from "react";
-import ReactHowler from "react-howler";
 import { dataProps, MemberData } from "../util/type";
 import { useRouter } from "next/router";
-import { setBGM } from "../api/hooks/useStting";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import { Modals } from "../components/modals/modals";
 import MainLayout from "../components/layout/new/MainLayout";
-import {useAuthContext} from "../store/contexts/components/hooks";
-import {setCookie} from "cookies-next";
+import { useAuthContext } from "../store/contexts/components/hooks";
+import { setCookie } from "cookies-next";
 
 const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
@@ -22,46 +20,28 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   const [memberInfo, setMemberInfo] = useState<string>("나");
   const [loggedMemberId, setLoggedMemberId] = useState(null);
   const [myName, setMyName] = useState<string>("나");
-  const [mute, setMute] = useState(false);
   const [isLogged, setIsLogged] = useState(true);
 
-
-  const getMyBGM = async () => {
-    try {
-      // const res = await getLoggedMember();
-      // setMute(res.setting.bgm);
-    } catch (e) {
-      // console.log(e);
-    }
-  };
-
-  const muteHandler = (value) => {
-    setMute(!value);
-    setBGM(!value);
-  };
-
-
-//엔딩 떄 사용하기
+  //엔딩 떄 사용하기
   const goEndingHandler = () => {
     window.location.href = "/endingbridge";
   };
-
 
   // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
 
   const userData = useAuthContext().storeUserData;
 
   useEffect(() => {
-    if(userData){
+    if (userData) {
       setMemberInfo(userData.nickname);
       setLoggedMemberId(userData.id);
       setCookie("invitationLink", userData.invitationLink);
-    }else{
+    } else {
       setIsLogged(false);
     }
   }, [userData]);
 
-// TODO:새로만든 훅으로 현재 로그인 된 유저정보 가져오기
+  // TODO:새로만든 훅으로 현재 로그인 된 유저정보 가져오기
   const getCurrCalUser = async () => {
     let currInvitationLink = props.link;
     try {
@@ -94,7 +74,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   // };
 
   // useEffect(() => {
-  //   getMyBGM();
   //   if (today.getDate() === 25) {
   //     showEnding();
   //   }
@@ -121,7 +100,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   const MyCalendarBtn = () => {
     ``;
-    return <Modals />
+    return <Modals />;
   };
 
   const handleGoMyCal = () => {
@@ -130,37 +109,34 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 
   const FriendsCalendarBtn = () => {
     return (
-        <>
-          {/*TODO: 내 캘린더로 이동하기/친구 캘린더 가기에 필요한 함수들*/}
-          {/*BGM react-howler 라이브러리*/}
-          <ReactHowler src="./bgm.mp3" playing={mute} loop={true} />
-          {/*TODO: 사이드바에 넣어야 할 기능*/}
-          {/*{mute ? (*/}
-          {/*  <Bgm onClick={() => muteHandler(mute)} />*/}
-          {/*) : (*/}
-          {/*  <MuteBgm onClick={() => muteHandler(mute)} />*/}
-          {/*)}*/}
-          {isLogged === true ? null : (
-              <CalendarYellowBtn onClick={() => router.push("/title")}>
-                내 캘린더도 만들기✨
-              </CalendarYellowBtn>
-          )}
-        </>
+      <>
+        {/*TODO: 내 캘린더로 이동하기/친구 캘린더 가기에 필요한 함수들*/}
+        {isLogged === true ? null : (
+          <CalendarYellowBtn onClick={() => router.push("/title")}>
+            내 캘린더도 만들기✨
+          </CalendarYellowBtn>
+        )}
+      </>
     );
   };
 
   return (
-      <div id="home">
-        <MainFlex>
-          <MainContainer>
-            <br />
-            {/* 실제 invitation Link 로 보내기 */}
-            {/*TODO: 여기서 시작하기! 여기가 친구 or 내 캘린더로 보내는 지점이야*/}
-            <Calendar ismycalendar={ismycalendar} loggedId={loggedMemberId} nickName={props.data} currCode={props.link}/>
-            {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn/>}
-          </MainContainer>
-        </MainFlex>
-      </div>
+    <div id="home">
+      <MainFlex>
+        <MainContainer>
+          <br />
+          {/* 실제 invitation Link 로 보내기 */}
+          {/*TODO: 여기서 시작하기! 여기가 친구 or 내 캘린더로 보내는 지점이야*/}
+          <Calendar
+            ismycalendar={ismycalendar}
+            loggedId={loggedMemberId}
+            nickName={props.data}
+            currCode={props.link}
+          />
+          {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
+        </MainContainer>
+      </MainFlex>
+    </div>
   );
 };
 
@@ -168,7 +144,6 @@ export default Home;
 Home.getLayout = (page: ReactElement) => {
   return <MainLayout>{page}</MainLayout>;
 };
-
 
 const CalendarYellowBtn = styled(Icons)`
   width: 35rem;
@@ -191,4 +166,3 @@ const CalendarYellowBtn = styled(Icons)`
 const MainFlex = styled(Flex)`
   margin-top: -15px;
 `;
-
