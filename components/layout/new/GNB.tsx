@@ -28,11 +28,8 @@ const Gnb = () => {
       case "home":
         router.push(isHome ? "/town" : "/");
         break;
-      case "like":
-        setShowModal({
-          label: "like",
-          show: true,
-        });
+      case "todays-heart":
+        router.push("/todays-heart");
         break;
       default:
         break;
@@ -41,7 +38,8 @@ const Gnb = () => {
 
   const getImagePath = (option) => {
     const condition = option === "home" ? isHome : activePathOption === option;
-
+    console.log(activePathOption);
+    console.log(option);
     return `/asset_ver2/image/layout/gnb/${option}${
       condition ? "-click" : "-default"
     }.svg`;
@@ -67,8 +65,8 @@ const Gnb = () => {
           onClick={() => handleClickOption("message")}
         />
         <Img
-          src={getImagePath("like")}
-          onClick={() => handleClickOption("like")}
+          src={getImagePath("todays-heart")}
+          onClick={() => handleClickOption("todays-heart")}
         />
       </IconWrapper>
     </Wrapper>

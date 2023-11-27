@@ -4,16 +4,17 @@ import {useEffect, useState} from "react";
 import {setLoggedMemberInfo} from "../../../api/hooks/useGetMember";
 import Image from "next/image";
 import ProfileModal from "../../index/ProfileModal";
+import { useAtom } from "jotai";
+import { sidebarOpenAtom } from "../../../store/globalState";
 
 const Header = () => {
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
   const userData = useAuthContext();
+  const [, setIsOpen] = useAtom(sidebarOpenAtom);
   let profileImg = userData?.storeUserData.profileImageURL;
 
-  //사이드바(설정창)
-  const handleClickMenu = () => {
-    //여기서 사이드바 온오프 작업해주시면 됩니다.
-    console.log("사이드바 click setting");
+  const handleClickSetting = () => {
+    setIsOpen(true);
   };
     // setLoggedMemberInfo
   //프로필이미지
@@ -27,7 +28,7 @@ const Header = () => {
       />
       <SettingImg
         src="/asset_ver2/image/layout/header/setting.svg"
-        onClick={handleClickMenu}
+        onClick={handleClickSetting}
       />
         <ProfileModal
             show={isImgModalOpen}

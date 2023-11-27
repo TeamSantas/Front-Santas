@@ -1,6 +1,5 @@
 import { useAtom } from "jotai";
 import FriendsModal from "../friends/FriendsModal";
-import LikeModal from "../like/LikeModal";
 import { gnbActivePathAtom, modalStateAtom } from "../../store/globalState";
 import { useRouter } from "next/router";
 import { getGnbOptions } from "../utils/getGnbOptions";
@@ -17,7 +16,6 @@ export const Modals = () => {
   return (
     <>
       <FriendsModal show={label === "friends" && show} onHide={closeModal} />
-      <LikeModal show={label === "like" && show} onHide={closeModal} />
     </>
   );
 };

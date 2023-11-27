@@ -2,9 +2,9 @@ import styled from "styled-components";
 import Snow from "../Snow";
 import Header from "./Header";
 import Gnb from "./GNB";
-import {ShareLink} from "../../share/ShareLink";
-import {QuestionLink} from "../../share/QuestionLink";
-import {SettingSideBar} from "../SettingSideBar";
+import { ShareLink } from "../../share/ShareLink";
+import { QuestionLink } from "../../share/QuestionLink";
+import SettingSideBar from "../../setting/SettingSideBar";
 
 const Layout = ({ children = null }) => {
   return (
@@ -15,10 +15,10 @@ const Layout = ({ children = null }) => {
         <UpperWrapper>{children}</UpperWrapper>
         <Ground />
       </MainWrapper>
-      {/*<SettingSideBar/>*/}
+      <SettingSideBar />
       <Snow />
-      <QuestionLink/>
-      <ShareLink/>
+      <QuestionLink />
+      <ShareLink />
       <Gnb />
     </Wrapper>
   );

@@ -76,3 +76,15 @@ export async function report(ReportData: ReportData) {
     console.log(e);
   }
 }
+
+/**
+ * 게시글 삭제
+ */
+export async function deleteContent() {
+  try {
+    const res = await TownService.postBoardDelete();
+    return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
