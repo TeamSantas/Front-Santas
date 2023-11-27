@@ -34,7 +34,7 @@ export function middleware(req: NextRequest) {
 
     // 브라우저 쿠키에 token 세팅
     const response = NextResponse.redirect(url);
-    if (tokenCookie) {
+    if (!tokenCookie) {
       const expirationDate = new Date();
       expirationDate.setFullYear(expirationDate.getFullYear() + 2); // 2년
       response.cookies.set("token", newToken, {
