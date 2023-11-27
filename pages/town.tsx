@@ -12,7 +12,7 @@ import {
 } from "../api/hooks/useTownData";
 import { notices } from "../components/town/notices";
 import { useState } from "react";
-import ToggleButton from "../components/town/toggle";
+import ToggleButton from "../components/common/toggle";
 
 const Town = ({ myContents, allContents, popularContents }) => {
   const [isOpen, setIsOpen] = useState(false);
