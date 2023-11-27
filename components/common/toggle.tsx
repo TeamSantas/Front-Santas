@@ -33,8 +33,8 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ on, toggle }) => {
     toggle();
   };
   return (
-    <ToggleButtonContainer on={on.toString()} onClick={handleClick}>
-      <Circle on={on.toString()} />
+    <ToggleButtonContainer on={on ? "true" : "false"} onClick={handleClick}>
+      <Circle on={on ? "true" : "false"} />
     </ToggleButtonContainer>
   );
 };
