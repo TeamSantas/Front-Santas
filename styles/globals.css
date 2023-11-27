@@ -98,7 +98,9 @@ ul {
   border-radius: 5px;
   cursor: pointer;
 }
-
+.addButtonSM {
+  background-image: url(/asset_ver2/image/btn/add_imageBtn.png);
+}
 .imageContainer {
   margin-left: 5px;
 }
