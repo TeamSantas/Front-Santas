@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import {useAuthContext} from "../../../store/contexts/components/hooks";
 import {useEffect, useState} from "react";
-import {setLoggedMemberInfo} from "../../../api/hooks/useGetMember";
-import Image from "next/image";
 import ProfileModal from "../../index/ProfileModal";
 import { useAtom } from "jotai";
 import { sidebarOpenAtom } from "../../../store/globalState";

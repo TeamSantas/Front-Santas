@@ -13,11 +13,11 @@ export async function setGetMemberById(memberId) {
   return await MemberService.getMemberById(config);
 }
 
-export async function setLoggedMemberInfo(nickName,imgURL) {
+export async function setLoggedMemberInfo(nickName,imgFile) {
   const config = {
     params: {
       nickname: nickName,
-      profileImageURL: imgURL,
+      profileImageURL: imgFile,
       statusMessage: "none"
     }
   }
