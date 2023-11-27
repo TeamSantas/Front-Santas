@@ -3,12 +3,17 @@ import styled from "styled-components";
 import { sidebarBgmAtom } from "../../store/globalState";
 import { useAtom } from "jotai";
 import ToggleButton from "../common/toggle";
+import { setBGM } from "../../api/hooks/useStting";
 
 const BgmToggle = () => {
   const [bgmOn, setBgmOn] = useAtom(sidebarBgmAtom);
 
-  const handleClickBgmToggle = () => {
-    //TODO: BGM 세팅 변경
+  const handleClickBgmToggle = async () => {
+    try {
+      await setBGM(!bgmOn);
+    } catch (e) {
+      console.log(e);
+    }
     setBgmOn((prev) => !prev);
   };
 
