@@ -29,6 +29,18 @@ export async function getMyBoard(boardId) {
 }
 
 /**
+ * 내 게시글 조회 (서버)
+ */
+export async function getServerMyBoard(boardId, token) {
+  const config = { boardId };
+  try {
+    const res = await TownService.getServerMyBoard(config, token);
+    return res.data.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+/**
  * 게시글 조회
  */
 export async function getBoard(boardId) {
@@ -80,9 +92,10 @@ export async function report(ReportData: ReportData) {
 /**
  * 게시글 삭제
  */
-export async function deleteContent() {
+export async function deleteContent(boardId) {
+  const config = { boardId };
   try {
-    const res = await TownService.postBoardDelete();
+    const res = await TownService.postBoardDelete(config);
     return res.data;
   } catch (e) {
     console.log(e);
