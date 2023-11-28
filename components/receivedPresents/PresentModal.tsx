@@ -73,4 +73,11 @@ const BlueBackground = styled.div`
 
 const CustomBody = styled(Modal.Body)`
   border: none;
+  height: 40vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* Explorer */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome */
+  }
 `;
