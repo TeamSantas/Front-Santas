@@ -61,6 +61,7 @@ export const defaultMemberData = {
   profileImageURL: "",
   email: "",
   invitationLink: "",
+  todayPresentCount: -1,
   setting: {
     id: -1,
     isAlert: false,

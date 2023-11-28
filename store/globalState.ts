@@ -16,6 +16,3 @@ export const friendsAtom = atom([]);
 export const sidebarOpenAtom = atom(false);
 export const sidebarBgmAtom = atom(true);
 export const sidebarNotificationAtom = atom(false);
-
-//ismycalendar
-export const ismycalendarAtom = atom(true);
