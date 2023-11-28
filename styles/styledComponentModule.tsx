@@ -88,6 +88,22 @@ export const CustomBody = styled(Modal.Body)`
   overflow: auto;
   max-height: 50rem;
   padding: 0 1rem;
+  max-height: 40vh;
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* Internet Explorer, Edge */
+  &::-ms-overflow-style {
+    display: none;
+  }
+
+  /* Chrome, Safari */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    max-width: unset;
+  }
 `;
 export const CustomDescriptionBody = styled(Modal.Body)`
   border: none;
