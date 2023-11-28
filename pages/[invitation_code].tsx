@@ -20,8 +20,6 @@ export default function OtherCalendar() {
   const isMyCode = async (code: string) => {
     try {
       const myLink = currUserData.invitationLink;
-      console.log("---code",code);
-      console.log("----myLink",myLink);
       if (myLink === code) {
         alert(
           "자기 자신은 친구코드로 접근할 수 없습니다! 내 캘린더 페이지로 이동합니다🎅"

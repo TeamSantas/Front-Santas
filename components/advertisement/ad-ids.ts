@@ -1,10 +1,6 @@
 export const friendsModalAdID = "DAN-6BIJLeLkllPU4bcX";
 export const upcomingAdID = "DAN-0tM6LqB1xeL7qG7S";
 export const informationModalAdID = "DAN-Q8XUVcYuooaQGG8h";
-export const copyModalAdID = "DAN-mmBqPlJMUZVu2FI7";
-export const presentListModalAdID = "DAN-IjosScqk2xhkCC6T";
-export const presentDetailModalAdID = "DAN-ANweazmJtRQgZVKY";
-export const profileModalAdID = "DAN-5J3DSw0S8VepolXB";
 
 // 두두타 광고들
 export const getTownAdID = (idx: number = 0) => {
