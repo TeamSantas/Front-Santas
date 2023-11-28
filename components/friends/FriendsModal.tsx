@@ -57,7 +57,7 @@ const FriendsModal = (props) => {
         </Modal.Title>
       </CustomHeader>
       <CustomBody>
-        <FriendsList friendsData={friendsData} isLoading={isLoading} />
+        <FriendsList />
       </CustomBody>
       <CenteredModalFooter>
         <ButtonFlex>
