@@ -11,13 +11,13 @@ const loadAccessToken = () => {
 };
 
 // Token 필요한 Axios
-const AuthAPIInstance = (baseURL: string) => {
+export const AuthAPIInstance = (baseURL: string, serverToken = null) => {
   const apiInstance = axios.create({
     timeout: 15000,
     baseURL: baseURL,
     params: {},
     headers: {
-      Authorization: `Bearer ${loadAccessToken()}`,
+      Authorization: `Bearer ${serverToken ?? loadAccessToken()}`,
     },
   });
   return apiInstance;
@@ -32,12 +32,24 @@ const APIInstance = (baseURL: string) => {
   });
   return apiInstance;
 };
-
+//파일타입
+const APIFileInstance = (baseURL: string) => {
+  const apiInstance = axios.create({
+    timeout: 8000,
+    baseURL: baseURL,
+    params: {},
+    headers: {
+      Authorization: `Bearer ${loadAccessToken()}`,
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return apiInstance;
+};
 const PresentInstance = AuthAPIInstance(BASE_URL);
 const PresentAuthInstance = AuthAPIInstance(BASE_URL);
 
 const MemberAuthInstance = AuthAPIInstance(BASE_URL);
-const MemberInstance = AuthAPIInstance(BASE_URL);
+const MemberFileInstance = APIFileInstance(BASE_URL);
 
 const SettingAuthInstance = AuthAPIInstance(BASE_URL);
 const SettingAuthPostInstance = AuthAPIInstance(BASE_URL);
@@ -49,14 +61,14 @@ const AuthAuthInstance = AuthAPIInstance(BASE_URL);
 
 const PushInstance = AuthAPIInstance(BASE_URL);
 
-const TownInstance = AuthAPIInstance(BASE_URL);
+const TownInstance = APIInstance(BASE_URL);
 const TownAuthInstance = AuthAPIInstance(BASE_URL);
 
 export {
   PresentInstance,
   PresentAuthInstance,
   MemberAuthInstance,
-  MemberInstance,
+  MemberFileInstance,
   SettingAuthInstance,
   SettingAuthPostInstance,
   FriendsAuthInstance,

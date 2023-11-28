@@ -56,8 +56,8 @@ const GreenDeleteButton = styled(GreenCloseButton)`
   background-size: contain;
   position: relative;
   z-index: 10;
-  margin-top: -100px;
-  margin-left: 73px;
+  margin-top: -90px;
+  margin-left: 67px;
   width: 1.5rem;
   cursor: pointer;
 `;
@@ -269,7 +269,8 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     try {
       const res = await usePostPresent(presentData);
-      PushService.postPushAlarm(currCalUserId, `누군가 ${currCalUserName}님에게 선물을 보냈어요! \n누가 보냈을까요? 두어캘에서 확인해보세요!`);
+      //TODO: 푸시알림
+      // PushService.postPushAlarm(currCalUserId, `누군가 ${currCalUserName}님에게 선물을 보냈어요! \n누가 보냈을까요? 두어캘에서 확인해보세요!`);
       if (res.status === 200) {
         setIsLoading(false);
         alert("선물 보내기 성공! 🎁");
@@ -381,5 +382,5 @@ const SubmitFlex = styled(Flex)`
   justify-content: space-between;
 `;
 const ThumbnailContainer = styled.div`
-  width: 80vw;
+  width: 80px;
 `;

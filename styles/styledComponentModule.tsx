@@ -43,7 +43,7 @@ export const RedButton = styled.button`
 `;
 
 export const GreenButton = styled(RedButton)`
-  background-color: #3C6C54;
+  background-color: #3c6c54;
   color: white;
   width: 42%;
   font-size: 18px;
@@ -55,30 +55,46 @@ export const GreenButton = styled(RedButton)`
 `;
 
 export const GreenCloseButton = styled.div`
+  cursor: pointer;
   background-repeat: no-repeat;
   background-position: center;
-  width: 3rem;
-  height: 3rem;
-  background-image: url("/assets/image/greenXCircle.svg"); ;
+  background-size: cover;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-image: url("/asset_ver2/image/btn/green_closeBtn.png");
   position: absolute;
-  right: 5px;
+  right: 10px;
+  top: 10px;
 `;
 
-export const CustomHeader = styled(Modal.Header)`
-  border: none !important;
-  margin: auto;
+export const CustomHeader = styled(Modal.Header)``;
+
+export const ModalTitle = styled.p`
+  color: #4d4d4d;
+  font-size: 18px;
+  font-family: NanumSquare Neo OTF;
+  font-weight: 900;
+  word-wrap: break-word;
+  text-align: center;
 `;
+
+export const ModalSubTitle = styled.small`
+  color: #808080;
+  font-size: 14px;
+  font-weight: 400;
+`;
+
 export const CustomBody = styled(Modal.Body)`
   border: none;
   overflow: auto;
   max-height: 50rem;
-  padding: 0 1rem ;
+  padding: 0 1rem;
 `;
 export const CustomDescriptionBody = styled(Modal.Body)`
   border: none;
   overflow: auto;
   max-height: 50rem;
-  padding: 0 1rem ;
+  padding: 0 1rem;
   font-size: 20px;
   text-align: center;
 `;

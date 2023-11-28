@@ -38,6 +38,7 @@ const slide = keyframes`
 const Notice = styled.div`
   position: absolute;
   width: 100%;
+  font-size: 14px;
   color: #f2f2f2;
   text-decoration: none;
   font-family: "NanumSquareNeoOTF-Bd";
