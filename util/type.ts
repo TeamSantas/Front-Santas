@@ -71,14 +71,10 @@ export const defaultMemberData = {
 
 // Friends types ------------------------------------
 export interface FriendsData {
-  memberId: number;
-  friendId: number;
-  invitationLink: string;
-  uuid: string;
+  id: number;
+  nickname: string;
   profileImgUrl: string;
-  name: string;
-  allowedMsg: boolean;
-  isFavorite: boolean;
+  invitationLink: string;
   isPicked: boolean;
 }
 

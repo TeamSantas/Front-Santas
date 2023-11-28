@@ -48,7 +48,7 @@ const SentFriendsList = () => {
       ) : (
         friendsData?.map((friend, idx) => (
           <SentFriendsCard
-            key={friend.friendId + idx}
+            key={friend.id + idx}
             isPicked={friend.isPicked}
             friend={friend}
           />
