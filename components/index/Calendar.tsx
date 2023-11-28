@@ -69,9 +69,9 @@ const Calendar = ({ ismycalendar, loggedId, nickName, currCode }) => {
   useEffect(() => {
     let selectedDayToCompare: string = "202312" + selectedday;
     if (process.env.NODE_ENV === "development") selectedDayToCompare = "20231215";
-    selectedDayToCompare = Number(selectedday) < 10
-        ? "2023120" + selectedday
-        : "202312" + selectedday;
+    // selectedDayToCompare = Number(selectedday) < 10
+    //     ? "2023120" + selectedday
+    //     : "202312" + selectedday;
     if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
     } else {
