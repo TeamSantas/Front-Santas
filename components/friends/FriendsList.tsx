@@ -13,6 +13,10 @@ const GoFriendsCalendarBtn = styled(Button)`
   background-color: #d84d23;
   border-color: #d84d23;
   border-radius: 13px;
+  font-size: 14px;
+  font-family: NanumSquare Neo OTF;
+  font-weight: 800;
+
   @media (max-width: 600px) {
     font-size: small;
   }
@@ -53,7 +57,7 @@ const FriendCard = styled.div`
 `;
 
 const Container = styled.div`
-  height: 40vh;
+  height: 100%;
   overflow-y: scroll;
   /* Firefox */
   scrollbar-width: none;
@@ -73,7 +77,7 @@ const LoadingContainer = styled.div`
   height: 40vh;
   text-align: center;
 `;
-const LoadingHeader = styled.h2`
+const LoadingHeader = styled.div`
   margin: 0;
   padding: 0;
   text-align: center;
@@ -91,7 +95,6 @@ const FriendsList = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getFriendsData = async () => {
-    let res = [];
     setIsLoading(true);
     try {
       const res = await setGetFriend();
@@ -146,7 +149,11 @@ const FriendsList = () => {
             width="200"
             alt="친구사진"
           />
-          <LoadingHeader>&#34;친구가...없써...!&#34;</LoadingHeader>
+          <LoadingHeader>
+            아직 가입한 친구가 없어요. 🥲
+            <br />
+            링크를 공유해 초대해보세요.
+          </LoadingHeader>
         </LoadingContainer>
       ) : null}
       {isLoading ? (

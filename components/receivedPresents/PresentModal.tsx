@@ -9,6 +9,7 @@ import {
   ModalTitle,
   ModalSubTitle,
 } from "../../styles/styledComponentModule";
+import { presentDetailModalAdID } from "../advertisement/ad-ids";
 
 const PresentModal = (props) => {
   const RenderBody = () => {
@@ -32,16 +33,18 @@ const PresentModal = (props) => {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      adFitId={presentDetailModalAdID}
+      theme={props.ismycalendar ? "#f9f9f9" : "dark"}
     >
       <BlueBackground ismycalendar={props.ismycalendar}>
         <CustomHeader>
           <Modal.Title id="contained-modal-title-vcenter">
-            {props.ismycalendar?
+            {props.ismycalendar ? (
               <ModalTitle>
                 12월 {props.selectedday}일<br />
                 <ModalSubTitle>받은 편지함</ModalSubTitle>
-              </ModalTitle> : null
-            }
+              </ModalTitle>
+            ) : null}
             <GreenCloseButton
               onClick={props.onHide}
               ismycalendar={props.ismycalendar}
@@ -60,7 +63,7 @@ export default PresentModal;
 
 const BlueBackground = styled.div`
   background-color: #1e344f;
-  border-radius: 20px;
+  border-radius: 16px 16px 0 0;
   ${(props) =>
     props.ismycalendar &&
     css`
@@ -70,4 +73,11 @@ const BlueBackground = styled.div`
 
 const CustomBody = styled(Modal.Body)`
   border: none;
+  height: 40vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* Explorer */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome */
+  }
 `;

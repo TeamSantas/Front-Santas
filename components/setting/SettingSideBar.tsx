@@ -39,11 +39,19 @@ const SettingSideBar = () => {
             </LinkContent>
             <LinkContent
               href={
-                "https://www.notion.so/pitapatdac/36927b1bd2b24a6888c0ee786b4eb865?pvs=4"
+                "https://www.notion.so/merry-christmass/36927b1bd2b24a6888c0ee786b4eb865?pvs=4"
               }
               target="_blank"
             >
               공지 사항
+            </LinkContent>
+            <LinkContent
+              href={
+                "https://www.notion.so/merry-christmass/3292992054534d28a2f39c01e0e1e9d8?pvs=4"
+              }
+              target="_blank"
+            >
+              개인정보 처리방침
             </LinkContent>
           </div>
           {storeUserData?.id ? <Logout /> : <Login />}

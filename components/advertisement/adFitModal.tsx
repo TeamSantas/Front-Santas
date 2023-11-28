@@ -11,7 +11,7 @@ const AdFitModal = (props) => {
     <Modal {...props} size="m">
       {props.children}
       {props.adFitId && (
-        <AdWrapper>
+        <AdWrapper theme={props.theme}>
           <KakaoAdFit id={props.adFitId} />
         </AdWrapper>
       )}
@@ -22,6 +22,8 @@ const AdFitModal = (props) => {
 export default AdFitModal;
 
 const AdWrapper = styled.div`
-  border-radius: 20px;
+  border-radius: 0 0 16px 16px;
+  background-color: ${({ theme }) =>
+    !theme ? "white" : theme === "dark" ? "#1e344f" : theme};
   padding: 10px 20px 20px;
 `;
