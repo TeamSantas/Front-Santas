@@ -33,7 +33,8 @@ const ProfileModal = (props) => {
         const reader : FileReader = new FileReader();
         // 파일을 읽은 후의 동작 정의
         reader.onload = function (loadEvent) {
-          setPreviewImg(loadEvent.target.result as string)
+          const binaryData = loadEvent.target.result; // 바이너리 데이터
+          setPreviewImg(binaryData as string)
         };
         // 파일을 읽기 시작
         reader.readAsDataURL(selectedFile);
@@ -58,9 +59,15 @@ const ProfileModal = (props) => {
       }
       try {
         const formData = new FormData();
-        formData.append('imageFile', uploadImg);
+        formData.append("nickname",userName);
+        formData.append("statusMessage","none");
+        formData.append('imageFile', previewImage);
 
-        const res = await setLoggedMemberInfo(userName, formData);
+        // @ts-ignore
+        for (let key of formData.keys()) {
+          console.log(key);
+        }
+        const res = await setLoggedMemberInfo(formData);
         console.log('업로드 성공:', res);
 
         // 업로드 성공 후에 서버에서 새로운 프로필 이미지 URL을 받아와서 state 업데이트 등의 추가 작업을 수행할 수 있습니다.

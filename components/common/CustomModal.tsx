@@ -1,7 +1,10 @@
 import styled, { css } from "styled-components";
 import RedButton from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import {CenteredFlex, GreenCloseButton} from "../../styles/styledComponentModule";
+import {
+  CenteredFlex,
+  GreenCloseButton,
+} from "../../styles/styledComponentModule";
 
 //TODO:이거 배경의 배경 redius 왜 안바뀜?
 const ColorBackground = styled.div`
@@ -52,7 +55,7 @@ const Button = styled.div`
   text-align: center;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const CustomModal = (props) => {
   return (

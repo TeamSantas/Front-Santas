@@ -120,3 +120,17 @@ ul {
 .swiper-pagination-bullet-active {
   background-color: white !important;
 }
+.modal-content {
+  border-radius: 20px !important;
+}
+
+.modal-header {
+  display: block !important;
+  border: none !important;
+  align-items: center;
+}
+
+.modal-title {
+  font-family: "NanumSquareNeoOTF-Hv" !important;
+  color: #4d4d4d !important;
+}
