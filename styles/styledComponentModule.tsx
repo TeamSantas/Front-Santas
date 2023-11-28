@@ -111,8 +111,9 @@ export const CustomDescriptionBody = styled(Modal.Body)`
   overflow: auto;
   max-height: 50rem;
   padding: 0 1rem;
-  font-size: 20px;
-  text-align: center;
+  font-size: 16px;
+  text-align: left;
+  white-space: pre-line;
 `;
 export const CustomFooter = styled(Modal.Footer)`
   border: none;
