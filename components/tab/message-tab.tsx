@@ -63,7 +63,7 @@ const Tab = styled.div<{ tab: string; color: string }>`
   font-size: 18px;
   cursor: pointer;
   width: 250px;
-  border-radius: 20px 20px 0 0;
+  border-radius: 16px 16px 0 0;
   padding: 10px;
   font-family: NanumSquare Neo OTF;
   font-weight: 900;

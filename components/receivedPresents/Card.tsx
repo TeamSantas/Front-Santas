@@ -7,6 +7,8 @@ import PresentDetailHeader from "../present/PresentDetailHeader";
 import { presentDetail } from "../../util/type";
 import { Flex } from "../../styles/styledComponentModule";
 import { NewBadge } from "../../styles/styledComponentModule";
+import { presentListModalAdID } from "../advertisement/ad-ids";
+import { useAuthContext } from "../../store/contexts/components/hooks";
 
 const TabCard = styled.div`
   background: white;
@@ -60,6 +62,7 @@ const CardFlex = styled(Flex)`
 `;
 
 const Card = (props) => {
+  const { storeUserData } = useAuthContext();
   const [presentCardShow, setPresentCardShow] = useState(false);
   const [selectedcard, setSelectedCard] = useState(0);
   const [presentDetail, setPresentDetail] = useState<presentDetail>(null);
@@ -67,6 +70,10 @@ const Card = (props) => {
   const haveImage = presentDetail?.imageURL.length > 0 ? true : false;
 
   const handleShow = () => {
+    if (props.type === "RECEIVED" && storeUserData.todayPresentCount < 3) {
+      alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
+      return;
+    }
     initPresentDetail();
     setReadStatus(true);
     setSelectedCard(props.id);
@@ -140,6 +147,7 @@ const Card = (props) => {
         </CardFlex>
       </TabCard>
       <CustomModal
+        adFitId={presentListModalAdID}
         haveImage={haveImage}
         color={"#1E344F"}
         show={presentCardShow}

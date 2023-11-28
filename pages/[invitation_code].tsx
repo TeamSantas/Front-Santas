@@ -4,7 +4,7 @@ import Home from ".";
 import FriendsService from "../api/FriendsService";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import MemberService from "../api/MemberService";
-import {useAuthContext} from "../store/contexts/components/hooks";
+import { useAuthContext } from "../store/contexts/components/hooks";
 
 export default function OtherCalendar() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function OtherCalendar() {
     const link = handleInvitationCode();
     getLinkMember(link);
   }, []);
-  
+
   const isMyCode = async (code: string) => {
     try {
       const myLink = currUserData.invitationLink;
@@ -60,8 +60,6 @@ export default function OtherCalendar() {
       router.replace("/404");
     }
   };
-  
-
 
   return <Home data={userData} link={code} />;
 }
