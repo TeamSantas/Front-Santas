@@ -28,7 +28,7 @@ const Town = ({ myContents, allContents, popularContents }) => {
     <>
       <Modals />
       <Container isOpen={isOpen}>
-        <ContentWrapper>
+        <TopWrapper>
           <MyContent>
             내 글 보기
             <ToggleButton on={isMyContent} toggle={handleToggle} />
@@ -50,6 +50,8 @@ const Town = ({ myContents, allContents, popularContents }) => {
             />
             <AnimatedText messages={notices} />
           </Notice>
+        </TopWrapper>
+        <ContentWrapper>
           <TownContentList
             isMyContent={isMyContent}
             myContents={myContents}
@@ -115,11 +117,10 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  height: calc(100vh - 270px);
-  border-radius: 10px 10px 0 0;
+  height: calc(100vh - 380px);
   width: 100vw;
   max-width: 500px;
-  padding: 20px;
+  padding: 0 20px 20px;
   background-color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
 
@@ -142,6 +143,20 @@ const ContentWrapper = styled.div`
   }
 `;
 
+const TopWrapper = styled.div`
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  border-radius: 10px 10px 0 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  height: 110px;
+  padding: 15px 20px;
+`;
+
 const Notice = styled.div`
   display: flex;
   gap: 10px;
@@ -155,8 +170,10 @@ const Notice = styled.div`
 const MyContent = styled.div`
   position: absolute;
   display: flex;
+  top: 15px;
   right: 20px;
   gap: 8px;
+  font-size: 14px;
   color: #1e344f;
 `;
 
@@ -168,7 +185,7 @@ const Arrow = styled.div`
 
 const slideIn = keyframes`
   from {
-    transform: translateY(calc(100vh - 240px)) translateX(-50%);
+    transform: translateY(calc(100vh - 380px)) translateX(-50%);
   }
   to {
     transform: translateY(0) translateX(-50%);
@@ -180,6 +197,6 @@ const slideOut = keyframes`
     transform: translateY(0) translateX(-50%);
   }
   to {
-    transform: translateY(calc(100vh - 240px)) translateX(-50%);
+    transform: translateY(calc(100vh - 380px)) translateX(-50%);
   }
 `;
