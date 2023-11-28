@@ -95,7 +95,6 @@ const FriendsList = () => {
     setIsLoading(true);
     try {
       const res = await setGetFriend();
-      console.log("=====>data",res.data.data);
       if (res.data.data) setFriendsData(res.data.data);
     } catch (e) {
       console.log(e);
