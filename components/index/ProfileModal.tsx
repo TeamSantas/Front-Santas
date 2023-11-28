@@ -11,8 +11,6 @@ import { useAuthContext } from "../../store/contexts/components/hooks";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { setLoggedMemberInfo } from "../../api/hooks/useGetMember";
-import AdFitModal from "../advertisement/adFitModal";
-import { profileModalAdID } from "../advertisement/ad-ids";
 
 const ProfileModal = (props) => {
   // info modal
