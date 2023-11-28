@@ -24,7 +24,8 @@ const Calendar = ({
 
   // 현재 날짜 - ex) 20221129
   const date = new Date();
-  const today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
+  let today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
+  if(process.env.NODE_ENV === "development") today = `20231225`;
   const today_day = date.getDate();
   const loggedUserData = useAuthContext().storeUserData;
   const [presentModalShow, setPresentModalShow] = useState(false);
@@ -36,7 +37,8 @@ const Calendar = ({
   const handleShow = (d) => {
     setSelectedDay(d);
     let selDate :string = `202312${d}`;
-    if(process.env.NODE_ENV === "development") selDate = `202312${d}`;
+    console.log("==투뎅",today);
+    console.log("==selDate",selDate);
     if (ismycalendar) {
       // 열기 시도한 날이 오늘보다 앞의 날
         if (Number(selDate) <= Number(today)) {
@@ -60,7 +62,7 @@ const Calendar = ({
 
   useEffect(() => {
       let selectedDayToCompare: string = "202312" + selectedday;
-      if(process.env.NODE_ENV === "development") selectedDayToCompare = "202311" + selectedday;
+      if(process.env.NODE_ENV === "development") selectedDayToCompare = "202312" + selectedday;
         // Number(selectedday) < 10
         //     ? "202312" + selectedday
         //     : "202312" + selectedday;
@@ -86,6 +88,7 @@ const Calendar = ({
           try{
               const res = await setGetNumberOfReceivedPresents(loggedId);
               setReceivePresentList(await res.data.data);
+            console.log("=====>ㅅ선물",res.data.data);
           }catch (e){
             console.log("===>선물을 찾지 못했습니다.",e);
           }
@@ -93,16 +96,9 @@ const Calendar = ({
       };
       getRecivedPresentList();
     }, []);
+
     return (
       <TitleContainer>
-        {days.map((day, idx) => (
-          <div key={day.toString()}>
-            <NumberOfReceivedPresents
-              day={day}
-              receivedList={receivePresentList}
-            />
-          </div>
-        ))}
         <CalendarForm nickName={nickName}/>
       </TitleContainer>
     );
@@ -140,6 +136,15 @@ const Calendar = ({
       const dayRow_6 = [20,21,25];
       return(
           <>
+            {/*TODO: 캘린더 받은 개수 뿌려주는거 각 day 컴포넌트들 안에 넣어줘야 할지도! day 있으니까*/}
+            {/*{days.map((day, idx) => (*/}
+            {/*  <div key={day.toString()}>*/}
+            {/*    <NumberOfReceivedPresents*/}
+            {/*      day={day}*/}
+            {/*      receivedList={receivePresentList}*/}
+            {/*    />*/}
+            {/*  </div>*/}
+            {/*))}*/}
               <Title>{nickName}의 캘린더</Title>
               <BackGround src={`/asset_ver2/image/layout/back_house.png`} width={`450`} height={`1000`} alt={"배경"}/>
               <Table>

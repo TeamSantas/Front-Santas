@@ -28,11 +28,8 @@ const Gnb = () => {
       case "home":
         router.push(isHome ? "/town" : "/");
         break;
-      case "like":
-        setShowModal({
-          label: "like",
-          show: true,
-        });
+      case "todays-heart":
+        router.push("/todays-heart");
         break;
       default:
         break;
@@ -41,7 +38,6 @@ const Gnb = () => {
 
   const getImagePath = (option) => {
     const condition = option === "home" ? isHome : activePathOption === option;
-
     return `/asset_ver2/image/layout/gnb/${option}${
       condition ? "-click" : "-default"
     }.svg`;
@@ -58,17 +54,16 @@ const Gnb = () => {
           src={getImagePath("snowball")}
           onClick={() => handleClickOption("snowball")}
         />
-        <Img
-          src={getImagePath("home")}
-          onClick={() => handleClickOption("home")}
-        />
+        <HomeIcon onClick={() => handleClickOption("home")}>
+          <Img width={"26px"} height={"27px"} src={getImagePath("home")} />
+        </HomeIcon>
         <Img
           src={getImagePath("message")}
           onClick={() => handleClickOption("message")}
         />
         <Img
-          src={getImagePath("like")}
-          onClick={() => handleClickOption("like")}
+          src={getImagePath("todays-heart")}
+          onClick={() => handleClickOption("todays-heart")}
         />
       </IconWrapper>
     </Wrapper>
@@ -100,7 +95,18 @@ const IconWrapper = styled.div`
 `;
 
 const Img = styled.img`
-  width: 40px;
-  height: 40px;
+  width: ${({ width }) => width ?? "40px"};
+  height: ${({ height }) => height ?? "40px"};
   cursor: pointer;
+`;
+
+const HomeIcon = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: #f9f9f9;
 `;

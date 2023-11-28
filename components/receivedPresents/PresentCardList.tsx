@@ -28,10 +28,41 @@ const PresentCardList = ({ selectedday }) => {
   const [receivedPresentList, setReceivedPresentList] = useState([]);
   const userData = useAuthContext();
 
+  //TODO: 목데이터로 날짜별 선물 임시로 채우기
+  const mockData = [
+    {
+      "id": 0,
+      "senderId": 0,
+      "receiverName": "string",
+      "nickname": "string",
+      "isPublic": true,
+      "imageURL": "assets/image/face.svg",
+      "title": "string",
+      "contents": "string",
+      "receivedDate": "2023-12-25",
+      "isRead": true
+    },
+    {
+      "id": 0,
+      "senderId": 0,
+      "receiverName": "string",
+      "nickname": "string",
+      "isPublic": true,
+      "imageURL": "assets/image/face.svg",
+      "title": "string",
+      "contents": "string",
+      "receivedDate": "2023-12-25",
+      "isRead": true
+    }
+  ];
+
   const initReceivedPresentList = async () => {
     const receiverId = userData.storeUserData.id;
+    //TODO: 특정날짜에 받은 선물 보는 API 500뜸 다시보기
     const res = await setGetDayPresents(receiverId, receivedDay);
-    setReceivedPresentList(res.content);
+    // setReceivedPresentList(res.content);
+    setReceivedPresentList(mockData);
+    console.log("========>>", mockData);
   };
 
   useEffect(() => {

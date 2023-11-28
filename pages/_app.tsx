@@ -8,6 +8,10 @@ import { CookiesProvider } from "react-cookie";
 import Layout from "../components/layout/new/Layout";
 import AuthProvider from "../store/contexts/components/auth-provider";
 import { measurePageView } from "../lib/gtag";
+import ReactHowler from "react-howler";
+import { useAtom } from "jotai";
+import { sidebarBgmAtom, sidebarNotificationAtom } from "../store/globalState";
+import { useAuthContext } from "../store/contexts/components/hooks";
 
 declare global {
   interface Window {
@@ -18,6 +22,22 @@ declare global {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const { storeUserData } = useAuthContext();
+  const [bgmOn, setBgmOn] = useAtom(sidebarBgmAtom);
+  const [, setNotificationOn] = useAtom(sidebarNotificationAtom);
+
+  const initialSetting = () => {
+    try {
+      setBgmOn(storeUserData?.setting.bgm ? true : false);
+      setNotificationOn(storeUserData?.setting.isAlert ? true : false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    initialSetting();
+  }, []);
 
   useEffect(() => {
     if (window.dataLayer) {
@@ -41,6 +61,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <CookiesProvider>
+      <ReactHowler src="./bgm.mp3" playing={bgmOn} loop={true} />
       <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
     </CookiesProvider>
   );

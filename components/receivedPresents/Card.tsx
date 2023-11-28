@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { setGetPresentDetail } from "../../api/hooks/useGetPresentDetail";
 import CustomModal from "../common/CustomModal";
@@ -8,91 +8,56 @@ import { presentDetail } from "../../util/type";
 import { Flex } from "../../styles/styledComponentModule";
 import { NewBadge } from "../../styles/styledComponentModule";
 
-export const StyledCard = styled.div`
+const TabCard = styled.div`
   background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 10px;
-  padding: 20px;
-  width: 50%;
-  height: 350px;
+  border-radius: 20px;
+  border: 1.5px #e6e6e6 solid;
   justify-content: center;
   align-items: center;
-  margin: 1rem auto;
   overflow: hidden;
-
-  @media (max-width: 1000px) {
-    height: 200px;
-  }
-  @media (max-width: 600px) {
-    height: 150px;
-  }
 `;
 
-const TabCard = styled(StyledCard)`
-  margin: 10px 5px;
-  width: 30%;
-  position: relative;
-  padding: 5px;
-  
-  /* border: props.isRead ? "none" : "2px solid #ac473d" ; */
-
-  @media (max-width: 600px) {
-    width: 32vw;
-    margin: 10px auto;
-  }
-  @media (max-width: 400px) {
-    width: 38vw;
-  }
+const ImgWrapper = styled.div`
+  width: 100%;
+  padding: 10px;
 `;
 
 const CardImg = styled.img`
-  width: 90%;
-  height: 74%;
-  position: absolute;
-  top: 5px;
-  right: 0;
-  //bottom: 0;
-  left: 0;
-  margin: auto;
+  width: 100%;
+  height: 150px;
   overflow: hidden;
   object-fit: cover;
-  &::after {
-    padding-bottom: 100%;
-  }
+  display: block;
+  margin: auto;
+  border-radius: 20px;
 `;
-const Text = styled.p`
+
+const Text = styled.div`
   color: white;
-  position: absolute;
-  bottom: 0;
-  font-size: 25px;
-  padding: 5px 10px;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 0 0 10px 10px;
-  width: 90%;
-  line-height: 120%;
+  font-size: 12px;
+  padding: 10px;
+  width: 100%;
+  background-color: #1c3249;
+  border-radius: 0 0 20px 20px;
   text-align: left;
   span {
-    font-size: 17px;
     color: #ffe8e3;
   }
+`;
 
-  @media (max-width: 1000px) {
-    font-size: 17px;
-    padding-left: 5px;
-    span {
-      font-size: 12px
-    }
-  }
-  @media (max-width: 600px) {
-    font-size: 15px;
-    padding-left: 5px;
-  }
-`
+const Content = styled.div`
+  color: #e6e6e6;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
+
 const CardFlex = styled(Flex)`
-  margin: 0 auto;
-  justify-content: center;
   align-items: center;
-`
+  justify-content: center;
+  flex-direction: column;
+`;
+
 const Card = (props) => {
   const [presentCardShow, setPresentCardShow] = useState(false);
   const [selectedcard, setSelectedCard] = useState(0);
@@ -111,62 +76,69 @@ const Card = (props) => {
   // prop된 카드정보를 가지고 세부정보를 가져온다.
   const initPresentDetail = async () => {
     try {
-        //TODO: 목데이터 필요없으면 주석풀기
-      // const res = await setGetPresentDetail(props.id);
-      //   setPresentDetail(res.data.data);
-        const mockDataPresentDetail : presentDetail = {
-            "id": 0,
-            "receiverId": 0,
-            "senderId": 0,
-            "nickname": "팀산타즈",
-            "isAnonymous": false,
-            "isPublic": true,
-            "title": "제목",
-            "contents": "대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용대충좋은내용",
-            "imageURL": [],
-            "receivedDate": "2023-11-19",
-            "isRead": true
-        }
-        setPresentDetail(mockDataPresentDetail);
+      const res = await setGetPresentDetail(props.id);
+      setPresentDetail(res.data.data);
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
   };
 
   return (
     <>
-        <TabCard>
+      <TabCard>
         {!readStatus ? <NewBadge>NEW</NewBadge> : null}
-            <CardFlex>
-                <CardImg
-                  id={`${props.id}`}
-                  src={
-                    props.thumbnail === "default"
-                      ? `/assets/image/present/6.png`
-                      : props.thumbnail
-                  }
-                  onClick={handleShow}
-                />
+        <CardFlex>
+          <ImgWrapper>
+            <CardImg
+              id={`${props.id}`}
+              src={
+                props.thumbnail === "default"
+                  ? `/asset_ver2/image/presents/present_background_sm.png`
+                  : props.thumbnail
+              }
+              onClick={handleShow}
+            />
+          </ImgWrapper>
 
-                {props.type === "RECEIVED" ?
-                    <Text onClick={handleShow}><Flex>{props.from == "" ? "익명" : `${props.from}`}
-                    <span>{props.date && `${props.date.slice(5,7)}/${props.date.slice(8,10)}`}</span></Flex>
-                    {props.contents && props.contents.length>10 ? `${props.contents.slice(0,10)}..`
-                        : props.contents && props.contents.slice(0,10)}</Text>
-                 :
-                 props.type === "SEND" ?
-                         <Text onClick={handleShow}><Flex>{props.to == "" ? "익명" : `to.${props.to}`}
-                                <span>{props.date && `${props.date.slice(5, 7)}/${props.date.slice(8, 10)}`}</span></Flex>
-                                {props.from == "" ? "익명" : `from.${props.from}`}<br/>
-                                {props.contents && props.contents.length > 5 ? `${props.contents.slice(0, 5)}..`
-                                    : props.contents && props.contents.slice(0, 5)}</Text>
-
-                            :   <Text onClick={handleShow}><Flex>{props.from == "" ? "익명" : `${props.from}`}
-                                    <span>{props.date && `${props.date.slice(5, 7)}/${props.date.slice(8, 10)}`}</span></Flex>
-                                {props.contents && props.contents.length > 5 ? `${props.contents.slice(0, 5)}..`
-                                :  props.contents && props.contents.slice(0, 5)}</Text>
-                }
-            </CardFlex>
+          {props.type === "RECEIVED" ? (
+            <Text onClick={handleShow}>
+              <Flex>
+                {props.from == "" ? "익명" : `${props.from}`}
+                <span>
+                  {props.date &&
+                    `${props.date.slice(5, 7)}/${props.date.slice(8, 10)}`}
+                </span>
+              </Flex>
+              <Content>{props.contents}</Content>
+            </Text>
+          ) : props.type === "SEND" ? (
+            <Text onClick={handleShow}>
+              <Flex>
+                {props.to == "" ? "익명" : `to.${props.to}`}
+                <span>
+                  {props.date &&
+                    `${props.date.slice(5, 7)}/${props.date.slice(8, 10)}`}
+                </span>
+              </Flex>
+              {props.from == "" ? "익명" : `from.${props.from}`}
+              <br />
+              <Content>{props.contents}</Content>
+            </Text>
+          ) : (
+            <Text onClick={handleShow}>
+              <Flex>
+                {props.from == "" ? "익명" : `${props.from}`}
+                <span>
+                  {props.date &&
+                    `${props.date.slice(5, 7)}/${props.date.slice(8, 10)}`}
+                </span>
+              </Flex>
+              {props.contents && props.contents.length > 5
+                ? `${props.contents.slice(0, 5)}..`
+                : props.contents && props.contents.slice(0, 5)}
+            </Text>
+          )}
+        </CardFlex>
       </TabCard>
       <CustomModal
         haveImage={haveImage}
@@ -177,11 +149,11 @@ const Card = (props) => {
         header={
           presentDetail ? (
             <PresentDetailHeader
-            isPublic={presentDetail.isPublic}
-            receivedDate={presentDetail.receivedDate}
+              isPublic={presentDetail.isPublic}
+              receivedDate={presentDetail.receivedDate}
             />
-            ) : (
-              "없음"
+          ) : (
+            "없음"
           )
         }
         body={
