@@ -8,7 +8,7 @@ import { Modals } from "../components/modals/modals";
 import {
   getBoard,
   getBoardPopular,
-  getMyBoard,
+  getServerMyBoard,
 } from "../api/hooks/useTownData";
 import { notices } from "../components/town/notices";
 import { useState } from "react";
@@ -72,11 +72,13 @@ Town.getLayout = (page) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const token = context.req.cookies["token"];
+
   try {
     // 최초 게시글 fetch
     const [myContents, allContents, popularContents] = await Promise.all([
-      getMyBoard(0),
+      getServerMyBoard(0, token),
       getBoard(0),
       getBoardPopular(),
     ]);

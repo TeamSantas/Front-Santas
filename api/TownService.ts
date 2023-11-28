@@ -1,4 +1,4 @@
-import { TownAuthInstance, TownInstance } from "./APIInstance";
+import { AuthAPIInstance, TownAuthInstance, TownInstance } from "./APIInstance";
 import { ResponseData, BoardData, BoardForm, ReportData } from "../util/type";
 
 class TownService {
@@ -19,6 +19,20 @@ class TownService {
     TownAuthInstance.get<ResponseData<BoardData[]>>(`/api/board/my`, {
       params,
     });
+
+  // 나의 게시글 조회 (서버 사이드)
+  getServerMyBoard = (params: { boardId: number }, token) => {
+    const TownServerAuthInstance = AuthAPIInstance(
+      process.env.NEXT_PUBLIC_BASE_URL,
+      token
+    );
+    return TownServerAuthInstance.get<ResponseData<BoardData[]>>(
+      `/api/board/my`,
+      {
+        params,
+      }
+    );
+  };
 
   // 게시글 작성
   postBoard = (formData: BoardForm) =>

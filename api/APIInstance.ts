@@ -11,13 +11,13 @@ const loadAccessToken = () => {
 };
 
 // Token 필요한 Axios
-const AuthAPIInstance = (baseURL: string) => {
+export const AuthAPIInstance = (baseURL: string, serverToken = null) => {
   const apiInstance = axios.create({
     timeout: 15000,
     baseURL: baseURL,
     params: {},
     headers: {
-      Authorization: `Bearer ${loadAccessToken()}`,
+      Authorization: `Bearer ${serverToken ?? loadAccessToken()}`,
     },
   });
   return apiInstance;
@@ -49,7 +49,7 @@ const AuthAuthInstance = AuthAPIInstance(BASE_URL);
 
 const PushInstance = AuthAPIInstance(BASE_URL);
 
-const TownInstance = AuthAPIInstance(BASE_URL);
+const TownInstance = APIInstance(BASE_URL);
 const TownAuthInstance = AuthAPIInstance(BASE_URL);
 
 export {

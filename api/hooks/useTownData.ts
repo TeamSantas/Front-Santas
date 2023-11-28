@@ -29,6 +29,18 @@ export async function getMyBoard(boardId) {
 }
 
 /**
+ * 내 게시글 조회 (서버)
+ */
+export async function getServerMyBoard(boardId, token) {
+  const config = { boardId };
+  try {
+    const res = await TownService.getServerMyBoard(config, token);
+    return res.data.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+/**
  * 게시글 조회
  */
 export async function getBoard(boardId) {
