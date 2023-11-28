@@ -37,6 +37,7 @@ ul {
   margin: 10px auto;
   align-items: center;
   justify-content: left;
+
 }
 .Thumbnail_Wrapper::-webkit-scrollbar {
   width: 5px;
@@ -97,6 +98,7 @@ ul {
     height: 40px;
     margin-top: 0;
   }
+
 }
 .addButtonSM {
   background-image: url(/asset_ver2/image/btn/add_imageBtn.png);

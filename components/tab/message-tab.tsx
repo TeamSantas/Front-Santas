@@ -39,8 +39,8 @@ const ContentWrapper = styled.div`
   background-color: rgba(28, 50, 73, 0.5);
   width: 100%;
   max-width: 500px;
-  padding: 16px 20px;
-  flex: 1;
+  height: 100vh;
+  padding: 16px 20px 280px 20px;
   overflow-y: scroll;
   /* Firefox */
   scrollbar-width: none;
@@ -63,14 +63,14 @@ const Tab = styled.div<{ tab: string; color: string }>`
   font-size: 18px;
   cursor: pointer;
   width: 250px;
-  border-radius: 16px 16px 0 0;
-  padding: 10px;
+  border-radius: 20px 20px 0 0;
+  padding: 13px 20px 12px;
   font-family: NanumSquare Neo OTF;
   font-weight: 900;
   text-align: center;
   background-color: ${({ tab, color }) =>
     tab === "true" ? color : "rgba(0, 0, 0, 0.5)"};
-  @media (max-width: 500px) {
+  @media (max-width: 768px) {
     width: calc(100vw / 2);
   }
 `;
