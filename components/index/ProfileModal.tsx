@@ -134,7 +134,7 @@ const ProfileImg = styled(Image)`
   width: 10rem;
   height: 10rem;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 500%;
 `;
 
 const CloseBtn = styled(GreenCloseButton)`
