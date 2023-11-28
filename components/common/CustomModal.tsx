@@ -5,11 +5,11 @@ import {
   CenteredFlex,
   GreenCloseButton,
 } from "../../styles/styledComponentModule";
+import AdFitModal from "../advertisement/adFitModal";
 
-//TODO:이거 배경의 배경 redius 왜 안바뀜?
 const ColorBackground = styled.div`
   background-color: ${(props) => props.color};
-  border-radius: 5px;
+  border-radius: 16px 16px 0 0;
   height: ${(props) => (props.haveImage ? "37rem" : "35em")};
 `;
 
@@ -46,7 +46,7 @@ const CustomFooter = styled(Modal.Footer)`
 const Button = styled.div`
   width: 300px;
   height: 50px;
-  background-color: #1E344F;
+  background-color: #1e344f;
   border-radius: 10px;
   margin: 60px auto 0 auto;
   color: white;
@@ -59,11 +59,12 @@ const Button = styled.div`
 
 const CustomModal = (props) => {
   return (
-    <Modal
+    <AdFitModal
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      theme="dark"
     >
       {/* ----------- header ----------- */}
       <ColorBackground
@@ -103,7 +104,7 @@ const CustomModal = (props) => {
         )}
         {props.login && <Button onClick={props.onHide}>확인했어요🎁</Button>}
       </ColorBackground>
-    </Modal>
+    </AdFitModal>
   );
 };
 
