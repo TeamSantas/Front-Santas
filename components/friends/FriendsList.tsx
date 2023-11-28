@@ -10,8 +10,8 @@ export const AlignedFlex = styled(Flex)`
 `;
 
 const GoFriendsCalendarBtn = styled(Button)`
-  background-color: #D84D23;
-  border-color: #D84D23;
+  background-color: #d84d23;
+  border-color: #d84d23;
   border-radius: 13px;
   @media (max-width: 600px) {
     font-size: small;
@@ -24,10 +24,8 @@ const GoFriendsCalendarBtn = styled(Button)`
 
 const FriendsName = styled.div`
   margin-left: 5px;
-  font-size: 21px;
-  @media (max-width: 600px) {
-    font-size: 17px;
-  }
+  font-size: 16px;
+
   @media (max-width: 300px) {
     max-width: 40px;
     font-size: small;
@@ -41,7 +39,7 @@ const FriendCard = styled.div`
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 10px;
-  background: #1C3249;
+  background: #1c3249;
   border-radius: 12px;
   z-index: 5;
   color: white;
@@ -55,15 +53,24 @@ const FriendCard = styled.div`
 `;
 
 const Container = styled.div`
-  height: 360px;
-  overflow: scroll;
+  height: 40vh;
+  overflow-y: scroll;
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* Internet Explorer, Edge */
+  &::-ms-overflow-style {
+    display: none;
+  }
+
+  /* Chrome, Safari */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const LoadingContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 40vh;
   text-align: center;
 `;
 const LoadingHeader = styled.h2`
@@ -77,11 +84,7 @@ const Img = styled.img`
   margin-right: 5px;
   border-radius: 50px;
 `;
-const Text = styled.h5`
-  margin: 15px auto;
-  text-align: center;
-  font-family: "NanumSquareNeoOTF-Lt", KCC-Ganpan, sans-serif;
-`;
+
 const FriendsList = () => {
   const router = useRouter();
   const [friendsData, setFriendsData] = useState<any>([]);
@@ -95,27 +98,28 @@ const FriendsList = () => {
       // const res = await setGetFriend();
       // if (res.data.data) setFriendsData(res.data.data);
       // ----
-      const tmpFriendsData = [{
-        profileImgUrl: '이미지 URL',
-        name: '정석현',
-        invitationLink: '8fd53779-d6ca-4e47-b5b5-ff0dd2c502eb',
-        isFavorite: true // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
-      },
+      const tmpFriendsData = [
         {
-          profileImgUrl: '이미지 URL',
-          name: '박수연',
-          invitationLink: 'ef189e9f-54d8-4ca4-a768-2c3f51f5bbe9',
-          isFavorite: true // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
+          profileImgUrl: "이미지 URL",
+          name: "정석현",
+          invitationLink: "8fd53779-d6ca-4e47-b5b5-ff0dd2c502eb",
+          isFavorite: true, // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
         },
         {
-          profileImgUrl: '이미지 URL',
-          name: '산타즈',
-          invitationLink: 'ca8f8e79-d48d-4bca-a653-04093125a2c5',
-          isFavorite: true // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
-        }];
+          profileImgUrl: "이미지 URL",
+          name: "박수연",
+          invitationLink: "ef189e9f-54d8-4ca4-a768-2c3f51f5bbe9",
+          isFavorite: true, // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
+        },
+        {
+          profileImgUrl: "이미지 URL",
+          name: "산타즈",
+          invitationLink: "ca8f8e79-d48d-4bca-a653-04093125a2c5",
+          isFavorite: true, // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
+        },
+      ];
       setFriendsData(tmpFriendsData);
       //---
-
     } catch (e) {
       console.log(e);
     }
@@ -139,13 +143,19 @@ const FriendsList = () => {
       <>
         <AlignedFlex>
           <Img
-            src={props.profileImgUrl.includes("http") ? props.profileImgUrl : "/assets/image/character/character.svg"}
+            src={
+              props.profileImgUrl.includes("http")
+                ? props.profileImgUrl
+                : "/assets/image/character/character.svg"
+            }
           />
           <FriendsName>{props.name}</FriendsName>
         </AlignedFlex>
 
         <Flex>
-          <GoFriendsCalendarBtn onClick={goFriendsCalendar}>친구 캘린더로 가기</GoFriendsCalendarBtn>
+          <GoFriendsCalendarBtn onClick={goFriendsCalendar}>
+            친구 캘린더로 가기
+          </GoFriendsCalendarBtn>
         </Flex>
       </>
     );
@@ -153,18 +163,19 @@ const FriendsList = () => {
 
   return (
     <Container>
-      <Flex>
-        <Text>서비스에 가입한 친구 목록이에요. </Text>
-      </Flex>
       {!isLoading && friendsData.length < 1 ? (
         <LoadingContainer>
-          <img src='/assets/image/character/face_crycry.png' width='200' alt='친구사진' />
+          <img
+            src="/assets/image/character/face_crycry.png"
+            width="200"
+            alt="친구사진"
+          />
           <LoadingHeader>&#34;친구가...없써...!&#34;</LoadingHeader>
         </LoadingContainer>
       ) : null}
       {isLoading ? (
         <LoadingContainer>
-          <img src='/assets/image/character/spinner.gif' alt='spinner' />
+          <img src="/assets/image/character/spinner.gif" alt="spinner" />
           <LoadingHeader>친구들 모으는중</LoadingHeader>
         </LoadingContainer>
       ) : (
