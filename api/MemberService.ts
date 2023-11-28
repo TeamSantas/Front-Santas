@@ -1,4 +1,4 @@
-import { MemberAuthInstance } from "./APIInstance";
+import { MemberAuthInstance,MemberFileInstance } from "./APIInstance";
 import {
   MemberData,
   MemberRawData,
@@ -16,8 +16,8 @@ class MemberService {
     MemberAuthInstance.get<ResponseData<MemberData>>(`/api/member`, config);
 
   //유저 정보 수정 🔑
-  putLoggedMember = (config) =>
-    MemberAuthInstance.put<ResponseData<PutMemberData>>(`/api/member`, config);
+  putLoggedMember = (formData: PutMemberData) =>
+    MemberFileInstance.put<ResponseData<PutMemberData>>(`/api/member`, formData);
 
   //회원탈퇴 🔑
   signoutMember = () =>

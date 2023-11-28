@@ -11,7 +11,7 @@ const DateWrapper = styled.div`
 const ReceivedDate = styled.div``;
 const GreenCloseButton = styled.div`
   position: relative;
-  right: 10px;
+  right: 20px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

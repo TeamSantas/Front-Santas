@@ -58,9 +58,10 @@ export const GreenCloseButton = styled.div`
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: center;
-  width: 3rem;
-  height: 3rem;
-  background-image: url("/asset_ver2/image/btn/green_close_btn.svg");
+  background-size: cover;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-image: url("/asset_ver2/image/btn/green_closeBtn.png");
   position: absolute;
   right: 5px;
   top: 5px;

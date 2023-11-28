@@ -32,12 +32,24 @@ const APIInstance = (baseURL: string) => {
   });
   return apiInstance;
 };
-
+//파일타입
+const APIFileInstance = (baseURL: string) => {
+  const apiInstance = axios.create({
+    timeout: 8000,
+    baseURL: baseURL,
+    params: {},
+    headers: {
+      Authorization: `Bearer ${loadAccessToken()}`,
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return apiInstance;
+};
 const PresentInstance = AuthAPIInstance(BASE_URL);
 const PresentAuthInstance = AuthAPIInstance(BASE_URL);
 
 const MemberAuthInstance = AuthAPIInstance(BASE_URL);
-const MemberInstance = AuthAPIInstance(BASE_URL);
+const MemberFileInstance = APIFileInstance(BASE_URL);
 
 const SettingAuthInstance = AuthAPIInstance(BASE_URL);
 const SettingAuthPostInstance = AuthAPIInstance(BASE_URL);
@@ -56,7 +68,7 @@ export {
   PresentInstance,
   PresentAuthInstance,
   MemberAuthInstance,
-  MemberInstance,
+  MemberFileInstance,
   SettingAuthInstance,
   SettingAuthPostInstance,
   FriendsAuthInstance,

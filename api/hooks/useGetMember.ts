@@ -13,13 +13,6 @@ export async function setGetMemberById(memberId) {
   return await MemberService.getMemberById(config);
 }
 
-export async function setLoggedMemberInfo(nickName,imgURL) {
-  const config = {
-    params: {
-      nickname: nickName,
-      profileImageURL: imgURL,
-      statusMessage: "none"
-    }
-  }
-  return await MemberService.putLoggedMember(config);
+export async function setLoggedMemberInfo(formData) {
+  return await MemberService.putLoggedMember(formData);
 }
