@@ -80,9 +80,10 @@ export async function report(ReportData: ReportData) {
 /**
  * 게시글 삭제
  */
-export async function deleteContent() {
+export async function deleteContent(boardId) {
+  const config = { boardId };
   try {
-    const res = await TownService.postBoardDelete();
+    const res = await TownService.postBoardDelete(config);
     return res.data;
   } catch (e) {
     console.log(e);

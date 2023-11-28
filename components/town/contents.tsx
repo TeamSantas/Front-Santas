@@ -61,7 +61,7 @@ const Contents = ({ contents, isPopular = false }: IContentTemplate) => {
                     <CreatedAt>({content.createdAt})</CreatedAt>
                   </NameWrapper>
                   {isMyContent(content) ? (
-                    <Delete />
+                    <Delete boardId={content.boardId} />
                   ) : (
                     <Report
                       boardId={content.boardId}
