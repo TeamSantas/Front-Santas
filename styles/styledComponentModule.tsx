@@ -59,12 +59,12 @@ export const GreenCloseButton = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  width: 1.5rem;
-  height: 1.5rem;
-  background-image: url("/asset_ver2/image/btn/green_closeBtn.png");
+  width: 24px;
+  height: 24px;
+  background-image: url("/asset_ver2/image/btn/green_close_btn.svg");
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 12px;
+  top: 12px;
 `;
 
 export const CustomHeader = styled(Modal.Header)``;
@@ -112,8 +112,9 @@ export const CustomDescriptionBody = styled(Modal.Body)`
   max-height: 50rem;
   margin: 0 auto;
   padding: 0 1rem;
-  font-size: 20px;
-  text-align: center;
+  font-size: 16px;
+  text-align: left;
+  white-space: pre-line;
 `;
 export const CustomFooter = styled(Modal.Footer)`
   border: none;

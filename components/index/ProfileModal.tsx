@@ -75,7 +75,7 @@ const ProfileModal = (props) => {
         console.log(key);
       }
       const res = await setLoggedMemberInfo(formData);
-      console.log("업로드 성공:", res);
+      console.log("업로드 성공:", res.data.status);
 
       // 업로드 성공 후에 서버에서 새로운 프로필 이미지 URL을 받아와서 state 업데이트 등의 추가 작업을 수행할 수 있습니다.
       // 예시: setPreviewImg(res.newProfileImageUrl);
@@ -145,8 +145,9 @@ export default ProfileModal;
 
 const ProfileImg = styled(Image)`
   margin: 10px;
-  width: 35%;
-  height: auto;
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
   border-radius: 50%;
 `;
 
