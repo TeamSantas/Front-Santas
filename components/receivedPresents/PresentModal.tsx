@@ -36,10 +36,12 @@ const PresentModal = (props) => {
       <BlueBackground ismycalendar={props.ismycalendar}>
         <CustomHeader>
           <Modal.Title id="contained-modal-title-vcenter">
-            <ModalTitle>
-              12월 {props.selectedday}일<br />
-              <ModalSubTitle>받은 편지함</ModalSubTitle>
-            </ModalTitle>
+            {props.ismycalendar?
+              <ModalTitle>
+                12월 {props.selectedday}일<br />
+                <ModalSubTitle>받은 편지함</ModalSubTitle>
+              </ModalTitle> : null
+            }
             <GreenCloseButton
               onClick={props.onHide}
               ismycalendar={props.ismycalendar}

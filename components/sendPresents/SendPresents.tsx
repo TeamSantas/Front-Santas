@@ -346,7 +346,7 @@ const SendPresents = ({ onHide, selectedday }) => {
             onClick={handleCheckAnonymous}
             disabled={!isLogged}
             checked={!isLogged || isAnonymous}
-          />지
+          />
           {isAnonymous || !isLogged ? (
             <input
               className="inputNickname"
