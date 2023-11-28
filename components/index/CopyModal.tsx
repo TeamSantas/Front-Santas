@@ -1,23 +1,21 @@
+import { Modal } from "react-bootstrap";
 import {
   GreenCloseButton,
   CustomHeader,
   CustomBody,
   CustomFooter,
 } from "../../styles/styledComponentModule";
-import AdFitModal from "../advertisement/adFitModal";
-import { copyModalAdID } from "../advertisement/ad-ids";
 
 const CopyModal = (props) => {
   // info modal
   const header = "✅ 내 링크 복사완료!✨";
-  const text = props.link;
+  const text = props.link
   return (
-    <AdFitModal
+    <Modal
       {...props}
       size="sm"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      adFitId={copyModalAdID}
     >
       <CustomHeader>
         <CustomBody id="contained-modal-title-vcenter">{header}</CustomBody>
@@ -26,7 +24,7 @@ const CopyModal = (props) => {
 
       <CustomBody>{text}</CustomBody>
       <CustomFooter />
-    </AdFitModal>
+    </Modal>
   );
 };
 

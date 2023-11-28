@@ -83,12 +83,11 @@ const ProfileModal = (props) => {
   };
 
   return (
-    <AdFitModal
+    <Modal
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      adFitId={profileModalAdID}
     >
       <CustomHeader>
         <CloseBtn onClick={props.onHide} />
@@ -127,15 +126,16 @@ const ProfileModal = (props) => {
         <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>
       )}
       <CustomFooter />
-    </AdFitModal>
+    </Modal>
   );
 };
 export default ProfileModal;
 
 const ProfileImg = styled(Image)`
   margin: 10px;
-  width: 35%;
-  height: auto;
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
   border-radius: 50%;
 `;
 
