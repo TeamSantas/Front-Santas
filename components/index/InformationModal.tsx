@@ -2,7 +2,6 @@ import { Modal } from "react-bootstrap";
 import {
   GreenCloseButton,
   CustomHeader,
-  CustomBody,
   CustomFooter,
   CustomDescriptionBody,
 } from "../../styles/styledComponentModule";

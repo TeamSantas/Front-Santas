@@ -7,6 +7,7 @@ import PresentDetailHeader from "../present/PresentDetailHeader";
 import { presentDetail } from "../../util/type";
 import { Flex } from "../../styles/styledComponentModule";
 import { NewBadge } from "../../styles/styledComponentModule";
+import { presentListModalAdID } from "../advertisement/ad-ids";
 import { useAuthContext } from "../../store/contexts/components/hooks";
 
 const TabCard = styled.div`
@@ -146,6 +147,7 @@ const Card = (props) => {
         </CardFlex>
       </TabCard>
       <CustomModal
+        adFitId={presentListModalAdID}
         haveImage={haveImage}
         color={"#1E344F"}
         show={presentCardShow}

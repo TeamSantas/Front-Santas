@@ -76,15 +76,9 @@ export const defaultMemberData = {
 export interface FriendsData {
   id: number;
   nickname: string;
-  profileImageURL: string;
-  email: string;
+  profileImgUrl: string;
   invitationLink: string;
-  setting: {
-    id: number;
-    isAlert: boolean;
-    bgm: boolean;
-    fcmtokens: string;
-  };
+  isPicked: boolean;
 }
 
 // Present types ------------------------------------
