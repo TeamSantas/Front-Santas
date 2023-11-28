@@ -52,6 +52,8 @@ const PushInstance = AuthAPIInstance(BASE_URL);
 const TownInstance = AuthAPIInstance(BASE_URL);
 const TownAuthInstance = AuthAPIInstance(BASE_URL);
 
+const HeartAuthInstance = AuthAPIInstance(BASE_URL);
+
 export {
   PresentInstance,
   PresentAuthInstance,
@@ -66,4 +68,5 @@ export {
   PushInstance,
   TownAuthInstance,
   TownInstance,
+  HeartAuthInstance,
 };
