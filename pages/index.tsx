@@ -1,19 +1,19 @@
-// @ts-nocheck
 import styled from "styled-components";
 import { NextPage } from "next";
 import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
 import Calendar from "../components/index/Calendar";
-import { getCookie } from "../businesslogics/cookie";
-import { Component, lazy, ReactElement, useEffect, useState } from "react";
-import { dataProps, MemberData } from "../util/type";
+import { ReactElement, useEffect, useState } from "react";
+import { dataProps } from "../util/type";
 import { useRouter } from "next/router";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import { Modals } from "../components/modals/modals";
 import MainLayout from "../components/layout/new/MainLayout";
 import { useAuthContext } from "../store/contexts/components/hooks";
 import { setCookie } from "cookies-next";
+import { ismycalendarAtom } from "../store/globalState";
+import { useAtom } from "jotai";
 
-const Home: NextPage<dataProps> = (props: dataProps) => {
+const Home = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
   // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
   const router = useRouter();
@@ -123,6 +123,7 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   return (
     <div id="home">
       <MainFlex>
+        <Modals />
         <MainContainer>
           <br />
           {/* 실제 invitation Link 로 보내기 */}
@@ -141,7 +142,8 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
 };
 
 export default Home;
-Home.getLayout = (page: ReactElement) => {
+
+Home.getLayout = (page) => {
   return <MainLayout>{page}</MainLayout>;
 };
 

@@ -110,6 +110,7 @@ export const CustomDescriptionBody = styled(Modal.Body)`
   border: none;
   overflow: auto;
   max-height: 50rem;
+  margin: 0 auto;
   padding: 0 1rem;
   font-size: 16px;
   text-align: left;
