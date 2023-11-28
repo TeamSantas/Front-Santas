@@ -19,8 +19,10 @@ const Calendar = ({ ismycalendar, loggedId, nickName, currCode }) => {
 
   // 현재 날짜 - ex) 20221129
   const date = new Date();
-  let today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
-  if (process.env.NODE_ENV === "development") today = `20231225`;
+  // TODO:12월 오픈떄 주석으로 바꿔야 함
+  // let today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
+  let today = `20231215`;
+  if(process.env.NODE_ENV === "development") today = `20231215`;
   const today_day = date.getDate();
   const { storeUserData } = useAuthContext();
   const [presentModalShow, setPresentModalShow] = useState(false);
@@ -66,10 +68,9 @@ const Calendar = ({ ismycalendar, loggedId, nickName, currCode }) => {
 
   useEffect(() => {
     let selectedDayToCompare: string = "202312" + selectedday;
-    if (process.env.NODE_ENV === "development")
-      selectedDayToCompare = "202312" + selectedday;
-    // Number(selectedday) < 10
-    //     ? "202312" + selectedday
+    if (process.env.NODE_ENV === "development") selectedDayToCompare = "20231215";
+    // selectedDayToCompare = Number(selectedday) < 10
+    //     ? "2023120" + selectedday
     //     : "202312" + selectedday;
     if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
@@ -235,21 +236,25 @@ const Calendar = ({ ismycalendar, loggedId, nickName, currCode }) => {
       <CalendarWrapper>
         {ismycalendar ? <RenderMyCalendar /> : <RenderFriendsCalendar />}
       </CalendarWrapper>
-      <PresentModal
-        // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달
-        show={presentModalShow}
-        onHide={handleClosePresentModal}
-        selectedday={selectedday}
-        ismycalendar={ismycalendar}
-        // currCalUserInfo={currCalUserInfo}
-      />
-      <CustomModal
-        // 선택한 캘린더 날짜를 보여주지 못할 때 보여주는 모달
-        show={notYetModalShow}
-        onHide={handleCloseNotYetModal}
-        header={""}
-        body={<DenyAccess />}
-      />
+      {canOpenCalendar?
+        <PresentModal
+          // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달
+          show={presentModalShow}
+          onHide={handleClosePresentModal}
+          selectedday={selectedday}
+          ismycalendar={ismycalendar}
+          // currCalUserInfo={currCalUserInfo}
+        />:
+        <CustomModal
+          // 선택한 캘린더 날짜를 보여주지 못할 때 보여주는 모달
+          show={notYetModalShow}
+          onHide={handleCloseNotYetModal}
+          header={""}
+          body={<DenyAccess />}
+        />
+      }
+
+
     </>
   );
 };
@@ -263,7 +268,7 @@ const DenyAccess = () => {
         height={"222"}
         alt={"우는사진"}
       />
-      <LoadingHeader>&quot;날짜가...지나지않아써...!&quot;</LoadingHeader>
+      <LoadingHeader>&quot;날짜가 안 지났어!&quot;</LoadingHeader>
       <p>
         (해당 날짜가 되어야 선물을 열어볼 수 있습니다. 조금만 기다려주세요!)
       </p>
