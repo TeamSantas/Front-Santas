@@ -94,32 +94,9 @@ const FriendsList = () => {
     let res = [];
     setIsLoading(true);
     try {
-      //TODO: 디비 연결되면 밑에 목데이터 지우고 이 코드 살리기
-      // const res = await setGetFriend();
-      // if (res.data.data) setFriendsData(res.data.data);
-      // ----
-      const tmpFriendsData = [
-        {
-          profileImgUrl: "이미지 URL",
-          name: "정석현",
-          invitationLink: "8fd53779-d6ca-4e47-b5b5-ff0dd2c502eb",
-          isFavorite: true, // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
-        },
-        {
-          profileImgUrl: "이미지 URL",
-          name: "박수연",
-          invitationLink: "ef189e9f-54d8-4ca4-a768-2c3f51f5bbe9",
-          isFavorite: true, // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
-        },
-        {
-          profileImgUrl: "이미지 URL",
-          name: "산타즈",
-          invitationLink: "ca8f8e79-d48d-4bca-a653-04093125a2c5",
-          isFavorite: true, // 또는 false, true면 즐겨찾기 상태를 나타냅니다.
-        },
-      ];
-      setFriendsData(tmpFriendsData);
-      //---
+      const res = await setGetFriend();
+      console.log("=====>data",res.data.data);
+      if (res.data.data) setFriendsData(res.data.data);
     } catch (e) {
       console.log(e);
     }
@@ -183,7 +160,7 @@ const FriendsList = () => {
           <FriendCard key={friend.friendId + idx}>
             <RenderFriendCardContents
               profileImgUrl={friend.profileImgUrl}
-              name={friend.name}
+              name={friend.nickname}
               invitationLink={friend.invitationLink}
               isFavorite={friend.isFavorite}
             />
