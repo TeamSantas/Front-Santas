@@ -12,6 +12,8 @@ import { Modals } from "../components/modals/modals";
 import MainLayout from "../components/layout/new/MainLayout";
 import { useAuthContext } from "../store/contexts/components/hooks";
 import { setCookie } from "cookies-next";
+import {useAtom} from "jotai";
+import {ismycalendarAtom} from "../store/globalState";
 
 const Home: NextPage<dataProps> = (props: dataProps) => {
   // console.log(props, "인덱스에넘겨주는프롭스");
@@ -28,7 +30,6 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   };
 
   // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
-
   const userData = useAuthContext().storeUserData;
 
   useEffect(() => {
@@ -89,10 +90,11 @@ const Home: NextPage<dataProps> = (props: dataProps) => {
   }, [props]);
 
   // invitation page에서 넘어온건지 확인
-  const [ismycalendar, setIsmycalendar] = useState(true);
+  const [ismycalendar, setIsmycalendar] = useAtom(ismycalendarAtom);
   const handleCalendarOwner = () => {
     if (Object.keys(props).length < 1 || !props.data) {
       setIsmycalendar(true);
+
     } else {
       setIsmycalendar(false);
     }

@@ -1,17 +1,40 @@
 import styled from "styled-components";
 import { useAuthContext } from "../../../store/contexts/components/hooks";
-import { useEffect, useState } from "react";
-import { setLoggedMemberInfo } from "../../../api/hooks/useGetMember";
-import Image from "next/image";
+import {useEffect, useState} from "react";
 import ProfileModal from "../../index/ProfileModal";
 import { useAtom } from "jotai";
-import { sidebarOpenAtom } from "../../../store/globalState";
+import {ismycalendarAtom, sidebarOpenAtom} from "../../../store/globalState";
+import {setGetCurrCalendarUserInfo} from "../../../api/hooks/useGetCurrCalendarUserInfo";
 
 const Header = () => {
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
   const userData = useAuthContext();
   const [, setIsOpen] = useAtom(sidebarOpenAtom);
-  let profileImg = userData?.storeUserData.profileImageURL;
+  const [ismycalendar, setIsmycalendar] = useAtom(ismycalendarAtom);
+  const [profileImg, setProfileImg] = useState("");
+
+  useEffect(() => {
+    let myProfileImg = userData?.storeUserData.profileImageURL;
+    setProfileImg(myProfileImg)
+  }, []);
+
+  const handleInvitationCode = () => {
+    if (typeof window !== "undefined") {
+      const path = window.location.pathname;
+      if (path.length == 37) {
+        const tmp = window.location.pathname.split("/");
+        return tmp[1].slice(0, 36);
+      }
+    }
+  };
+
+  const getCurrUserImg = async () => {
+    const currInvitationLink = handleInvitationCode();
+    const res = await setGetCurrCalendarUserInfo(currInvitationLink);
+    setProfileImg(res.data.data.profileImageURL);
+  }
+
+  if(!ismycalendar) getCurrUserImg();
 
   const handleClickSetting = () => {
     setIsOpen(true);
