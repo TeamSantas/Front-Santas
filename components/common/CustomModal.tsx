@@ -1,7 +1,10 @@
 import styled, { css } from "styled-components";
 import RedButton from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { CenteredFlex } from "../../styles/styledComponentModule";
+import {
+  CenteredFlex,
+  GreenCloseButton,
+} from "../../styles/styledComponentModule";
 
 const ColorBackground = styled.div`
   background-color: ${(props) => props.color};
@@ -51,7 +54,7 @@ const Button = styled.div`
   text-align: center;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const CustomModal = (props) => {
   return (
@@ -67,10 +70,11 @@ const CustomModal = (props) => {
         color={props.color}
         type={props.type}
       >
-        <CustomHeader closeButton>
+        <CustomHeader>
           <Modal.Title id="contained-modal-title-vcenter">
             {props.header}
           </Modal.Title>
+          <GreenCloseButton onClick={props.onHide} />
         </CustomHeader>
 
         {/* ----------- body ----------- */}

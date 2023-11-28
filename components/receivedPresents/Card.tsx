@@ -15,6 +15,7 @@ const TabCard = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 const ImgWrapper = styled.div`
@@ -133,9 +134,7 @@ const Card = (props) => {
                     `${props.date.slice(5, 7)}/${props.date.slice(8, 10)}`}
                 </span>
               </Flex>
-              {props.contents && props.contents.length > 5
-                ? `${props.contents.slice(0, 5)}..`
-                : props.contents && props.contents.slice(0, 5)}
+              <Content>{props.contents}</Content>
             </Text>
           )}
         </CardFlex>

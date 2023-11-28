@@ -7,6 +7,8 @@ import {
   CustomHeader,
   Flex,
   GreenCloseButton,
+  ModalTitle,
+  ModalSubTitle,
 } from "../../styles/styledComponentModule";
 import FriendsList from "./FriendsList";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
@@ -17,10 +19,6 @@ const CenteredModalFooter = styled.div`
   width: 90%;
   margin: auto;
   padding-top: 20px;
-`;
-
-const Title = styled.div`
-  font-family: "NanumSquareNeoOTF-Hv", KCC-Ganpan, sans-serif;
 `;
 
 const FriendsModal = (props) => {
@@ -72,9 +70,13 @@ const FriendsModal = (props) => {
     >
       <CustomHeader>
         <Modal.Title id="contained-modal-title-vcenter">
-          <Title>친구 목록</Title>
+          <ModalTitle>
+            친구 목록
+            <br />
+            <ModalSubTitle>서비스에 가입한 친구 목록이에요.</ModalSubTitle>
+          </ModalTitle>
+          <GreenCloseButton onClick={props.onHide} />
         </Modal.Title>
-        <GreenCloseButton onClick={props.onHide} />
       </CustomHeader>
       <CustomBody>
         <FriendsList friendsData={friendsData} isLoading={isLoading} />
@@ -99,7 +101,6 @@ const FriendsModal = (props) => {
 
 const ButtonFlex = styled(Flex)`
   width: 100%;
-  // justify-content: space-between;
   justify-content: center;
 `;
 
