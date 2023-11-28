@@ -27,7 +27,7 @@ const Calendar = ({
   let today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
   if(process.env.NODE_ENV === "development") today = `20231225`;
   const today_day = date.getDate();
-  const loggedUserData = useAuthContext().storeUserData;
+  const { storeUserData } = useAuthContext();
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [notYetModalShow, setNotYeModalShow] = useState(false);
   const [selectedday, setSelectedDay] = useState(date.getDate());
@@ -35,6 +35,11 @@ const Calendar = ({
   const [friendName, setFriendsData] = useState('친구');
 
   const handleShow = (d) => {
+    if (storeUserData.todayPresentCount < 3) {
+      alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
+      return;
+    }
+
     setSelectedDay(d);
     let selDate :string = `202312${d}`;
     console.log("==투뎅",today);

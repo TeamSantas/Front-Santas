@@ -25,6 +25,7 @@ export interface MemberData {
   profileImageURL: string;
   email: string;
   invitationLink: string;
+  todayPresentCount: number;
   setting: {
     id: number;
     isAlert: boolean;
@@ -41,6 +42,7 @@ export interface NewMemberData {
   profileImageURL: string;
   email: string;
   invitationLink: string;
+  todayPresentCount: number;
   setting: {
     id: number;
     isAlert: boolean;
