@@ -35,7 +35,7 @@ const FriendsModal = (props) => {
   };
 
   useEffect(() => {
-    getFriendsData();
+    // getFriendsData();
   }, []);
 
   return (

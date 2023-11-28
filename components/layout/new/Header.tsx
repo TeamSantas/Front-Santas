@@ -19,7 +19,7 @@ const Header = () => {
   useEffect(() => {
     let myProfileImg = userData?.storeUserData.profileImageURL;
     setProfileImg(myProfileImg);
-  }, []);
+  }, [userData]);
 
   const handleInvitationCode = () => {
     if (typeof window !== "undefined") {
