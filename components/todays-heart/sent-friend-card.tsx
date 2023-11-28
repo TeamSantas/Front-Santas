@@ -36,7 +36,7 @@ const SentFriendsCard = ({ isPicked, friend }: ISentFriendsCard) => {
               : "/assets/image/character/character.svg"
           }
         />
-        <FriendsName>{friend.name}</FriendsName>
+        <FriendsName>{friend.nickname}</FriendsName>
       </AlignedFlex>
 
       <Flex>
