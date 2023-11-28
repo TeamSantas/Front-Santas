@@ -33,12 +33,12 @@ const ProfileModal = (props) => {
       const selectedFile = e.target.files[0];
       setUploadImg(selectedFile);
       // 선택된 파일이 이미지인지 확인
-      if (selectedFile && selectedFile.type.startsWith("image/")) {
-        const reader: FileReader = new FileReader();
+      if (selectedFile && selectedFile.type.startsWith('image/')) {
+        const reader : FileReader = new FileReader();
         // 파일을 읽은 후의 동작 정의
         reader.onload = function (loadEvent) {
           const binaryData = loadEvent.target.result; // 바이너리 데이터
-          setPreviewImg(binaryData as string);
+          setPreviewImg(binaryData as string)
         };
         // 파일을 읽기 시작
         reader.readAsDataURL(selectedFile);
@@ -51,44 +51,43 @@ const ProfileModal = (props) => {
     []
   );
 
-  const onUploadImageButtonClick = useCallback(() => {
-    if (!inputRef.current) return;
-    inputRef.current.click();
-  }, []);
+    const onUploadImageButtonClick = useCallback(() => {
+      if (!inputRef.current) return;
+      inputRef.current.click();
+    }, []);
 
-  //TODO:업로드 기능 손보기. 이미지가 어떤 형식을 가야해
-  const updateProfile = async () => {
-    if (!uploadImg) {
-      console.error("이미지를 선택하세요.");
-      return;
-    }
-    try {
-      const formData = new FormData();
-      formData.append("nickname", userName);
-      formData.append("statusMessage", "none");
-      formData.append("profileImage", uploadImg);
-
-      // @ts-ignore
-      for (let key of formData.keys()) {
-        console.log(key);
+    //TODO:업로드 기능 손보기. 이미지가 어떤 형식을 가야해
+    const updateProfile = async () => {
+      if (!uploadImg) {
+        console.error('이미지를 선택하세요.');
+        return;
       }
-      const res = await setLoggedMemberInfo(formData);
-      console.log("업로드 성공:", res);
+      try {
+        const formData = new FormData();
+        formData.append("nickname",userName);
+        formData.append("statusMessage","none");
+        formData.append('profileImage', uploadImg);
 
-      // 업로드 성공 후에 서버에서 새로운 프로필 이미지 URL을 받아와서 state 업데이트 등의 추가 작업을 수행할 수 있습니다.
-      // 예시: setPreviewImg(res.newProfileImageUrl);
-    } catch (error) {
-      console.error("업로드 실패:", error);
+        // @ts-ignore
+        for (let key of formData.keys()) {
+          console.log(key);
+        }
+        const res = await setLoggedMemberInfo(formData);
+        console.log('업로드 성공:', res);
+
+        // 업로드 성공 후에 서버에서 새로운 프로필 이미지 URL을 받아와서 state 업데이트 등의 추가 작업을 수행할 수 있습니다.
+        // 예시: setPreviewImg(res.newProfileImageUrl);
+      } catch (error) {
+        console.error('업로드 실패:', error);
+      }
     }
-  };
 
   return (
-    <AdFitModal
+    <Modal
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      adFitId={profileModalAdID}
     >
       <CustomHeader>
         <CloseBtn onClick={props.onHide} />
@@ -127,15 +126,16 @@ const ProfileModal = (props) => {
         <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>
       )}
       <CustomFooter />
-    </AdFitModal>
+    </Modal>
   );
 };
 export default ProfileModal;
 
 const ProfileImg = styled(Image)`
   margin: 10px;
-  width: 35%;
-  height: auto;
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
   border-radius: 50%;
 `;
 
@@ -180,7 +180,7 @@ const ImgSubmitBtn = styled.label`
   }
 `;
 const Text = styled.p`
-  color: #4d4d4d;
+  color: #4D4D4D;
   margin: 0 auto 10px auto;
   font-family: "NanumSquareNeoOTF-Rg", NanumSquareNeoOTF-Rg, sans-serif;
 `;
@@ -189,3 +189,4 @@ const NameText = styled(Text)`
   font-size: 1.5rem;
   font-family: "NanumSquareNeoOTF-Bd", NanumSquareNeoOTF-Bd, sans-serif;
 `;
+
