@@ -8,15 +8,10 @@ import Image from "next/image";
 import WideDay from "./day/WideDay";
 import BasicDay from "./day/BasicDay";
 import LongDay from "./day/LongDay";
-import {useAuthContext} from "../../store/contexts/components/hooks";
-import {setGetCurrCalendarUserInfo} from "../../api/hooks/useGetCurrCalendarUserInfo";
+import { useAuthContext } from "../../store/contexts/components/hooks";
+import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
 
-const Calendar = ({
-                      ismycalendar,
-                      loggedId,
-                      nickName,
-                      currCode
-                  }) => {
+const Calendar = ({ ismycalendar, loggedId, nickName, currCode }) => {
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25,
@@ -25,27 +20,32 @@ const Calendar = ({
   // 현재 날짜 - ex) 20221129
   const date = new Date();
   let today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
-  if(process.env.NODE_ENV === "development") today = `20231225`;
+  if (process.env.NODE_ENV === "development") today = `20231225`;
   const today_day = date.getDate();
-  const loggedUserData = useAuthContext().storeUserData;
+  const { storeUserData } = useAuthContext();
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [notYetModalShow, setNotYeModalShow] = useState(false);
   const [selectedday, setSelectedDay] = useState(date.getDate());
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
-  const [friendName, setFriendsData] = useState('친구');
+  const [friendName, setFriendsData] = useState("친구");
 
   const handleShow = (d) => {
     setSelectedDay(d);
-    let selDate :string = `202312${d}`;
-    console.log("==투뎅",today);
-    console.log("==selDate",selDate);
+
+    if (storeUserData.todayPresentCount < 3) {
+      alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
+      return;
+    }
+
+    let selDate: string = `202312${d}`;
+    console.log("==투뎅", today);
+    console.log("==selDate", selDate);
     if (ismycalendar) {
       // 열기 시도한 날이 오늘보다 앞의 날
-        if (Number(selDate) <= Number(today)) {
+      if (Number(selDate) <= Number(today)) {
         setCanOpenCalendar(true);
         setPresentModalShow(true);
-        }
-      else {
+      } else {
         setCanOpenCalendar(false);
         setNotYeModalShow(true);
       }
@@ -53,19 +53,19 @@ const Calendar = ({
       setPresentModalShow(true);
     } else {
       // alert("서비스가 종료되어 친구에게 쪽지를 보낼 수 없어요😞 12월 한달간 이용해 주셔서 감사합니다 🎁");
-      if (Number(selDate)< Number(today)){
+      if (Number(selDate) < Number(today)) {
         alert("과거로는 선물을 보낼 수 없어요 ⌛");
-      }else
-      setPresentModalShow(true);
+      } else setPresentModalShow(true);
     }
   };
 
   useEffect(() => {
-      let selectedDayToCompare: string = "202312" + selectedday;
-      if(process.env.NODE_ENV === "development") selectedDayToCompare = "202312" + selectedday;
-        // Number(selectedday) < 10
-        //     ? "202312" + selectedday
-        //     : "202312" + selectedday;
+    let selectedDayToCompare: string = "202312" + selectedday;
+    if (process.env.NODE_ENV === "development")
+      selectedDayToCompare = "202312" + selectedday;
+    // Number(selectedday) < 10
+    //     ? "202312" + selectedday
+    //     : "202312" + selectedday;
     if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
     } else {
@@ -79,18 +79,18 @@ const Calendar = ({
 
   const RenderMyCalendar = () => {
     const [receivePresentList, setReceivePresentList] = useState<any>([]);
-    const nickName : string = "나";
+    const nickName: string = "나";
 
     useEffect(() => {
       //지금 로그인한 loggedId(memeberId) 구하기 -> 상위 index 컴포넌트에서 받아옴
       const getRecivedPresentList = async () => {
         if (loggedId !== undefined && loggedId !== null) {
-          try{
-              const res = await setGetNumberOfReceivedPresents(loggedId);
-              setReceivePresentList(await res.data.data);
-            console.log("=====>ㅅ선물",res.data.data);
-          }catch (e){
-            console.log("===>선물을 찾지 못했습니다.",e);
+          try {
+            const res = await setGetNumberOfReceivedPresents(loggedId);
+            setReceivePresentList(await res.data.data);
+            console.log("=====>ㅅ선물", res.data.data);
+          } catch (e) {
+            console.log("===>선물을 찾지 못했습니다.", e);
           }
         }
       };
@@ -99,7 +99,7 @@ const Calendar = ({
 
     return (
       <TitleContainer>
-        <CalendarForm nickName={nickName}/>
+        <CalendarForm nickName={nickName} />
       </TitleContainer>
     );
   };
@@ -118,80 +118,117 @@ const Calendar = ({
     }, []);
     return (
       <TitleContainer>
-          <CalendarForm nickName={friendName}/>
+        <CalendarForm nickName={friendName} />
       </TitleContainer>
     );
   };
 
   interface CalendarFormProps {
-      nickName: string;
+    nickName: string;
   }
-  const CalendarForm  = (props: CalendarFormProps) => {
-      const {nickName} = props;
-      const dayRow_1 = [1,2,3,4];
-      const dayRow_2 = [5,6,7,8,9];
-      const dayRow_3 = [10,11,12,13];
-      const dayRow_4 = [14,15,16,17];
-      const dayRow_5 = [18,19,22,23,24];
-      const dayRow_6 = [20,21,25];
-      return(
-          <>
-            {/*TODO: 캘린더 받은 개수 뿌려주는거 각 day 컴포넌트들 안에 넣어줘야 할지도! day 있으니까*/}
-            {/*{days.map((day, idx) => (*/}
-            {/*  <div key={day.toString()}>*/}
-            {/*    <NumberOfReceivedPresents*/}
-            {/*      day={day}*/}
-            {/*      receivedList={receivePresentList}*/}
-            {/*    />*/}
-            {/*  </div>*/}
-            {/*))}*/}
-              <Title>{nickName}의 캘린더</Title>
-              <BackGround src={`/asset_ver2/image/layout/back_house.png`} width={`450`} height={`1000`} alt={"배경"}/>
-              <Table>
-                  <tbody>
-                  <tr>
-                      {dayRow_1.map((day,idx)=>{
-                          if(day===1) return <WideDay day={day} key={day} handleShow={handleShow}/>
-                          else return <BasicDay day={day} key={day} handleShow={handleShow}/>
-                      })}
-                  </tr>
-                  <tr>
-                      {dayRow_2.map((day,idx)=>{
-                          if(day===8) return <LongDay day={day} key={day} handleShow={handleShow}/>
-                          else return <BasicDay day={day} key={day} handleShow={handleShow}/>
-                      })}
-                  </tr>
-                  <tr>
-                      {dayRow_3.map((day,idx)=><BasicDay day={day} key={day} handleShow={handleShow}/>)}
-                  </tr>
-                  <tr>
-                      {dayRow_4.map((day,idx)=>{
-                          if(day===14) return <WideDay day={day} key={day} handleShow={handleShow}/>
-                          else return <BasicDay day={day} key={day} handleShow={handleShow}/>
-                      })}
-                  </tr>
-                  <tr>
-                      {dayRow_5.map((day,idx)=>{
-                          if(day===22) return <LongDay day={day} key={day} handleShow={handleShow}/>
-                  else return <BasicDay day={day} key={day} handleShow={handleShow}/>
+  const CalendarForm = (props: CalendarFormProps) => {
+    const { nickName } = props;
+    const dayRow_1 = [1, 2, 3, 4];
+    const dayRow_2 = [5, 6, 7, 8, 9];
+    const dayRow_3 = [10, 11, 12, 13];
+    const dayRow_4 = [14, 15, 16, 17];
+    const dayRow_5 = [18, 19, 22, 23, 24];
+    const dayRow_6 = [20, 21, 25];
+    return (
+      <>
+        {/*TODO: 캘린더 받은 개수 뿌려주는거 각 day 컴포넌트들 안에 넣어줘야 할지도! day 있으니까*/}
+        {/*{days.map((day, idx) => (*/}
+        {/*  <div key={day.toString()}>*/}
+        {/*    <NumberOfReceivedPresents*/}
+        {/*      day={day}*/}
+        {/*      receivedList={receivePresentList}*/}
+        {/*    />*/}
+        {/*  </div>*/}
+        {/*))}*/}
+        <Title>{nickName}의 캘린더</Title>
+        <BackGround
+          src={`/asset_ver2/image/layout/back_house.png`}
+          width={`450`}
+          height={`1000`}
+          alt={"배경"}
+        />
+        <Table>
+          <tbody>
+            <tr>
+              {dayRow_1.map((day, idx) => {
+                if (day === 1)
+                  return (
+                    <WideDay day={day} key={day} handleShow={handleShow} />
+                  );
+                else
+                  return (
+                    <BasicDay day={day} key={day} handleShow={handleShow} />
+                  );
               })}
-          </tr>
-          <tr>
-              {dayRow_6.map((day,idx)=>{
-                  if(day===25) return <WideDay day={day} key={day} handleShow={handleShow}/>
-                  else return <BasicDay day={day} key={day} handleShow={handleShow}/>
+            </tr>
+            <tr>
+              {dayRow_2.map((day, idx) => {
+                if (day === 8)
+                  return (
+                    <LongDay day={day} key={day} handleShow={handleShow} />
+                  );
+                else
+                  return (
+                    <BasicDay day={day} key={day} handleShow={handleShow} />
+                  );
               })}
-          </tr>
+            </tr>
+            <tr>
+              {dayRow_3.map((day, idx) => (
+                <BasicDay day={day} key={day} handleShow={handleShow} />
+              ))}
+            </tr>
+            <tr>
+              {dayRow_4.map((day, idx) => {
+                if (day === 14)
+                  return (
+                    <WideDay day={day} key={day} handleShow={handleShow} />
+                  );
+                else
+                  return (
+                    <BasicDay day={day} key={day} handleShow={handleShow} />
+                  );
+              })}
+            </tr>
+            <tr>
+              {dayRow_5.map((day, idx) => {
+                if (day === 22)
+                  return (
+                    <LongDay day={day} key={day} handleShow={handleShow} />
+                  );
+                else
+                  return (
+                    <BasicDay day={day} key={day} handleShow={handleShow} />
+                  );
+              })}
+            </tr>
+            <tr>
+              {dayRow_6.map((day, idx) => {
+                if (day === 25)
+                  return (
+                    <WideDay day={day} key={day} handleShow={handleShow} />
+                  );
+                else
+                  return (
+                    <BasicDay day={day} key={day} handleShow={handleShow} />
+                  );
+              })}
+            </tr>
           </tbody>
-      </Table>
-          </>
-  )
-  }
+        </Table>
+      </>
+    );
+  };
 
   return (
     <>
       <CalendarWrapper>
-        {ismycalendar ? <RenderMyCalendar /> : <RenderFriendsCalendar/>}
+        {ismycalendar ? <RenderMyCalendar /> : <RenderFriendsCalendar />}
       </CalendarWrapper>
       <PresentModal
         // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달
@@ -215,7 +252,12 @@ const Calendar = ({
 const DenyAccess = () => {
   return (
     <LoadingContainer>
-      <Image src="/assets/image/character/face_crycry.png" width="222" height={"222"} alt={"우는사진"}/>
+      <Image
+        src="/assets/image/character/face_crycry.png"
+        width="222"
+        height={"222"}
+        alt={"우는사진"}
+      />
       <LoadingHeader>&quot;날짜가...지나지않아써...!&quot;</LoadingHeader>
       <p>
         (해당 날짜가 되어야 선물을 열어볼 수 있습니다. 조금만 기다려주세요!)
@@ -225,9 +267,6 @@ const DenyAccess = () => {
 };
 
 export default Calendar;
-
-
-
 
 const CalendarWrapper = styled.div`
   border-radius: 10px;
@@ -277,16 +316,16 @@ const Table = styled.table`
 `;
 const TitleContainer = styled.div`
   position: relative;
-  top:5vh;
+  top: 5vh;
   text-align: center;
   @media (max-height: 700px) {
     top: -3vh;
   }
   @media (max-height: 700px) {
     top: 0;
-  }  
+  }
   @media (max-width: 300px) {
-  top: 7vh;
+    top: 7vh;
   }
 `;
 const Title = styled.h1`
@@ -302,7 +341,7 @@ const Title = styled.h1`
   @media (max-width: 400px) {
     font-size: 20px;
     width: 200px;
-   }
+  }
 `;
 const BackGround = styled(Image)`
   width: 480px;
