@@ -11,18 +11,34 @@ import {
   getServerMyBoard,
 } from "../api/hooks/useTownData";
 import { notices } from "../components/town/notices";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ToggleButton from "../components/common/toggle";
 
-const Town = ({ myContents, allContents, popularContents }) => {
+const Town = ({ myContents, _, popularContents }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMyContent, setIsMyContent] = useState(false);
+  const [allContents, setAllContents] = useState([]);
   const handleClickClose = () => {
     setIsOpen((prev) => !prev);
   };
   const handleToggle = () => {
     setIsMyContent((prev) => !prev);
   };
+
+  const test = async () => {
+    try {
+      const res = await getBoard(0);
+      setAllContents(res);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    test();
+  }, []);
+
+  console.log(allContents);
 
   return (
     <>
