@@ -3,26 +3,29 @@ import {
   GreenCloseButton,
   CustomHeader,
   CustomFooter,
-  CustomDescriptionBody, Flex,
+  CustomDescriptionBody,
 } from "../../styles/styledComponentModule";
 import Image from "next/image";
 import {useAuthContext} from "../../store/contexts/components/hooks";
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import {setLoggedMemberInfo} from "../../api/hooks/useGetMember";
+import {useAtom} from "jotai";
+import {ismycalendarAtom} from "../../store/globalState";
 
 const ProfileModal = (props) => {
   // info modal
   const [previewImage, setPreviewImg] = useState<File|string>("");
   const [uploadImg, setUploadImg] = useState<File>();
+  const [ismycalendar] = useAtom(ismycalendarAtom);
+
   const userData = useAuthContext();
-  let profileImg = userData?.storeUserData.profileImageURL;
   const userName = userData?.storeUserData.nickname;
   const inputRef = useRef< HTMLInputElement| null>(null);
 
   useEffect(() => {
-    setPreviewImg(profileImg);
-  }, [profileImg]);
+    setPreviewImg(props.profileImg);
+  }, [props.profileImg]);
 
     const onUploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       if (!e.target.files) return;
@@ -39,7 +42,7 @@ const ProfileModal = (props) => {
         // 파일을 읽기 시작
         reader.readAsDataURL(selectedFile);
       } else {
-        setPreviewImg(ProfileImg);
+        setPreviewImg(props.profileImg);
         alert('이미지 파일을 선택하세요.');
       }
       console.log(e.target.files[0].name);
@@ -85,7 +88,7 @@ const ProfileModal = (props) => {
       centered
     >
       <CustomHeader>
-        <CloseBtn onClick={props.onHide} />
+        <CloseBtn onClick={props.onHide}/>
       </CustomHeader>
       <CustomDescriptionBody>
         <ProfileImg
@@ -95,32 +98,40 @@ const ProfileModal = (props) => {
           height={250}
         />
         <DecoImg src={'/asset_ver2/image/layout/header/profile_deco.png'} width={36} height={20} alt={"장식"}/>
-        <FileInput type="file" accept="image/*" ref={inputRef} onChange={onUploadImage} />
-        <UploadImg src={'/asset_ver2/image/layout/header/profile_mod.png'}
-                   width={50}
-                   height={50}
-                   alt={'수정하기'}
-                   onClick={onUploadImageButtonClick}/>
+        {ismycalendar?
+          <>
+            <FileInput type="file" accept="image/*" ref={inputRef} onChange={onUploadImage} />
+            <UploadImg src={'/asset_ver2/image/layout/header/profile_mod.png'}
+                       width={50}
+                       height={50}
+                       alt={'수정하기'}
+                       onClick={onUploadImageButtonClick}/>
+          </>: null}
       </CustomDescriptionBody>
-      <NameText>{userName}</NameText>
-      <Text>주고 받은 편지 : {100}개</Text>
-      {/*TODO:만약 내 프로필버튼이면 버튼 보이고 아니면 안보임으로 바꿔두기*/}
-      {profileImg === previewImage ? null: <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>}
+      {ismycalendar?
+        <>
+          <NameText>{userName}</NameText>
+          <Text>주고 받은 편지 : {100}개</Text>
+        </>:
+        <NameText>{props.currUserData?.nickname}</NameText>}
+      {props.profileImg === previewImage ? null: <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>}
       <CustomFooter />
     </Modal>
   );
 };
 export default ProfileModal;
 
+
 const ProfileImg = styled(Image)`
   margin: 10px;
-  width: 35%;
-  height: auto;
-  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 500%;
 `;
 
 const CloseBtn = styled(GreenCloseButton)`
-  margin-top: 1rem;
+  margin-top: 0rem;
 `;
 const DecoImg = styled(Image)`
   position: absolute;
@@ -132,9 +143,10 @@ const DecoImg = styled(Image)`
 `;
 const UploadImg = styled(Image)`
   position: absolute;
-  right: 32%;
+  transform: translateX(+50%);
+  right: 40%;
   bottom: 0.5rem;
-  width: 10%;
+  width: 40px;
   height: auto;
 `;
 

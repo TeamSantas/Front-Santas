@@ -12,6 +12,7 @@ const Header = () => {
   const [, setIsOpen] = useAtom(sidebarOpenAtom);
   const [ismycalendar, setIsmycalendar] = useAtom(ismycalendarAtom);
   const [profileImg, setProfileImg] = useState("");
+  const [currUserData, setCurrUserData] = useState(null);
 
   useEffect(() => {
     let myProfileImg = userData?.storeUserData.profileImageURL;
@@ -32,9 +33,11 @@ const Header = () => {
     const currInvitationLink = handleInvitationCode();
     const res = await setGetCurrCalendarUserInfo(currInvitationLink);
     setProfileImg(res.data.data.profileImageURL);
+    setCurrUserData(res.data.data);
   }
-
-  if(!ismycalendar) getCurrUserImg();
+  useEffect(() => {
+    if(!ismycalendar) getCurrUserImg();
+  }, [ismycalendar]);
 
   const handleClickSetting = () => {
     setIsOpen(true);
@@ -53,7 +56,10 @@ const Header = () => {
         src="/asset_ver2/image/layout/header/setting.svg"
         onClick={handleClickSetting}
       />
-      <ProfileModal show={isImgModalOpen} onHide={handleCloseModal} />
+      <ProfileModal show={isImgModalOpen}
+                    onHide={handleCloseModal}
+                    profileImg={profileImg}
+                    currUserData={currUserData}/>
     </Wrapper>
   );
 };
