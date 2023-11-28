@@ -36,12 +36,12 @@ const PresentModal = (props) => {
       <BlueBackground ismycalendar={props.ismycalendar}>
         <CustomHeader>
           <Modal.Title id="contained-modal-title-vcenter">
-            {props.ismycalendar?
+            {props.ismycalendar ? (
               <ModalTitle>
                 12월 {props.selectedday}일<br />
                 <ModalSubTitle>받은 편지함</ModalSubTitle>
-              </ModalTitle> : null
-            }
+              </ModalTitle>
+            ) : null}
             <GreenCloseButton
               onClick={props.onHide}
               ismycalendar={props.ismycalendar}
@@ -70,4 +70,11 @@ const BlueBackground = styled.div`
 
 const CustomBody = styled(Modal.Body)`
   border: none;
+  height: 40vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* Explorer */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome */
+  }
 `;
