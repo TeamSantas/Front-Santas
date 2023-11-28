@@ -98,15 +98,18 @@ ul {
   border-radius: 5px;
   cursor: pointer;
 }
-
+.addButtonSM {
+  background-image: url(/asset_ver2/image/btn/add_imageBtn.png);
+}
 .imageContainer {
   margin-left: 5px;
 }
 
 #present_img {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
+  object-fit: cover;
   background-color: yellow;
 }
 #file {
@@ -116,4 +119,18 @@ ul {
 .swiper-pagination-bullet,
 .swiper-pagination-bullet-active {
   background-color: white !important;
+}
+.modal-content {
+  border-radius: 20px !important;
+}
+
+.modal-header {
+  display: block !important;
+  border: none !important;
+  align-items: center;
+}
+
+.modal-title {
+  font-family: "NanumSquareNeoOTF-Hv" !important;
+  color: #4d4d4d !important;
 }

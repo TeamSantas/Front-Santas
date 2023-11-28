@@ -4,15 +4,17 @@ import KakaoAdFit from "../advertisement/KakaoAdFit";
 
 /**
  * 카카오 애드핏이 하단에 고정된 Modal
- * 반드시 props에 adFitId값을 포함해야함
+ * 애드핏을 넣으려면 props에 adFitId값을 포함해야함
  */
 const AdFitModal = (props) => {
   return (
-    <Modal {...props}>
+    <Modal {...props} size="m">
       {props.children}
-      <AdWrapper>
-        <KakaoAdFit id={props.adFitId} />
-      </AdWrapper>
+      {props.adFitId && (
+        <AdWrapper>
+          <KakaoAdFit id={props.adFitId} />
+        </AdWrapper>
+      )}
     </Modal>
   );
 };

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import {useAuthContext} from "../../../store/contexts/components/hooks";
-import {useEffect, useState} from "react";
-import {setLoggedMemberInfo} from "../../../api/hooks/useGetMember";
+import { useAuthContext } from "../../../store/contexts/components/hooks";
+import { useEffect, useState } from "react";
+import { setLoggedMemberInfo } from "../../../api/hooks/useGetMember";
 import Image from "next/image";
 import ProfileModal from "../../index/ProfileModal";
 import { useAtom } from "jotai";
@@ -16,7 +16,7 @@ const Header = () => {
   const handleClickSetting = () => {
     setIsOpen(true);
   };
-    // setLoggedMemberInfo
+  // setLoggedMemberInfo
   //프로필이미지
   const handleProfileClick = () => setIsImgModalOpen(true);
   const handleCloseModal = () => setIsImgModalOpen(false);
@@ -30,10 +30,7 @@ const Header = () => {
         src="/asset_ver2/image/layout/header/setting.svg"
         onClick={handleClickSetting}
       />
-        <ProfileModal
-            show={isImgModalOpen}
-            onHide={handleCloseModal}
-        />
+      <ProfileModal show={isImgModalOpen} onHide={handleCloseModal} />
     </Wrapper>
   );
 };
@@ -54,6 +51,7 @@ const SettingImg = styled.img`
   width: 48px;
   height: 48px;
   z-index: 10;
+  cursor: pointer;
 `;
 
 const Profile = styled.img`

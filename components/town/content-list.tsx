@@ -19,8 +19,11 @@ const TownContentList = ({
   const initialContent = isMyContent ? myContents : allContents;
 
   // 광고 붙인 컨텐츠
-  // 인기 글에 0번 광고 붙임
-  const popularContentsWithAd = [...popularContents, dummyBoardForAds(0)];
+  // 인기 글에 0번 광고 붙임 (인기 글이 있을 때만)
+  const popularContentsWithAd =
+    popularContents.length > 0
+      ? [...popularContents, dummyBoardForAds(0)]
+      : [...popularContents];
   // 일반 글에 1~15번 광고 붙임
   const allContentsWithAd = getContentsWithAd(allContents);
   const MyContentsWithAd = getContentsWithAd(myContents);
