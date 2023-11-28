@@ -33,7 +33,7 @@ export interface MemberData {
   };
 }
 export interface MemberRawData {
- member: MemberData;
+  member: MemberData;
 }
 export interface NewMemberData {
   id: number;
@@ -71,17 +71,15 @@ export const defaultMemberData = {
 
 // Friends types ------------------------------------
 export interface FriendsData {
-  id: number;
-  nickname: string;
-  profileImageURL: string;
-  email: string;
+  memberId: number;
+  friendId: number;
   invitationLink: string;
-  setting: {
-    id: number;
-    isAlert: boolean;
-    bgm: boolean;
-    fcmtokens: string;
-  };
+  uuid: string;
+  profileImgUrl: string;
+  name: string;
+  allowedMsg: boolean;
+  isFavorite: boolean;
+  isPicked: boolean;
 }
 
 // Present types ------------------------------------
