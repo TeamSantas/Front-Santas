@@ -56,8 +56,8 @@ const GreenDeleteButton = styled(GreenCloseButton)`
   background-size: contain;
   position: relative;
   z-index: 10;
-  margin-top: -100px;
-  margin-left: 73px;
+  margin-top: -90px;
+  margin-left: 67px;
   width: 1.5rem;
   cursor: pointer;
 `;
@@ -317,14 +317,12 @@ const SendPresents = ({ onHide, selectedday }) => {
           :
           <ThumbnailContainer>
             <label id="present_img" htmlFor="file" onChange={handleAddImages}>
-              <div className="addButton addButtonSM">
               <input
                 id="file"
                 type="file"
                 accept="image/png, image/jpeg, image/jpg, image/heic"
                 multiple
               />
-              </div>
             </label>
           </ThumbnailContainer>
         }
@@ -348,7 +346,7 @@ const SendPresents = ({ onHide, selectedday }) => {
             onClick={handleCheckAnonymous}
             disabled={!isLogged}
             checked={!isLogged || isAnonymous}
-          />
+          />지
           {isAnonymous || !isLogged ? (
             <input
               className="inputNickname"
@@ -384,5 +382,5 @@ const SubmitFlex = styled(Flex)`
   justify-content: space-between;
 `;
 const ThumbnailContainer = styled.div`
-  width: 80vw;
+  width: 80px;
 `;
