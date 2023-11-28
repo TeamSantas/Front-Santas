@@ -166,7 +166,7 @@ const FriendsList = () => {
           <FriendCard key={friend.friendId + idx}>
             <RenderFriendCardContents
               profileImgUrl={friend.profileImgUrl}
-              name={friend.nickname}
+              name={friend.name}
               invitationLink={friend.invitationLink}
               isFavorite={friend.isFavorite}
             />

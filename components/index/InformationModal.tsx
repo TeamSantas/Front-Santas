@@ -2,6 +2,7 @@ import { Modal } from "react-bootstrap";
 import {
   GreenCloseButton,
   CustomHeader,
+  CustomBody,
   CustomFooter,
   CustomDescriptionBody,
 } from "../../styles/styledComponentModule";
@@ -21,7 +22,7 @@ const InformationModal = (props) => {
 
 -------------
 🔗 버튼으로 내 링크를 복사해 친구에게 보내보세요! 
-      친구들이 내 캘린더에 찾아와 선물을 줄거예요.
+      친구들이 내 캘린더에 찾아와 선물을 줄거에요.
 -------------`;
   return (
     <AdFitModal

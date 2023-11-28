@@ -89,7 +89,7 @@ const Home = (props: dataProps) => {
   }, [props]);
 
   // invitation page에서 넘어온건지 확인
-  const [ismycalendar, setIsmycalendar] = useAtom(ismycalendarAtom);
+  const [ismycalendar, setIsmycalendar] = useState(true);
   const handleCalendarOwner = () => {
     if (Object.keys(props).length < 1 || !props.data) {
       setIsmycalendar(true);

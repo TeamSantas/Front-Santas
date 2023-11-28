@@ -6,6 +6,22 @@ import Image from "next/image";
 import { useAuthContext } from "../../store/contexts/components/hooks";
 import { TabFlex } from "../tab/ReceivedPresentList";
 
+const PresentContainer = styled(TabFlex)`
+  height: 40vh;
+  overflow-y: scroll;
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* Internet Explorer, Edge */
+  &::-ms-overflow-style {
+    display: none;
+  }
+
+  /* Chrome, Safari */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 const LoadingContainer = styled.div`
   height: 40vh;
   text-align: center;
@@ -35,7 +51,7 @@ const PresentCardList = ({ selectedday }) => {
     <>
       {/* TODO: loading 아닐 때도 조건에 추가*/}
       {receivedPresentList.length > 0 ? (
-        <TabFlex>
+        <PresentContainer>
           {receivedPresentList.map((present) => (
             <Card
               key={present.id}
@@ -48,7 +64,7 @@ const PresentCardList = ({ selectedday }) => {
               isRead={present.isRead}
             />
           ))}
-        </TabFlex>
+        </PresentContainer>
       ) : (
         <LoadingContainer>
           <div style={{ maxWidth: "18rem", margin: "0 auto" }}>

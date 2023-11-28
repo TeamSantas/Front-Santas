@@ -27,8 +27,8 @@ const ProfileModal = (props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    setPreviewImg(props.profileImg);
-  }, [props.profileImg]);
+    setPreviewImg(profileImg);
+  }, [profileImg]);
 
   const onUploadImage = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +75,7 @@ const ProfileModal = (props) => {
         console.log(key);
       }
       const res = await setLoggedMemberInfo(formData);
-      console.log("업로드 성공:", res.data.status);
+      console.log("업로드 성공:", res);
 
       // 업로드 성공 후에 서버에서 새로운 프로필 이미지 URL을 받아와서 state 업데이트 등의 추가 작업을 수행할 수 있습니다.
       // 예시: setPreviewImg(res.newProfileImageUrl);
@@ -145,9 +145,8 @@ export default ProfileModal;
 
 const ProfileImg = styled(Image)`
   margin: 10px;
-  width: 10rem;
-  height: 10rem;
-  object-fit: cover;
+  width: 35%;
+  height: auto;
   border-radius: 50%;
 `;
 
@@ -161,10 +160,9 @@ const DecoImg = styled(Image)`
 `;
 const UploadImg = styled(Image)`
   position: absolute;
-  transform: translateX(+50%);
-  right: 30%;
+  right: 32%;
   bottom: 0.5rem;
-  width: 40px;
+  width: 10%;
   height: auto;
 `;
 

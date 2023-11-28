@@ -17,5 +17,5 @@ export const sidebarOpenAtom = atom(false);
 export const sidebarBgmAtom = atom(true);
 export const sidebarNotificationAtom = atom(false);
 
-//ismycalendar
+// ismycalendar
 export const ismycalendarAtom = atom(true);
