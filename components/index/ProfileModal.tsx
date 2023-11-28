@@ -26,7 +26,7 @@ const ProfileModal = (props) => {
 
     const onUploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       if (!e.target.files) return;
-      const selectedFile = e.target.files?.[0];
+      const selectedFile = e.target.files[0];
       setUploadImg(selectedFile);
       // 선택된 파일이 이미지인지 확인
       if (selectedFile && selectedFile.type.startsWith('image/')) {
@@ -61,7 +61,7 @@ const ProfileModal = (props) => {
         const formData = new FormData();
         formData.append("nickname",userName);
         formData.append("statusMessage","none");
-        formData.append('imageFile', previewImage);
+        formData.append('profileImage', uploadImg);
 
         // @ts-ignore
         for (let key of formData.keys()) {
