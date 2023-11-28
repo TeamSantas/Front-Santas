@@ -1,25 +1,33 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { setGetDayPresents } from "../../api/hooks/useGetDayPresents";
-import { Flex } from "../../styles/styledComponentModule";
 import Card from "./Card";
 import Image from "next/image";
-import {useAuthContext} from "../../store/contexts/components/hooks";
+import { useAuthContext } from "../../store/contexts/components/hooks";
+import { TabFlex } from "../tab/ReceivedPresentList";
 
-const TabFlex = styled(Flex)`
-  flex-direction: row;
-  flex-wrap: wrap;
+const PresentContainer = styled(TabFlex)`
+  height: 40vh;
+  overflow-y: scroll;
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* Internet Explorer, Edge */
+  &::-ms-overflow-style {
+    display: none;
+  }
+
+  /* Chrome, Safari */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
-
 const LoadingContainer = styled.div`
-  height: 400px;
-  max-height: 50rem;
+  height: 40vh;
   text-align: center;
-`;
-const LoadingHeader = styled.h2`
-  margin: 0;
-  padding: 0;
-  text-align: center;
+  @media (max-width: 380px){
+    height: 50vh;
+  }
 `;
 
 const PresentCardList = ({ selectedday }) => {
@@ -28,40 +36,11 @@ const PresentCardList = ({ selectedday }) => {
   const [receivedPresentList, setReceivedPresentList] = useState([]);
   const userData = useAuthContext();
 
-  //TODO: 목데이터로 날짜별 선물 임시로 채우기
-  const mockData = [
-    {
-      "id": 0,
-      "senderId": 0,
-      "receiverName": "string",
-      "nickname": "string",
-      "isPublic": true,
-      "imageURL": "assets/image/face.svg",
-      "title": "string",
-      "contents": "string",
-      "receivedDate": "2023-12-25",
-      "isRead": true
-    },
-    {
-      "id": 0,
-      "senderId": 0,
-      "receiverName": "string",
-      "nickname": "string",
-      "isPublic": true,
-      "imageURL": "assets/image/face.svg",
-      "title": "string",
-      "contents": "string",
-      "receivedDate": "2023-12-25",
-      "isRead": true
-    }
-  ];
-
   const initReceivedPresentList = async () => {
     const receiverId = userData.storeUserData.id;
     //TODO: 특정날짜에 받은 선물(작동잘됨. 작업 후 주석풀기)
     const res = await setGetDayPresents(receiverId, receivedDay);
-    // setReceivedPresentList(res.content);
-    setReceivedPresentList(mockData);
+    setReceivedPresentList(res.content);
   };
 
   useEffect(() => {
@@ -70,8 +49,9 @@ const PresentCardList = ({ selectedday }) => {
 
   return (
     <>
+      {/* TODO: loading 아닐 때도 조건에 추가*/}
       {receivedPresentList.length > 0 ? (
-        <TabFlex>
+        <PresentContainer>
           {receivedPresentList.map((present) => (
             <Card
               key={present.id}
@@ -84,7 +64,7 @@ const PresentCardList = ({ selectedday }) => {
               isRead={present.isRead}
             />
           ))}
-        </TabFlex>
+        </PresentContainer>
       ) : (
         <LoadingContainer>
           <div style={{ maxWidth: "18rem", margin: "0 auto" }}>
@@ -93,11 +73,12 @@ const PresentCardList = ({ selectedday }) => {
               width="222"
               height="222"
               style={{ display: "block", margin: "0 auto", marginTop: "20px" }}
-             alt="우는사진"/>
-            <LoadingHeader>&quot;받은선물이...없써...!&quot;</LoadingHeader>
+              alt="우는사진"
+            />
             <p>
-              (아직 받은 선물이 없어요, 내 캘린더 링크를 공유해 친구에게 선물을
-              받아보는건 어떨까요?)
+              아직 받은 선물이 없어요. 🥲
+              <br />
+              <br />내 캘린더 링크를 공유해 친구에게 선물을 받아보는건 어떨까요?
             </p>
           </div>
         </LoadingContainer>
