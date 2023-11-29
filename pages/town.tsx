@@ -11,7 +11,7 @@ import {
   getServerMyBoard,
 } from "../api/hooks/useTownData";
 import { notices } from "../components/town/notices";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ToggleButton from "../components/common/toggle";
 
 const Town = ({ myContents, allContents, popularContents }) => {

@@ -24,7 +24,14 @@ export default function OtherCalendarPage({ invitationCode, userData }) {
     }
     setProfileUser(userData);
     setIsMyCalendar(false);
-  }, []);
+  }, [
+    invitationCode,
+    router,
+    setIsMyCalendar,
+    setProfileUser,
+    storeUserData.invitationLink,
+    userData,
+  ]);
 
   return (
     <div id="home">
