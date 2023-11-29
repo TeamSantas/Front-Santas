@@ -16,6 +16,7 @@ import { useAtom } from "jotai";
 import {isMyCalendarAtom, loginUserDataAtom} from "../../store/globalState";
 import { MemberData } from "../../util/type";
 import {setGetExchangedPresentCount} from "../../api/hooks/mypagePresents/useGetUserReceivedPresentsList";
+import Head from 'next/head';
 
 interface IProfileModal {
   show;
@@ -104,61 +105,76 @@ const ProfileModal = ({
   };
 
   return (
-    <AdFitModal
-      show={show}
-      onHide={onHide}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      adFitId={profileModalAdID}
-    >
-      <CustomHeader>
-        <GreenCloseButton onClick={onHide} />
-      </CustomHeader>
-      <CustomDescriptionBody>
-        <ProfileImg
-          src={previewImage || "/asset_ver2/image/common/default-profile.png"}
-          alt="Profile"
-          width={250}
-          height={250}
-        />
-        <DecoImg
-          src={"/asset_ver2/image/layout/header/profile_deco.png"}
-          width={36}
-          height={20}
-          alt={"장식"}
-        />
-        {isMyCalendar ? (
-          <>
-            <FileInput
-              type="file"
-              accept="image/*"
-              ref={inputRef}
-              onChange={onUploadImage}
+    <>
+      <Head>
+        <script>
+          {`
+            document.addEventListener("DOMContentLoaded", function() {
+              const images = document.querySelectorAll("img[src^='https://merry-christmas.site']");
+              images.forEach(function(img) {
+                img.src = img.src.replace('https://merry-christmas.site', '');
+              });
+            });
+          `}
+        </script>
+      </Head>
+        <AdFitModal
+          show={show}
+          onHide={onHide}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          adFitId={profileModalAdID}
+        >
+          <CustomHeader>
+            <GreenCloseButton onClick={onHide} />
+          </CustomHeader>
+          <CustomDescriptionBody>
+            <ProfileImg
+              src={previewImage || "/asset_ver2/image/common/default-profile.png"}
+              alt="Profile"
+              width={250}
+              height={250}
             />
-            <UploadImg
-              src={"/asset_ver2/image/layout/header/profile_mod.png"}
-              width={50}
-              height={50}
-              alt={"수정하기"}
-              onClick={onUploadImageButtonClick}
+            <DecoImg
+              src={"/asset_ver2/image/layout/header/profile_deco.png"}
+              width={36}
+              height={20}
+              alt={"장식"}
             />
-          </>
-        ) : null}
-      </CustomDescriptionBody>
-      {isMyCalendar ? (
-        <>
-          <NameText>{userName}</NameText>
-          <Text>주고 받은 편지 : {myPresentCnt}개</Text>
-        </>
-      ) : (
-        <NameText>{currUserData?.nickname}</NameText>
-      )}
-      {profileImg === previewImage ? null : (
-        <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>
-      )}
-      <CustomFooter />
-    </AdFitModal>
+            {isMyCalendar ? (
+              <>
+                <FileInput
+                  type="file"
+                  accept="image/*"
+                  ref={inputRef}
+                  onChange={onUploadImage}
+                />
+                <UploadImg
+                  src={"/asset_ver2/image/layout/header/profile_mod.png"}
+                  width={50}
+                  height={50}
+                  alt={"수정하기"}
+                  onClick={onUploadImageButtonClick}
+                />
+              </>
+            ) : null}
+          </CustomDescriptionBody>
+          {isMyCalendar ? (
+            <>
+              <NameText>{userName}</NameText>
+              <Text>주고 받은 편지 : {myPresentCnt}개</Text>
+            </>
+          ) : (
+            <NameText>{currUserData?.nickname}</NameText>
+          )}
+          {profileImg === previewImage ? null : (
+            <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>
+          )}
+          <CustomFooter />
+        </AdFitModal>
+    </>
+
   );
 };
 export default ProfileModal;
