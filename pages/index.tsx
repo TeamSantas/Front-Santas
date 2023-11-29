@@ -1,22 +1,20 @@
 import styled from "styled-components";
 import { MainContainer, Flex } from "../styles/styledComponentModule";
-import { MemberData } from "../util/type";
 import { Modals } from "../components/modals/modals";
 import MainLayout from "../components/layout/new/MainLayout";
 import MyCalendar from "../components/index/MyCalendar";
-import { getServerLoggedMember } from "../api/hooks/useMember";
-import { setCookie } from "../businesslogics/cookie";
 import { useAtom } from "jotai";
-import { isMyCalendarAtom } from "../store/globalState";
+import {
+  isMyCalendarAtom,
+  loginUserDataAtom,
+  todayPresentCountAtom,
+} from "../store/globalState";
 import { useEffect } from "react";
 
-interface IHome {
-  userData: MemberData; // [invitation_code].tsx 에서 넘어온 코드
-  todayPresentCount: number;
-}
-
-const Home = ({ userData, todayPresentCount }: IHome) => {
+const Home = () => {
   const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
+  const [storeUserData] = useAtom(loginUserDataAtom);
+  const [todayPresentCount] = useAtom(todayPresentCountAtom);
 
   useEffect(() => {
     setIsMyCalendar(true);
@@ -29,7 +27,7 @@ const Home = ({ userData, todayPresentCount }: IHome) => {
         <MainContainer>
           <br />
           <MyCalendar
-            userData={userData}
+            userData={storeUserData}
             todayPresentCount={todayPresentCount}
           />
         </MainContainer>
@@ -49,30 +47,15 @@ export async function getServerSideProps(context) {
   if (!token) {
     return {
       props: {
+        // 친구 코드 접근도 아니고,
+        // 로그인한 유저도 아니라면 로그인으로 이동
         redirect: { destination: "/login" },
       },
     };
   }
-
-  try {
-    const res = await getServerLoggedMember(token);
-    if (res.status === 200) {
-      const userData = res.data.data.member;
-      const todayPresentCount = res.data.data.todayPresentCount;
-      setCookie("invitationLink", userData.invitationLink, context);
-      return {
-        props: {
-          userData,
-          todayPresentCount,
-        },
-      };
-    }
-  } catch (e) {
-    console.log(e);
-    return {
-      props: {},
-    };
-  }
+  return {
+    props: {},
+  };
 }
 
 const MainFlex = styled(Flex)`
