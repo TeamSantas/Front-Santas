@@ -120,7 +120,7 @@ const GoCalendar = styled(Image)`
   cursor: pointer;
 `;
 
-const CircularImage = styled(Image)`
+const CircularImage = styled.img`
   border-radius: 100%;
 `;
 

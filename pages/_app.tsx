@@ -10,7 +10,11 @@ import AuthProvider from "../store/contexts/components/auth-provider";
 import { measurePageView } from "../lib/gtag";
 import ReactHowler from "react-howler";
 import { useAtom } from "jotai";
-import { sidebarBgmAtom } from "../store/globalState";
+import {
+  loginUserDataAtom,
+  sidebarBgmAtom,
+  sidebarNotificationAtom,
+} from "../store/globalState";
 
 declare global {
   interface Window {
