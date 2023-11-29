@@ -13,7 +13,6 @@ import { useEffect } from "react";
 
 const Home = () => {
   const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
-  const [storeUserData] = useAtom(loginUserDataAtom);
   const [todayPresentCount] = useAtom(todayPresentCountAtom);
 
   useEffect(() => {
@@ -26,10 +25,7 @@ const Home = () => {
         <Modals />
         <MainContainer>
           <br />
-          <MyCalendar
-            userData={storeUserData}
-            todayPresentCount={todayPresentCount}
-          />
+          <MyCalendar todayPresentCount={todayPresentCount} />
         </MainContainer>
       </MainFlex>
     </div>
@@ -44,14 +40,12 @@ Home.getLayout = (page) => {
 
 export async function getServerSideProps(context) {
   const token = context.req.cookies["token"];
+  // 친구 코드 접근도 아니고,
+  // 로그인한 유저도 아니라면 로그인으로 이동
+
   if (!token) {
-    return {
-      props: {
-        // 친구 코드 접근도 아니고,
-        // 로그인한 유저도 아니라면 로그인으로 이동
-        redirect: { destination: "/login" },
-      },
-    };
+    context.res.writeHead(302, { Location: "/login" });
+    context.res.end();
   }
   return {
     props: {},

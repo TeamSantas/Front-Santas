@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import CustomModal from "../common/CustomModal";
 import Image from "next/image";
 import CalendarDays from "./calendar-form";
-import { MemberData } from "../../util/type";
 
 interface IMyCalendar {
-  userData: MemberData;
   todayPresentCount: number;
 }
 
-const MyCalendar = ({ userData, todayPresentCount }: IMyCalendar) => {
+const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   // 현재 날짜 - ex) 20221129
   const date = new Date();
   // TODO:12월 오픈떄 주석으로 바꿔야 함
