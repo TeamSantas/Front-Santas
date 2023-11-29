@@ -122,8 +122,6 @@ const ProfileModal = ({
             <ProfileImg
               src={previewImage || "/asset_ver2/image/common/default-profile.png"}
               alt="Profile"
-              width={250}
-              height={250}
             />
             <DecoImg
               src={"/asset_ver2/image/layout/header/profile_deco.png"}
@@ -166,7 +164,7 @@ const ProfileModal = ({
 };
 export default ProfileModal;
 
-const ProfileImg = styled(Image)`
+const ProfileImg = styled.img`
   margin: 10px;
   width: 10rem;
   height: 10rem;

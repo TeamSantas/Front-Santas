@@ -41,6 +41,7 @@ const Header = () => {
       <Profile
         src={profileImg || "/asset_ver2/image/common/default-profile.png"}
         onClick={handleProfileClick}
+        alt="Profile"
       />
       <SettingImg
         src="/asset_ver2/image/layout/header/setting.svg"
