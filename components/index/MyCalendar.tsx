@@ -64,7 +64,6 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
       <CalendarWrapper>
         <CalendarDays name={"나"} handleShow={handleShow} />
       </CalendarWrapper>
-      {canOpenCalendar ? (
         <PresentModal
           // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달
           show={presentModalShow}
@@ -72,7 +71,6 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
           selectedDay={selectedDay}
           isMyCalendar={true}
         />
-      ) : (
         <CustomModal
           // 선택한 캘린더 날짜를 보여주지 못할 때 보여주는 모달
           show={notYetModalShow}
@@ -81,7 +79,6 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
           body={<DenyAccess />}
           //TODO: adfit 아이디 추가
         />
-      )}
     </>
   );
 };

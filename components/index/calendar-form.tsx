@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { Table } from "react-bootstrap";
 import BasicDay from "./day/BasicDay";
 import LongDay from "./day/LongDay";
 import WideDay from "./day/WideDay";
@@ -175,7 +174,31 @@ const TitleContainer = styled.div`
     top: 7vh;
   }
 `;
-
+const Table = styled.table`
+  width: 380px;
+  position: fixed;
+  bottom: 165px;
+  z-index: -1;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  @media (max-width: 600px) {
+    bottom: 135px;
+    width: 315px;
+  }
+  @media (max-width: 380px) {
+    bottom: 125px;
+    width: 270px;
+  }
+  @media (max-width: 300px) {
+    bottom: 120px;
+    width: 220px;
+  }
+  @media (min-width: 1000px) {
+    bottom: 120px;
+    width: 280px;
+  }
+`;
 const Title = styled.h1`
   font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
   width: 260px;
