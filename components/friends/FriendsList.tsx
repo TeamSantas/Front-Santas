@@ -1,33 +1,19 @@
 import styled from "styled-components";
-import { setGetFriend } from "../../api/hooks/useGetFriend";
 import { Flex } from "../../styles/styledComponentModule";
-import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { modalStateAtom } from "../../store/globalState";
 import { FriendsData } from "../../util/type";
 
-const FriendsList = () => {
+interface IFriendsList {
+  friendsData: FriendsData[];
+  isLoading: boolean;
+}
+
+const FriendsList = ({ friendsData, isLoading }: IFriendsList) => {
   const router = useRouter();
-  const [friendsData, setFriendsData] = useState<FriendsData[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [, setShowModal] = useAtom(modalStateAtom);
-
-  const getFriendsData = async () => {
-    setIsLoading(true);
-    try {
-      const friendsList = await setGetFriend();
-      setFriendsData(friendsList);
-    } catch (e) {
-      console.log(e);
-    }
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getFriendsData();
-  }, []);
 
   const RenderFriendCardContents = ({
     profileImgUrl,

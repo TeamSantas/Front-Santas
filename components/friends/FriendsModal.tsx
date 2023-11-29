@@ -13,6 +13,7 @@ import FriendsList from "./FriendsList";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
 import AdFitModal from "../advertisement/adFitModal";
 import { friendsModalAdID } from "../advertisement/ad-ids";
+import { FriendsData } from "../../util/type";
 
 const CenteredModalFooter = styled.div`
   width: 90%;
@@ -21,21 +22,22 @@ const CenteredModalFooter = styled.div`
 `;
 
 const FriendsModal = (props) => {
-  const [friendsData, setFriendsData] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [friendsData, setFriendsData] = useState<FriendsData[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getFriendsData = async () => {
     setIsLoading(true);
     try {
-      await setGetFriend().then((res) => {
-        setFriendsData(res.data.data);
-      });
-    } catch (e) {}
+      const friendsList = await setGetFriend();
+      setFriendsData(friendsList);
+    } catch (e) {
+      console.log(e);
+    }
     setIsLoading(false);
   };
 
   useEffect(() => {
-    // getFriendsData();
+    getFriendsData();
   }, []);
 
   return (
@@ -57,7 +59,7 @@ const FriendsModal = (props) => {
         </Modal.Title>
       </CustomHeader>
       <CustomBody>
-        <FriendsList />
+        <FriendsList friendsData={friendsData} isLoading={isLoading} />
       </CustomBody>
       <CenteredModalFooter>
         <ButtonFlex>
