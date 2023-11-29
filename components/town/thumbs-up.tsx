@@ -40,7 +40,7 @@ const ThumbsUp = ({ isLiked, boardId, isMyComment, likeCounts }: IThumbsUp) => {
 
   return (
     <Like liked={liked} onClick={handleClickLike}>
-      <Image
+      <img
         alt="thumbs-up"
         src={`/asset_ver2/image/town/thumbs-up${
           liked ? "-red" : "-default"

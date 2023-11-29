@@ -30,24 +30,24 @@ const Footer = () => {
       <Team>TeamSantaz</Team>
       <hr />
       <Flex>
-        {/* <Link
+        <Link
           href={
-            "https://team-santaz.notion.site/72766cecfe9a499f9a216e44d4fe2270?pvs=4"
+            "https://www.notion.so/pitapatdac/36927b1bd2b24a6888c0ee786b4eb865"
           }
           target="_blank"
         >
-          <Image
+          <img
             src={"/assets/image/icons/sns/notion.svg"}
             width={20}
             height={20}
             alt="instagram-logo"
           />
-        </Link> */}
+        </Link>
         <Link
           href={"https://www.instagram.com/teamsantaz_official/"}
           target="_blank"
         >
-          <Image
+          <img
             src={"/assets/image/icons/sns/instagram.svg"}
             width={20}
             height={20}
