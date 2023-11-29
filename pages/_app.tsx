@@ -10,12 +10,7 @@ import AuthProvider from "../store/contexts/components/auth-provider";
 import { measurePageView } from "../lib/gtag";
 import ReactHowler from "react-howler";
 import { useAtom } from "jotai";
-import {
-  loginUserDataAtom,
-  sidebarBgmAtom,
-  sidebarNotificationAtom,
-} from "../store/globalState";
-import { useAuthContext } from "../store/contexts/components/hooks";
+import { sidebarBgmAtom } from "../store/globalState";
 
 declare global {
   interface Window {
@@ -26,24 +21,7 @@ declare global {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const [storeUserData] = useAtom(loginUserDataAtom);
-  const [bgmOn, setBgmOn] = useAtom(sidebarBgmAtom);
-  const [, setNotificationOn] = useAtom(sidebarNotificationAtom);
-
-  const initialSetting = () => {
-    try {
-      // TODO: 이 때 storeUserData 잘 들어오나 체크해봐야 함
-      setBgmOn(storeUserData?.setting.bgm ? true : false);
-      setNotificationOn(storeUserData?.setting.isAlert ? true : false);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    initialSetting();
-  }, []);
-
+  const [bgmOn] = useAtom(sidebarBgmAtom);
   useEffect(() => {
     if (window.dataLayer) {
       window.dataLayer.push({ event: "optimize.activate" });
