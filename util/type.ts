@@ -25,7 +25,6 @@ export interface MemberData {
   profileImageURL: string;
   email: string;
   invitationLink: string;
-  todayPresentCount: number;
   setting: {
     id: number;
     isAlert: boolean;
@@ -35,6 +34,7 @@ export interface MemberData {
 }
 export interface MemberRawData {
   member: MemberData;
+  todayPresentCount: number;
 }
 export interface NewMemberData {
   id: number;
@@ -42,7 +42,6 @@ export interface NewMemberData {
   profileImageURL: string;
   email: string;
   invitationLink: string;
-  todayPresentCount: number;
   setting: {
     id: number;
     isAlert: boolean;
@@ -63,7 +62,6 @@ export const defaultMemberData = {
   profileImageURL: "",
   email: "",
   invitationLink: "",
-  todayPresentCount: -1,
   setting: {
     id: -1,
     isAlert: false,
@@ -79,6 +77,17 @@ export interface FriendsData {
   profileImgUrl: string;
   invitationLink: string;
   isPicked: boolean;
+}
+
+// Pick members types -------------------------------
+export interface PickMemberData {
+  id: number;
+  profileImageURL: string;
+  name: string;
+  invitationLink: string;
+}
+export interface PickMembersData {
+  pickMembers: PickMemberData[];
 }
 
 // Present types ------------------------------------
@@ -104,6 +113,10 @@ export interface presentDetail {
   imageURL: string[];
   receivedDate: string;
   isRead: boolean;
+}
+
+export interface exChangedPresntCount {
+  exchangedPresentCount: number;
 }
 // Friend Search types
 

@@ -1,124 +1,19 @@
 import styled from "styled-components";
-import { NextPage } from "next";
-import { Icons, MainContainer, Flex } from "../styles/styledComponentModule";
-import Calendar from "../components/index/Calendar";
-import { ReactElement, useEffect, useState } from "react";
-import { dataProps } from "../util/type";
-import { useRouter } from "next/router";
-import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
+import { MainContainer, Flex } from "../styles/styledComponentModule";
 import { Modals } from "../components/modals/modals";
 import MainLayout from "../components/layout/new/MainLayout";
-import { useAuthContext } from "../store/contexts/components/hooks";
-import { setCookie } from "cookies-next";
-import { ismycalendarAtom } from "../store/globalState";
+import MyCalendar from "../components/index/MyCalendar";
 import { useAtom } from "jotai";
+import { isMyCalendarAtom, todayPresentCountAtom } from "../store/globalState";
+import { useEffect } from "react";
 
-const Home = (props: dataProps) => {
-  // console.log(props, "인덱스에넘겨주는프롭스");
-  // 만약 프롭스에 유저데이터 있으면 내캘린더 아님;; 없으면 내캘린더 >>>
-  const router = useRouter();
-  const [memberInfo, setMemberInfo] = useState<string>("나");
-  const [loggedMemberId, setLoggedMemberId] = useState(null);
-  const [myName, setMyName] = useState<string>("나");
-  const [isLogged, setIsLogged] = useState(true);
-
-  //엔딩 떄 사용하기
-  const goEndingHandler = () => {
-    window.location.href = "/endingbridge";
-  };
-
-  // 사용자의 정보를 조회해 캘린더의 접근 권한을 설정한다.
-
-  const userData = useAuthContext().storeUserData;
+const Home = () => {
+  const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
+  const [todayPresentCount] = useAtom(todayPresentCountAtom);
 
   useEffect(() => {
-    if (userData) {
-      setMemberInfo(userData.nickname);
-      setLoggedMemberId(userData.id);
-      setCookie("invitationLink", userData.invitationLink);
-    } else {
-      setIsLogged(false);
-    }
-  }, [userData]);
-
-  // TODO:새로만든 훅으로 현재 로그인 된 유저정보 가져오기
-  const getCurrCalUser = async () => {
-    let currInvitationLink = props.link;
-    try {
-      if (currInvitationLink.length < 2) {
-        setMyName(memberInfo);
-      } else {
-        const res = await setGetCurrCalendarUserInfo(currInvitationLink);
-        if (myName != userData.nickname) setMyName(userData.nickname);
-      }
-    } catch (e) {
-      // setMyName(router.asPath.slice(1))
-    }
-  };
-
-  useEffect(() => {
-    getCurrCalUser();
-  }, [props]);
-
-  // endingCookie
-  const today = new Date();
-  // const showEnding = () => {
-  //   const endingCookie = getCookie("ending");
-  //   if (endingCookie === "" && props.data == undefined) {
-  //     router.push("/endingbridge");
-  //   }
-  //   if (endingCookie && getCookie("token") == "" && props.data === undefined) {
-  //     // 엔딩 봤고, 로그인안했고, 친구코드로 접속한게 아니면 login으로
-  //     router.push("/title");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (today.getDate() === 25) {
-  //     showEnding();
-  //   }
-  // }, []);
-
-  useEffect(() => {
-    // getMemberData();
-    handleCalendarOwner();
-  }, [memberInfo]);
-
-  useEffect(() => {
-    // getCurrCalUser();
-  }, [props]);
-
-  // invitation page에서 넘어온건지 확인
-  const [ismycalendar, setIsmycalendar] = useState(true);
-  const handleCalendarOwner = () => {
-    if (Object.keys(props).length < 1 || !props.data) {
-      setIsmycalendar(true);
-    } else {
-      setIsmycalendar(false);
-    }
-  };
-
-  const MyCalendarBtn = () => {
-    ``;
-    return <Modals />;
-  };
-
-  const handleGoMyCal = () => {
-    router.push("/");
-  };
-
-  const FriendsCalendarBtn = () => {
-    return (
-      <>
-        {/*TODO: 내 캘린더로 이동하기/친구 캘린더 가기에 필요한 함수들*/}
-        {isLogged === true ? null : (
-          <CalendarYellowBtn onClick={() => router.push("/title")}>
-            내 캘린더도 만들기✨
-          </CalendarYellowBtn>
-        )}
-      </>
-    );
-  };
+    setIsMyCalendar(true);
+  }, [setIsMyCalendar]);
 
   return (
     <div id="home">
@@ -126,15 +21,7 @@ const Home = (props: dataProps) => {
         <Modals />
         <MainContainer>
           <br />
-          {/* 실제 invitation Link 로 보내기 */}
-          {/*TODO: 여기서 시작하기! 여기가 친구 or 내 캘린더로 보내는 지점이야*/}
-          <Calendar
-            ismycalendar={ismycalendar}
-            loggedId={loggedMemberId}
-            nickName={props.data}
-            currCode={props.link}
-          />
-          {ismycalendar ? <MyCalendarBtn /> : <FriendsCalendarBtn />}
+          <MyCalendar todayPresentCount={todayPresentCount} />
         </MainContainer>
       </MainFlex>
     </div>
@@ -147,24 +34,20 @@ Home.getLayout = (page) => {
   return <MainLayout>{page}</MainLayout>;
 };
 
-const CalendarYellowBtn = styled(Icons)`
-  width: 35rem;
-  height: 72px;
-  font-size: 30px;
-  font-weight: bold;
-  margin-top: 5px;
-  margin-bottom: 48px;
-  background: #ac473d;
-  border-radius: 12px;
-  z-index: 5;
-  color: white;
-  @media (max-width: 600px) {
-    width: 90%;
-    margin-top: 45px;
-    height: 62px;
-    font-size: 24px;
+export async function getServerSideProps(context) {
+  const token = context.req.cookies["token"];
+  // 친구 코드 접근도 아니고,
+  // 로그인한 유저도 아니라면 로그인으로 이동
+
+  if (!token) {
+    context.res.writeHead(302, { Location: "/login" });
+    context.res.end();
   }
-`;
+  return {
+    props: {},
+  };
+}
+
 const MainFlex = styled(Flex)`
   margin-top: -15px;
 `;

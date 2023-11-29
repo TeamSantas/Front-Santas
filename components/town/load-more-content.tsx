@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BoardData } from "../../util/type";
 import { useInView } from "react-intersection-observer";
 import { LoadingDots } from "../layout/new/loading-dots";
@@ -9,11 +9,13 @@ import styled from "styled-components";
 const LoadMore = ({ callMyContent, initialContent }) => {
   const [contents, setContents] = useState<BoardData[]>([]);
   const [contentsLoaded, setContentsLoaded] = useState(1);
-  const [endOfContents, setEndOfContents] = useState(false);
+  const [endOfContents, setEndOfContents] = useState(
+    initialContent.length < 12
+  );
   const noInitialContent = initialContent.length === 0;
   const { ref, inView } = useInView();
 
-  const loadMoreContents = async () => {
+  const loadMoreContents = useCallback(async () => {
     const nextContent = contentsLoaded + 1;
     const newContents = callMyContent
       ? (await fetchMyContents(nextContent)) ?? []
@@ -26,13 +28,13 @@ const LoadMore = ({ callMyContent, initialContent }) => {
       ...newContents,
     ]);
     setContentsLoaded(nextContent);
-  };
+  }, [callMyContent, contentsLoaded]);
 
   useEffect(() => {
     if (inView && !endOfContents && !noInitialContent) {
       loadMoreContents();
     }
-  }, [inView]);
+  }, [inView, endOfContents, noInitialContent, loadMoreContents]);
 
   return (
     <>

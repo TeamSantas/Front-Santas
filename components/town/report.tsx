@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { report } from "../../api/hooks/useTownData";
-import { useAuthContext } from "../../store/contexts/components/hooks";
 import { checkMemberAndRedirect } from "../utils/clickWithCheckMember";
 import { ResponseData } from "../../util/type";
+import { useAtom } from "jotai";
+import { loginUserDataAtom } from "../../store/globalState";
 
 interface IReport {
   boardId: number;
@@ -11,7 +12,7 @@ interface IReport {
 }
 
 const Report = ({ boardId, writerId, handleSetBlurredId }: IReport) => {
-  const { storeUserData } = useAuthContext();
+  const [storeUserData] = useAtom(loginUserDataAtom);
   const handleClickReport = async () => {
     if (checkMemberAndRedirect(storeUserData)) return;
 

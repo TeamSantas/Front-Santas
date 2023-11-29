@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { sidebarOpenAtom } from "../../store/globalState";
+import { loginUserDataAtom, sidebarOpenAtom } from "../../store/globalState";
 import { useAtom } from "jotai";
 import Link from "next/link";
 import Logout from "./logout";
-import { useAuthContext } from "../../store/contexts/components/hooks";
 import Login from "./login";
 import NotificationToggle from "./notification";
 import BgmToggle from "./bgm";
 
 const SettingSideBar = () => {
   const [isOpen, setIsOpen] = useAtom(sidebarOpenAtom);
-  const { storeUserData } = useAuthContext();
+  const [storeUserData] = useAtom(loginUserDataAtom);
 
   const handleClickOutside = (e) => {
     if (e.target.id === "backdrop") {

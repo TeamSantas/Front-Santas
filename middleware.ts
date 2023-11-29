@@ -28,20 +28,17 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
   if (oauthRedirect) {
-    const tokenCookie = req.cookies.get("token");
     url.pathname = "/";
     url.searchParams.delete("token"); // parameter masking
 
     // 브라우저 쿠키에 token 세팅
     const response = NextResponse.redirect(url);
-    if (!tokenCookie) {
-      const expirationDate = new Date();
-      expirationDate.setFullYear(expirationDate.getFullYear() + 2); // 2년
-      response.cookies.set("token", newToken, {
-        expires: expirationDate,
-        // 다른 옵션들도 필요한 경우 추가할 수 있습니다.
-      });
-    }
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 2); // 2년
+    response.cookies.set("token", newToken, {
+      expires: expirationDate,
+      // 다른 옵션들도 필요한 경우 추가할 수 있습니다.
+    });
     return response;
   }
 

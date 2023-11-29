@@ -1,9 +1,86 @@
 import styled from "styled-components";
-import { setGetFriend } from "../../api/hooks/useGetFriend";
 import { Flex } from "../../styles/styledComponentModule";
-import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
+import { useAtom } from "jotai";
+import { modalStateAtom } from "../../store/globalState";
+import { FriendsData } from "../../util/type";
+
+interface IFriendsList {
+  friendsData: FriendsData[];
+  isLoading: boolean;
+}
+
+const FriendsList = ({ friendsData, isLoading }: IFriendsList) => {
+  const router = useRouter();
+  const [, setShowModal] = useAtom(modalStateAtom);
+
+  const RenderFriendCardContents = ({
+    profileImgUrl,
+    name,
+    invitationLink,
+  }) => {
+    const goFriendsCalendar = () => {
+      router.push(`/${invitationLink}`);
+      setShowModal({
+        label: "friends",
+        show: false,
+      });
+    };
+
+    return (
+      <>
+        <AlignedFlex>
+          <Img src={profileImgUrl || "/assets/image/character/character.svg"} />
+          <FriendsName>{name}</FriendsName>
+        </AlignedFlex>
+
+        <Flex>
+          <GoFriendsCalendarBtn onClick={goFriendsCalendar}>
+            친구 캘린더로 가기
+          </GoFriendsCalendarBtn>
+        </Flex>
+      </>
+    );
+  };
+
+  return (
+    <Container>
+      {!isLoading && friendsData.length < 1 ? (
+        <LoadingContainer>
+          <img
+            src="/assets/image/character/face_crycry.png"
+            width="200"
+            alt="친구사진"
+          />
+          <LoadingHeader>
+            아직 가입한 친구가 없어요. 🥲
+            <br />
+            링크를 공유해 초대해보세요.
+          </LoadingHeader>
+        </LoadingContainer>
+      ) : null}
+      {isLoading ? (
+        <LoadingContainer>
+          <img src="/assets/image/character/spinner.gif" alt="spinner" />
+          <LoadingHeader>친구들 모으는중</LoadingHeader>
+        </LoadingContainer>
+      ) : (
+        friendsData?.map((friend, idx) => (
+          <FriendCard key={friend.id + idx}>
+            <RenderFriendCardContents
+              profileImgUrl={friend.profileImgUrl}
+              name={friend.nickname}
+              invitationLink={friend.invitationLink}
+            />
+          </FriendCard>
+        ))
+      )}
+    </Container>
+  );
+};
+
+export default FriendsList;
 
 export const AlignedFlex = styled(Flex)`
   align-items: center;
@@ -88,93 +165,3 @@ const Img = styled.img`
   margin-right: 5px;
   border-radius: 50px;
 `;
-
-const FriendsList = () => {
-  const router = useRouter();
-  const [friendsData, setFriendsData] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const getFriendsData = async () => {
-    setIsLoading(true);
-    try {
-      const res = await setGetFriend();
-      if (res.data.data) setFriendsData(res.data.data);
-    } catch (e) {
-      console.log(e);
-    }
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getFriendsData();
-  }, []);
-
-  const RenderFriendCardContents = (props) => {
-    const goFriendsCalendar = () => {
-      if (props && props.invitationLink) {
-        router.push(`/${props.invitationLink}`);
-      } else {
-        console.log("props.invitationLink 없어용");
-      }
-    };
-
-    return (
-      <>
-        <AlignedFlex>
-          <Img
-            src={
-              props.profileImgUrl.includes("http")
-                ? props.profileImgUrl
-                : "/assets/image/character/character.svg"
-            }
-          />
-          <FriendsName>{props.name}</FriendsName>
-        </AlignedFlex>
-
-        <Flex>
-          <GoFriendsCalendarBtn onClick={goFriendsCalendar}>
-            친구 캘린더로 가기
-          </GoFriendsCalendarBtn>
-        </Flex>
-      </>
-    );
-  };
-
-  return (
-    <Container>
-      {!isLoading && friendsData.length < 1 ? (
-        <LoadingContainer>
-          <img
-            src="/assets/image/character/face_crycry.png"
-            width="200"
-            alt="친구사진"
-          />
-          <LoadingHeader>
-            아직 가입한 친구가 없어요. 🥲
-            <br />
-            링크를 공유해 초대해보세요.
-          </LoadingHeader>
-        </LoadingContainer>
-      ) : null}
-      {isLoading ? (
-        <LoadingContainer>
-          <img src="/assets/image/character/spinner.gif" alt="spinner" />
-          <LoadingHeader>친구들 모으는중</LoadingHeader>
-        </LoadingContainer>
-      ) : (
-        friendsData?.map((friend, idx) => (
-          <FriendCard key={friend.friendId + idx}>
-            <RenderFriendCardContents
-              profileImgUrl={friend.profileImgUrl}
-              name={friend.nickname}
-              invitationLink={friend.invitationLink}
-              isFavorite={friend.isFavorite}
-            />
-          </FriendCard>
-        ))
-      )}
-    </Container>
-  );
-};
-
-export default FriendsList;

@@ -2,8 +2,9 @@ import styled from "styled-components";
 import Layout from "../components/layout/new/Layout";
 import { Modals } from "../components/modals/modals";
 import HeartTab from "../components/todays-heart/heart-tab";
+import { getTodaysQuestion } from "../api/hooks/useHeart";
 
-const TodaysHeart = () => {
+const TodaysHeart = ({ todaysQuestion = "", error = false }) => {
   return (
     <>
       <Modals />
@@ -15,9 +16,9 @@ const TodaysHeart = () => {
         </Text>
         <Card>
           <Question>
-            Q.두근두근 어드밴트 캘린더를
-            <br />
-            함께 하고 싶은 사람이 있나요?
+            {`Q.두근두근 어드밴트 캘린더를\n 함께 하고 싶은 사람이 있나요?`}
+            {/* TODO: 질문 리스트 주입 마치면 주석 해제 */}
+            {/* {error ? "같이 눈오리🐤 만들고 싶은 사람은?" : todaysQuestion} */}
           </Question>
         </Card>
         <HeartTab />
@@ -31,6 +32,23 @@ TodaysHeart.getLayout = (page) => {
 };
 
 export default TodaysHeart;
+
+export async function getServerSideProps() {
+  try {
+    const todaysQuestion = await getTodaysQuestion();
+    return {
+      props: {
+        todaysQuestion,
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -68,6 +86,7 @@ const Question = styled.div`
   font-family: "NanumSquare Neo OTF";
   font-weight: 800;
   word-wrap: break-word;
+  white-space: pre-line;
 `;
 
 const Logo = styled.img`

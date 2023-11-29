@@ -11,48 +11,50 @@ import {
 } from "../../styles/styledComponentModule";
 import { presentDetailModalAdID } from "../advertisement/ad-ids";
 
-const PresentModal = (props) => {
-  const RenderBody = () => {
-    return (
-      <>
-        {props.ismycalendar ? (
-          <>
-            <PresentCardList selectedday={props.selectedday} />
-          </>
-        ) : (
-          // @ts-ignore
-          <SendPresents onHide={props.onHide} selectedday={props.selectedday} />
-        )}
-      </>
-    );
-  };
+interface IPresentModal {
+  show: boolean;
+  onHide: () => void;
+  selectedDay: number;
+  isMyCalendar: boolean;
+}
 
+const PresentModal = ({
+  show,
+  onHide,
+  selectedDay,
+  isMyCalendar,
+}: IPresentModal) => {
   return (
     <AdFitModal
-      {...props}
+      show={show}
+      onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       adFitId={presentDetailModalAdID}
-      theme={props.ismycalendar ? "#f9f9f9" : "dark"}
+      theme={isMyCalendar ? "#f9f9f9" : "dark"}
     >
-      <BlueBackground ismycalendar={props.ismycalendar}>
+      <BlueBackground isMyCalendar={isMyCalendar ? "true" : "false"}>
         <CustomHeader>
           <Modal.Title id="contained-modal-title-vcenter">
-            {props.ismycalendar ? (
+            {isMyCalendar ? (
               <ModalTitle>
-                12월 {props.selectedday}일<br />
+                12월 {selectedDay}일<br />
                 <ModalSubTitle>받은 편지함</ModalSubTitle>
               </ModalTitle>
             ) : null}
-            <GreenCloseButton
-              onClick={props.onHide}
-              ismycalendar={props.ismycalendar}
-            />
+            <GreenCloseButton onClick={onHide} isMyCalendar={isMyCalendar} />
           </Modal.Title>
         </CustomHeader>
-        <CustomBody>
-          <RenderBody />
+        <CustomBody hasMaxHeight={isMyCalendar ? "true" : "false"}>
+          {isMyCalendar ? (
+            <>
+              <PresentCardList selectedday={selectedDay} />
+            </>
+          ) : (
+            // @ts-ignore
+            <SendPresents onHide={onHide} selectedday={selectedDay} />
+          )}
         </CustomBody>
       </BlueBackground>
     </AdFitModal>
@@ -64,8 +66,8 @@ export default PresentModal;
 const BlueBackground = styled.div`
   background-color: #1e344f;
   border-radius: 16px 16px 0 0;
-  ${(props) =>
-    props.ismycalendar &&
+  ${({ isMyCalendar }) =>
+    isMyCalendar === "true" &&
     css`
       background-color: #f9f9f9;
     `}
@@ -73,7 +75,8 @@ const BlueBackground = styled.div`
 
 const CustomBody = styled(Modal.Body)`
   border: none;
-  height: 40vh;
+  height: ${({ isMyCalendar }) =>
+    isMyCalendar === "true" ? "40vh" : "inherit"};
   overflow-y: scroll;
   -ms-overflow-style: none; /* Explorer */
   scrollbar-width: none; /* Firefox */

@@ -7,28 +7,49 @@ import {
   Flex,
 } from "../../styles/styledComponentModule";
 import Image from "next/image";
-import { useAuthContext } from "../../store/contexts/components/hooks";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { setLoggedMemberInfo } from "../../api/hooks/useGetMember";
 import AdFitModal from "../advertisement/adFitModal";
 import { profileModalAdID } from "../advertisement/ad-ids";
 import { useAtom } from "jotai";
-import { ismycalendarAtom } from "../../store/globalState";
+import {isMyCalendarAtom, loginUserDataAtom} from "../../store/globalState";
+import { MemberData } from "../../util/type";
+import {setGetExchangedPresentCount} from "../../api/hooks/mypagePresents/useGetUserReceivedPresentsList";
 
-const ProfileModal = (props) => {
+interface IProfileModal {
+  show;
+  onHide;
+  profileImg;
+  currUserData: MemberData;
+}
+
+const ProfileModal = ({
+  show,
+  onHide,
+  profileImg,
+  currUserData,
+}: IProfileModal) => {
   // info modal
   const [previewImage, setPreviewImg] = useState<File | string>("");
   const [uploadImg, setUploadImg] = useState<File>();
-  const [ismycalendar] = useAtom(ismycalendarAtom);
-  const userData = useAuthContext();
-  let profileImg = userData?.storeUserData.profileImageURL;
-  const userName = userData?.storeUserData.nickname;
+  const [myPresentCnt, setMyPresentCnt] = useState<number>(0);
+  const [isMyCalendar] = useAtom(isMyCalendarAtom);
+  const [storeUserData, setStoreUserData] = useAtom(loginUserDataAtom);
+  const userName = currUserData.nickname;
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
+    const getMyPresentCnt = async () => {
+      const presentCount = await setGetExchangedPresentCount();
+      setMyPresentCnt(presentCount.data.data.exchangedPresentCount);
+    }
+    getMyPresentCnt();
+  }, []);
+
+  useEffect(() => {
     setPreviewImg(profileImg);
-  }, [profileImg]);
+  }, [profileImg, onHide]);
 
   const onUploadImage = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,12 +67,12 @@ const ProfileModal = (props) => {
         // 파일을 읽기 시작
         reader.readAsDataURL(selectedFile);
       } else {
-        setPreviewImg(props.profileImg);
+        setPreviewImg(profileImg);
         alert("이미지 파일을 선택하세요.");
       }
       console.log(e.target.files[0].name);
     },
-    []
+    [profileImg]
   );
 
   const onUploadImageButtonClick = useCallback(() => {
@@ -70,15 +91,13 @@ const ProfileModal = (props) => {
       formData.append("statusMessage", "none");
       formData.append("profileImage", uploadImg);
 
-      // @ts-ignore
-      for (let key of formData.keys()) {
-        console.log(key);
-      }
       const res = await setLoggedMemberInfo(formData);
       console.log("업로드 성공:", res.data.status);
-
-      // 업로드 성공 후에 서버에서 새로운 프로필 이미지 URL을 받아와서 state 업데이트 등의 추가 작업을 수행할 수 있습니다.
-      // 예시: setPreviewImg(res.newProfileImageUrl);
+      
+      //header의 메인페이지 프로필 img도 변경 동기화
+      let newUserData : MemberData = storeUserData;
+      newUserData.profileImageURL = res.data.data.profileImageURL;
+      setStoreUserData(newUserData);
     } catch (error) {
       console.error("업로드 실패:", error);
     }
@@ -86,14 +105,15 @@ const ProfileModal = (props) => {
 
   return (
     <AdFitModal
-      {...props}
+      show={show}
+      onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       adFitId={profileModalAdID}
     >
       <CustomHeader>
-        <GreenCloseButton onClick={props.onHide} />
+        <GreenCloseButton onClick={onHide} />
       </CustomHeader>
       <CustomDescriptionBody>
         <ProfileImg
@@ -108,7 +128,7 @@ const ProfileModal = (props) => {
           height={20}
           alt={"장식"}
         />
-        {ismycalendar ? (
+        {isMyCalendar ? (
           <>
             <FileInput
               type="file"
@@ -126,15 +146,15 @@ const ProfileModal = (props) => {
           </>
         ) : null}
       </CustomDescriptionBody>
-      {ismycalendar ? (
+      {isMyCalendar ? (
         <>
           <NameText>{userName}</NameText>
-          <Text>주고 받은 편지 : {100}개</Text>
+          <Text>주고 받은 편지 : {myPresentCnt}개</Text>
         </>
       ) : (
-        <NameText>{props.currUserData?.nickname}</NameText>
+        <NameText>{currUserData?.nickname}</NameText>
       )}
-      {props.profileImg === previewImage ? null : (
+      {profileImg === previewImage ? null : (
         <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>
       )}
       <CustomFooter />

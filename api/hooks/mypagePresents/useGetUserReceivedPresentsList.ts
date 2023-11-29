@@ -4,3 +4,7 @@ import PresentService from "../../PresentService";
 export async function setGetUserReceivedPresentsList() {
     return await PresentService.getUserReceivedPresentsList();
 }
+
+export async function setGetExchangedPresentCount() {
+    return await PresentService.getExchangedPresentCount();
+}

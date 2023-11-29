@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { postMemberPick } from "../../api/hooks/useHeart";
 import { FriendsData } from "../../util/type";
+import { useAtom } from "jotai";
+import { loginUserDataAtom } from "../../store/globalState";
 
 interface ISentFriendsCard {
   isPicked: boolean;
@@ -12,15 +14,25 @@ interface ISentFriendsCard {
 
 const SentFriendsCard = ({ isPicked, friend }: ISentFriendsCard) => {
   const [picked, setPicked] = useState(isPicked);
+  const [storeUserData] = useAtom(loginUserDataAtom);
 
   const handleClickSendHeart = async (friend) => {
-    setPicked(true);
+    if (picked) {
+      alert("좋아요는 한 사람에게 한 번만 보낼 수 있어요.");
+      return;
+    }
+
     try {
-      const response = await postMemberPick(friend);
-      if (!response) {
-        alert("하트 보내기 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.");
-        setPicked(false);
+      const statusCode = await postMemberPick(friend, storeUserData);
+      if (statusCode === 900) {
+        alert("좋아요는 하루 최대 5번 보낼 수 있어요.");
+        return;
       }
+      if (!statusCode) {
+        alert("하트 보내기 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.");
+        return;
+      }
+      setPicked(true);
     } catch (e) {
       console.error(e);
     }

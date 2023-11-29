@@ -1,5 +1,5 @@
 import { PresentInstance, PresentAuthInstance } from "./APIInstance";
-import { postPresentData, ResponseData } from "../util/type";
+import {exChangedPresntCount, postPresentData, ResponseData} from "../util/type";
 
 class PresentService {
   //금일 총 선물개수
@@ -11,6 +11,11 @@ class PresentService {
   getNumberOfReceivedPresents = (config) => {
     return PresentInstance.get<ResponseData<any>>(`/api/present/count`, config);
   };
+  
+  //주고 받은 선물 수 조회하기(로그인 한 사람 기준)
+  getExchangedPresentCount = () => {
+    return PresentInstance.get<ResponseData<exChangedPresntCount>>(`/api/present/exchangedcount`);
+  }
 
   // 특정 날짜 선물 리스트 조회 API
   getDayPresentsList = (config) => {
