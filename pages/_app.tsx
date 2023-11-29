@@ -10,7 +10,11 @@ import AuthProvider from "../store/contexts/components/auth-provider";
 import { measurePageView } from "../lib/gtag";
 import ReactHowler from "react-howler";
 import { useAtom } from "jotai";
-import { sidebarBgmAtom, sidebarNotificationAtom } from "../store/globalState";
+import {
+  loginUserDataAtom,
+  sidebarBgmAtom,
+  sidebarNotificationAtom,
+} from "../store/globalState";
 import { useAuthContext } from "../store/contexts/components/hooks";
 
 declare global {
@@ -22,12 +26,13 @@ declare global {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const { storeUserData } = useAuthContext();
+  const [storeUserData] = useAtom(loginUserDataAtom);
   const [bgmOn, setBgmOn] = useAtom(sidebarBgmAtom);
   const [, setNotificationOn] = useAtom(sidebarNotificationAtom);
 
   const initialSetting = () => {
     try {
+      // TODO: 이 때 storeUserData 잘 들어오나 체크해봐야 함
       setBgmOn(storeUserData?.setting.bgm ? true : false);
       setNotificationOn(storeUserData?.setting.isAlert ? true : false);
     } catch (e) {

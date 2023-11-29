@@ -1,50 +1,38 @@
 import styled from "styled-components";
-import { useAuthContext } from "../../../store/contexts/components/hooks";
 import { useEffect, useState } from "react";
-import { setLoggedMemberInfo } from "../../../api/hooks/useGetMember";
-import Image from "next/image";
 import ProfileModal from "../../index/ProfileModal";
 import { useAtom } from "jotai";
-import { ismycalendarAtom, sidebarOpenAtom } from "../../../store/globalState";
-import { setGetCurrCalendarUserInfo } from "../../../api/hooks/useGetCurrCalendarUserInfo";
+import {
+  isMyCalendarAtom,
+  loginUserDataAtom,
+  profileUserDataAtom,
+  sidebarOpenAtom,
+} from "../../../store/globalState";
 
 const Header = () => {
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
-  const userData = useAuthContext();
+  const [storeUserData] = useAtom(loginUserDataAtom);
+  const [profileUserData] = useAtom(profileUserDataAtom);
   const [, setIsOpen] = useAtom(sidebarOpenAtom);
-  const [ismycalendar, setIsmycalendar] = useAtom(ismycalendarAtom);
+  const [isMyCalendar] = useAtom(isMyCalendarAtom);
   const [profileImg, setProfileImg] = useState("");
-  const [currUserData, setCurrUserData] = useState(null);
 
   useEffect(() => {
-    let myProfileImg = userData?.storeUserData.profileImageURL;
-    setProfileImg(myProfileImg);
-  }, [userData]);
-
-  const handleInvitationCode = () => {
-    if (typeof window !== "undefined") {
-      const path = window.location.pathname;
-      if (path.length == 37) {
-        const tmp = window.location.pathname.split("/");
-        return tmp[1].slice(0, 36);
-      }
+    if (isMyCalendar) {
+      setProfileImg(storeUserData.profileImageURL);
+      return;
     }
-  };
-
-  const getCurrUserImg = async () => {
-    const currInvitationLink = handleInvitationCode();
-    const res = await setGetCurrCalendarUserInfo(currInvitationLink);
-    setProfileImg(res.data.data.profileImgUrl);
-    setCurrUserData(res.data.data);
-  };
-  useEffect(() => {
-    if (!ismycalendar) getCurrUserImg();
-  }, [ismycalendar]);
+    setProfileImg(profileUserData.profileImageURL);
+  }, [
+    profileUserData.profileImageURL,
+    isMyCalendar,
+    storeUserData.profileImageURL,
+  ]);
 
   const handleClickSetting = () => {
     setIsOpen(true);
   };
-  // setLoggedMemberInfo
+
   //프로필이미지
   const handleProfileClick = () => setIsImgModalOpen(true);
   const handleCloseModal = () => setIsImgModalOpen(false);
@@ -62,7 +50,7 @@ const Header = () => {
         show={isImgModalOpen}
         onHide={handleCloseModal}
         profileImg={profileImg}
-        currUserData={currUserData}
+        currUserData={isMyCalendar ? storeUserData : profileUserData}
       />
     </Wrapper>
   );

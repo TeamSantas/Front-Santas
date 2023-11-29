@@ -1,4 +1,6 @@
+import { defaultMemberData } from "./../util/type";
 import { atom } from "jotai";
+import { MemberData } from "../util/type";
 
 // gnb
 export const gnbActivePathAtom = atom("home");
@@ -9,13 +11,18 @@ export const modalStateAtom = atom({
   show: false,
 });
 
-// friends
-export const friendsAtom = atom([]);
+// 친구 목록
+export const friendsListAtom = atom([]);
 
 // sidebar
 export const sidebarOpenAtom = atom(false);
 export const sidebarBgmAtom = atom(true);
 export const sidebarNotificationAtom = atom(false);
 
+// 나 / 친구 프로필 용
+export const profileUserDataAtom = atom({} as MemberData); // 친구 프로필 용
+export const loginUserDataAtom = atom(defaultMemberData as MemberData);
+
 // ismycalendar
-export const ismycalendarAtom = atom(true);
+export const isMyCalendarAtom = atom(true);
+export const todayPresentCountAtom = atom(0);

@@ -1,26 +1,19 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import CopyModal from "../index/CopyModal";
-import { useAuthContext } from "../../store/contexts/components/hooks";
+import { loginUserDataAtom } from "../../store/globalState";
+import { useAtom } from "jotai";
 
 export const ShareLink = () => {
   const [copyModal, setCopyModal] = useState<boolean>(false);
-  const [myLink, setMyLink] = useState<string>("");
+  const [storeUserData] = useAtom(loginUserDataAtom);
 
   const clickCopyIconHandler = () => setCopyModal(true);
   const handleCopyModalClose = () => setCopyModal(false);
 
-  //현재 로그인 된 유저의 초대링크 가져오기
-  const userData = useAuthContext();
-  useEffect(() => {
-    const invitationLink = userData.storeUserData.invitationLink;
-    setMyLink(invitationLink);
-  }, [userData]);
-
   const linkCopyHandler = async () => {
-    const copyURL = `https://merry-christmas.site/${myLink}`;
-    console.log(copyURL);
+    const copyURL = `https://merry-christmas.site/${storeUserData.invitationLink}`;
     try {
       await navigator.clipboard.writeText(copyURL);
       setCopyModal(true);
@@ -41,7 +34,7 @@ export const ShareLink = () => {
         onClick={linkCopyHandler}
       />
       <CopyModal
-        link={`https://merry-christmas.site/${myLink}`}
+        link={`https://merry-christmas.site/${storeUserData.invitationLink}`}
         show={copyModal}
         onHide={handleCopyModalClose}
       />
