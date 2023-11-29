@@ -37,6 +37,10 @@ const ProfileModal = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
+    setPreviewImg(profileImg)
+  }, [onHide]);
+
+  useEffect(() => {
     setPreviewImg(profileImg);
   }, [profileImg]);
 
