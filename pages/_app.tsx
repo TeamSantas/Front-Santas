@@ -15,7 +15,6 @@ import {
   sidebarBgmAtom,
   sidebarNotificationAtom,
 } from "../store/globalState";
-import { useAuthContext } from "../store/contexts/components/hooks";
 
 declare global {
   interface Window {
