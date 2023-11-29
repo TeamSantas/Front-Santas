@@ -10,6 +10,18 @@ export async function getLoggedMember() {
     return e;
   }
 }
+
+/**
+ * 로그인한 유저 조회 (서버)
+ */
+export async function getServerLoggedMember(token) {
+  try {
+    const res = await MemberService.getServerLoggedMember(token);
+    return res;
+  } catch (e) {
+    console.log(e);
+  }
+}
 // export async function usePutMemberInfo(
 //     nickname : string,
 //     profileImageURL: string,

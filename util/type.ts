@@ -25,7 +25,6 @@ export interface MemberData {
   profileImageURL: string;
   email: string;
   invitationLink: string;
-  todayPresentCount: number;
   setting: {
     id: number;
     isAlert: boolean;
@@ -35,6 +34,7 @@ export interface MemberData {
 }
 export interface MemberRawData {
   member: MemberData;
+  todayPresentCount: number;
 }
 export interface NewMemberData {
   id: number;
@@ -42,7 +42,6 @@ export interface NewMemberData {
   profileImageURL: string;
   email: string;
   invitationLink: string;
-  todayPresentCount: number;
   setting: {
     id: number;
     isAlert: boolean;
@@ -63,7 +62,6 @@ export const defaultMemberData = {
   profileImageURL: "",
   email: "",
   invitationLink: "",
-  todayPresentCount: -1,
   setting: {
     id: -1,
     isAlert: false,

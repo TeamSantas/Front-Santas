@@ -4,11 +4,12 @@ import Image from "next/image";
 import { BoardData } from "../../util/type";
 import ThumbsUp from "./thumbs-up";
 import Report from "./report";
-import { useAuthContext } from "../../store/contexts/components/hooks";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import KakaoAdFit from "../advertisement/KakaoAdFit";
 import Delete from "./delete";
+import { loginUserDataAtom } from "../../store/globalState";
+import { useAtom } from "jotai";
 
 interface IContentTemplate {
   contents: BoardData[];
@@ -18,7 +19,7 @@ interface IContentTemplate {
 const Contents = ({ contents, isPopular = false }: IContentTemplate) => {
   const [blurredId, setBlurredId] = useState(null);
   const router = useRouter();
-  const { storeUserData } = useAuthContext();
+  const [storeUserData] = useAtom(loginUserDataAtom);
   const isMyContent = (content) => content.writerId === storeUserData.id;
 
   const handleSetBlurredId = (boardId) => setBlurredId(boardId);

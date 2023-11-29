@@ -1,65 +1,69 @@
+import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
-import Home from ".";
-import FriendsService from "../api/FriendsService";
-import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
-import MemberService from "../api/MemberService";
-import { useAuthContext } from "../store/contexts/components/hooks";
+import { useEffect } from "react";
+import { MainContainer, Flex } from "../styles/styledComponentModule";
+import { getServerUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
+import OtherCalendar from "../components/index/OtherCalendar";
+import { Modals } from "../components/modals/modals";
+import { useAtom } from "jotai";
+import {
+  loginUserDataAtom,
+  profileUserDataAtom,
+  isMyCalendarAtom,
+} from "../store/globalState";
 
-export default function OtherCalendar() {
+export default function OtherCalendarPage({ invitationCode, userData }) {
   const router = useRouter();
-  const [code, setCode] = useState("");
-  const [userData, setUserData] = useState({});
+  const [storeUserData] = useAtom(loginUserDataAtom);
+  const [, setProfileUser] = useAtom(profileUserDataAtom);
+  const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
 
-  const currUserData = useAuthContext().storeUserData;
   useEffect(() => {
-    const link = handleInvitationCode();
-    getLinkMember(link);
+    if (storeUserData.invitationLink === invitationCode) {
+      router.push("/");
+    }
+    setProfileUser(userData);
+    setIsMyCalendar(false);
   }, []);
 
-  const isMyCode = async (code: string) => {
-    try {
-      const myLink = currUserData.invitationLink;
-      console.log("---code",code);
-      console.log("----myLink",myLink);
-      if (myLink === code) {
-        alert(
-          "자기 자신은 친구코드로 접근할 수 없습니다! 내 캘린더 페이지로 이동합니다🎅"
-        );
-        router.push("/");
-      }
-    } catch (e) {
-      // console.log(e);
-    }
-  };
-
-  const handleInvitationCode = () => {
-    if (typeof window !== "undefined") {
-      const path = window.location.pathname;
-      if (path.length == 37) {
-        const tmp = window.location.pathname.split("/");
-        setCode(tmp[1].slice(0, 36));
-        return tmp[1].slice(0, 36);
-      }
-    }
-  };
-
-  const getLinkMember = async (code: string) => {
-    // console.log(code, "url에서 받아온 코드");
-    isMyCode(code);
-
-    let res;
-    try {
-      res = await setGetCurrCalendarUserInfo(code);
-    } catch (e) {
-      // console.log(e);
-    }
-    if (res) {
-      setUserData(userData);
-    } else {
-      router.replace("/404");
-    }
-  };
-
-  return <Home data={userData} link={code} />;
+  return (
+    <div id="home">
+      <MainFlex>
+        <Modals />
+        <MainContainer>
+          <br />
+          <OtherCalendar name={userData.nickname} />
+        </MainContainer>
+      </MainFlex>
+    </div>
+  );
 }
+
+export async function getServerSideProps(context) {
+  const token = context.req.cookies["token"];
+  const { invitation_code: invitationCode } = context.params;
+
+  try {
+    const res = await getServerUserInfo(invitationCode, token);
+
+    if (res.status === 200) {
+      return {
+        props: {
+          invitationCode,
+          userData: res.data.data,
+        },
+      };
+    }
+  } catch (e) {
+    console.log(e);
+    return {
+      props: {
+        redirect: { destination: "/404" },
+      },
+    };
+  }
+}
+
+const MainFlex = styled(Flex)`
+  margin-top: -15px;
+`;

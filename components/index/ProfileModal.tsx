@@ -7,23 +7,33 @@ import {
   Flex,
 } from "../../styles/styledComponentModule";
 import Image from "next/image";
-import { useAuthContext } from "../../store/contexts/components/hooks";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { setLoggedMemberInfo } from "../../api/hooks/useGetMember";
 import AdFitModal from "../advertisement/adFitModal";
 import { profileModalAdID } from "../advertisement/ad-ids";
 import { useAtom } from "jotai";
-import { ismycalendarAtom } from "../../store/globalState";
+import { isMyCalendarAtom, loginUserDataAtom } from "../../store/globalState";
+import { MemberData } from "../../util/type";
 
-const ProfileModal = (props) => {
+interface IProfileModal {
+  show;
+  onHide;
+  profileImg;
+  currUserData: MemberData;
+}
+
+const ProfileModal = ({
+  show,
+  onHide,
+  profileImg,
+  currUserData,
+}: IProfileModal) => {
   // info modal
   const [previewImage, setPreviewImg] = useState<File | string>("");
   const [uploadImg, setUploadImg] = useState<File>();
-  const [ismycalendar] = useAtom(ismycalendarAtom);
-  const userData = useAuthContext();
-  let profileImg = userData?.storeUserData.profileImageURL;
-  const userName = userData?.storeUserData.nickname;
+  const [isMyCalendar] = useAtom(isMyCalendarAtom);
+  const userName = currUserData.nickname;
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -46,12 +56,12 @@ const ProfileModal = (props) => {
         // 파일을 읽기 시작
         reader.readAsDataURL(selectedFile);
       } else {
-        setPreviewImg(props.profileImg);
+        setPreviewImg(profileImg);
         alert("이미지 파일을 선택하세요.");
       }
       console.log(e.target.files[0].name);
     },
-    []
+    [profileImg]
   );
 
   const onUploadImageButtonClick = useCallback(() => {
@@ -86,14 +96,15 @@ const ProfileModal = (props) => {
 
   return (
     <AdFitModal
-      {...props}
+      show={show}
+      onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       adFitId={profileModalAdID}
     >
       <CustomHeader>
-        <GreenCloseButton onClick={props.onHide} />
+        <GreenCloseButton onClick={onHide} />
       </CustomHeader>
       <CustomDescriptionBody>
         <ProfileImg
@@ -108,7 +119,7 @@ const ProfileModal = (props) => {
           height={20}
           alt={"장식"}
         />
-        {ismycalendar ? (
+        {isMyCalendar ? (
           <>
             <FileInput
               type="file"
@@ -126,15 +137,15 @@ const ProfileModal = (props) => {
           </>
         ) : null}
       </CustomDescriptionBody>
-      {ismycalendar ? (
+      {isMyCalendar ? (
         <>
           <NameText>{userName}</NameText>
           <Text>주고 받은 편지 : {100}개</Text>
         </>
       ) : (
-        <NameText>{props.currUserData?.nickname}</NameText>
+        <NameText>{currUserData?.nickname}</NameText>
       )}
-      {props.profileImg === previewImage ? null : (
+      {profileImg === previewImage ? null : (
         <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>
       )}
       <CustomFooter />

@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { setGetDayPresents } from "../../api/hooks/useGetDayPresents";
 import Card from "./Card";
 import Image from "next/image";
-import { useAuthContext } from "../../store/contexts/components/hooks";
 import { TabFlex } from "../tab/ReceivedPresentList";
+import { useAtom } from "jotai";
+import { loginUserDataAtom } from "../../store/globalState";
 
 const LoadingContainer = styled.div`
   height: 40vh;
@@ -18,10 +19,10 @@ const PresentCardList = ({ selectedday }) => {
   const receivedDay =
     selectedday < 10 ? `2023-12-0${selectedday}` : `2023-12-${selectedday}`;
   const [receivedPresentList, setReceivedPresentList] = useState([]);
-  const userData = useAuthContext();
+  const [storeUserData] = useAtom(loginUserDataAtom);
 
   const initReceivedPresentList = async () => {
-    const receiverId = userData.storeUserData.id;
+    const receiverId = storeUserData.id;
     //TODO: 특정날짜에 받은 선물(작동잘됨. 작업 후 주석풀기)
     const res = await setGetDayPresents(receiverId, receivedDay);
     setReceivedPresentList(res.content);

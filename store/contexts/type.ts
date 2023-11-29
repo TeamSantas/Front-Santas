@@ -5,5 +5,4 @@ export interface valueType {
   updateUserData: any;
   storeRefreshToken: string;
   updateRefreshToken: any;
-  storeSettingStatus: boolean;
 }

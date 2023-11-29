@@ -2,14 +2,15 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
 import { postBoard } from "../../api/hooks/useTownData";
-import { useAuthContext } from "../../store/contexts/components/hooks";
 import { checkMemberAndRedirect } from "../utils/clickWithCheckMember";
 import { ResponseData } from "../../util/type";
+import { useAtom } from "jotai";
+import { loginUserDataAtom } from "../../store/globalState";
 
 const ContentInput = () => {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [input, setInput] = useState("");
-  const { storeUserData } = useAuthContext();
+  const [storeUserData] = useAtom(loginUserDataAtom);
   const placeHolderOptions = {
     default: "댓글을 입력해 주세요.",
     login: "로그인 후 이용 가능합니다.",
@@ -39,7 +40,6 @@ const ContentInput = () => {
       });
       if (response.status === 200) {
         alert("게시글 작성이 완료되었습니다.");
-        // TODO: 내 댓글 보기로 이동
       } else {
         alert("게시글 작성에 실패했습니다. 잠시 후 다시 시도해 주세요.");
       }
@@ -52,7 +52,7 @@ const ContentInput = () => {
   return (
     <Wrapper>
       <Name>
-        {isAnonymous ? <>익명</> : <>{storeUserData?.nickname ?? "이름"}</>}
+        {isAnonymous ? <>익명</> : <>{storeUserData?.nickname || "이름"}</>}
         <Flex gap="5px">
           <ContentLength>{input.length} / 300</ContentLength>
           <CheckboxLabel>{"익명"}</CheckboxLabel>

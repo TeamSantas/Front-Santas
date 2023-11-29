@@ -2,8 +2,9 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
 import { putBoardLikeAndUnlike } from "../../api/hooks/useTownData";
-import { useAuthContext } from "../../store/contexts/components/hooks";
 import { checkMemberAndRedirect } from "../utils/clickWithCheckMember";
+import { useAtom } from "jotai";
+import { loginUserDataAtom } from "../../store/globalState";
 
 interface IThumbsUp {
   isLiked: boolean;
@@ -13,7 +14,7 @@ interface IThumbsUp {
 }
 
 const ThumbsUp = ({ isLiked, boardId, isMyComment, likeCounts }: IThumbsUp) => {
-  const { storeUserData } = useAuthContext();
+  const [storeUserData] = useAtom(loginUserDataAtom);
   const [liked, setLiked] = useState(isLiked);
   const [newLikeCounts, setNewLikeCounts] = useState(likeCounts);
   const handleLikeCounts = async () => {
