@@ -79,6 +79,17 @@ export interface FriendsData {
   isPicked: boolean;
 }
 
+// Pick members types -------------------------------
+export interface PickMemberData {
+  id: number;
+  profileImageURL: string;
+  name: string;
+  invitationLink: string;
+}
+export interface PickMembersData {
+  pickMembers: PickMemberData[];
+}
+
 // Present types ------------------------------------
 export interface postPresentData {
   receiverId: number;
