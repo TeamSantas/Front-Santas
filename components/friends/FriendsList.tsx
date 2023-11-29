@@ -4,6 +4,8 @@ import { Flex } from "../../styles/styledComponentModule";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
+import { useAtom } from "jotai";
+import { modalStateAtom } from "../../store/globalState";
 
 export const AlignedFlex = styled(Flex)`
   align-items: center;
@@ -93,6 +95,7 @@ const FriendsList = () => {
   const router = useRouter();
   const [friendsData, setFriendsData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setShowModal] = useAtom(modalStateAtom);
 
   const getFriendsData = async () => {
     setIsLoading(true);
@@ -113,6 +116,10 @@ const FriendsList = () => {
     const goFriendsCalendar = () => {
       if (props && props.invitationLink) {
         router.push(`/${props.invitationLink}`);
+        setShowModal({
+          label: "friends",
+          show: false,
+        });
       } else {
         console.log("props.invitationLink 없어용");
       }
