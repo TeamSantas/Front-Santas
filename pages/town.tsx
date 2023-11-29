@@ -75,18 +75,22 @@ Town.getLayout = (page) => {
 
 export async function getServerSideProps(context) {
   const token = context.req.cookies["token"];
-
   try {
     // 최초 게시글 fetch
-    const [myContents, allContents, popularContents] = await Promise.all([
-      getServerMyBoard(0, token),
+    const [allContents, popularContents] = await Promise.all([
       getBoard(0),
       getBoardPopular(),
     ]);
 
+    // 내 게시글은 토큰 있을 때만 요청
+    let myContents = [];
+    if (token) {
+      myContents = await getServerMyBoard(0, token);
+    }
+
     return {
       props: {
-        myContents: myContents || [],
+        myContents: myContents,
         allContents: allContents || [],
         popularContents: popularContents || [],
       },

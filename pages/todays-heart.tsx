@@ -33,7 +33,17 @@ TodaysHeart.getLayout = (page) => {
 
 export default TodaysHeart;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const token = context.req.cookies["token"];
+  // 로그인한 유저가 아니라면 로그인으로 이동
+  if (!token) {
+    context.res.writeHead(302, { Location: "/login" });
+    context.res.end();
+    return {
+      props: {},
+    };
+  }
+
   try {
     const todaysQuestion = await getTodaysQuestion();
     return {
