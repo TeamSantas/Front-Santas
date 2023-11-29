@@ -13,7 +13,7 @@ import { setLoggedMemberInfo } from "../../api/hooks/useGetMember";
 import AdFitModal from "../advertisement/adFitModal";
 import { profileModalAdID } from "../advertisement/ad-ids";
 import { useAtom } from "jotai";
-import {isMyCalendarAtom, loginUserDataAtom, profileUserDataAtom} from "../../store/globalState";
+import {isMyCalendarAtom, loginUserDataAtom} from "../../store/globalState";
 import { MemberData } from "../../util/type";
 import {setGetExchangedPresentCount} from "../../api/hooks/mypagePresents/useGetUserReceivedPresentsList";
 
