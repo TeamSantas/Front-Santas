@@ -6,6 +6,7 @@ import {
 import {
   MemberData,
   MemberRawData,
+  PickMembersData,
   PutMemberData,
   ResponseData,
 } from "../util/type";
@@ -29,6 +30,13 @@ class MemberService {
   //특정 유저정보 조회(익명이 특정 유저 검색)
   getMemberById = (config) =>
     MemberAuthInstance.get<ResponseData<MemberData>>(`/api/member`, config);
+
+  // 나에게 하트를 보낸 친구 목록 API 🔑
+  getPickedMeFriends = () => {
+    return MemberAuthInstance.get<ResponseData<PickMembersData>>(
+      `/api/member/pick`
+    );
+  };
 
   //유저 정보 수정 🔑
   putLoggedMember = (formData: PutMemberData) =>

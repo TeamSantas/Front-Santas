@@ -1,19 +1,18 @@
 import styled from "styled-components";
-import { setGetFriend } from "../../api/hooks/useGetFriend";
 import { Flex } from "../../styles/styledComponentModule";
-import { useEffect, useState } from "react";
 import SentFriendsCard from "./sent-friend-card";
+import { useEffect, useState } from "react";
 import { FriendsData } from "../../util/type";
+import { setGetFriend } from "../../api/hooks/useGetFriend";
 
 const SentFriendsList = () => {
   const [friendsData, setFriendsData] = useState<FriendsData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const getFriendsData = async () => {
     setIsLoading(true);
     try {
-      const res = await setGetFriend();
-      if (res.data.data) setFriendsData(res.data.data);
+      const friendsList = await setGetFriend();
+      setFriendsData(friendsList);
     } catch (e) {
       console.log(e);
     }
@@ -26,7 +25,7 @@ const SentFriendsList = () => {
 
   return (
     <Container>
-      {!isLoading && friendsData.length < 1 ? (
+      {!isLoading && friendsData.length < 1 && (
         <LoadingContainer>
           <img
             src="/assets/image/character/face_crycry.png"
@@ -39,20 +38,22 @@ const SentFriendsList = () => {
             링크를 공유해 초대해보세요.
           </LoadingHeader>
         </LoadingContainer>
-      ) : null}
+      )}
       {isLoading ? (
         <LoadingContainer>
           <img src="/assets/image/character/spinner.gif" alt="spinner" />
           <LoadingHeader>친구들 모으는중</LoadingHeader>
         </LoadingContainer>
       ) : (
-        friendsData?.map((friend, idx) => (
-          <SentFriendsCard
-            key={friend.id + idx}
-            isPicked={friend.isPicked}
-            friend={friend}
-          />
-        ))
+        <>
+          {friendsData?.map((friend, idx) => (
+            <SentFriendsCard
+              key={friend.id + idx}
+              isPicked={friend.isPicked}
+              friend={friend}
+            />
+          ))}
+        </>
       )}
     </Container>
   );
