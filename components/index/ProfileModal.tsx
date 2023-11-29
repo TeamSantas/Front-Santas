@@ -16,6 +16,7 @@ import { useAtom } from "jotai";
 import {isMyCalendarAtom, loginUserDataAtom} from "../../store/globalState";
 import { MemberData } from "../../util/type";
 import {setGetExchangedPresentCount} from "../../api/hooks/mypagePresents/useGetUserReceivedPresentsList";
+import Head from 'next/head';
 
 interface IProfileModal {
   show;
@@ -45,6 +46,7 @@ const ProfileModal = ({
       setMyPresentCnt(presentCount.data.data.exchangedPresentCount);
     }
     getMyPresentCnt();
+    setPreviewImg(storeUserData.profileImageURL);
   }, []);
 
   useEffect(() => {
@@ -98,67 +100,68 @@ const ProfileModal = ({
       let newUserData : MemberData = storeUserData;
       newUserData.profileImageURL = res.data.data.profileImageURL;
       setStoreUserData(newUserData);
+      alert("프로필 이미지가 변경되었습니다.")
     } catch (error) {
       console.error("업로드 실패:", error);
     }
   };
 
   return (
-    <AdFitModal
-      show={show}
-      onHide={onHide}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      adFitId={profileModalAdID}
-    >
-      <CustomHeader>
-        <GreenCloseButton onClick={onHide} />
-      </CustomHeader>
-      <CustomDescriptionBody>
-        <ProfileImg
-          src={previewImage || "/asset_ver2/image/common/default-profile.png"}
-          alt="Profile"
-          width={250}
-          height={250}
-        />
-        <DecoImg
-          src={"/asset_ver2/image/layout/header/profile_deco.png"}
-          width={36}
-          height={20}
-          alt={"장식"}
-        />
-        {isMyCalendar ? (
-          <>
-            <FileInput
-              type="file"
-              accept="image/*"
-              ref={inputRef}
-              onChange={onUploadImage}
+        <AdFitModal
+          show={show}
+          onHide={onHide}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          adFitId={profileModalAdID}
+        >
+          <CustomHeader>
+            <GreenCloseButton onClick={onHide} />
+          </CustomHeader>
+          <CustomDescriptionBody>
+            <ProfileImg
+              src={previewImage || "/asset_ver2/image/common/default-profile.png"}
+              alt="Profile"
+              width={250}
+              height={250}
             />
-            <UploadImg
-              src={"/asset_ver2/image/layout/header/profile_mod.png"}
-              width={50}
-              height={50}
-              alt={"수정하기"}
-              onClick={onUploadImageButtonClick}
+            <DecoImg
+              src={"/asset_ver2/image/layout/header/profile_deco.png"}
+              width={36}
+              height={20}
+              alt={"장식"}
             />
-          </>
-        ) : null}
-      </CustomDescriptionBody>
-      {isMyCalendar ? (
-        <>
-          <NameText>{userName}</NameText>
-          <Text>주고 받은 편지 : {myPresentCnt}개</Text>
-        </>
-      ) : (
-        <NameText>{currUserData?.nickname}</NameText>
-      )}
-      {profileImg === previewImage ? null : (
-        <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>
-      )}
-      <CustomFooter />
-    </AdFitModal>
+            {isMyCalendar ? (
+              <>
+                <FileInput
+                  type="file"
+                  accept="image/*"
+                  ref={inputRef}
+                  onChange={onUploadImage}
+                />
+                <UploadImg
+                  src={"/asset_ver2/image/layout/header/profile_mod.png"}
+                  width={50}
+                  height={50}
+                  alt={"수정하기"}
+                  onClick={onUploadImageButtonClick}
+                />
+              </>
+            ) : null}
+          </CustomDescriptionBody>
+          {isMyCalendar ? (
+            <>
+              <NameText>{userName}</NameText>
+              <Text>주고 받은 편지 : {myPresentCnt}개</Text>
+            </>
+          ) : (
+            <NameText>{currUserData?.nickname}</NameText>
+          )}
+          {profileImg === previewImage ? null : (
+            <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>
+          )}
+          <CustomFooter />
+        </AdFitModal>
   );
 };
 export default ProfileModal;
