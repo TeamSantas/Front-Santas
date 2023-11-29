@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
+import { Modals } from "../components/modals/modals";
 
 const Container = styled(MainContainer)`
   text-align: center;
@@ -12,6 +13,7 @@ const Container = styled(MainContainer)`
 const CustomError = () => {
   return (
     <Container>
+      <Modals />
       <img src="/assets/image/character/face_crycry.png" width="222" />
       <h3>
         <br />
