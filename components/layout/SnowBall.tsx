@@ -1,33 +1,22 @@
-import React, {Component, lazy, Suspense} from 'react';
-import PropTypes from 'prop-types';
-import {Canvas} from "@react-three/fiber";
-import {MainContainer} from "../../styles/styledComponentModule";
+import React, { Component, lazy, Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { MainContainer } from "../../styles/styledComponentModule";
 import styled from "styled-components";
-import Image from "next/image";
+import { Loading } from "./new/loading-cute";
 
 class SnowBall extends Component {
-    render() {
-        return (
-            <SnowballContainer>
-                <Suspense
-                    fallback={
-                        <div>
-                            <Text>로딩 중.....</Text>
-                            <Image
-                                src="/assets/image/character/spinner.gif"
-                                alt="spinner"
-                            />
-                        </div>
-                    }
-                >
-                    <Text>스노우볼을 움직여보세요</Text>
-                    <Canvas>
-                        <ModelComponent />
-                    </Canvas>
-                </Suspense>
-            </SnowballContainer>
-        );
-    }
+  render() {
+    return (
+      <SnowballContainer>
+        <Suspense fallback={<Loading />}>
+          <Text>스노우볼을 움직여보세요</Text>
+          <Canvas>
+            <ModelComponent />
+          </Canvas>
+        </Suspense>
+      </SnowballContainer>
+    );
+  }
 }
 export default SnowBall;
 

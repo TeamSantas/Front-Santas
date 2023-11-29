@@ -5,6 +5,7 @@ import { MainContainer } from "../styles/styledComponentModule";
 import styled from "styled-components";
 import { lazy } from "react";
 import { Modals } from "../components/modals/modals";
+import { Loading } from "../components/layout/new/loading-cute";
 
 const Text = styled.h3`
   margin-top: 20px;
@@ -23,14 +24,7 @@ const Snowball: NextPage = () => {
     <>
       <Modals />
       <SnowballContainer>
-        <Suspense
-          fallback={
-            <div>
-              <Text>로딩 중.....</Text>
-              <img src="/assets/image/character/spinner.gif" alt="spinner" />
-            </div>
-          }
-        >
+        <Suspense fallback={<Loading />}>
           <Text>스노우볼을 움직여보세요</Text>
           <Canvas>
             <ModelComponent />
