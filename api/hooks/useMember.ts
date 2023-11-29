@@ -11,6 +11,17 @@ export async function getLoggedMember() {
   }
 }
 
+export async function getLoggedMemberRaw() {
+  try {
+    const res = await MemberService.getLoggedMember();
+    if (res.status === 200) {
+      return res.data.data;
+    }
+  } catch (e) {
+    return e;
+  }
+}
+
 /**
  * 로그인한 유저 조회 (서버)
  */

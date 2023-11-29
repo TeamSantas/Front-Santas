@@ -4,11 +4,7 @@ import { Modals } from "../components/modals/modals";
 import MainLayout from "../components/layout/new/MainLayout";
 import MyCalendar from "../components/index/MyCalendar";
 import { useAtom } from "jotai";
-import {
-  isMyCalendarAtom,
-  loginUserDataAtom,
-  todayPresentCountAtom,
-} from "../store/globalState";
+import { isMyCalendarAtom, todayPresentCountAtom } from "../store/globalState";
 import { useEffect } from "react";
 
 const Home = () => {
