@@ -63,10 +63,10 @@ export async function getServerSideProps(context) {
     }
   } catch (e) {
     console.log(e);
+    context.res.writeHead(302, { Location: "/404" });
+    context.res.end();
     return {
-      props: {
-        redirect: { destination: "/404" },
-      },
+      props: {},
     };
   }
 }
