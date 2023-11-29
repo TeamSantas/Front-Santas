@@ -103,6 +103,10 @@ export interface presentDetail {
   receivedDate: string;
   isRead: boolean;
 }
+
+export interface exChangedPresntCount {
+  exchangedPresentCount: number;
+}
 // Friend Search types
 
 // Setting types ------------------------------------

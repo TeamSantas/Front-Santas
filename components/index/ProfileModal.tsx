@@ -15,6 +15,7 @@ import { profileModalAdID } from "../advertisement/ad-ids";
 import { useAtom } from "jotai";
 import {isMyCalendarAtom, loginUserDataAtom, profileUserDataAtom} from "../../store/globalState";
 import { MemberData } from "../../util/type";
+import {setGetExchangedPresentCount} from "../../api/hooks/mypagePresents/useGetUserReceivedPresentsList";
 
 interface IProfileModal {
   show;
@@ -32,10 +33,19 @@ const ProfileModal = ({
   // info modal
   const [previewImage, setPreviewImg] = useState<File | string>("");
   const [uploadImg, setUploadImg] = useState<File>();
+  const [myPresentCnt, setMyPresentCnt] = useState<number>(0);
   const [isMyCalendar] = useAtom(isMyCalendarAtom);
   const [storeUserData, setStoreUserData] = useAtom(loginUserDataAtom);
   const userName = currUserData.nickname;
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    const getMyPresentCnt = async () => {
+      const presentCount = await setGetExchangedPresentCount();
+      setMyPresentCnt(presentCount.data.data.exchangedPresentCount);
+    }
+    getMyPresentCnt();
+  }, []);
 
   useEffect(() => {
     setPreviewImg(profileImg);
@@ -139,7 +149,7 @@ const ProfileModal = ({
       {isMyCalendar ? (
         <>
           <NameText>{userName}</NameText>
-          <Text>주고 받은 편지 : {100}개</Text>
+          <Text>주고 받은 편지 : {myPresentCnt}개</Text>
         </>
       ) : (
         <NameText>{currUserData?.nickname}</NameText>
