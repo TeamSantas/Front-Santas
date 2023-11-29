@@ -46,6 +46,7 @@ const ProfileModal = ({
       setMyPresentCnt(presentCount.data.data.exchangedPresentCount);
     }
     getMyPresentCnt();
+    setPreviewImg(storeUserData.profileImageURL);
   }, []);
 
   useEffect(() => {
@@ -99,25 +100,13 @@ const ProfileModal = ({
       let newUserData : MemberData = storeUserData;
       newUserData.profileImageURL = res.data.data.profileImageURL;
       setStoreUserData(newUserData);
+      alert("프로필 이미지가 변경되었습니다.")
     } catch (error) {
       console.error("업로드 실패:", error);
     }
   };
 
   return (
-    <>
-      <Head>
-        <script>
-          {`
-            document.addEventListener("DOMContentLoaded", function() {
-              const images = document.querySelectorAll("img[src^='https://merry-christmas.site']");
-              images.forEach(function(img) {
-                img.src = img.src.replace('https://merry-christmas.site', '');
-              });
-            });
-          `}
-        </script>
-      </Head>
         <AdFitModal
           show={show}
           onHide={onHide}
@@ -173,8 +162,6 @@ const ProfileModal = ({
           )}
           <CustomFooter />
         </AdFitModal>
-    </>
-
   );
 };
 export default ProfileModal;
