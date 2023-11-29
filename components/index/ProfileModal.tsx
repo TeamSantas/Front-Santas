@@ -81,20 +81,13 @@ const ProfileModal = ({
       formData.append("statusMessage", "none");
       formData.append("profileImage", uploadImg);
 
-      // @ts-ignore
-      for (let key of formData.keys()) {
-        console.log(key);
-      }
       const res = await setLoggedMemberInfo(formData);
       console.log("업로드 성공:", res.data.status);
+      
       //header의 메인페이지 프로필 img도 변경 동기화
       let newUserData : MemberData = storeUserData;
       newUserData.profileImageURL = res.data.data.profileImageURL;
-      console.log("++",storeUserData);
       setStoreUserData(newUserData);
-      console.log(newUserData);
-      // 업로드 성공 후에 서버에서 새로운 프로필 이미지 URL을 받아와서 state 업데이트 등의 추가 작업을 수행할 수 있습니다.
-      // 예시: setPreviewImg(res.newProfileImageUrl);
     } catch (error) {
       console.error("업로드 실패:", error);
     }
