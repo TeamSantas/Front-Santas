@@ -57,7 +57,8 @@ const StyledNumberOfReceivedPresents = styled.p`
     margin-left: 3rem;
   }
   @media (min-width: 375px) and (max-width: 600px) {
-    margin-left: 2rem;
+    margin-left: 2rem;width: 20px;
+    height: 20px;
   }
   @media (min-width: 601px) {
     font-size: large;
