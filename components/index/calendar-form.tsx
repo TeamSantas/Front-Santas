@@ -202,6 +202,7 @@ const Table = styled.table`
 const Title = styled.h1`
   font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
   width: 260px;
+  height: auto;
   margin: -10px auto;
   font-size: 30px;
   text-align: center;
