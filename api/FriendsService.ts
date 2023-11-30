@@ -1,4 +1,4 @@
-import { FriendsAuthInstance } from "./APIInstance";
+import { FriendsAuthInstance, FriendsInstance } from "./APIInstance";
 import { FriendsData, MemberData, ResponseData } from "../util/type";
 
 class FriendsService {
@@ -11,9 +11,9 @@ class FriendsService {
     return FriendsAuthInstance.post<ResponseData<FriendsData[]>>(`/api/friend`);
   };
 
-  //링크로 친구 검색하기 🔑
+  //링크로 친구 검색하기
   getFriend = (config) => {
-    return FriendsAuthInstance.get<ResponseData<MemberData>>(
+    return FriendsInstance.get<ResponseData<MemberData>>(
       `/api/friend/search`,
       config
     );

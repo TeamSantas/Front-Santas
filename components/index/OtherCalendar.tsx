@@ -2,6 +2,9 @@ import styled from "styled-components";
 import PresentModal from "../receivedPresents/PresentModal";
 import { useState } from "react";
 import CalendarDays from "./calendar-form";
+import { useAtom } from "jotai";
+import { loginUserDataAtom } from "../../store/globalState";
+import { useRouter } from "next/router";
 
 interface IOtherCalendar {
   name: string;
@@ -18,8 +21,18 @@ const OtherCalendar = ({ name }: IOtherCalendar) => {
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
   const handleClosePresentModal = () => setPresentModalShow(false);
+  const [storeUserData] = useAtom(loginUserDataAtom);
+  const isLoginUser = storeUserData.id !== -1;
+  const router = useRouter();
 
   const handleShow = (selectedDay: number) => {
+    if (!isLoginUser) {
+      const confirmText = `쪽지를 보낼 때에는 로그인이 필요해요.\n로그인하러 갈까요?`;
+      if (confirm(confirmText)) {
+        router.push("/login");
+      }
+      return;
+    }
     setSelectedDay(selectedDay);
 
     let selDate: string = `202312${selectedDay}`;
