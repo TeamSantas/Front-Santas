@@ -2,7 +2,6 @@ import { Modal } from "react-bootstrap";
 import styled from "styled-components";
 
 export const MainContainer = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
