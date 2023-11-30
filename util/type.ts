@@ -128,10 +128,10 @@ export interface putBGMData {
   bgmStatus: boolean;
 }
 
-///
-export interface dataProps {
-  data: object;
-  link: string;
+//날짜별 받은 선물 리스트
+export interface RecivedPresentData{
+  count: number;
+  receivedDate: string;
 }
 
 // Town(Board) types ------------------------------------

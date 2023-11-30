@@ -4,12 +4,35 @@ import { Modals } from "../components/modals/modals";
 import MainLayout from "../components/layout/new/MainLayout";
 import MyCalendar from "../components/index/MyCalendar";
 import { useAtom } from "jotai";
-import { isMyCalendarAtom, todayPresentCountAtom } from "../store/globalState";
-import { useEffect } from "react";
+import {
+  isMyCalendarAtom,
+  loginUserDataAtom,
+  receivedPresentListAtom,
+  todayPresentCountAtom
+} from "../store/globalState";
+import {useCallback, useEffect} from "react";
+import {setGetNumberOfReceivedPresents} from "../api/hooks/useGetNumberOfReceivedPresents";
 
 const Home = () => {
   const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
   const [todayPresentCount] = useAtom(todayPresentCountAtom);
+  const [,setRecivedPresentList] = useAtom(receivedPresentListAtom);
+  const [storeUserData] = useAtom(loginUserDataAtom);
+
+  const updateReceivedPresentListData = async (loggedId:number)=>{
+    try {
+      const res = await setGetNumberOfReceivedPresents(loggedId);
+      const presentList = res.data.data;
+      setRecivedPresentList(presentList);
+    }catch (e) {
+      console.error(e);
+    }
+  }
+
+  useEffect(() => {
+    if(storeUserData.id !== -1)
+      updateReceivedPresentListData(storeUserData.id);
+  }, [storeUserData]);
 
   useEffect(() => {
     setIsMyCalendar(true);
