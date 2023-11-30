@@ -176,6 +176,7 @@ const TitleContainer = styled.div`
 `;
 const Table = styled.table`
   width: 380px;
+  height: auto;
   position: fixed;
   bottom: 165px;
   z-index: -1;
@@ -242,5 +243,5 @@ const BackGround = styled(Image)`
   }
   @media (max-height: 300px) {
     width: 200px;
-  }바
+  }
 `;
