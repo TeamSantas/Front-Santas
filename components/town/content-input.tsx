@@ -2,15 +2,17 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
 import { postBoard } from "../../api/hooks/useTownData";
-import { checkMemberAndRedirect } from "../utils/clickWithCheckMember";
 import { ResponseData } from "../../util/type";
 import { useAtom } from "jotai";
 import { loginUserDataAtom } from "../../store/globalState";
+import { useRouter } from "next/router";
 
 const ContentInput = () => {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [input, setInput] = useState("");
   const [storeUserData] = useAtom(loginUserDataAtom);
+  const isLoginUser = storeUserData.id !== -1;
+  const router = useRouter();
   const placeHolderOptions = {
     default: "댓글을 입력해 주세요.",
     login: "로그인 후 이용 가능합니다.",
@@ -24,8 +26,16 @@ const ContentInput = () => {
       setInput(value);
     }
   };
+
   const handleClickSend = async () => {
-    if (checkMemberAndRedirect(storeUserData)) return;
+    if (!isLoginUser) {
+      const confirmText = `로그인이 필요한 기능이에요.\n로그인하러 갈까요?`;
+      if (confirm(confirmText)) {
+        router.push("/login");
+      }
+      return;
+    }
+
     if (input.length === 0) {
       alert("댓글을 입력해 주세요.");
       return;

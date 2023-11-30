@@ -2,9 +2,9 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
 import { putBoardLikeAndUnlike } from "../../api/hooks/useTownData";
-import { checkMemberAndRedirect } from "../utils/clickWithCheckMember";
 import { useAtom } from "jotai";
 import { loginUserDataAtom } from "../../store/globalState";
+import { useRouter } from "next/router";
 
 interface IThumbsUp {
   isLiked: boolean;
@@ -17,6 +17,8 @@ const ThumbsUp = ({ isLiked, boardId, isMyComment, likeCounts }: IThumbsUp) => {
   const [storeUserData] = useAtom(loginUserDataAtom);
   const [liked, setLiked] = useState(isLiked);
   const [newLikeCounts, setNewLikeCounts] = useState(likeCounts);
+  const isLoginUser = storeUserData.id !== -1;
+  const router = useRouter();
   const handleLikeCounts = async () => {
     const response = await putBoardLikeAndUnlike(boardId);
     if (!response) {
@@ -26,13 +28,19 @@ const ThumbsUp = ({ isLiked, boardId, isMyComment, likeCounts }: IThumbsUp) => {
   };
 
   const handleClickLike = () => {
-    if (checkMemberAndRedirect(storeUserData)) return;
+    if (!isLoginUser) {
+      const confirmText = `로그인이 필요한 기능이에요.\n로그인하러 갈까요?`;
+      if (confirm(confirmText)) {
+        router.push("/login");
+      }
+      return;
+    }
 
     if (isMyComment) {
       alert("자신의 글은 좋아요할 수 없습니다.");
       return;
     }
-    setNewLikeCounts(liked ? likeCounts : likeCounts + 1);
+    setNewLikeCounts((prev) => (liked ? prev - 1 : prev + 1));
     setLiked((prev) => !prev);
 
     handleLikeCounts();

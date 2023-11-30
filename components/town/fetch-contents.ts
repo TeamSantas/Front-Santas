@@ -1,12 +1,18 @@
 "use server";
 
-import { getBoard, getMyBoard } from "../../api/hooks/useTownData";
+import {
+  getAuthBoard,
+  getBoard,
+  getMyBoard,
+} from "../../api/hooks/useTownData";
 
-export const fetchContents = async (page: number) => {
+export const fetchContents = async (page: number, token = null) => {
   const perPage = 12;
   try {
-    // 최초 게시글 fetch
-    const allContents = await getBoard(page * perPage);
+    // 1page 이상부터 호출
+    const allContents = token
+      ? await getAuthBoard(page * perPage, token)
+      : await getBoard(page * perPage);
     return allContents || [];
   } catch (e) {
     console.error("Error while fetching all contents: ", e);
@@ -17,7 +23,7 @@ export const fetchContents = async (page: number) => {
 export const fetchMyContents = async (page: number) => {
   const perPage = 12;
   try {
-    // 최초 게시글 fetch
+    // 1page 이상부터 호출
     const allContents = await getMyBoard(page * perPage);
     return allContents || [];
   } catch (e) {

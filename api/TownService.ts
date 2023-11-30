@@ -14,6 +14,17 @@ class TownService {
       params,
     });
 
+  // 회원 게시글 조회 (서버 사이드)
+  getAuthBoard = (params: { boardId: number }, token) => {
+    const TownServerAuthInstance = AuthAPIInstance(
+      process.env.NEXT_PUBLIC_BASE_URL,
+      token
+    );
+    return TownServerAuthInstance.get<ResponseData<BoardData[]>>(`/api/board`, {
+      params,
+    });
+  };
+
   // 나의 게시글 조회
   getMyBoard = (params: { boardId: number }) =>
     TownAuthInstance.get<ResponseData<BoardData[]>>(`/api/board/my`, {
@@ -52,6 +63,17 @@ class TownService {
   // 인기 게시글 조회
   getBoardPopular = () =>
     TownInstance.get<ResponseData<BoardData[]>>(`/api/board/popular`);
+
+  // 회원 인기 게시글 조회 (서버)
+  getAuthBoardPopular = (token) => {
+    const TownServerAuthInstance = AuthAPIInstance(
+      process.env.NEXT_PUBLIC_BASE_URL,
+      token
+    );
+    return TownServerAuthInstance.get<ResponseData<BoardData[]>>(
+      `/api/board/popular`
+    );
+  };
 }
 
 export default new TownService();
