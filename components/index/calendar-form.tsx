@@ -18,6 +18,7 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
     const dayRow_6 = [20, 21, 25];
     return (
       <>
+      <Container>
         <Title>{name}의 캘린더</Title>
         <BackGround
           src={`/asset_ver2/image/layout/back_house.png`}
@@ -138,6 +139,7 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
             </tr>
           </tbody>
         </Table>
+        </Container>
       </>
     );
   };
@@ -189,7 +191,7 @@ const BackGround = styled(Image)`
 
 const Title = styled.h1`
   font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
-  width: 260px;
+  width: 90vw;
   height: auto;
   margin: -10px auto;
   font-size: 30px;
@@ -199,10 +201,10 @@ const Title = styled.h1`
     width: 200px;
   }
   @media (max-width: 400px) {
-    font-size: 15px;
+    font-size: 20px;
     width: 200px;
   }
-  @media (max-width: 300px) {
-    display: none;
-  }
+`;
+const Container = styled.div`
+  position: relative;
 `;
