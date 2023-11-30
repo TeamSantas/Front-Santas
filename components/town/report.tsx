@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { report } from "../../api/hooks/useTownData";
-import { checkMemberAndRedirect } from "../utils/clickWithCheckMember";
 import { ResponseData } from "../../util/type";
 import { useAtom } from "jotai";
 import { loginUserDataAtom } from "../../store/globalState";
+import { useRouter } from "next/router";
 
 interface IReport {
   boardId: number;
@@ -13,8 +13,16 @@ interface IReport {
 
 const Report = ({ boardId, writerId, handleSetBlurredId }: IReport) => {
   const [storeUserData] = useAtom(loginUserDataAtom);
+  const isLoginUser = storeUserData.id !== -1;
+  const router = useRouter();
   const handleClickReport = async () => {
-    if (checkMemberAndRedirect(storeUserData)) return;
+    if (!isLoginUser) {
+      const confirmText = `로그인이 필요한 기능이에요.\n로그인하러 갈까요?`;
+      if (confirm(confirmText)) {
+        router.push("/login");
+      }
+      return;
+    }
 
     if (confirm("신고하시겠습니까?")) {
       try {
