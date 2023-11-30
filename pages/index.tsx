@@ -8,41 +8,35 @@ import {
   isMyCalendarAtom,
   loginUserDataAtom,
   receivedPresentListAtom,
-  todayPresentCountAtom
+  todayPresentCountAtom,
 } from "../store/globalState";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { setGetNumberOfReceivedPresents } from "../api/hooks/useGetNumberOfReceivedPresents";
-import { useRouter } from "next/router";
 
 const Home = () => {
   const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
   const [todayPresentCount] = useAtom(todayPresentCountAtom);
+  const [, setRecivedPresentList] = useAtom(receivedPresentListAtom);
   const [storeUserData] = useAtom(loginUserDataAtom);
-  const router = useRouter();
-  const isLoginUser = storeUserData.id !== -1;
-  const [,setRecivedPresentList] = useAtom(receivedPresentListAtom);
 
-  const updateReceivedPresentListData = async (loggedId:number)=>{
+  const updateReceivedPresentListData = async (loggedId: number) => {
     try {
       const res = await setGetNumberOfReceivedPresents(loggedId);
       const presentList = res.data.data;
       setRecivedPresentList(presentList);
-    }catch (e) {
+    } catch (e) {
       console.error(e);
     }
-  }
+  };
 
   useEffect(() => {
-    if(storeUserData.id !== -1)
+    if (storeUserData.id !== -1)
       updateReceivedPresentListData(storeUserData.id);
   }, [storeUserData]);
 
   useEffect(() => {
-    if (!isLoginUser) {
-      router.replace("/login");
-    }
     setIsMyCalendar(true);
-  }, [setIsMyCalendar, router, isLoginUser]);
+  }, [setIsMyCalendar]);
 
   return (
     <div id="home">
