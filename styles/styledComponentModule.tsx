@@ -131,6 +131,4 @@ export const NewBadge = styled.div`
   border-radius: 4px;
   text-align: center;
   line-height: 25px;
-  //top: 6px;
-  //right: 6px;
 `;
