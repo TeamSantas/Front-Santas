@@ -4,6 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import {
   CustomBody,
   CustomHeader,
+  CenteredFlex,
   Flex,
   GreenCloseButton,
   ModalTitle,
@@ -14,6 +15,8 @@ import { setGetFriend } from "../../api/hooks/useGetFriend";
 import AdFitModal from "../advertisement/adFitModal";
 import { friendsModalAdID } from "../advertisement/ad-ids";
 import { FriendsData } from "../../util/type";
+import { useAtom } from "jotai";
+import { loginUserDataAtom } from "../../store/globalState";
 
 const CenteredModalFooter = styled.div`
   width: 90%;
@@ -24,6 +27,8 @@ const CenteredModalFooter = styled.div`
 const FriendsModal = (props) => {
   const [friendsData, setFriendsData] = useState<FriendsData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [storeUserData] = useAtom(loginUserDataAtom);
+  const isLoginUser = storeUserData.id !== -1;
 
   const getFriendsData = async () => {
     setIsLoading(true);
@@ -37,8 +42,10 @@ const FriendsModal = (props) => {
   };
 
   useEffect(() => {
-    getFriendsData();
-  }, []);
+    if (storeUserData.id !== -1) {
+      getFriendsData();
+    }
+  }, [storeUserData.id]);
 
   return (
     <AdFitModal
@@ -53,27 +60,37 @@ const FriendsModal = (props) => {
           <ModalTitle>
             친구 목록
             <br />
-            <ModalSubTitle>서비스에 가입한 친구 목록이에요.</ModalSubTitle>
+            <ModalSubTitle>
+              {isLoginUser && "서비스에 가입한 친구 목록이에요."}
+            </ModalSubTitle>
           </ModalTitle>
           <GreenCloseButton onClick={props.onHide} />
         </Modal.Title>
       </CustomHeader>
       <CustomBody>
-        <FriendsList friendsData={friendsData} isLoading={isLoading} />
+        {isLoginUser ? (
+          <FriendsList friendsData={friendsData} isLoading={isLoading} />
+        ) : (
+          <Text>
+            {`로그인이 필요한 기능이에요.\n\n오른쪽 위 설정(⚙️)창 하단에\n로그인 버튼이 있어요.☃️`}
+          </Text>
+        )}
       </CustomBody>
       <CenteredModalFooter>
-        <ButtonFlex>
-          <UpdateBtn
-            onClick={() => {
-              getFriendsData();
-              alert(
-                "친구목록은 10분에 한번 갱신됩니다. 10분 뒤 다시 시도해주세요🎁"
-              );
-            }}
-          >
-            친구 목록 새로고침 <img src={"/assets/image/icons/loading.svg"} />
-          </UpdateBtn>
-        </ButtonFlex>
+        {isLoginUser && (
+          <ButtonFlex>
+            <UpdateBtn
+              onClick={() => {
+                getFriendsData();
+                alert(
+                  "친구목록은 10분에 한번 갱신됩니다. 10분 뒤 다시 시도해주세요🎁"
+                );
+              }}
+            >
+              친구 목록 새로고침 <img src={"/assets/image/icons/loading.svg"} />
+            </UpdateBtn>
+          </ButtonFlex>
+        )}
       </CenteredModalFooter>
     </AdFitModal>
   );
@@ -94,6 +111,10 @@ const UpdateBtn = styled(Button)`
     background-color: #3c6c54;
     border-color: #3c6c54;
   }
+`;
+
+const Text = styled(CenteredFlex)`
+  text-align: center;
 `;
 
 export default FriendsModal;

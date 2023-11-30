@@ -1,13 +1,19 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useAtom } from "jotai";
-import { gnbActivePathAtom, modalStateAtom } from "../../../store/globalState";
+import {
+  gnbActivePathAtom,
+  loginUserDataAtom,
+  modalStateAtom,
+} from "../../../store/globalState";
 
 const Gnb = () => {
   const router = useRouter();
   const [activePathOption, setActivePathOption] = useAtom(gnbActivePathAtom);
   const [, setShowModal] = useAtom(modalStateAtom);
   const isHome = router.pathname === "/";
+  const [storeUserData] = useAtom(loginUserDataAtom);
+  const isLoginUser = storeUserData.id !== -1;
 
   const handleClickOption = (option) => {
     setActivePathOption(option);
@@ -23,13 +29,31 @@ const Gnb = () => {
         router.push("/snowball");
         break;
       case "message":
-        router.push("/message");
+        {
+          if (!isLoginUser) {
+            const confirmText = `로그인이 필요한 기능이에요.\n로그인하러 갈까요?`;
+            if (confirm(confirmText)) {
+              router.push("/login");
+            }
+            return;
+          }
+          router.push("/message");
+        }
         break;
       case "home":
         router.push(isHome ? "/town" : "/");
         break;
       case "todays-heart":
-        router.push("/todays-heart");
+        {
+          if (!isLoginUser) {
+            const confirmText = `로그인이 필요한 기능이에요.\n로그인하러 갈까요?`;
+            if (confirm(confirmText)) {
+              router.push("/login");
+            }
+            return;
+          }
+          router.push("/todays-heart");
+        }
         break;
       default:
         break;
@@ -37,7 +61,8 @@ const Gnb = () => {
   };
 
   const getImagePath = (option) => {
-    const condition = option === "home" ? isHome : activePathOption === option;
+    const condition =
+      option === "home" ? isHome : activePathOption === option && isLoginUser;
     return `/asset_ver2/image/layout/gnb/${option}${
       condition ? "-click" : "-default"
     }.svg`;

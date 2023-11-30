@@ -26,7 +26,7 @@ const Header = () => {
   }, [
     profileUserData.profileImageURL,
     isMyCalendar,
-    storeUserData.profileImageURL,
+    storeUserData?.profileImageURL,
   ]);
 
   const handleClickSetting = () => {

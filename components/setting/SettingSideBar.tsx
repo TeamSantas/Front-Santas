@@ -11,6 +11,7 @@ import BgmToggle from "./bgm";
 const SettingSideBar = () => {
   const [isOpen, setIsOpen] = useAtom(sidebarOpenAtom);
   const [storeUserData] = useAtom(loginUserDataAtom);
+  const isLoginUser = storeUserData.id !== -1;
 
   const handleClickOutside = (e) => {
     if (e.target.id === "backdrop") {
@@ -31,8 +32,8 @@ const SettingSideBar = () => {
       <SidebarContainer id="sidebar" open={isOpen}>
         <ContentWrapper>
           <div>
-            {storeUserData?.id && <NotificationToggle />}
-            {storeUserData?.id && <BgmToggle />}
+            {isLoginUser && <NotificationToggle />}
+            {isLoginUser && <BgmToggle />}
             <LinkContent href={"https://pf.kakao.com/_wDRPxj"} target="_blank">
               신고 및 문의
             </LinkContent>
@@ -52,8 +53,11 @@ const SettingSideBar = () => {
             >
               개인정보 처리방침
             </LinkContent>
+            <LinkContent href={"/ca8f8e79-d48d-4bca-a653-04093125a2c5"}>
+              산타즈 캘린더 바로가기 🎅
+            </LinkContent>
           </div>
-          {storeUserData?.id ? <Logout /> : <Login />}
+          {isLoginUser ? <Logout /> : <Login />}
         </ContentWrapper>
       </SidebarContainer>
     </>

@@ -1,10 +1,8 @@
-import { Modal } from "react-bootstrap";
 import {
   GreenCloseButton,
   CustomHeader,
   CustomFooter,
   CustomDescriptionBody,
-  Flex,
 } from "../../styles/styledComponentModule";
 import Image from "next/image";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -13,10 +11,9 @@ import { setLoggedMemberInfo } from "../../api/hooks/useGetMember";
 import AdFitModal from "../advertisement/adFitModal";
 import { profileModalAdID } from "../advertisement/ad-ids";
 import { useAtom } from "jotai";
-import {isMyCalendarAtom, loginUserDataAtom} from "../../store/globalState";
+import { isMyCalendarAtom, loginUserDataAtom } from "../../store/globalState";
 import { MemberData } from "../../util/type";
-import {setGetExchangedPresentCount} from "../../api/hooks/mypagePresents/useGetUserReceivedPresentsList";
-import Head from 'next/head';
+import { setGetExchangedPresentCount } from "../../api/hooks/mypagePresents/useGetUserReceivedPresentsList";
 
 interface IProfileModal {
   show;
@@ -39,14 +36,18 @@ const ProfileModal = ({
   const [storeUserData, setStoreUserData] = useAtom(loginUserDataAtom);
   const userName = currUserData.nickname;
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const isLoginUser = storeUserData.id !== -1;
+
+  const getMyPresentCnt = async () => {
+    const presentCount = await setGetExchangedPresentCount();
+    setMyPresentCnt(presentCount.data.data.exchangedPresentCount);
+  };
 
   useEffect(() => {
-    const getMyPresentCnt = async () => {
-      const presentCount = await setGetExchangedPresentCount();
-      setMyPresentCnt(presentCount.data.data.exchangedPresentCount);
+    if (isLoginUser) {
+      getMyPresentCnt();
+      setPreviewImg(storeUserData.profileImageURL);
     }
-    getMyPresentCnt();
-    setPreviewImg(storeUserData.profileImageURL);
   }, []);
 
   useEffect(() => {
@@ -95,71 +96,71 @@ const ProfileModal = ({
 
       const res = await setLoggedMemberInfo(formData);
       console.log("업로드 성공:", res.data.status);
-      
+
       //header의 메인페이지 프로필 img도 변경 동기화
-      let newUserData : MemberData = storeUserData;
+      let newUserData: MemberData = storeUserData;
       newUserData.profileImageURL = res.data.data.profileImageURL;
       setStoreUserData(newUserData);
-      alert("프로필 이미지가 변경되었습니다.")
+      alert("프로필 이미지가 변경되었습니다.");
     } catch (error) {
       console.error("업로드 실패:", error);
     }
   };
 
   return (
-        <AdFitModal
-          show={show}
-          onHide={onHide}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          adFitId={profileModalAdID}
-        >
-          <CustomHeader>
-            <GreenCloseButton onClick={onHide} />
-          </CustomHeader>
-          <CustomDescriptionBody>
-            <ProfileImg
-              src={previewImage || "/asset_ver2/image/common/default-profile.png"}
-              alt="Profile"
+    <AdFitModal
+      show={show}
+      onHide={onHide}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      adFitId={profileModalAdID}
+    >
+      <CustomHeader>
+        <GreenCloseButton onClick={onHide} />
+      </CustomHeader>
+      <CustomDescriptionBody>
+        <ProfileImg
+          src={previewImage || "/asset_ver2/image/common/default-profile.png"}
+          alt="Profile"
+        />
+        <DecoImg
+          src={"/asset_ver2/image/layout/header/profile_deco.png"}
+          width={36}
+          height={20}
+          alt={"장식"}
+        />
+        {isMyCalendar ? (
+          <>
+            <FileInput
+              type="file"
+              accept="image/*"
+              ref={inputRef}
+              onChange={onUploadImage}
             />
-            <DecoImg
-              src={"/asset_ver2/image/layout/header/profile_deco.png"}
-              width={36}
-              height={20}
-              alt={"장식"}
+            <UploadImg
+              src={"/asset_ver2/image/layout/header/profile_mod.png"}
+              width={50}
+              height={50}
+              alt={"수정하기"}
+              onClick={onUploadImageButtonClick}
             />
-            {isMyCalendar ? (
-              <>
-                <FileInput
-                  type="file"
-                  accept="image/*"
-                  ref={inputRef}
-                  onChange={onUploadImage}
-                />
-                <UploadImg
-                  src={"/asset_ver2/image/layout/header/profile_mod.png"}
-                  width={50}
-                  height={50}
-                  alt={"수정하기"}
-                  onClick={onUploadImageButtonClick}
-                />
-              </>
-            ) : null}
-          </CustomDescriptionBody>
-          {isMyCalendar ? (
-            <>
-              <NameText>{userName}</NameText>
-              <Text>주고 받은 편지 : {myPresentCnt}개</Text>
-            </>
-          ) : (
-            <NameText>{currUserData?.nickname}</NameText>
-          )}
-          {profileImg === previewImage ? null : (
-            <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>
-          )}
-          <CustomFooter />
-        </AdFitModal>
+          </>
+        ) : null}
+      </CustomDescriptionBody>
+      {isMyCalendar ? (
+        <>
+          <NameText>{userName}</NameText>
+          <Text>주고 받은 편지 : {myPresentCnt}개</Text>
+        </>
+      ) : (
+        <NameText>{currUserData?.nickname}</NameText>
+      )}
+      {profileImg === previewImage ? null : (
+        <ImgSubmitBtn onClick={updateProfile}>확인</ImgSubmitBtn>
+      )}
+      <CustomFooter />
+    </AdFitModal>
   );
 };
 export default ProfileModal;
