@@ -53,6 +53,9 @@ const SettingSideBar = () => {
             >
               개인정보 처리방침
             </LinkContent>
+            <LinkContent href={"/ca8f8e79-d48d-4bca-a653-04093125a2c5"}>
+              산타즈 캘린더 바로가기 🎅
+            </LinkContent>
           </div>
           {isLoginUser ? <Logout /> : <Login />}
         </ContentWrapper>
