@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { MainContainer, Flex } from "../styles/styledComponentModule";
-import { getServerUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
+import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import OtherCalendar from "../components/index/OtherCalendar";
 import { Modals } from "../components/modals/modals";
 import { useAtom } from "jotai";
@@ -12,25 +12,40 @@ import {
   isMyCalendarAtom,
 } from "../store/globalState";
 
-export default function OtherCalendarPage({ invitationCode, userData }) {
+export default function OtherCalendarPage({ invitationCode }) {
   const router = useRouter();
   const [storeUserData] = useAtom(loginUserDataAtom);
-  const [, setProfileUser] = useAtom(profileUserDataAtom);
+  const [profileUser, setProfileUser] = useAtom(profileUserDataAtom);
   const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
 
+  const getProfileUser = useCallback(async () => {
+    try {
+      const res = await setGetCurrCalendarUserInfo(invitationCode);
+      if (res.status === 200) {
+        setProfileUser(res.data.data);
+        return;
+      }
+    } catch (e) {
+      console.log(e);
+      router.push("/404");
+    }
+  }, [invitationCode, router, setProfileUser]);
+
   useEffect(() => {
+    // 친구 코드가 내 코드일 때는 내 캘린더로 바로 이동한다.
     if (storeUserData.invitationLink === invitationCode) {
       router.push("/");
+      return;
     }
-    setProfileUser(userData);
+
+    getProfileUser(); // 캘린더 주인 데이터
     setIsMyCalendar(false);
   }, [
+    getProfileUser,
     invitationCode,
     router,
     setIsMyCalendar,
-    setProfileUser,
     storeUserData.invitationLink,
-    userData,
   ]);
 
   return (
@@ -39,7 +54,7 @@ export default function OtherCalendarPage({ invitationCode, userData }) {
         <Modals />
         <MainContainer>
           <br />
-          <OtherCalendar name={userData.nickname} />
+          <OtherCalendar name={profileUser.nickname} />
         </MainContainer>
       </MainFlex>
     </div>
@@ -47,28 +62,12 @@ export default function OtherCalendarPage({ invitationCode, userData }) {
 }
 
 export async function getServerSideProps(context) {
-  const token = context.req.cookies["token"];
   const { invitation_code: invitationCode } = context.params;
-
-  try {
-    const res = await getServerUserInfo(invitationCode, token);
-
-    if (res.status === 200) {
-      return {
-        props: {
-          invitationCode,
-          userData: res.data.data,
-        },
-      };
-    }
-  } catch (e) {
-    console.log(e);
-    context.res.writeHead(302, { Location: "/404" });
-    context.res.end();
-    return {
-      props: {},
-    };
-  }
+  return {
+    props: {
+      invitationCode,
+    },
+  };
 }
 
 const MainFlex = styled(Flex)`
