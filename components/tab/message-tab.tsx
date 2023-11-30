@@ -5,7 +5,7 @@ import SendPresentList from "./SendPresentList";
 import ReceivedPresentList from "./ReceivedPresentList";
 
 const MessageTab = () => {
-  const [tab, setTab] = useState("sent");
+  const [tab, setTab] = useState("received");
   const handleClickTab = (option) => setTab(option);
 
   return (
