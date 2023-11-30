@@ -6,13 +6,11 @@ import {
   GreenCloseButton,
 } from "../../styles/styledComponentModule";
 import Form from "react-bootstrap/Form";
-import { FriendsData } from "../../util/type";
+import { MemberData } from "../../util/type";
 import { usePostPresent } from "../../api/hooks/usePostPresent";
 import { useRouter } from "next/router";
 import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
-import { getLoggedMember } from "../../api/hooks/useMember";
 import MemberService from "../../api/MemberService";
-import PushService from "../../api/PushService";
 import Image from "next/image";
 
 export const PresentHeader = styled.div`
@@ -31,17 +29,19 @@ export const TextArea = styled.div`
   font-family: "NanumSquareNeoOTF-Bd", KCC-Ganpan, sans-serif;
   text-align: center;
   color: white;
-  background-image: url('/asset_ver2/image/presents/present_background.png');
+  background-image: url("/asset_ver2/image/presents/present_background.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   margin-top: 1rem;
   height: 17rem;
   padding: 1rem 4rem;
-  @media (min-width: 768px) {//태블릿 대응
+  @media (min-width: 768px) {
+    //태블릿 대응
     padding: 1rem 6rem;
   }
-  @media (max-width: 300px) {//갤폴드 대응
+  @media (max-width: 300px) {
+    //갤폴드 대응
     padding: 3rem 1rem;
   }
 `;
@@ -68,7 +68,7 @@ const LoadingScreenBack = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: #1E344F;
+  background-color: #1e344f;
   z-index: 10;
 `;
 
@@ -85,7 +85,7 @@ const SendPresents = ({ onHide, selectedday }) => {
   const [isAnonymous, setAnonymous] = useState<boolean | any>(false);
   const [nickname, setNickname] = useState<string>("익명의 산타");
   const [memberInfo, setMemberInfo] = useState<any>();
-  const [currCalUser, setCurrCalUser] = useState<FriendsData>();
+  const [currCalUser, setCurrCalUser] = useState<MemberData>();
   const [isLoading, setIsLoading] = useState(false);
   // ImageUpload -------------
   const [fileList, setFileList] = useState<File[]>([]);
@@ -303,8 +303,12 @@ const SendPresents = ({ onHide, selectedday }) => {
       </TextArea>
 
       <div className="Thumbnail_Wrapper">
-        {showImages.length === 0 ?
-          <label className="submitImg" htmlFor="file" onChange={handleAddImages}>
+        {showImages.length === 0 ? (
+          <label
+            className="submitImg"
+            htmlFor="file"
+            onChange={handleAddImages}
+          >
             <div className="addButton">
               <input
                 id="file"
@@ -314,7 +318,7 @@ const SendPresents = ({ onHide, selectedday }) => {
               />
             </div>
           </label>
-          :
+        ) : (
           <ThumbnailContainer>
             <label id="present_img" htmlFor="file" onChange={handleAddImages}>
               <input
@@ -325,8 +329,7 @@ const SendPresents = ({ onHide, selectedday }) => {
               />
             </label>
           </ThumbnailContainer>
-        }
-
+        )}
 
         <Flex>
           {showImages.map((image, id) => (
@@ -361,17 +364,22 @@ const SendPresents = ({ onHide, selectedday }) => {
         </JustifiedAlignedFlex>
         <GreenButton onClick={handleClickSendPresent}>
           쪽지보내기
-          <Image src={`/asset_ver2/image/send.png`} alt={"쪽지보내기"} width={13} height={13}/>
+          <Image
+            src={`/asset_ver2/image/send.png`}
+            alt={"쪽지보내기"}
+            width={13}
+            height={13}
+          />
         </GreenButton>
       </SubmitFlex>
-      {isLoading ?
+      {isLoading ? (
         <LoadingScreenBack>
           <LoadingContainer>
-            <img src="/assets/image/character/spinner.gif" alt="로딩하얀코"/>
+            <img src="/assets/image/character/spinner.gif" alt="로딩하얀코" />
             <p>선물을 보내는 중입니다...</p>
           </LoadingContainer>
         </LoadingScreenBack>
-        : null}
+      ) : null}
     </SendPresentsWrapper>
   );
 };
