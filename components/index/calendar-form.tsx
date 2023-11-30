@@ -18,15 +18,6 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
     const dayRow_6 = [20, 21, 25];
     return (
       <>
-        {/*TODO: 캘린더 받은 개수 뿌려주는거 각 day 컴포넌트들 안에 넣어줘야 할지도! day 있으니까*/}
-        {/*{days.map((day, idx) => (*/}
-        {/*  <div key={day.toString()}>*/}
-        {/*    <NumberOfReceivedPresents*/}
-        {/*      day={day}*/}
-        {/*      receivedList={receivePresentList}*/}
-        {/*    />*/}
-        {/*  </div>*/}
-        {/*))}*/}
         <Title>{name}의 캘린더</Title>
         <BackGround
           src={`/asset_ver2/image/layout/back_house.png`}
