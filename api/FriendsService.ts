@@ -1,4 +1,4 @@
-import { AuthAPIInstance, FriendsAuthInstance } from "./APIInstance";
+import { FriendsAuthInstance } from "./APIInstance";
 import { FriendsData, MemberData, ResponseData } from "../util/type";
 
 class FriendsService {
