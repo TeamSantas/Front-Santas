@@ -11,6 +11,7 @@ import {
   sidebarNotificationAtom,
   todayPresentCountAtom,
 } from "../../globalState";
+import { getCookie } from "cookies-next";
 
 interface Props {
   children: React.ReactNode;
@@ -46,7 +47,8 @@ export default function AuthProvider({ children }: Props) {
   };
 
   useEffect(() => {
-    if (!router.pathname.includes("upcoming")) {
+    const token = getCookie("token");
+    if (!router.pathname.includes("upcoming") && token) {
       updateUserData();
     }
   }, [router.pathname, updateUserData]);

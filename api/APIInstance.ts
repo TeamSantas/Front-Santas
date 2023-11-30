@@ -40,12 +40,12 @@ const APIFileInstance = (baseURL: string) => {
     params: {},
     headers: {
       Authorization: `Bearer ${loadAccessToken()}`,
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
     },
   });
   return apiInstance;
 };
-const PresentInstance = AuthAPIInstance(BASE_URL);
+const PresentInstance = APIInstance(BASE_URL);
 const PresentAuthInstance = AuthAPIInstance(BASE_URL);
 
 const MemberAuthInstance = AuthAPIInstance(BASE_URL);
@@ -55,7 +55,7 @@ const SettingAuthInstance = AuthAPIInstance(BASE_URL);
 const SettingAuthPostInstance = AuthAPIInstance(BASE_URL);
 
 const FriendsAuthInstance = AuthAPIInstance(BASE_URL);
-const FriendsInstance = AuthAPIInstance(null);
+const FriendsInstance = APIInstance(BASE_URL);
 const AuthInstance = AuthAPIInstance(BASE_URL);
 const AuthAuthInstance = AuthAPIInstance(BASE_URL);
 

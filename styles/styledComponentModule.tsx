@@ -17,6 +17,7 @@ export const Flex = styled.div`
 
 export const CenteredFlex = styled(Flex)`
   justify-content: center;
+  white-space: pre-line;
 `;
 
 export const Icons = styled.button`
