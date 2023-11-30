@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
+import NumberOfReceivedPresents from "../NumberOfReceivedPresents";
 interface LongDayProps {
     day: number;
     handleShow(day: number): void;
@@ -9,6 +10,7 @@ const LongDay = (props:LongDayProps) => {
     const {day,handleShow} = props;
     return (
         <td rowSpan={2}>
+            <NumberOfReceivedPresents day={day}/>
             <DayImg src={`/asset_ver2/image/days/day${day}.svg`}
                     width={`100`}
                     height={`100`}
