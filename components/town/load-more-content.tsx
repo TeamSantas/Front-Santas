@@ -20,7 +20,7 @@ const LoadMore = ({ callMyContent, initialContent }) => {
     const newContents = callMyContent
       ? (await fetchMyContents(nextContent)) ?? []
       : (await fetchContents(nextContent)) ?? [];
-    if (newContents.length !== 12) {
+    if (newContents.length < 12) {
       setEndOfContents(true);
     }
     setContents((prevContents: BoardData[]) => [
