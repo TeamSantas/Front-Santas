@@ -4,16 +4,27 @@ import { Modals } from "../components/modals/modals";
 import MainLayout from "../components/layout/new/MainLayout";
 import MyCalendar from "../components/index/MyCalendar";
 import { useAtom } from "jotai";
-import { isMyCalendarAtom, todayPresentCountAtom } from "../store/globalState";
+import {
+  isMyCalendarAtom,
+  loginUserDataAtom,
+  todayPresentCountAtom,
+} from "../store/globalState";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const Home = () => {
   const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
   const [todayPresentCount] = useAtom(todayPresentCountAtom);
+  const [storeUserData] = useAtom(loginUserDataAtom);
+  const router = useRouter();
+  const isLoginUser = storeUserData.id !== -1;
 
   useEffect(() => {
+    if (!isLoginUser) {
+      router.replace("/login");
+    }
     setIsMyCalendar(true);
-  }, [setIsMyCalendar]);
+  }, [setIsMyCalendar, router, isLoginUser]);
 
   return (
     <div id="home">
