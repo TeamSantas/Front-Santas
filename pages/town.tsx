@@ -6,6 +6,8 @@ import TownContentList from "../components/town/content-list";
 import Layout from "../components/layout/new/Layout";
 import { Modals } from "../components/modals/modals";
 import {
+  getAuthBoard,
+  getAuthBoardPopular,
   getBoard,
   getBoardPopular,
   getServerMyBoard,
@@ -75,35 +77,60 @@ Town.getLayout = (page) => {
 
 export async function getServerSideProps(context) {
   const token = context.req.cookies["token"];
-  try {
-    // 최초 게시글 fetch
-    const [allContents, popularContents] = await Promise.all([
-      getBoard(0),
-      getBoardPopular(),
-    ]);
 
-    // 내 게시글은 토큰 있을 때만 요청
-    let myContents = [];
-    if (token) {
-      myContents = await getServerMyBoard(0, token);
+  // 로그인한 유저
+  if (token) {
+    try {
+      // 최초 게시글 fetch
+      const [allContents, popularContents, myContents] = await Promise.all([
+        getAuthBoard(0, token),
+        getAuthBoardPopular(token),
+        getServerMyBoard(0, token),
+      ]);
+
+      return {
+        props: {
+          myContents: myContents || [],
+          allContents: allContents || [],
+          popularContents: popularContents || [],
+        },
+      };
+    } catch (e) {
+      console.error("Error: ", e);
+      return {
+        props: {
+          myContents: [],
+          allContents: [],
+          popularContents: [],
+        },
+      };
     }
+  } else {
+    // 비회원 유저
+    try {
+      // 최초 게시글 fetch
+      const [allContents, popularContents] = await Promise.all([
+        getBoard(0),
+        getBoardPopular(),
+      ]);
 
-    return {
-      props: {
-        myContents: myContents,
-        allContents: allContents || [],
-        popularContents: popularContents || [],
-      },
-    };
-  } catch (e) {
-    console.error("Error: ", e);
-    return {
-      props: {
-        myContents: [],
-        allContents: [],
-        popularContents: [],
-      },
-    };
+      return {
+        props: {
+          myContents: [],
+          allContents: allContents || [],
+          popularContents: popularContents || [],
+        },
+      };
+    } catch (e) {
+      console.error("Error: ", e);
+      return {
+        props: {
+          myContents: [],
+          allContents: [],
+          popularContents: [],
+        },
+      };
+    }
   }
 }
 

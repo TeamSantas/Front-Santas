@@ -41,12 +41,25 @@ export async function getServerMyBoard(boardId, token) {
   }
 }
 /**
- * 게시글 조회
+ * 비회원 게시글 조회
  */
 export async function getBoard(boardId) {
   const config = { boardId };
   try {
     const res = await TownService.getBoard(config);
+    return res.data.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+/**
+ * 회원 게시글 조회(서버)
+ */
+export async function getAuthBoard(boardId, token) {
+  const config = { boardId };
+  try {
+    const res = await TownService.getAuthBoard(config, token);
     return res.data.data;
   } catch (e) {
     console.log(e);
@@ -71,6 +84,18 @@ export async function postBoard(formData: BoardForm) {
 export async function getBoardPopular() {
   try {
     const res = await TownService.getBoardPopular();
+    return res.data.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+/**
+ * 인기 게시글 조회 (서버)
+ */
+export async function getAuthBoardPopular(token) {
+  try {
+    const res = await TownService.getAuthBoardPopular(token);
     return res.data.data;
   } catch (e) {
     console.log(e);
