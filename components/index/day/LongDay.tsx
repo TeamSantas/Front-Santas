@@ -13,7 +13,7 @@ const LongDay = (props:LongDayProps) => {
 
   const date = new Date()
   const today = date.getDate();
-  const month = date.getMonth();
+  const month = date.getMonth()+1;
   if(day<=today && month == 12 || month == 1){
       color = '#FBCF6E';
       open = 'on'
