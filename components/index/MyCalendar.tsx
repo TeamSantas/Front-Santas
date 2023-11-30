@@ -14,26 +14,43 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   const date = new Date();
   // TODO:12월 오픈떄 주석으로 바꿔야 함
   // let today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
-  let today = `20231215`;
-  if (process.env.NODE_ENV === "development") today = `20231215`;
+  // let today = `20231215`;
+  // if (process.env.NODE_ENV === "development") today = `20231215`;
   const today_day = date.getDate();
+  const today = Number(today_day) < 10
+    ? "2023120" + today_day
+    : "202312" + today_day;
+
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [notYetModalShow, setNotYeModalShow] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
 
   const handleShow = (selectedDay: number) => {
-    if (todayPresentCount < 3) {
-      alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
-      return;
-    }
+    // if (todayPresentCount < 3) {
+    //   alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
+    //   return;
+    // }
 
     setSelectedDay(selectedDay);
 
-    let selDate: string = `202312${selectedDay}`;
+    // let selDate: string = `202312${selectedDay}`;
+    let selectedDayToCompare: string = "202312" + selectedDay;
+    // if (process.env.NODE_ENV === "development")
+    // selectedDayToCompare = "20231215";
+    selectedDayToCompare = Number(selectedDay) < 10
+      ? "2023120" + selectedDay
+      : "202312" + selectedDay;
 
+    const today = Number(today_day) < 10
+      ? "2023120" + today_day
+      : "202312" + today_day;
+
+    console.log("====>selectedDayToCompare",selectedDayToCompare);
+    console.log("====>today",today);
+    console.log("====>",Number(selectedDayToCompare) < Number(today));
     // 열기 시도한 날이 오늘보다 앞의 날
-    if (Number(selDate) <= Number(today)) {
+    if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
       setPresentModalShow(true);
     } else {
@@ -44,11 +61,11 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
 
   useEffect(() => {
     let selectedDayToCompare: string = "202312" + selectedDay;
-    if (process.env.NODE_ENV === "development")
-      selectedDayToCompare = "20231215";
-    // selectedDayToCompare = Number(selectedDay) < 10
-    //     ? "2023120" + selectedDay
-    //     : "202312" + selectedDay;
+    // if (process.env.NODE_ENV === "development")
+      // selectedDayToCompare = "20231215";
+    selectedDayToCompare = Number(selectedDay) < 10
+        ? "2023120" + selectedDay
+        : "202312" + selectedDay;
     if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
     } else {
