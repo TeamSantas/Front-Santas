@@ -41,7 +41,16 @@ const Gnb = () => {
         }
         break;
       case "home":
-        router.push(isHome ? "/town" : "/");
+        {
+          if (!isLoginUser) {
+            const confirmText = `아직 내 캘린더가 없어요.\n로그인하러 갈까요?`;
+            if (confirm(confirmText)) {
+              router.push("/login");
+            }
+            return;
+          }
+          router.push(isHome ? "/town" : "/");
+        }
         break;
       case "todays-heart":
         {

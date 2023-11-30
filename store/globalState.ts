@@ -1,4 +1,4 @@
-import { defaultMemberData } from "./../util/type";
+import {defaultMemberData, RecivedPresentData} from "./../util/type";
 import { atom } from "jotai";
 import { MemberData } from "../util/type";
 
@@ -26,3 +26,6 @@ export const loginUserDataAtom = atom(defaultMemberData as MemberData);
 // ismycalendar
 export const isMyCalendarAtom = atom(true);
 export const todayPresentCountAtom = atom(0);
+
+//받은 선물 수 리스트
+export const receivedPresentListAtom = atom( {} as RecivedPresentData[]);

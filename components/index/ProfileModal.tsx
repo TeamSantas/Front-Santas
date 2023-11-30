@@ -39,8 +39,12 @@ const ProfileModal = ({
   const isLoginUser = storeUserData.id !== -1;
 
   const getMyPresentCnt = async () => {
-    const presentCount = await setGetExchangedPresentCount();
-    setMyPresentCnt(presentCount.data.data.exchangedPresentCount);
+    try {
+      const presentCount = await setGetExchangedPresentCount();
+      setMyPresentCnt(presentCount.data.data.exchangedPresentCount);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +52,7 @@ const ProfileModal = ({
       getMyPresentCnt();
       setPreviewImg(storeUserData.profileImageURL);
     }
-  }, []);
+  }, [storeUserData?.profileImageURL, isLoginUser]);
 
   useEffect(() => {
     setPreviewImg(profileImg);
