@@ -50,6 +50,7 @@ const ContentInput = () => {
       });
       if (response.status === 200) {
         alert("게시글 작성이 완료되었습니다.");
+        router.reload();
       } else {
         alert("게시글 작성에 실패했습니다. 잠시 후 다시 시도해 주세요.");
       }

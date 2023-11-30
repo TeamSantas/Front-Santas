@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 const LoadMore = ({ callMyContent, initialContent }) => {
   const [contents, setContents] = useState<BoardData[]>([]);
-  const [contentsLoaded, setContentsLoaded] = useState(1);
+  const [contentsLoaded, setContentsLoaded] = useState(0);
   const [endOfContents, setEndOfContents] = useState(
     initialContent.length < 12
   );

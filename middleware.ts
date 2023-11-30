@@ -13,6 +13,10 @@ const handleUpcomingRedirect = (url, req) => {
   return !isTargetPath && !isAdmin && process.env.NODE_ENV !== "development";
 };
 
+const handleUpcomingToLoginRedirect = (url) => {
+  return url.pathname.includes("upcoming");
+};
+
 const handleAuthRedirect = (url) => {
   return url.pathname.includes("oauth");
 };
@@ -21,12 +25,14 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const newToken = url.searchParams.get("token"); // 쿼리에서 가져온 토큰
   const upcomingRedirect = handleUpcomingRedirect(url, req);
+  const upcomingToLoginRedirect = handleUpcomingToLoginRedirect(url);
   const oauthRedirect = handleAuthRedirect(url);
 
-  if (upcomingRedirect) {
-    url.pathname = "/upcoming";
+  if (upcomingToLoginRedirect) {
+    url.pathname = "/login";
     return NextResponse.redirect(url);
   }
+
   if (oauthRedirect) {
     url.pathname = "/";
     url.searchParams.delete("token"); // parameter masking
