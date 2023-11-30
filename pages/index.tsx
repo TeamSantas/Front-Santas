@@ -7,9 +7,11 @@ import { useAtom } from "jotai";
 import {
   isMyCalendarAtom,
   loginUserDataAtom,
-  todayPresentCountAtom,
+  receivedPresentListAtom,
+  todayPresentCountAtom
 } from "../store/globalState";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
+import { setGetNumberOfReceivedPresents } from "../api/hooks/useGetNumberOfReceivedPresents";
 import { useRouter } from "next/router";
 
 const Home = () => {
@@ -18,6 +20,22 @@ const Home = () => {
   const [storeUserData] = useAtom(loginUserDataAtom);
   const router = useRouter();
   const isLoginUser = storeUserData.id !== -1;
+  const [,setRecivedPresentList] = useAtom(receivedPresentListAtom);
+
+  const updateReceivedPresentListData = async (loggedId:number)=>{
+    try {
+      const res = await setGetNumberOfReceivedPresents(loggedId);
+      const presentList = res.data.data;
+      setRecivedPresentList(presentList);
+    }catch (e) {
+      console.error(e);
+    }
+  }
+
+  useEffect(() => {
+    if(storeUserData.id !== -1)
+      updateReceivedPresentListData(storeUserData.id);
+  }, [storeUserData]);
 
   useEffect(() => {
     if (!isLoginUser) {
