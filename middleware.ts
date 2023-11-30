@@ -23,10 +23,10 @@ export function middleware(req: NextRequest) {
   const upcomingRedirect = handleUpcomingRedirect(url, req);
   const oauthRedirect = handleAuthRedirect(url);
 
-  if (upcomingRedirect) {
-    url.pathname = "/upcoming";
-    return NextResponse.redirect(url);
-  }
+  // if (upcomingRedirect) {
+  //   url.pathname = "/upcoming";
+  //   return NextResponse.redirect(url);
+  // }
   if (oauthRedirect) {
     url.pathname = "/";
     url.searchParams.delete("token"); // parameter masking
