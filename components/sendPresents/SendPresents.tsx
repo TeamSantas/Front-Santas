@@ -191,7 +191,7 @@ const SendPresents = ({ onHide, selectedday }) => {
       return;
     }
 
-    setFileList([...uploadFiles, ...fileList]);
+    setFileList([...fileList, ...uploadFiles]);
 
     let imageUrlLists = [...showImages];
 
@@ -206,10 +206,12 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     setShowImages(imageUrlLists);
   };
-
   // 클릭 시 이미지 삭제
   const handleDeleteImage = (id) => {
-    setShowImages(showImages.filter((_, index) => index !== id));
+    setShowImages((prev) => prev.filter((_, index) => index !== id));
+    setFileList((prevFileList) =>
+      prevFileList.filter((_, index) => index !== id)
+    );
   };
 
   const HandleImageSubmit = async () => {
