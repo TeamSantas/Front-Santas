@@ -14,11 +14,13 @@ const WideDay = (props:WideDayProps) => {
 
     const date = new Date()
     const today = date.getDate();
-    const month = date.getMonth();
-    if(day<=today && month == 12 || month == 1){
+    const month = date.getMonth()+1;
+    if(day<=today){
+      if(month == 12 || month == 1){
         color = '#FBCF6E';
         open = 'on'
       }
+    }
 
   return (
         <td colSpan={2}>
