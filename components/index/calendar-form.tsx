@@ -191,9 +191,11 @@ const BackGround = styled(Image)`
 
 const Title = styled.h1`
   font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
-  width: 90vw;
+  width: 90%;
   height: auto;
-  margin: -10px auto;
+  position: relative;
+  left: 0;
+  margin: 0px auto;
   font-size: 30px;
   text-align: center;
   @media (max-height: 700px) {
@@ -207,4 +209,5 @@ const Title = styled.h1`
 `;
 const Container = styled.div`
   position: relative;
+  max-width: 700px;
 `;
