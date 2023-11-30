@@ -57,7 +57,8 @@ const StyledNumberOfReceivedPresents = styled.p`
     margin-left: 3rem;
   }
   @media (min-width: 375px) and (max-width: 600px) {
-    margin-left: 2rem;
+    margin-left: 2rem;width: 20px;
+    height: 20px;
   }
   @media (min-width: 601px) {
     font-size: large;
@@ -75,19 +76,38 @@ const StyledNumberOfReceivedPresents = styled.p`
 `;
 const WideStyledNumberOfReceivedPresents = styled(StyledNumberOfReceivedPresents)`
   margin-left: 3rem;
-  @media (max-width: 320px) {
-    margin-left: 3.4rem;
-  }
-  @media (min-width: 320px) and (max-width: 600px) {
+  @media (max-height: 1000px) {
     margin-left: 6rem;
   }
-  @media (min-width: 375px) and (max-width: 600px) {
-    margin-left: 6rem;
+  @media (max-height: 800px) {
+    margin-left: 4.7rem;
   }
-  @media (min-width: 601px) {
-    margin-left: 8rem;
+  @media (max-height: 600px) {
+    margin-left: 4rem;
+    width: 20px;
+    height: 20px;
   }
-  @media (min-width: 1000px){
-    margin-left: 5.5rem;
+  @media (max-height: 480px) {
+    margin-left: 3rem;
+    width: 20px;
+    height: 20px;
   }
+  @media (max-height: 300px) {
+    margin-left: 3rem;
+  }
+  //@media (max-width: 320px) {
+  //  margin-left: 3.4rem;
+  //}
+  //@media (min-width: 320px) and (max-width: 600px) {
+  //  margin-left: 6rem;
+  //}
+  //@media (min-width: 375px) and (max-width: 600px) {
+  //  margin-left: 6rem;
+  //}
+  //@media (min-width: 601px) {
+  //  margin-left: 8rem;
+  //}
+  //@media (min-width: 1000px){
+  //  margin-left: 5.5rem;
+  //}
 `;

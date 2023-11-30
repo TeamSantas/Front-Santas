@@ -182,27 +182,27 @@ const Table = styled.table`
   margin: 0 auto;
   left: 0;
   right: 0;
-  @media (max-width: 600px) {
-    bottom: 135px;
-    width: 315px;
-  }
-  @media (max-width: 380px) {
+  @media (max-height: 1000px) {
     bottom: 125px;
-    width: 270px;
+    width: 290px;
   }
-  @media (max-width: 300px) {
-    bottom: 120px;
-    width: 220px;
+  @media (max-height: 800px) {
+    bottom: 112px;
+    width: 240px;
   }
-  @media (min-width: 1000px) {
-    bottom: 120px;
-    width: 280px;
+  @media (max-height: 600px) {
+    bottom: 110px;
+    width: 210px;
+  }
+  @media (max-height: 480px) {
+    bottom: 105px;
+    width: 170px;
   }
 `;
 const Title = styled.h1`
   font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
   width: 260px;
-  margin: 0 auto;
+  margin: -10px auto;
   font-size: 30px;
   text-align: center;
   @media (max-height: 700px) {
@@ -210,12 +210,15 @@ const Title = styled.h1`
     width: 200px;
   }
   @media (max-width: 400px) {
-    font-size: 20px;
+    font-size: 15px;
     width: 200px;
+  }
+  @media (max-width: 300px) {
+    display: none;
   }
 `;
 const BackGround = styled(Image)`
-  width: 480px;
+  width: 290px;
   height: auto;
   position: fixed;
   bottom: 60px;
@@ -224,16 +227,19 @@ const BackGround = styled(Image)`
   left: 0;
   right: 0;
   overflow: hidden;
-  @media (max-width: 600px) {
-    width: 390px;
+  @media (max-height: 1000px) {
+    width: 350px;
   }
-  @media (max-width: 380px) {
-    width: 330px;
+  @media (max-height: 800px) {
+    width: 290px;
   }
-  @media (max-width: 300px) {
-    width: 280px;
+  @media (max-height: 600px) {
+    width: 260px;
   }
-  @media (min-width: 1000px) {
-    width: 360px;
+  @media (max-height: 480px) {
+    width: 220px;
   }
+  @media (max-height: 300px) {
+    width: 200px;
+  }바
 `;
