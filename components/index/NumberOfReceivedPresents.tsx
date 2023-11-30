@@ -19,14 +19,9 @@ const NumberOfReceivedPresents = ({ day }) => {
     numberOfReceivedPresents > 100 ? "99+" : numberOfReceivedPresents;
 
   return numberOfReceivedPresents > 0 && isMyCalendar ?
-    ((day === 1 || day === 14 || day ===25) ?
-        <WideStyledNumberOfReceivedPresents>
-          {presentCount}
-        </WideStyledNumberOfReceivedPresents>
-      :<StyledNumberOfReceivedPresents>
-          {presentCount}
-        </StyledNumberOfReceivedPresents>
-      )
+    (<StyledNumberOfReceivedPresents>
+      {presentCount}
+    </StyledNumberOfReceivedPresents>)
    : (
     <></>
   );
@@ -37,77 +32,15 @@ export default NumberOfReceivedPresents;
 
 const StyledNumberOfReceivedPresents = styled.p`
   background-color: #E25320;
-  border-radius: 100%;
+  border-radius: 50%;
   background-position: center;
-  width: 20px;
-  height: 20px;
+  font-size: 10px;
+  width: 1rem;
+  height: 1rem;
   text-align: center;
   align-items: center;
   display: flex;
   justify-content: center;
   position: absolute;
-@media (max-width: 320px) {
-    font-size: x-small;
-    margin-left: 1.7rem;
-  }
-  @media (min-width: 320px) and (max-width: 600px) {
-    font-size: small;
-    width: 25px;
-    height: 25px;
-    margin-left: 3rem;
-  }
-  @media (min-width: 375px) and (max-width: 600px) {
-    margin-left: 2rem;width: 20px;
-    height: 20px;
-  }
-  @media (min-width: 601px) {
-    font-size: large;
-    background-size: cover;
-    width: 35px;
-    height: 35px;
-    margin-left: 3rem;
-  }
-  @media (min-width: 1000px){
-    font-size: small;
-    width: 20px;
-    height: 20px;
-    margin-left: 2.5rem;
-  }
-`;
-const WideStyledNumberOfReceivedPresents = styled(StyledNumberOfReceivedPresents)`
-  margin-left: 3rem;
-  @media (max-height: 1000px) {
-    margin-left: 6rem;
-  }
-  @media (max-height: 800px) {
-    margin-left: 4.7rem;
-  }
-  @media (max-height: 600px) {
-    margin-left: 4rem;
-    width: 20px;
-    height: 20px;
-  }
-  @media (max-height: 480px) {
-    margin-left: 3rem;
-    width: 20px;
-    height: 20px;
-  }
-  @media (max-height: 300px) {
-    margin-left: 3rem;
-  }
-  //@media (max-width: 320px) {
-  //  margin-left: 3.4rem;
-  //}
-  //@media (min-width: 320px) and (max-width: 600px) {
-  //  margin-left: 6rem;
-  //}
-  //@media (min-width: 375px) and (max-width: 600px) {
-  //  margin-left: 6rem;
-  //}
-  //@media (min-width: 601px) {
-  //  margin-left: 8rem;
-  //}
-  //@media (min-width: 1000px){
-  //  margin-left: 5.5rem;
-  //}
+  right: 0;
 `;

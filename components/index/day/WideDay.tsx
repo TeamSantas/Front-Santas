@@ -24,6 +24,7 @@ const WideDay = (props:WideDayProps) => {
 
   return (
         <td colSpan={2}>
+          <Container>
             <NumberOfReceivedPresents day={day}/>
             <DayImg src={`/asset_ver2/image/day/${open}/${open}_day${day}.png`}
                     width={100}
@@ -32,6 +33,7 @@ const WideDay = (props:WideDayProps) => {
                     color={color}
                     onClick={() => handleShow(day)}
                     alt={`day${day}`}/>
+          </Container>
         </td>
     );
 };
@@ -47,4 +49,7 @@ const DayImg = styled(Image)<{ color?: string }>`
   z-index: 10;
   background-color:  ${(props) => props.color || '#1C3249'};
   border-radius: 15px;
+`;
+const Container = styled.div`
+  position: relative;
 `;
