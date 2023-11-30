@@ -243,5 +243,5 @@ const BackGround = styled(Image)`
   }
   @media (max-height: 300px) {
     width: 200px;
-  }바
+  }
 `;
