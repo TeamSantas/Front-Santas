@@ -35,12 +35,7 @@ const ReceivedPresentList = () => {
       ) : (
         <>
           {presentLength > 0 ? (
-            [
-              ...receivedPresentList,
-              ...receivedPresentList,
-              ...receivedPresentList,
-              ...receivedPresentList,
-            ].map((present) => (
+            receivedPresentList.map((present) => (
               <Card
                 key={present.id}
                 id={present.id}
