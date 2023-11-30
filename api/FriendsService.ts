@@ -18,17 +18,5 @@ class FriendsService {
       config
     );
   };
-
-  //링크로 친구 검색하기 (서버) 🔑
-  getServerUserInfo = (config, token) => {
-    const FriendsServerAuthInstance = AuthAPIInstance(
-      process.env.NEXT_PUBLIC_BASE_URL,
-      token
-    );
-    return FriendsServerAuthInstance.get<ResponseData<FriendsData>>(
-      `/api/friend/search`,
-      config
-    );
-  };
 }
 export default new FriendsService();
