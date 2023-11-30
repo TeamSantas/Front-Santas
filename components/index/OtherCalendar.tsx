@@ -15,8 +15,8 @@ const OtherCalendar = ({ name }: IOtherCalendar) => {
   const date = new Date();
   // TODO:12월 오픈떄 주석으로 바꿔야 함
   // let today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
-  let today = `20231215`;
-  if (process.env.NODE_ENV === "development") today = `20231215`;
+  // let today = `20231215`;
+  // if (process.env.NODE_ENV === "development") today = `20231215`;
   const today_day = date.getDate();
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
@@ -35,9 +35,20 @@ const OtherCalendar = ({ name }: IOtherCalendar) => {
     }
     setSelectedDay(selectedDay);
 
-    let selDate: string = `202312${selectedDay}`;
+    let selectedDayToCompare: string = "202312" + selectedDay;
+    selectedDayToCompare = Number(selectedDay) < 10
+      ? "2023120" + selectedDay
+      : "202312" + selectedDay;
 
-    if (Number(selDate) < Number(today)) {
+    const today = Number(today_day) < 10
+      ? "2023120" + today_day
+      : "202312" + today_day;
+
+    let selDate: string = `202312${selectedDay}`;
+    console.log("====>selectedDayToCompare",selectedDayToCompare);
+    console.log("====>today",today);
+    console.log("====>",Number(selectedDayToCompare) < Number(today));
+    if (Number(selectedDayToCompare) < Number(today)) {
       alert("과거로는 선물을 보낼 수 없어요 ⌛");
     } else setPresentModalShow(true);
   };
