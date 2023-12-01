@@ -6,28 +6,37 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   compiler: {
-    styledComponents:
-      true |
-      {
-        displayName: true,
-        ssr: true,
-      },
+    styledComponents: {
+      displayName: true,
+      ssr: true,
+    },
     removeConsole: production,
   },
   publicRuntimeConfig: {
     env: env,
     GA4_TEST_MODE: process.env.GA4_TEST_MODE,
   },
-  images: {
+};
+
+if (production) {
+  nextConfig.images = {
     remotePatterns: [
       {
         hostname: "*",
       },
     ],
-    loader: production && "custom",
-    loaderFile: production && "./components/common/ImageLoader.ts",
-  },
-};
+    loader: "custom",
+    loaderFile: "./components/common/ImageLoader.ts",
+  };
+} else {
+  nextConfig.images = {
+    remotePatterns: [
+      {
+        hostname: "*",
+      },
+    ],
+  };
+}
 
 //React Three Fiber 의존성
 const withTM = require("next-transpile-modules")(["three"]);
