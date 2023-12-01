@@ -24,9 +24,9 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
           height={`1000`}
           alt={"배경"}
         />
-        <>
+        <CalendarWrapper>
           <Title>{name}의 캘린더</Title>
-          <Table>
+          <table>
             <tbody>
               <tr>
                 {dayRow_1.map((day, idx) => {
@@ -138,8 +138,8 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
                 })}
               </tr>
             </tbody>
-          </Table>
-        </>
+          </table>
+        </CalendarWrapper>
       </>
     );
   };
@@ -149,27 +149,27 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
 
 export default CalendarDays;
 
-const Title = styled.h1`
+const CalendarWrapper = styled.div`
   position: fixed;
-  font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
-  max-width: 260px;
+  margin: 0 auto;
+  width: 290px;
+  bottom: calc(env(safe-area-inset-bottom) + 125px);
   left: 50%;
   transform: translateX(-50%);
-  bottom: 80%;
+  @media (max-width: 350px) {
+    width: 83%;
+    bottom: calc(env(safe-area-inset-bottom) + 120px);
+  }
 `;
 
-const Table = styled.table`
-  position: fixed;
-  width: 90vw;
-  max-width: 290px;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: calc(env(safe-area-inset-bottom) + 125px);
-
-  @media (max-width: 350px) {
-    max-width: unset;
-    width: 80%;
-    bottom: calc(env(safe-area-inset-bottom) + 110px);
+const Title = styled.h1`
+  font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
+  margin: 0 auto;
+  margin-bottom: 20vh;
+  max-width: 260px;
+  text-align: center;
+  @media (max-width: 700px) {
+    margin-bottom: 140px;
   }
 `;
 
@@ -178,7 +178,7 @@ const BackGround = styled(Image)`
   max-width: 350px;
   height: auto;
   position: fixed;
-  bottom: calc(env(safe-area-inset-bottom) + 60px);
+  bottom: 60px;
   z-index: -1;
   margin: 0 auto;
   left: 0;
