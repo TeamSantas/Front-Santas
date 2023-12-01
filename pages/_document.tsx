@@ -63,6 +63,7 @@ class MyDocument extends Document {
             name="google-adsense-account"
             content="ca-pub-3291465451494000"
           />
+          <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
           <script
             defer
             src="https://developers.kakao.com/sdk/js/kakao.min.js"
