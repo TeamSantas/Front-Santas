@@ -115,7 +115,7 @@ const Contents = ({ contents, isPopular = false }: IContentTemplate) => {
 export default Contents;
 
 const GoCalendar = styled.img`
-  position: absolute;
+  position: fixed;
   top: 60px;
   left: 45px;
   cursor: pointer;

@@ -48,15 +48,14 @@ const ThumbsUp = ({ isLiked, boardId, isMyComment, likeCounts }: IThumbsUp) => {
 
   return (
     <Like liked={liked} onClick={handleClickLike}>
-      {/* <img
+      <img
         alt="thumbs-up"
         src={`/asset_ver2/image/town/thumbs-up${
           liked ? "-red" : "-default"
         }.png`}
         width={11}
         height={11}
-      /> */}
-      좋아요
+      />
       <div>{newLikeCounts}</div>
     </Like>
   );
@@ -65,7 +64,7 @@ const ThumbsUp = ({ isLiked, boardId, isMyComment, likeCounts }: IThumbsUp) => {
 export default ThumbsUp;
 
 const Like = styled.button`
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   right: 10px;
   display: flex;
