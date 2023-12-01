@@ -187,10 +187,10 @@ const DecoImg = styled(Image)`
 `;
 const UploadImg = styled(Image)`
   position: absolute;
-  right: 32%;
+  right: 20%;
   bottom: 0.5rem;
-  width: 10%;
-  height: auto;
+  width: 40px;
+  height: 40px;
 `;
 
 const FileInput = styled.input`
