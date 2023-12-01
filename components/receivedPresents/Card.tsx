@@ -22,6 +22,7 @@ const TabCard = styled.div`
 `;
 
 const ImgWrapper = styled.div`
+  position: relative;
   width: 100%;
   padding: 10px;
 `;
@@ -95,9 +96,9 @@ const Card = (props) => {
   return (
     <>
       <TabCard>
-        {!readStatus ? <NewBadge>NEW</NewBadge> : null}
         <CardFlex>
           <ImgWrapper>
+            {!readStatus ? <NewBadge>NEW</NewBadge> : null}
             <CardImg
               id={`${props.id}`}
               src={
