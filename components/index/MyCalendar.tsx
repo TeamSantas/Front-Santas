@@ -26,10 +26,10 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
 
   const handleShow = (selectedDay: number) => {
-    // if (todayPresentCount < 3) {
-    //   alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
-    //   return;
-    // }
+    if (todayPresentCount < 3) {
+      alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
+      return;
+    }
 
     setSelectedDay(selectedDay);
 
