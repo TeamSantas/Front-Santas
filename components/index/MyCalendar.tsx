@@ -17,9 +17,8 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   // let today = `20231215`;
   // if (process.env.NODE_ENV === "development") today = `20231215`;
   const today_day = date.getDate();
-  const today = Number(today_day) < 10
-    ? "2023120" + today_day
-    : "202312" + today_day;
+  const today =
+    Number(today_day) < 10 ? "2023120" + today_day : "202312" + today_day;
 
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [notYetModalShow, setNotYeModalShow] = useState(false);
@@ -38,17 +37,17 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
     let selectedDayToCompare: string = "202312" + selectedDay;
     // if (process.env.NODE_ENV === "development")
     // selectedDayToCompare = "20231215";
-    selectedDayToCompare = Number(selectedDay) < 10
-      ? "2023120" + selectedDay
-      : "202312" + selectedDay;
+    selectedDayToCompare =
+      Number(selectedDay) < 10
+        ? "2023120" + selectedDay
+        : "202312" + selectedDay;
 
-    const today = Number(today_day) < 10
-      ? "2023120" + today_day
-      : "202312" + today_day;
+    const today =
+      Number(today_day) < 10 ? "2023120" + today_day : "202312" + today_day;
 
-    console.log("====>selectedDayToCompare",selectedDayToCompare);
-    console.log("====>today",today);
-    console.log("====>",Number(selectedDayToCompare) < Number(today));
+    console.log("====>selectedDayToCompare", selectedDayToCompare);
+    console.log("====>today", today);
+    console.log("====>", Number(selectedDayToCompare) < Number(today));
     // 열기 시도한 날이 오늘보다 앞의 날
     if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
@@ -62,8 +61,9 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   useEffect(() => {
     let selectedDayToCompare: string = "202312" + selectedDay;
     // if (process.env.NODE_ENV === "development")
-      // selectedDayToCompare = "20231215";
-    selectedDayToCompare = Number(selectedDay) < 10
+    // selectedDayToCompare = "20231215";
+    selectedDayToCompare =
+      Number(selectedDay) < 10
         ? "2023120" + selectedDay
         : "202312" + selectedDay;
     if (Number(selectedDayToCompare) <= Number(today)) {
@@ -81,21 +81,21 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
       <CalendarWrapper>
         <CalendarDays name={"나"} handleShow={handleShow} />
       </CalendarWrapper>
-        <PresentModal
-          // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달
-          show={presentModalShow}
-          onHide={handleClosePresentModal}
-          selectedDay={selectedDay}
-          isMyCalendar={true}
-        />
-        <CustomModal
-          // 선택한 캘린더 날짜를 보여주지 못할 때 보여주는 모달
-          show={notYetModalShow}
-          onHide={handleCloseNotYetModal}
-          header={""}
-          body={<DenyAccess />}
-          //TODO: adfit 아이디 추가
-        />
+      <PresentModal
+        // 선택한 캘린더 날짜로 받은선물을 조회해 보여주는 모달
+        show={presentModalShow}
+        onHide={handleClosePresentModal}
+        selectedDay={selectedDay}
+        isMyCalendar={true}
+      />
+      <CustomModal
+        // 선택한 캘린더 날짜를 보여주지 못할 때 보여주는 모달
+        show={notYetModalShow}
+        onHide={handleCloseNotYetModal}
+        header={""}
+        body={<DenyAccess />}
+        //TODO: adfit 아이디 추가
+      />
     </>
   );
 };
