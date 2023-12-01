@@ -16,9 +16,7 @@ const TodaysHeart = ({ todaysQuestion = "", error = false }) => {
         </Text>
         <Card>
           <Question>
-            {`Q.두근두근 어드밴트 캘린더를\n 함께 하고 싶은 사람이 있나요?`}
-            {/* TODO: 질문 리스트 주입 마치면 주석 해제 */}
-            {/* {error ? "같이 눈오리🐤 만들고 싶은 사람은?" : todaysQuestion} */}
+             {error ? "같이 눈오리🐤 만들고 싶은 사람은?" : `Q. `+todaysQuestion}
           </Question>
         </Card>
         <HeartTab />
