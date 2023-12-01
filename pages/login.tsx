@@ -6,6 +6,9 @@ import { kakaoLoginUrl } from "../components/common/urls";
 const Login = () => {
   return (
     <Container>
+      <Warning>
+        🤍 친구 목록 제공에 동의해 주셔야 서비스 사용이 가능합니다 🤍
+      </Warning>
       <KakaoLoginButton href={kakaoLoginUrl}>
         <Image
           alt="kakao-logo"
@@ -28,9 +31,23 @@ Login.getLayout = (page) => {
 
 const Container = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   bottom: -94vh;
   left: 50%;
   transform: translateX(-50%);
+`;
+
+const Warning = styled.p`
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #e25320;
+  border-radius: 5px;
+  padding: 3px;
 `;
 
 const KakaoLoginButton = styled.a`
