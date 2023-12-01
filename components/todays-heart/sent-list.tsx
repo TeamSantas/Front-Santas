@@ -4,15 +4,26 @@ import SentFriendsCard from "./sent-friend-card";
 import { useEffect, useState } from "react";
 import { FriendsData } from "../../util/type";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
+import { useRouter } from "next/router";
 
 const SentFriendsList = () => {
+  const router = useRouter();
   const [friendsData, setFriendsData] = useState<FriendsData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const getFriendsData = async () => {
     setIsLoading(true);
     try {
-      const friendsList = await setGetFriend();
-      setFriendsData(friendsList);
+      const res = await setGetFriend();
+      if (res.status === 200) {
+        setFriendsData(res.data.data);
+      }
+      if (res.status === 403) {
+        alert(
+          `카카오 친구 목록 제공에 동의하셔야 사용 가능한 기능이에요.\n다시 동의를 하실 수 있도록 준비중이에요.`
+        );
+        router.replace("/");
+        return;
+      }
     } catch (e) {
       console.log(e);
     }

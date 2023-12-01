@@ -3,9 +3,7 @@ import FriendsService from "../FriendsService";
 export async function setGetFriend() {
   try {
     const res = await FriendsService.getFriends();
-    if (res.status === 200) {
-      return res.data.data;
-    }
+    return res;
   } catch (e) {
     console.error(e);
   }
