@@ -52,7 +52,7 @@ const ThumbsUp = ({ isLiked, boardId, isMyComment, likeCounts }: IThumbsUp) => {
         alt="thumbs-up"
         src={`/asset_ver2/image/town/thumbs-up${
           liked ? "-red" : "-default"
-        }.svg`}
+        }.png`}
         width={11}
         height={11}
       />

@@ -83,6 +83,7 @@ const Contents = ({ contents, isPopular = false }: IContentTemplate) => {
                     }
                     width={44}
                     height={44}
+                    onClick={() => handleClickProfile(content)}
                   />
                   {!content.isAnonymous && (
                     <GoCalendar
@@ -113,7 +114,7 @@ const Contents = ({ contents, isPopular = false }: IContentTemplate) => {
 
 export default Contents;
 
-const GoCalendar = styled(Image)`
+const GoCalendar = styled.img`
   position: absolute;
   top: 60px;
   left: 45px;
