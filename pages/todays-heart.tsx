@@ -16,7 +16,8 @@ const TodaysHeart = ({ todaysQuestion = "", error = false }) => {
         </Text>
         <Card>
           <Question>
-             {error ? "같이 눈오리🐤 만들고 싶은 사람은?" : `Q. `+todaysQuestion}
+            {"Q. 올 한해 미안했던 사람이 있나요?"}
+             {/*{error ? "같이 눈오리🐤 만들고 싶은 사람은?" : `Q. `+todaysQuestion}*/}
           </Question>
         </Card>
         <HeartTab />
