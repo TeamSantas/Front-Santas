@@ -46,7 +46,7 @@ const PresentModal = ({
             <GreenCloseButton onClick={onHide} isMyCalendar={isMyCalendar} />
           </Modal.Title>
         </CustomHeader>
-        <CustomBody hasMaxHeight={isMyCalendar ? "true" : "false"}>
+        <CustomBody hasHeight={isMyCalendar ? "true" : "false"}>
           {isMyCalendar ? (
             <>
               <PresentCardList selectedday={selectedDay} />
@@ -75,8 +75,7 @@ const BlueBackground = styled.div`
 
 const CustomBody = styled(Modal.Body)`
   border: none;
-  height: ${({ isMyCalendar }) =>
-    isMyCalendar === "true" ? "40vh" : "inherit"};
+  height: ${({ hasHeight }) => (hasHeight === "true" ? "60vh" : "inherit")};
   overflow-y: scroll;
   -ms-overflow-style: none; /* Explorer */
   scrollbar-width: none; /* Firefox */
