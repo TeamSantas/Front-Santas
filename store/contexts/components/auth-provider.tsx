@@ -24,24 +24,6 @@ export default function AuthProvider({ children }: Props) {
   const [, setNotificationOn] = useAtom(sidebarNotificationAtom);
   const [storeRefreshToken, setStoreRefreshToken] = useState<string>("");
   const router = useRouter();
-  const updateUserData = useCallback(async () => {
-    try {
-      const memberData = await getLoggedMemberRaw();
-      const { member, todayPresentCount } = memberData;
-
-      // global state 저장 ----------------------
-      setStoreUserData(member as MemberData);
-      setTodayPresentCount(todayPresentCount);
-      setBgmOn(member.setting.bgm);
-      setNotificationOn(member.setting.isAlert);
-      // ---------------------------------------
-
-      measureUser({ user_id: member.id });
-    } catch (e) {
-      console.error(e);
-    }
-  }, [setStoreUserData, setTodayPresentCount, setBgmOn, setNotificationOn]);
-
   const updateRefreshToken = (refreshToken: string) => {
     setStoreRefreshToken(refreshToken);
   };
@@ -49,9 +31,20 @@ export default function AuthProvider({ children }: Props) {
   useEffect(() => {
     const token = getCookie("token");
     if (!router.pathname.includes("upcoming") && token) {
-      updateUserData();
+      updateUserData(
+        setStoreUserData,
+        setTodayPresentCount,
+        setBgmOn,
+        setNotificationOn
+      );
     }
-  }, [router.pathname, updateUserData]);
+  }, [
+    router.pathname,
+    setBgmOn,
+    setNotificationOn,
+    setStoreUserData,
+    setTodayPresentCount,
+  ]);
 
   const value = {
     storeUserData,
@@ -62,3 +55,26 @@ export default function AuthProvider({ children }: Props) {
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }
+
+export const updateUserData = async (
+  setStoreUserData,
+  setTodayPresentCount,
+  setBgmOn,
+  setNotificationOn
+) => {
+  try {
+    const memberData = await getLoggedMemberRaw();
+    const { member, todayPresentCount } = memberData;
+
+    // global state 저장 ----------------------
+    setStoreUserData(member as MemberData);
+    setTodayPresentCount(todayPresentCount);
+    setBgmOn(member.setting.bgm);
+    setNotificationOn(member.setting.isAlert);
+    // ---------------------------------------
+
+    measureUser({ user_id: member.id });
+  } catch (e) {
+    console.error(e);
+  }
+};

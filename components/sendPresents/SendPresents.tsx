@@ -1,193 +1,54 @@
 import styled from "styled-components";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Flex,
   GreenButton,
   GreenCloseButton,
 } from "../../styles/styledComponentModule";
 import Form from "react-bootstrap/Form";
-import { MemberData } from "../../util/type";
 import { usePostPresent } from "../../api/hooks/usePostPresent";
-import { useRouter } from "next/router";
-import { setGetCurrCalendarUserInfo } from "../../api/hooks/useGetCurrCalendarUserInfo";
-import MemberService from "../../api/MemberService";
 import Image from "next/image";
-
-export const PresentHeader = styled.div`
-  font-size: large;
-  font-family: "NanumSquareNeoOTF-Bd", NanumSquareNeoOTF-Bb, sans-serif;
-`;
-const JustifiedAlignedFlex = styled(Flex)`
-  align-items: center;
-  @media (max-width: 300px) {
-    font-size: 12px;
-  }
-`;
-
-export const TextArea = styled.div`
-  outline-color: #3d4cac;
-  font-family: "NanumSquareNeoOTF-Bd", KCC-Ganpan, sans-serif;
-  text-align: center;
-  color: white;
-  background-image: url("/asset_ver2/image/presents/present_background.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin-top: 1rem;
-  height: 17rem;
-  padding: 1rem 4rem;
-  @media (min-width: 768px) {
-    //태블릿 대응
-    padding: 1rem 6rem;
-  }
-  @media (max-width: 300px) {
-    //갤폴드 대응
-    padding: 3rem 1rem;
-  }
-`;
-
-export const SendPresentsWrapper = styled.div`
-  text-align: center;
-  color: white;
-`;
-
-const GreenDeleteButton = styled(GreenCloseButton)`
-  background-repeat: no-repeat;
-  background-size: contain;
-  position: relative;
-  z-index: 10;
-  margin-top: -90px;
-  margin-left: 67px;
-  width: 1.5rem;
-  cursor: pointer;
-`;
-
-const LoadingScreenBack = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: #1e344f;
-  z-index: 10;
-`;
-
-const LoadingContainer = styled.div`
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+import { updateUserData } from "../../store/contexts/components/auth-provider";
+import { useAtom } from "jotai";
+import {
+  loginUserDataAtom,
+  todayPresentCountAtom,
+  sidebarBgmAtom,
+  sidebarNotificationAtom,
+  profileUserDataAtom,
+} from "../../store/globalState";
 
 const SendPresents = ({ onHide, selectedday }) => {
-  const [contents, setContents] = useState<string>("");
-  const [isLogged, setIsLogged] = useState(false);
-  const [isAnonymous, setAnonymous] = useState<boolean | any>(false);
-  const [nickname, setNickname] = useState<string>("익명의 산타");
-  const [memberInfo, setMemberInfo] = useState<any>();
-  const [currCalUser, setCurrCalUser] = useState<MemberData>();
+  const [isAnonymous, setAnonymous] = useState(false);
+  const [profileUser] = useAtom(profileUserDataAtom);
   const [isLoading, setIsLoading] = useState(false);
-  // ImageUpload -------------
   const [fileList, setFileList] = useState<File[]>([]);
-  const [heicFiles, setHeicFiles] = useState<File[]>([]);
-
+  const [storeUserData, setStoreUserData] = useAtom(loginUserDataAtom);
+  const [, setTodayPresentCount] = useAtom(todayPresentCountAtom);
+  const [, setBgmOn] = useAtom(sidebarBgmAtom);
+  const [, setNotificationOn] = useAtom(sidebarNotificationAtom);
   const [showImages, setShowImages] = useState([]);
-  const router = useRouter();
 
-  // Ref ---------------------
   const ref = useRef(null);
   const nicknameRef = useRef(null);
 
-  // 현재 로그인한 유저의 정보
-  const getUserData = async () => {
-    try {
-      // const res = await getLoggedMember();
-      const res = await MemberService.getLoggedMember();
-      // console.log("선물보낼사람정보>>>>>>>>>>>>", res.data.data.member);
-      setMemberInfo(res.data.data.member);
-      setIsLogged(true);
-    } catch (e) {
-      // console.log(e);
-      setIsLogged(false);
-      setAnonymous(true);
-    }
-  };
-
-  // 현재 캘린더 주인 유저 정보
-  const currInvitationLink = router.asPath.slice(1).slice(0, 36);
-
-  // console.log("currInvitationLink >>> ", currInvitationLink);
-  const getCurrCalUser = async () => {
-    try {
-      const res = await setGetCurrCalendarUserInfo(currInvitationLink);
-      // console.log("캘린더주인정보>>>>>>>>>>>>", res.data.data);
-      setCurrCalUser(res.data.data);
-    } catch (e) {
-      // console.log(e);
-    }
-  };
-  useEffect(() => {
-    getUserData();
-    getCurrCalUser();
-  }, []);
-
-  const currCalUserName: string = currCalUser
-    ? `${currCalUser.nickname}`
+  const currCalUserName: string = profileUser
+    ? `${profileUser.nickname}`
     : "친구";
-  const currCalUserId: number = currCalUser ? currCalUser.id : 0;
-
-  // -------------------------------------
+  const currCalUserId: number = profileUser ? profileUser.id : 0;
 
   // 익명 체크
   const handleCheckAnonymous = () => {
-    setAnonymous(!isAnonymous);
-    // if (isAnonymous === false) {
-    //   if (memberInfo.nickname) {
-    //     setNickname(memberInfo.nickname);
-    //   } else {
-    //     setNickname("익명");
-    //   }
-    // }
-  };
-
-  // 선물 보내기 버튼 handler ----------------
-  const handleClickSendPresent = () => {
-    const inputNickname = nicknameRef.current?.value;
-    // console.log(inputNickname, "닉넴님ㄱ넴");
-
-    // 최대 100자 제한 - 넘으면 자름
-    setContents(ref.current?.value);
-
-    if (inputNickname !== "undefined") {
-      if (inputNickname) {
-        setNickname(inputNickname); // << 익명체크시 닉네임
-      } else {
-        setNickname("익명의 산타");
-      }
-    } else if (memberInfo.nickname) {
-      setNickname(memberInfo.nickname); // << 익명아닐때 닉네임(자동주입)
-    }
-    HandleImageSubmit();
-    // onHide();
+    setAnonymous((prev) => !prev);
   };
 
   // 이미지 상대경로 저장
   const handleAddImages = (e) => {
     const uploadFiles = Array.prototype.slice.call(e.target.files);
 
-    // HEIC -> JPG
-    const heicFile = uploadFiles.filter((file) =>
-      file.name.toLowerCase().endsWith("heic")
-    );
-    // if (heicFile.length > 0) {
-    //   alert("heic 파일 지원 준비중입니다. 🛠️");
-    //   return;
-    // }
-    // console.log("heicFiles >>> ", heicFile);
-
     // 파일 첨부 최대 5장 제한
     if ([...uploadFiles, ...fileList].length > 5) {
-      alert("사진은 최대 5장 첨부 가능합니다. 🎄");
+      alert("사진은 최대 5장 첨부 가능합니다.");
       return;
     }
 
@@ -206,7 +67,8 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     setShowImages(imageUrlLists);
   };
-  // 클릭 시 이미지 삭제
+
+  // 이미지 삭제
   const handleDeleteImage = (id) => {
     setShowImages((prev) => prev.filter((_, index) => index !== id));
     setFileList((prevFileList) =>
@@ -218,8 +80,8 @@ const SendPresents = ({ onHide, selectedday }) => {
     setIsLoading(true);
     let sendNick = nicknameRef.current?.value;
     if (!isAnonymous) {
-      if (memberInfo?.nickname) {
-        sendNick = memberInfo.nickname;
+      if (storeUserData?.nickname) {
+        sendNick = storeUserData.nickname;
       } else {
         sendNick = "익명의 산타";
       }
@@ -232,7 +94,7 @@ const SendPresents = ({ onHide, selectedday }) => {
     const presentData = new FormData();
 
     // @ts-ignore
-    presentData.append("receiverId", currCalUserId); // TODO : 받은 사람 ID로 가져오기
+    presentData.append("receiverId", currCalUserId);
     presentData.append("nickname", sendNick);
     presentData.append("title", "Test title"); // title 사용하지 않기로 했습니다
     presentData.append("contents", ref.current?.value);
@@ -240,14 +102,13 @@ const SendPresents = ({ onHide, selectedday }) => {
       "receivedDate",
       `2023-12-${selectedday.toString().padStart(2, "0")}`
     );
-    presentData.append("isAnonymous", isAnonymous);
+    presentData.append("isAnonymous", isAnonymous.toString());
 
     if (fileList.length > 0) {
       // HEIC 파일이라면 변환
       const heicFiles = fileList.filter((file) =>
         file.name.toLowerCase().endsWith("heic")
       );
-      // console.log("heicFiles >>>>>>>>> ", heicFiles);
       if (heicFiles.length > 0)
         alert("[✨오픈예정] 현재는 heic형식 파일첨부가 불가합니다.");
 
@@ -259,16 +120,6 @@ const SendPresents = ({ onHide, selectedday }) => {
       });
     }
 
-    // console.log(
-    //   "파일들...",
-    //   currCalUserId,
-    //   sendNick,
-    //   contents, // 미래의 나에게 : 이거 undefined 가 정상이다 왜냐면 ref 바로 넣고잇다..
-    //   `2022-12-${selectedday.toString().padStart(2, "0")}`,
-    //   isAnonymous,
-    //   fileList
-    // );
-
     try {
       const res = await usePostPresent(presentData);
       //TODO: 푸시알림
@@ -276,12 +127,18 @@ const SendPresents = ({ onHide, selectedday }) => {
       if (res.status === 200) {
         setIsLoading(false);
         alert("선물 보내기 성공! 🎁");
+        updateUserData(
+          setStoreUserData,
+          setTodayPresentCount,
+          setBgmOn,
+          setNotificationOn
+        );
         onHide();
       }
     } catch (e) {
       console.log(e);
       setIsLoading(false);
-      alert("선물 보내기에 실패했어요. 🥺");
+      alert("선물 보내기에 실패했어요. 잠시 후 다시 시도해 주세요.🥺");
     }
   };
   const placeholder = `여기에 쪽지를 적어주세요. 
@@ -349,10 +206,9 @@ const SendPresents = ({ onHide, selectedday }) => {
             id={`default-checkbox`}
             label={`익명`}
             onClick={handleCheckAnonymous}
-            disabled={!isLogged}
-            checked={!isLogged || isAnonymous}
+            checked={isAnonymous}
           />
-          {isAnonymous || !isLogged ? (
+          {isAnonymous ? (
             <input
               className="inputNickname"
               type="text"
@@ -364,7 +220,7 @@ const SendPresents = ({ onHide, selectedday }) => {
             <div className="inputNickname" />
           )}
         </JustifiedAlignedFlex>
-        <GreenButton onClick={handleClickSendPresent}>
+        <GreenButton onClick={HandleImageSubmit}>
           쪽지보내기
           <Image
             src={`/asset_ver2/image/send.png`}
@@ -393,4 +249,69 @@ const SubmitFlex = styled(Flex)`
 `;
 const ThumbnailContainer = styled.div`
   width: 80px;
+`;
+export const PresentHeader = styled.div`
+  font-size: large;
+  font-family: "NanumSquareNeoOTF-Bd", NanumSquareNeoOTF-Bb, sans-serif;
+`;
+const JustifiedAlignedFlex = styled(Flex)`
+  align-items: center;
+  @media (max-width: 300px) {
+    font-size: 12px;
+  }
+`;
+
+export const TextArea = styled.div`
+  outline-color: #3d4cac;
+  font-family: "NanumSquareNeoOTF-Bd", KCC-Ganpan, sans-serif;
+  text-align: center;
+  color: white;
+  background-image: url("/asset_ver2/image/presents/present_background.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 1rem;
+  height: 17rem;
+  padding: 1rem 4rem;
+  @media (min-width: 768px) {
+    //태블릿 대응
+    padding: 1rem 6rem;
+  }
+  @media (max-width: 300px) {
+    //갤폴드 대응
+    padding: 3rem 1rem;
+  }
+`;
+
+export const SendPresentsWrapper = styled.div`
+  text-align: center;
+  color: white;
+`;
+
+const GreenDeleteButton = styled(GreenCloseButton)`
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  z-index: 10;
+  margin-top: -90px;
+  margin-left: 67px;
+  width: 1.5rem;
+  cursor: pointer;
+`;
+
+const LoadingScreenBack = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #1e344f;
+  z-index: 10;
+`;
+
+const LoadingContainer = styled.div`
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
