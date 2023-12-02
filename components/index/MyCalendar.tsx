@@ -10,12 +10,7 @@ interface IMyCalendar {
 }
 
 const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
-  // 현재 날짜 - ex) 20221129
   const date = new Date();
-  // TODO:12월 오픈떄 주석으로 바꿔야 함
-  // let today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
-  // let today = `20231215`;
-  // if (process.env.NODE_ENV === "development") today = `20231215`;
   const today_day = date.getDate();
   const today =
     Number(today_day) < 10 ? "2023120" + today_day : "202312" + today_day;
@@ -33,21 +28,17 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
 
     setSelectedDay(selectedDay);
 
-    // let selDate: string = `202312${selectedDay}`;
     let selectedDayToCompare: string = "202312" + selectedDay;
     // if (process.env.NODE_ENV === "development")
-    // selectedDayToCompare = "20231215";
     selectedDayToCompare =
       Number(selectedDay) < 10
         ? "2023120" + selectedDay
         : "202312" + selectedDay;
 
-    const today =
+    let today =
       Number(today_day) < 10 ? "2023120" + today_day : "202312" + today_day;
+    // if (process.env.NODE_ENV === "development") today = `20231215`;
 
-    console.log("====>selectedDayToCompare", selectedDayToCompare);
-    console.log("====>today", today);
-    console.log("====>", Number(selectedDayToCompare) < Number(today));
     // 열기 시도한 날이 오늘보다 앞의 날
     if (Number(selectedDayToCompare) <= Number(today)) {
       setCanOpenCalendar(true);
@@ -59,10 +50,7 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   };
 
   useEffect(() => {
-    let selectedDayToCompare: string = "202312" + selectedDay;
-    // if (process.env.NODE_ENV === "development")
-    // selectedDayToCompare = "20231215";
-    selectedDayToCompare =
+    let selectedDayToCompare =
       Number(selectedDay) < 10
         ? "2023120" + selectedDay
         : "202312" + selectedDay;

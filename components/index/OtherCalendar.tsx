@@ -11,12 +11,7 @@ interface IOtherCalendar {
 }
 
 const OtherCalendar = ({ name }: IOtherCalendar) => {
-  // 현재 날짜 - ex) 20221129
   const date = new Date();
-  // TODO:12월 오픈떄 주석으로 바꿔야 함
-  // let today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
-  // let today = `20231215`;
-  // if (process.env.NODE_ENV === "development") today = `20231215`;
   const today_day = date.getDate();
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
@@ -44,10 +39,6 @@ const OtherCalendar = ({ name }: IOtherCalendar) => {
       ? "2023120" + today_day
       : "202312" + today_day;
 
-    let selDate: string = `202312${selectedDay}`;
-    console.log("====>selectedDayToCompare",selectedDayToCompare);
-    console.log("====>today",today);
-    console.log("====>",Number(selectedDayToCompare) < Number(today));
     if (Number(selectedDayToCompare) < Number(today)) {
       alert("과거로는 선물을 보낼 수 없어요 ⌛");
     } else setPresentModalShow(true);
