@@ -7,12 +7,12 @@ import {
 } from "../../api/hooks/useTownData";
 
 export const fetchContents = async (page: number, token = null) => {
-  const perPage = 12;
   try {
     // 1page 이상부터 호출
+    // page = 마지막으로 조회한 boardId
     const allContents = token
-      ? await getAuthBoard(page * perPage, token)
-      : await getBoard(page * perPage);
+      ? await getAuthBoard(page, token)
+      : await getBoard(page);
     return allContents || [];
   } catch (e) {
     console.error("Error while fetching all contents: ", e);
@@ -21,10 +21,10 @@ export const fetchContents = async (page: number, token = null) => {
 };
 
 export const fetchMyContents = async (page: number) => {
-  const perPage = 12;
   try {
     // 1page 이상부터 호출
-    const allContents = await getMyBoard(page * perPage);
+    // page = 마지막으로 조회한 boardId
+    const allContents = await getMyBoard(page);
     return allContents || [];
   } catch (e) {
     console.error("Error while fetching my contents: ", e);

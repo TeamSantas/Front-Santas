@@ -16,7 +16,7 @@ import { notices } from "../components/town/notices";
 import { useState } from "react";
 import ToggleButton from "../components/common/toggle";
 
-const Town = ({ myContents, allContents, popularContents }) => {
+const Town = ({ myContents, allContents, popularContents, nextTargetAllContents, nextTargetMyContents }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMyContent, setIsMyContent] = useState(false);
 
@@ -60,6 +60,8 @@ const Town = ({ myContents, allContents, popularContents }) => {
             myContents={myContents}
             allContents={allContents}
             popularContents={popularContents}
+            nextTargetAllContents={nextTargetAllContents}
+            nextTargetMyContents={nextTargetMyContents}
           />
         </ContentWrapper>
         <ContentInput />
@@ -71,7 +73,7 @@ export default Town;
 
 Town.getLayout = (page) => {
   return (
-    <Layout logo={"/asset_ver2/image/layout/town-logo.png"}>{page}</Layout>
+      <Layout logo={"/asset_ver2/image/layout/town-logo.png"}>{page}</Layout>
   );
 };
 
@@ -87,12 +89,13 @@ export async function getServerSideProps(context) {
         getAuthBoardPopular(token),
         getServerMyBoard(0, token),
       ]);
-
       return {
         props: {
           myContents: myContents || [],
           allContents: allContents || [],
           popularContents: popularContents || [],
+          nextTargetAllContents: allContents[allContents.length-1].boardId,
+          nextTargetMyContents: myContents[myContents.length-1].boardId
         },
       };
     } catch (e) {
@@ -102,6 +105,8 @@ export async function getServerSideProps(context) {
           myContents: [],
           allContents: [],
           popularContents: [],
+          nextTargetAllContents: 0,
+          nextTargetMyContents: 0
         },
       };
     }
@@ -119,6 +124,7 @@ export async function getServerSideProps(context) {
           myContents: [],
           allContents: allContents || [],
           popularContents: popularContents || [],
+          nextTargetAllContents: allContents[allContents.length-1].boardId
         },
       };
     } catch (e) {
@@ -128,6 +134,7 @@ export async function getServerSideProps(context) {
           myContents: [],
           allContents: [],
           popularContents: [],
+          nextTargetAllContents: 0
         },
       };
     }
