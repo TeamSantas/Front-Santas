@@ -4,7 +4,7 @@ import TownService from "../TownService";
 /**
  * 게시글 좋아요
  */
-export async function putBoardLikeAndUnlike(boardId) {
+export async function putBoardLikeAndUnlike(boardId:number) {
   const config = { boardId };
   try {
     const res = await TownService.putBoardLikeAndUnlike(config);
@@ -18,7 +18,7 @@ export async function putBoardLikeAndUnlike(boardId) {
 /**
  * 내 게시글 조회
  */
-export async function getMyBoard(boardId) {
+export async function getMyBoard(boardId:number) {
   const config = { boardId };
   try {
     const res = await TownService.getMyBoard(config);
@@ -31,7 +31,7 @@ export async function getMyBoard(boardId) {
 /**
  * 내 게시글 조회 (서버)
  */
-export async function getServerMyBoard(boardId, token) {
+export async function getServerMyBoard(boardId:number, token: string) {
   const config = { boardId };
   try {
     const res = await TownService.getServerMyBoard(config, token);
@@ -43,7 +43,7 @@ export async function getServerMyBoard(boardId, token) {
 /**
  * 비회원 게시글 조회
  */
-export async function getBoard(boardId) {
+export async function getBoard(boardId:number) {
   const config = { boardId };
   try {
     const res = await TownService.getBoard(config);
@@ -56,7 +56,7 @@ export async function getBoard(boardId) {
 /**
  * 회원 게시글 조회(서버)
  */
-export async function getAuthBoard(boardId, token) {
+export async function getAuthBoard(boardId:number, token: string) {
   const config = { boardId };
   try {
     const res = await TownService.getAuthBoard(config, token);
@@ -93,7 +93,7 @@ export async function getBoardPopular() {
 /**
  * 인기 게시글 조회 (서버)
  */
-export async function getAuthBoardPopular(token) {
+export async function getAuthBoardPopular(token:string) {
   try {
     const res = await TownService.getAuthBoardPopular(token);
     return res.data.data;
@@ -117,7 +117,7 @@ export async function report(ReportData: ReportData) {
 /**
  * 게시글 삭제
  */
-export async function deleteContent(boardId) {
+export async function deleteContent(boardId:number) {
   const config = { boardId };
   try {
     const res = await TownService.postBoardDelete(config);
