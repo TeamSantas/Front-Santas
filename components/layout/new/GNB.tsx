@@ -11,7 +11,6 @@ const Gnb = () => {
   const router = useRouter();
   const [activePathOption, setActivePathOption] = useAtom(gnbActivePathAtom);
   const [, setShowModal] = useAtom(modalStateAtom);
-  const isHome = router.pathname === "/";
   const [storeUserData] = useAtom(loginUserDataAtom);
   const isLoginUser = storeUserData.id !== -1;
 
@@ -25,8 +24,8 @@ const Gnb = () => {
           show: true,
         });
         break;
-      case "snowball":
-        router.push("/snowball");
+      case "town":
+        router.push("/town");
         break;
       case "message":
         {
@@ -49,7 +48,7 @@ const Gnb = () => {
             }
             return;
           }
-          router.push(isHome ? "/town" : "/");
+          router.push("/");
         }
         break;
       case "todays-heart":
@@ -70,8 +69,7 @@ const Gnb = () => {
   };
 
   const getImagePath = (option) => {
-    const condition =
-      option === "home" ? isHome : activePathOption === option && isLoginUser;
+    const condition = activePathOption === option && isLoginUser;
     return `/asset_ver2/image/layout/gnb/${option}${
       condition ? "-click" : "-default"
     }.svg`;
@@ -85,8 +83,10 @@ const Gnb = () => {
           onClick={() => handleClickOption("friends")}
         />
         <Img
-          src={getImagePath("snowball")}
-          onClick={() => handleClickOption("snowball")}
+          width={"26px"}
+          height={"27px"}
+          src={getImagePath("town")}
+          onClick={() => handleClickOption("town")}
         />
         <HomeIcon onClick={() => handleClickOption("home")}>
           <Img width={"26px"} height={"27px"} src={getImagePath("home")} />

@@ -7,6 +7,7 @@ import Logout from "./logout";
 import Login from "./login";
 import NotificationToggle from "./notification";
 import BgmToggle from "./bgm";
+import { CenteredFlex } from "../../styles/styledComponentModule";
 
 const SettingSideBar = () => {
   const [isOpen, setIsOpen] = useAtom(sidebarOpenAtom);
@@ -18,6 +19,8 @@ const SettingSideBar = () => {
       setIsOpen(false);
     }
   };
+
+  const handleClickClose = () => setIsOpen(false);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -34,9 +37,6 @@ const SettingSideBar = () => {
           <div>
             {isLoginUser && <NotificationToggle />}
             {isLoginUser && <BgmToggle />}
-            <LinkContent href={"https://pf.kakao.com/_wDRPxj"} target="_blank">
-              신고 및 문의
-            </LinkContent>
             <LinkContent
               href={
                 "https://www.notion.so/merry-christmass/36927b1bd2b24a6888c0ee786b4eb865?pvs=4"
@@ -45,19 +45,36 @@ const SettingSideBar = () => {
             >
               공지 사항
             </LinkContent>
-            <LinkContent
-              href={
-                "https://www.notion.so/merry-christmass/3292992054534d28a2f39c01e0e1e9d8?pvs=4"
-              }
-              target="_blank"
-            >
-              개인정보 처리방침
+            <LinkContent href={"/snowball"} onClick={handleClickClose}>
+              스노우볼 구경하기 ☃️
             </LinkContent>
-            <LinkContent href={"/ca8f8e79-d48d-4bca-a653-04093125a2c5"}>
+            <LinkContent
+              href={"/ca8f8e79-d48d-4bca-a653-04093125a2c5"}
+              onClick={handleClickClose}
+            >
               산타즈 캘린더 바로가기 🎅
             </LinkContent>
           </div>
-          {isLoginUser ? <Logout /> : <Login />}
+          <Bottom>
+            <LinkWrapper>
+              <LinkContent
+                href={"https://pf.kakao.com/_wDRPxj"}
+                target="_blank"
+              >
+                신고 및 문의
+              </LinkContent>
+              |
+              <LinkContent
+                href={
+                  "https://www.notion.so/merry-christmass/3292992054534d28a2f39c01e0e1e9d8?pvs=4"
+                }
+                target="_blank"
+              >
+                개인정보 처리방침
+              </LinkContent>
+            </LinkWrapper>
+            {isLoginUser ? <Logout /> : <Login />}
+          </Bottom>
         </ContentWrapper>
       </SidebarContainer>
     </>
@@ -66,6 +83,13 @@ const SettingSideBar = () => {
 
 export default SettingSideBar;
 
+const LinkWrapper = styled(CenteredFlex)`
+  gap: 5px;
+  font-size: 12px;
+  align-items: center;
+`;
+
+const Bottom = styled.div``;
 const Backdrop = styled.div`
   position: fixed;
   top: 0;
@@ -83,7 +107,7 @@ const SidebarContainer = styled.div`
   z-index: 1000;
   background-color: #f9f9f9;
   color: #8e8e8e;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   display: flex;
   flex-direction: column;
