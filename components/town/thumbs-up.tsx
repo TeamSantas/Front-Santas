@@ -64,7 +64,7 @@ const ThumbsUp = ({ isLiked, boardId, isMyComment, likeCounts }: IThumbsUp) => {
 export default ThumbsUp;
 
 const Like = styled.button`
-  position: fixed;
+  position: absolute;
   bottom: 10px;
   right: 10px;
   display: flex;
