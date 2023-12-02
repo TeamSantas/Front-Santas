@@ -1,9 +1,7 @@
 import axios from "axios";
 import { getCookie } from "../businesslogics/reactCookie";
 
-// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const BASE_URL =
-  "https://port-0-back-santas-euegqv2llojq1wch.sel5.cloudtype.app";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const loadAccessToken = () => {
   //여기서 getCookie로 토큰을 가져와서 만약 없으면 로그인링크로 푸시 / 있으면 로그인도있구나 판단 후 정상연결
