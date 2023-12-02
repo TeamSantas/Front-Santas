@@ -9,19 +9,32 @@ import styled from "styled-components";
 
 const LoadMore = ({ callMyContent, initialContent }) => {
   const [contents, setContents] = useState<BoardData[]>([]);
-  const [endOfContents, setEndOfContents] = useState(initialContent.length < 12);
-  const [cursor, setCursor] = useState(initialContent[initialContent.length - 1].boardId);
+  const [endOfContents, setEndOfContents] = useState(
+    initialContent.length < 12
+  );
+  const [lastBoardId, setLastBoardId] = useState(
+    initialContent.length > 1
+      ? initialContent[initialContent.length - 1].boardId
+      : -1
+  );
   const noInitialContent = initialContent.length === 0;
   const { ref, inView } = useInView();
 
   const loadMoreContents = useCallback(async () => {
-    const newContents = callMyContent ? await fetchMyContents(cursor) : await fetchContents(cursor);
+    const newContents = callMyContent
+      ? await fetchMyContents(lastBoardId)
+      : await fetchContents(lastBoardId);
     if (newContents.length < 12) {
       setEndOfContents(true);
     }
-    setCursor(newContents.length > 1 ? newContents[newContents.length - 1].boardId : -1);
-    setContents((prevContents: BoardData[]) => [...prevContents, ...newContents]);
-  }, [callMyContent]);
+    setLastBoardId(
+      newContents.length > 1 ? newContents[newContents.length - 1].boardId : -1
+    );
+    setContents((prevContents: BoardData[]) => [
+      ...prevContents,
+      ...newContents,
+    ]);
+  }, [callMyContent, lastBoardId]);
 
   useEffect(() => {
     if (inView && !endOfContents && !noInitialContent) {

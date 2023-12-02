@@ -25,11 +25,29 @@ export const getTownAdID = (idx: number = 0) => {
     townAdID13,
     townAdID14,
     townAdID15,
+    townAdID16,
+    townAdID17,
   ];
 
   return townAdIDs[idx];
 };
+
+/**
+ * 인기 게시글 최초 페이지에 넣을 광고
+ */
 export const townAdID0 = "DAN-wnWIF3POirxtXIdG";
+/**
+ * 모든 게시글 최초 페이지에 넣을 광고
+ */
+export const townAdID16 = "DAN-0tM6LqB1xeL7qG7S";
+/**
+ * 내 게시글 최초 페이지에 넣을 광고
+ */
+export const townAdID17 = "DAN-c5b4Dh5o4y2M830u";
+
+/**
+ * 무한스크롤쪽
+ */
 export const townAdID1 = "DAN-4hgJdFJUcKqjNbTQ";
 export const townAdID2 = "DAN-qPP2J1Ldb9RJS5cB";
 export const townAdID3 = "DAN-Bo5nk2RZeoIzBKqY";

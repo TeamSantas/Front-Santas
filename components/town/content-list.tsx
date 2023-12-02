@@ -11,29 +11,37 @@ interface ITownContentList {
   popularContents: BoardData[];
 }
 
-const TownContentList = ({ isMyContent, myContents, allContents, popularContents }: ITownContentList) => {
-  const initialContent = isMyContent ? myContents : allContents;
-
-  // 광고 붙인 컨텐츠
-  // 인기 글에 0번 광고 붙임 (인기 글이 있을 때만)
-  const popularContentsWithAd =
-    popularContents.length > 0 ? [...popularContents, dummyBoardForAds(0)] : [...popularContents];
+const TownContentList = ({
+  isMyContent,
+  myContents,
+  allContents,
+  popularContents,
+}: ITownContentList) => {
+  const getContentsWithAd = (contents, adId) => {
+    return contents.length > 0
+      ? [...contents, dummyBoardForAds(adId)]
+      : [...contents];
+  };
+  // 광고 붙인 pre-render 컨텐츠
+  const popularContentsWithAd = getContentsWithAd(popularContents, 0);
+  const allContentsWithAd = getContentsWithAd(allContents, 16);
+  const myContentsWithAd = getContentsWithAd(myContents, 17);
 
   return isMyContent ? (
     <>
       {/* 내 게시글 */}
-      <Contents contents={myContents} />
+      <Contents contents={myContentsWithAd} />
       {/* Infinite Scroll */}
-      <LoadMore callMyContent={isMyContent} initialContent={initialContent} />
+      <LoadMore callMyContent={isMyContent} initialContent={myContents} />
     </>
   ) : (
     <>
       {/* 인기글 */}
       <Contents contents={popularContentsWithAd} isPopular />
       {/* 일반 게시글 */}
-      <Contents contents={allContents} />
+      <Contents contents={allContentsWithAd} />
       {/* Infinite Scroll */}
-      <LoadMore callMyContent={isMyContent} initialContent={initialContent} />
+      <LoadMore callMyContent={isMyContent} initialContent={allContents} />
     </>
   );
 };
