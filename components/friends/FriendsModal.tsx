@@ -17,6 +17,7 @@ import { friendsModalAdID } from "../advertisement/ad-ids";
 import { FriendsData } from "../../util/type";
 import { useAtom } from "jotai";
 import { loginUserDataAtom } from "../../store/globalState";
+import { useRouter } from "next/router";
 
 const CenteredModalFooter = styled.div`
   width: 90%;
@@ -25,6 +26,7 @@ const CenteredModalFooter = styled.div`
 `;
 
 const FriendsModal = (props) => {
+  const router = useRouter();
   const [friendsData, setFriendsData] = useState<FriendsData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [storeUserData] = useAtom(loginUserDataAtom);
@@ -34,16 +36,16 @@ const FriendsModal = (props) => {
     setIsLoading(true);
     try {
       const res = await setGetFriend();
+      // 친구 동의 안해서 응답 없을 때
+      if (!res) {
+        const confirmText = `카카오 친구 목록 제공에 동의하셔야 원활한 이용이 가능합니다.\n다시 동의하러 갈까요?`;
+        if (confirm(confirmText)) {
+          router.push("/login");
+          props.onHide();
+        }
+      }
       if (res.status === 200) {
         setFriendsData(res.data.data);
-      }
-      if (res.status === 403) {
-        alert(
-          `카카오 친구 목록 제공에 동의하셔야 사용 가능한 기능이에요.\n다시 동의를 하실 수 있도록 준비중이에요.`
-        );
-        setIsLoading(false);
-        props.onHide();
-        return;
       }
     } catch (e) {
       console.log(e);

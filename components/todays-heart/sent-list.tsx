@@ -14,15 +14,15 @@ const SentFriendsList = () => {
     setIsLoading(true);
     try {
       const res = await setGetFriend();
+      if (!res) {
+        const confirmText = `카카오 친구 목록 제공에 동의하셔야 원활한 이용이 가능합니다.\n다시 동의하러 갈까요?`;
+        if (confirm(confirmText)) {
+          router.push("/login");
+          return;
+        }
+      }
       if (res.status === 200) {
         setFriendsData(res.data.data);
-      }
-      if (res.status === 403) {
-        alert(
-          `카카오 친구 목록 제공에 동의하셔야 사용 가능한 기능이에요.\n다시 동의를 하실 수 있도록 준비중이에요.`
-        );
-        router.replace("/");
-        return;
       }
     } catch (e) {
       console.log(e);

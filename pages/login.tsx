@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PlainLayout from "../components/layout/new/PlainLayout";
 import { kakaoLoginUrl } from "../components/common/urls";
 
-const Login = () => {
+const Login = ({ loginButtonText }) => {
   return (
     <Container>
       <Warning>
@@ -16,7 +16,7 @@ const Login = () => {
           width={22}
           height={22}
         />
-        <KakaoLoginText>카카오로 3초만에 시작하기</KakaoLoginText>
+        <KakaoLoginText>{loginButtonText}</KakaoLoginText>
       </KakaoLoginButton>
     </Container>
   );
@@ -28,6 +28,25 @@ Login.getLayout = (page) => {
     <PlainLayout logo={"/asset_ver2/image/layout/logo.png"}>{page}</PlainLayout>
   );
 };
+
+export async function getServerSideProps(context) {
+  const token = context.req.cookies["token"];
+
+  // 로그인한 유저
+  if (token) {
+    return {
+      props: {
+        loginButtonText: "친구 목록 불러오기",
+      },
+    };
+  } else {
+    return {
+      props: {
+        loginButtonText: "카카오로 3초만에 시작하기",
+      },
+    };
+  }
+}
 
 const Container = styled.div`
   position: absolute;
