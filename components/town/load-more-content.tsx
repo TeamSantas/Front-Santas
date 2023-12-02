@@ -3,33 +3,25 @@ import { BoardData } from "../../util/type";
 import { useInView } from "react-intersection-observer";
 import { LoadingDots } from "../layout/new/loading-dots";
 import { fetchContents, fetchMyContents } from "./fetch-contents";
+import { getContentsWithAd } from "./ad-utils";
 import Contents from "./contents";
 import styled from "styled-components";
 
-const LoadMore = ({ callMyContent, initialContent, cursor }) => {
+const LoadMore = ({ callMyContent, initialContent }) => {
   const [contents, setContents] = useState<BoardData[]>([]);
-  const [contentsLoaded, setContentsLoaded] = useState(0);
-  const [endOfContents, setEndOfContents] = useState(
-    initialContent.length < 12
-  );
+  const [endOfContents, setEndOfContents] = useState(initialContent.length < 12);
+  const [cursor, setCursor] = useState(initialContent[initialContent.length - 1].boardId);
   const noInitialContent = initialContent.length === 0;
   const { ref, inView } = useInView();
 
   const loadMoreContents = useCallback(async () => {
-    // const nextContent = contentsLoaded + 1;
-    const nextContent = cursor;
-    const newContents = callMyContent
-      ? (await fetchMyContents(nextContent)) ?? []
-      : (await fetchContents(nextContent)) ?? [];
+    const newContents = callMyContent ? await fetchMyContents(cursor) : await fetchContents(cursor);
     if (newContents.length < 12) {
       setEndOfContents(true);
     }
-    setContents((prevContents: BoardData[]) => [
-      ...prevContents,
-      ...newContents,
-    ]);
-    setContentsLoaded(nextContent);
-  }, [callMyContent, contentsLoaded]);
+    setCursor(newContents.length > 1 ? newContents[newContents.length - 1].boardId : -1);
+    setContents((prevContents: BoardData[]) => [...prevContents, ...newContents]);
+  }, [callMyContent]);
 
   useEffect(() => {
     if (inView && !endOfContents && !noInitialContent) {
@@ -39,7 +31,7 @@ const LoadMore = ({ callMyContent, initialContent, cursor }) => {
 
   return (
     <>
-      <Contents contents={contents} />
+      <Contents contents={getContentsWithAd(contents)} />
       {!endOfContents && !noInitialContent && (
         <LoadingWrapper ref={ref}>
           <LoadingDots />
