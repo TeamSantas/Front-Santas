@@ -8,6 +8,8 @@ interface ITownContentList {
   myContents: BoardData[];
   allContents: BoardData[];
   popularContents: BoardData[];
+  nextTargetAllContents: number;
+  nextTargetMyContents: number;
 }
 
 const TownContentList = ({
@@ -15,6 +17,8 @@ const TownContentList = ({
   myContents,
   allContents,
   popularContents,
+  nextTargetAllContents,
+  nextTargetMyContents
 }: ITownContentList) => {
   const initialContent = isMyContent ? myContents : allContents;
 
@@ -33,7 +37,7 @@ const TownContentList = ({
       {/* 내 게시글 */}
       <Contents contents={MyContentsWithAd} />
       {/* Infinite Scroll */}
-      <LoadMore callMyContent={isMyContent} initialContent={initialContent} />
+      <LoadMore callMyContent={isMyContent} initialContent={initialContent} cursor={nextTargetMyContents}/>
     </>
   ) : (
     <>
@@ -42,7 +46,7 @@ const TownContentList = ({
       {/* 일반 게시글 */}
       <Contents contents={allContentsWithAd} />
       {/* Infinite Scroll */}
-      <LoadMore callMyContent={isMyContent} initialContent={initialContent} />
+      <LoadMore callMyContent={isMyContent} initialContent={initialContent} cursor={nextTargetAllContents}/>
     </>
   );
 };

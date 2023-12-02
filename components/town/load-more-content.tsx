@@ -6,7 +6,7 @@ import { fetchContents, fetchMyContents } from "./fetch-contents";
 import Contents from "./contents";
 import styled from "styled-components";
 
-const LoadMore = ({ callMyContent, initialContent }) => {
+const LoadMore = ({ callMyContent, initialContent, cursor }) => {
   const [contents, setContents] = useState<BoardData[]>([]);
   const [contentsLoaded, setContentsLoaded] = useState(0);
   const [endOfContents, setEndOfContents] = useState(
@@ -16,7 +16,8 @@ const LoadMore = ({ callMyContent, initialContent }) => {
   const { ref, inView } = useInView();
 
   const loadMoreContents = useCallback(async () => {
-    const nextContent = contentsLoaded + 1;
+    // const nextContent = contentsLoaded + 1;
+    const nextContent = cursor;
     const newContents = callMyContent
       ? (await fetchMyContents(nextContent)) ?? []
       : (await fetchContents(nextContent)) ?? [];
