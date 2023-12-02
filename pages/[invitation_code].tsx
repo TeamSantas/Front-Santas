@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import OtherLayout from "../components/layout/new/OtherLayout";
 import { useRouter } from "next/router";
 import { useCallback, useEffect } from "react";
 import { MainContainer, Flex } from "../styles/styledComponentModule";
@@ -13,7 +12,7 @@ import {
   isMyCalendarAtom,
 } from "../store/globalState";
 
-const OtherCalendarPage = ({ invitationCode }) => {
+export default function OtherCalendarPage({ invitationCode }) {
   const router = useRouter();
   const [storeUserData] = useAtom(loginUserDataAtom);
   const [profileUser, setProfileUser] = useAtom(profileUserDataAtom);
@@ -61,12 +60,6 @@ const OtherCalendarPage = ({ invitationCode }) => {
     </div>
   );
 }
-
-OtherCalendarPage.getLayout = (page) => {
-  return <OtherLayout>{page}</OtherLayout>;
-};
-
-export default OtherCalendarPage;
 
 export async function getServerSideProps(context) {
   const { invitation_code: invitationCode } = context.params;
