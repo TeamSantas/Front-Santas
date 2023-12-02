@@ -28,11 +28,12 @@ const SentFriendsCard = ({ isPicked, friend }: ISentFriendsCard) => {
         alert("좋아요는 하루 최대 5번 보낼 수 있어요.");
         return;
       }
-      if (statusCode !== 900) {
-        alert("하트 보내기 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.");
+      if (statusCode === 200) {
+        setPicked(true);
         return;
       }
-      setPicked(true);
+      alert("하트 보내기 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.");
+      return;
     } catch (e) {
       console.error(e);
     }
