@@ -126,6 +126,7 @@ const CircularImage = styled.img`
 `;
 
 const ContentWrapper = styled.div`
+  position: relative;
   flex-shrink: 0;
   font-size: 12px;
   width: 100%;
