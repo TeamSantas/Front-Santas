@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FriendsData } from "../../util/type";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
 import { useRouter } from "next/router";
+import ShareTriggerButton from "../share/ShareButton";
 
 const SentFriendsList = () => {
   const router = useRouter();
@@ -46,8 +47,10 @@ const SentFriendsList = () => {
           <LoadingHeader>
             아직 가입한 친구가 없어요. 🥲
             <br />
-            링크를 공유해 초대해보세요.
+            친구 초대하기 버튼으로 초대해보세요!
           </LoadingHeader>
+          <br />
+          <ShareTriggerButton />
         </LoadingContainer>
       )}
       {isLoading ? (
@@ -56,15 +59,13 @@ const SentFriendsList = () => {
           <LoadingHeader>친구들 모으는중</LoadingHeader>
         </LoadingContainer>
       ) : (
-        <>
-          {friendsData?.map((friend, idx) => (
-            <SentFriendsCard
-              key={friend.id + idx}
-              isPicked={friend.isPicked}
-              friend={friend}
-            />
-          ))}
-        </>
+        friendsData?.map((friend, idx) => (
+          <SentFriendsCard
+            key={friend.id + idx}
+            isPicked={friend.isPicked}
+            friend={friend}
+          />
+        ))
       )}
     </Container>
   );

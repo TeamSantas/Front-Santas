@@ -56,7 +56,7 @@ const FriendsList = ({ friendsData, isLoading }: IFriendsList) => {
           <LoadingHeader>
             아직 가입한 친구가 없어요. 🥲
             <br />
-            링크를 공유해 초대해보세요.
+            친구 초대하기 버튼으로 초대해보세요!
           </LoadingHeader>
         </LoadingContainer>
       ) : null}

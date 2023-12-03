@@ -26,6 +26,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (window.Kakao.isInitialized()) {
+      window.Kakao.cleanup();
+    }
+    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_JS_KEY);
+  }, []);
+
+  useEffect(() => {
     // GA --------------------------------------------------
     if (window.dataLayer) {
       window.dataLayer.push({ event: "optimize.activate" });
