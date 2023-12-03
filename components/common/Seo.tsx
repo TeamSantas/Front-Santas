@@ -4,7 +4,7 @@ export default function Seo({ title = "두근두근 어드벤트 캘린더" }) {
       <title>{title}</title>
       <meta
         name="description"
-        content="하루에 하나씩 열어보며 크리스마스를 기다려요. 🎄"
+        content="[두어캘] 하루에 하나씩 열어보며 기다려요. 🎄"
       />
 
       {/* favicon */}
@@ -52,7 +52,7 @@ export default function Seo({ title = "두근두근 어드벤트 캘린더" }) {
       />
       <meta
         property="og:description"
-        content="하루에 하나씩 열어보며 크리스마스를 기다려요. 🎄"
+        content="[두어캘] 하루에 하나씩 열어보며 기다려요. 🎄"
       />
       <meta property="og:site_name" content="두근두근 어드벤트 캘린더" />
       <meta property="og:locale" content="ko_KR" />
@@ -62,12 +62,12 @@ export default function Seo({ title = "두근두근 어드벤트 캘린더" }) {
       {/*// 트위터 카드 타입*/}
       <meta
         property="twitter:card"
-        content="하루에 하나씩 열어보며 크리스마스를 기다려요. 🎄"
+        content="[두어캘] 하루에 하나씩 열어보며 기다려요. 🎄"
       />
       <meta property="twitter:title" content="두근두근 어드벤트 캘린더" />
       <meta
         property="twitter:description"
-        content="하루에 하나씩 열어보며 크리스마스를 기다려요. 🎄"
+        content="[두어캘] 하루에 하나씩 열어보며 기다려요. 🎄"
       />
       <meta
         property="twitter:image"
