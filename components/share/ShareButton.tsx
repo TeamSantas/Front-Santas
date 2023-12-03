@@ -12,7 +12,7 @@ const ShareTriggerButton = () => {
   return (
     isLoginUser && (
       <ButtonFlex>
-        <UpdateBtn
+        <ShareBtn
           onClick={() => {
             setShowModal({
               label: "share",
@@ -21,7 +21,7 @@ const ShareTriggerButton = () => {
           }}
         >
           친구 초대하기
-        </UpdateBtn>
+        </ShareBtn>
       </ButtonFlex>
     )
   );
@@ -34,14 +34,17 @@ const ButtonFlex = styled(Flex)`
   justify-content: center;
 `;
 
-const UpdateBtn = styled(Button)`
-  background-color: #2c6b51;
-  border-color: #2c6b51;
+const ShareBtn = styled(Button)`
+  background-color: #38805b;
+  border-color: #38805b;
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 13px;
+  font-family: NanumSquare Neo OTF;
+  font-weight: 800;
+
   &:hover {
-    background-color: #3c6c54;
-    border-color: #3c6c54;
+    background-color: #285f42;
+    border-color: #285f42;
   }
 `;
