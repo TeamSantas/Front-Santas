@@ -1,9 +1,9 @@
 import Image from "next/image";
-import styled from "styled-components";
 import { loginUserDataAtom, modalStateAtom } from "../../store/globalState";
 import { useAtom } from "jotai";
+import { ShareOption } from "../modals/ShareModal";
 
-export const ShareLink = () => {
+export const ShareLinkInFriendsModal = () => {
   const [storeUserData] = useAtom(loginUserDataAtom);
   const [, setShowModal] = useAtom(modalStateAtom);
 
@@ -22,20 +22,22 @@ export const ShareLink = () => {
     }
   };
   return (
-    <ShareBtn
-      src={`/asset_ver2/image/btn/link_btn.png`}
-      width={44}
-      height={44}
-      alt={"링크복사버튼"}
-      onClick={linkCopyHandler}
-    />
+    <ShareOption
+      onClick={() => {
+        linkCopyHandler();
+        setShowModal({
+          label: "copy",
+          show: true,
+        });
+      }}
+    >
+      <Image
+        alt="url-copy"
+        width={40}
+        height={40}
+        src="/asset_ver2/image/share/url-copy.svg"
+      />
+      URL
+    </ShareOption>
   );
 };
-
-const ShareBtn = styled(Image)`
-  position: absolute;
-  cursor: pointer;
-  right: 10px;
-  bottom: calc(env(safe-area-inset-bottom) + 70px);
-  z-index: 100;
-`;
