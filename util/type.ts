@@ -70,6 +70,11 @@ export const defaultMemberData = {
   },
 };
 
+export const defaultMemberRawData = {
+  member: defaultMemberData,
+  todayPresentCount: 0,
+};
+
 // Friends types ------------------------------------
 export interface FriendsData {
   id: number;
@@ -129,7 +134,7 @@ export interface putBGMData {
 }
 
 //날짜별 받은 선물 리스트
-export interface RecivedPresentData{
+export interface RecivedPresentData {
   count: number;
   receivedDate: string;
 }
