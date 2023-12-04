@@ -1,23 +1,23 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { useCallback, useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
 import {
   CustomBody,
   CustomHeader,
   CenteredFlex,
-  Flex,
   GreenCloseButton,
   ModalTitle,
   ModalSubTitle,
 } from "../../styles/styledComponentModule";
-import FriendsList from "./FriendsList";
+import FriendsList from "../friends/FriendsList";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
 import AdFitModal from "../advertisement/adFitModal";
 import { friendsModalAdID } from "../advertisement/ad-ids";
 import { FriendsData } from "../../util/type";
 import { useAtom } from "jotai";
-import { loginUserDataAtom } from "../../store/globalState";
+import { loginUserDataAtom, modalStateAtom } from "../../store/globalState";
 import { useRouter } from "next/router";
+import ShareTriggerButton from "../share/ShareButton";
 
 const CenteredModalFooter = styled.div`
   width: 90%;
@@ -32,7 +32,7 @@ const FriendsModal = (props) => {
   const [storeUserData] = useAtom(loginUserDataAtom);
   const isLoginUser = storeUserData.id !== -1;
 
-  const getFriendsData = async () => {
+  const getFriendsData = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await setGetFriend();
@@ -51,13 +51,13 @@ const FriendsModal = (props) => {
       console.log(e);
     }
     setIsLoading(false);
-  };
+  }, [router, props]);
 
   useEffect(() => {
     if (storeUserData.id !== -1) {
       getFriendsData();
     }
-  }, [storeUserData.id]);
+  }, [storeUserData.id, getFriendsData]);
 
   return (
     <AdFitModal
@@ -89,41 +89,11 @@ const FriendsModal = (props) => {
         )}
       </CustomBody>
       <CenteredModalFooter>
-        {isLoginUser && (
-          <ButtonFlex>
-            <UpdateBtn
-              onClick={() => {
-                getFriendsData();
-                alert(
-                  "친구목록은 10분에 한번 갱신됩니다. 10분 뒤 다시 시도해주세요🎁"
-                );
-              }}
-            >
-              친구 목록 새로고침 <img src={"/assets/image/icons/loading.svg"} />
-            </UpdateBtn>
-          </ButtonFlex>
-        )}
+        <ShareTriggerButton />
       </CenteredModalFooter>
     </AdFitModal>
   );
 };
-
-const ButtonFlex = styled(Flex)`
-  width: 100%;
-  justify-content: center;
-`;
-
-const UpdateBtn = styled(Button)`
-  background-color: #2c6b51;
-  border-color: #2c6b51;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 13px;
-  &:hover {
-    background-color: #3c6c54;
-    border-color: #3c6c54;
-  }
-`;
 
 const Text = styled(CenteredFlex)`
   text-align: center;

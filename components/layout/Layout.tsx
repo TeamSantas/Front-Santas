@@ -5,7 +5,7 @@ import Snow from "./Snow";
 import Banner from "../common/Banner";
 
 const MainWrapper = styled.div`
-  background-color: #1E344F;
+  background-color: #1e344f;
   padding: 22px;
   height: 100vh;
   margin: 0 auto;
@@ -45,12 +45,6 @@ const BackStepImg = styled.img`
   }
 `;
 const Layout = ({ children }) => {
-  useEffect(() => {
-    if (window.Kakao.isInitialized()) {
-      window.Kakao.cleanup();
-    }
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_JS_KEY);
-  }, []);
   return (
     <>
       {/*서비스 종료시 띄우기*/}
@@ -59,7 +53,7 @@ const Layout = ({ children }) => {
         <Header />
         <UpperWrapper>{children}</UpperWrapper>
         <Snow />
-        <BackStepImg src={`/asset_ver2/image/layout/step_background.png`}/>
+        <BackStepImg src={`/asset_ver2/image/layout/step_background.png`} />
       </MainWrapper>
     </>
   );
