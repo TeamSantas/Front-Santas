@@ -10,18 +10,17 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import React, {useState} from "react";
 import styled from "styled-components";
-import {header_1, header_2, header_3, slide_1, slide_2, slide_3} from "./informationModaltext";
+import {header1, header2, header3, slide1, slide2, slide3} from "./informationModaltext";
 
 const InformationModal = (props) => {
-  const [index, setIndex] = useState<number>(0);
+  const [index, setIndex] = useState(0);
   // info modal
-  const headers = [header_1, header_2, header_3];
-  const infoSlides = [slide_1,slide_2,slide_3]
+  const headers = [header1, header2, header3];
+  const infoSlides = [slide1,slide2,slide3]
   const handleSlideChange = (swiper) => {
     // 슬라이드가 변경될 때마다 호출되는 함수
-    const currentIndex = swiper.activeIndex;
-    setIndex((currentIndex));
-    console.log("현재 슬라이드 인덱스:", currentIndex);
+    const currentIndex = swiper.realIndex;
+    setIndex(currentIndex);
   };
   return (
     <AdFitModal
@@ -47,6 +46,7 @@ const InformationModal = (props) => {
           slidesPerView={1}
           onClickNext={(swiper) => swiper.next()}
           onSlideChange={(swiper) => handleSlideChange(swiper)}
+          loop
         >
           {infoSlides.map((text, idx) => (
             <SwiperSlide key={idx}>
@@ -77,8 +77,6 @@ const StyledSwiper = styled(Swiper)`
     color: #605b5b;
     z-index: 10;
     width: 5px;
-    //버튼 보이고싶으면 풀기
-    display: none;
   }
 `;
 
