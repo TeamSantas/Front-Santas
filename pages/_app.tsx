@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (window.Kakao.isInitialized()) {
       window.Kakao.cleanup();
     }
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_JS_KEY);
+    window.Kakao.init("3a75ee9ed0b21018376f7d7e2ee8ab40");
   }, []);
 
   useEffect(() => {
