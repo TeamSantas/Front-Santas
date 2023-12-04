@@ -16,7 +16,9 @@ const TodaysHeart = ({ todaysQuestion = "", error = false }) => {
         </Text>
         <Card>
           <Question>
-             {error ? "같이 눈오리🐤 만들고 싶은 사람은?" : `Q. `+todaysQuestion}
+            {error
+              ? "같이 눈오리🐤 만들고 싶은 사람은?"
+              : `Q. ` + todaysQuestion}
           </Question>
         </Card>
         <HeartTab />
@@ -44,7 +46,7 @@ export async function getServerSideProps(context) {
 
   try {
     const todaysQuestion = await getTodaysQuestion();
-      console.log("===>",todaysQuestion);
+    console.log("===>", todaysQuestion);
     return {
       props: {
         todaysQuestion,
@@ -61,7 +63,7 @@ export async function getServerSideProps(context) {
 
 const Wrapper = styled.div`
   display: flex;
-  height: calc(100vh - 130px);
+  height: calc(100% - 130px);
   flex-direction: column;
   align-items: center;
   width: 100vw;

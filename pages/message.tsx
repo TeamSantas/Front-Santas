@@ -31,7 +31,7 @@ export async function getServerSideProps(context) {
 
 const Wrapper = styled.div`
   display: flex;
-  height: calc(100vh - 130px);
+  height: calc(100% - 130px);
   flex-direction: column;
   align-items: center;
   width: 100vw;
