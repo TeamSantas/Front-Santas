@@ -24,7 +24,7 @@ export const KakaoShare = () => {
         alt="kakao-share"
         width={40}
         height={40}
-        src="/asset_ver2/image/share/kakao-share.svg"
+        src="/asset_ver2/image/share/kakao-share.png"
       />
       카카오톡
     </ShareOption>

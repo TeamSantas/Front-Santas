@@ -35,7 +35,7 @@ export const ShareLinkInFriendsModal = () => {
         alt="url-copy"
         width={40}
         height={40}
-        src="/asset_ver2/image/share/url-copy.svg"
+        src="/asset_ver2/image/share/url-copy.png"
       />
       URL
     </ShareOption>
