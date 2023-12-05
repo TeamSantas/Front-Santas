@@ -3,6 +3,7 @@ import { CenteredFlex, Flex, Icons } from "../../styles/styledComponentModule";
 import html2canvas from "html2canvas";
 import { useEffect, useState } from "react";
 import TicketModal from "./TicketModal";
+import { getLoggedMember } from "../../api/hooks/useMember";
 import PresentService from "../../api/PresentService";
 import CopyModal from "../index/CopyModal";
 import { getCookie } from "cookies-next";
@@ -113,6 +114,19 @@ const Share = ({ loggedId }) => {
   const [shareModalShow, setShareModalShow] = useState(false);
   const [TicketURL, setTicketURl] = useState("");
   const [myData, setMyData] = useState(null);
+
+  const getMyData = async () => {
+    try {
+      const res = await getLoggedMember();
+      setMyData(res.nickname);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getMyData();
+  }, []);
 
   const calendarShareHandler = () => {
     linkCopyHandler();

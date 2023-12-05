@@ -56,12 +56,7 @@ export async function getServerSideProps(context) {
   if (!invitationCode) {
     context.res.writeHead(302, { Location: "/error" });
     context.res.end();
-    return {
-      props: {
-        calendarUser: defaultMemberData,
-        invitationCode,
-      },
-    };
+    return;
   }
 
   const pureInvitationCode = invitationCode.split("?")[0];
@@ -72,7 +67,7 @@ export async function getServerSideProps(context) {
       return {
         props: {
           calendarUser: res.data.data,
-          pureInvitationCode,
+          invitationCode,
         },
       };
     }
@@ -80,12 +75,13 @@ export async function getServerSideProps(context) {
     console.log(e);
     context.res.writeHead(302, { Location: "/error" });
     context.res.end();
+    return;
   }
 
   return {
     props: {
       calendarUser: defaultMemberData,
-      pureInvitationCode,
+      invitationCode,
     },
   };
 }
