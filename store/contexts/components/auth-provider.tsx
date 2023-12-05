@@ -11,6 +11,7 @@ import {
   sidebarNotificationAtom,
   todayPresentCountAtom,
 } from "../../globalState";
+import { removeCookie } from "../../../businesslogics/cookie";
 import { getCookie } from "cookies-next";
 
 interface Props {
@@ -28,23 +29,37 @@ export default function AuthProvider({ children }: Props) {
     setStoreRefreshToken(refreshToken);
   };
 
-  useEffect(() => {
-    const token = getCookie("token");
-    if (!router.pathname.includes("upcoming") && token) {
-      updateUserData(
+  const handleUpdateUserData = useCallback(async () => {
+    try {
+      const res = await updateUserData(
         setStoreUserData,
         setTodayPresentCount,
         setBgmOn,
         setNotificationOn
       );
+
+      if (!res) {
+        removeCookie("token");
+        router.push("/login");
+      }
+    } catch (e) {
+      removeCookie("token");
+      router.push("/login");
     }
   }, [
-    router.pathname,
+    router,
     setBgmOn,
     setNotificationOn,
     setStoreUserData,
     setTodayPresentCount,
   ]);
+
+  useEffect(() => {
+    const token = getCookie("token");
+    if (!router.pathname.includes("/login") && token) {
+      handleUpdateUserData();
+    }
+  }, [handleUpdateUserData, router.pathname]);
 
   const value = {
     storeUserData,
@@ -63,18 +78,28 @@ export const updateUserData = async (
   setNotificationOn
 ) => {
   try {
-    const memberData = await getLoggedMemberRaw();
-    const { member, todayPresentCount } = memberData;
+    const res = await getLoggedMemberRaw();
+    if (!res || res.status !== 200) {
+      // 토큰 만료 or 로그인 안했으면 리다이렉트
+      return false;
+    }
 
-    // global state 저장 ----------------------
-    setStoreUserData(member as MemberData);
-    setTodayPresentCount(todayPresentCount);
-    setBgmOn(member.setting.bgm);
-    setNotificationOn(member.setting.isAlert);
-    // ---------------------------------------
+    if (res.status === 200) {
+      const memberData = res.data.data;
+      const { member, todayPresentCount } = memberData;
 
-    measureUser({ user_id: member.id });
+      // global state 저장 ----------------------
+      setStoreUserData(member as MemberData);
+      setTodayPresentCount(todayPresentCount);
+      setBgmOn(member.setting.bgm);
+      setNotificationOn(member.setting.isAlert);
+      // ---------------------------------------
+
+      measureUser({ user_id: member.id });
+      return true;
+    }
   } catch (e) {
     console.error(e);
+    return false;
   }
 };
