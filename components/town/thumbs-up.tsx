@@ -17,7 +17,7 @@ const ThumbsUp = ({ isLiked, boardId, isMyComment, likeCounts }: IThumbsUp) => {
   const [storeUserData] = useAtom(loginUserDataAtom);
   const [liked, setLiked] = useState(isLiked);
   const [newLikeCounts, setNewLikeCounts] = useState(likeCounts);
-  const isLoginUser = storeUserData.id !== -1;
+  const isLoginUser = storeUserData.id > 0;
   const router = useRouter();
   const handleLikeCounts = async () => {
     const response = await putBoardLikeAndUnlike(boardId);

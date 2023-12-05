@@ -13,7 +13,7 @@ interface IReport {
 
 const Report = ({ boardId, writerId, handleSetBlurredId }: IReport) => {
   const [storeUserData] = useAtom(loginUserDataAtom);
-  const isLoginUser = storeUserData.id !== -1;
+  const isLoginUser = storeUserData.id > 0;
   const router = useRouter();
   const handleClickReport = async () => {
     if (!isLoginUser) {

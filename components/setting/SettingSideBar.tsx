@@ -12,7 +12,7 @@ import { CenteredFlex } from "../../styles/styledComponentModule";
 const SettingSideBar = () => {
   const [isOpen, setIsOpen] = useAtom(sidebarOpenAtom);
   const [storeUserData] = useAtom(loginUserDataAtom);
-  const isLoginUser = storeUserData.id !== -1;
+  const isLoginUser = storeUserData.id > 0;
 
   const handleClickOutside = (e) => {
     if (e.target.id === "backdrop") {

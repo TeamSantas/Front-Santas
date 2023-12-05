@@ -30,7 +30,7 @@ const FriendsModal = (props) => {
   const [friendsData, setFriendsData] = useState<FriendsData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [storeUserData] = useAtom(loginUserDataAtom);
-  const isLoginUser = storeUserData.id !== -1;
+  const isLoginUser = storeUserData.id > 0;
 
   const getFriendsData = useCallback(async () => {
     setIsLoading(true);
@@ -54,7 +54,7 @@ const FriendsModal = (props) => {
   }, [router, props]);
 
   useEffect(() => {
-    if (storeUserData.id !== -1) {
+    if (storeUserData.id > 0) {
       getFriendsData();
     }
   }, [storeUserData.id, getFriendsData]);
