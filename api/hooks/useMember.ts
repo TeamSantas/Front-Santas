@@ -1,4 +1,3 @@
-import { defaultMemberData, defaultMemberRawData } from "../../util/type";
 import MemberService from "../MemberService";
 
 export async function getLoggedMember() {
@@ -7,10 +6,8 @@ export async function getLoggedMember() {
     if (res.status === 200) {
       return res.data.data.member;
     }
-    return defaultMemberData;
   } catch (e) {
-    console.error(e);
-    return defaultMemberData;
+    return e;
   }
 }
 
@@ -20,12 +17,23 @@ export async function getLoggedMemberRaw() {
     if (res.status === 200) {
       return res.data.data;
     }
-    return defaultMemberRawData;
   } catch (e) {
-    console.error(e);
-    return defaultMemberRawData;
+    return e;
   }
 }
+
+// export async function usePutMemberInfo(
+//     nickname : string,
+//     profileImageURL: string,
+//     statusMessage: string
+// ) {
+//     const putMemberData : PutMemberData {
+//         nicknames : nickname,
+// //     profileImageURL: profileImageURL,
+// //     statusMessage: statusMessage
+//     };
+//     await MemberService.putLoggedMember(putMemberData)
+// }
 
 export async function logoutMember() {
   try {

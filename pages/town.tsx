@@ -38,19 +38,14 @@ const Town = ({ myContents, allContents, popularContents }) => {
           </MyContent>
           <Arrow onClick={handleClickClose}>
             <Image
-              alt="announce"
+              alt='announce'
               src={`/asset_ver2/image/town/arrow-${isOpen ? "down" : "up"}.svg`}
               width={32}
               height={12}
             />
           </Arrow>
           <Notice>
-            <Image
-              alt="announce"
-              src="/asset_ver2/image/town/announce.png"
-              width={22}
-              height={22}
-            />
+            <Image alt='announce' src='/asset_ver2/image/town/announce.png' width={22} height={22} />
             <AnimatedText messages={notices} />
           </Notice>
         </TopWrapper>
@@ -70,9 +65,7 @@ const Town = ({ myContents, allContents, popularContents }) => {
 export default Town;
 
 Town.getLayout = (page) => {
-  return (
-    <Layout logo={"/asset_ver2/image/layout/town-logo.png"}>{page}</Layout>
-  );
+  return <Layout logo={"/asset_ver2/image/layout/town-logo.png"}>{page}</Layout>;
 };
 
 export async function getServerSideProps(context) {
@@ -92,6 +85,8 @@ export async function getServerSideProps(context) {
           myContents: myContents || [],
           allContents: allContents || [],
           popularContents: popularContents || [],
+          nextTargetAllContents: allContents[allContents.length - 1].boardId,
+          nextTargetMyContents: myContents[myContents.length - 1].boardId,
         },
       };
     } catch (e) {
@@ -101,6 +96,8 @@ export async function getServerSideProps(context) {
           myContents: [],
           allContents: [],
           popularContents: [],
+          nextTargetAllContents: 0,
+          nextTargetMyContents: 0,
         },
       };
     }
@@ -108,16 +105,14 @@ export async function getServerSideProps(context) {
     // 비회원 유저
     try {
       // 최초 게시글 fetch
-      const [allContents, popularContents] = await Promise.all([
-        getBoard(0),
-        getBoardPopular(),
-      ]);
+      const [allContents, popularContents] = await Promise.all([getBoard(0), getBoardPopular()]);
 
       return {
         props: {
           myContents: [],
           allContents: allContents || [],
           popularContents: popularContents || [],
+          nextTargetAllContents: allContents[allContents.length - 1].boardId,
         },
       };
     } catch (e) {
@@ -127,6 +122,7 @@ export async function getServerSideProps(context) {
           myContents: [],
           allContents: [],
           popularContents: [],
+          nextTargetAllContents: 0,
         },
       };
     }
@@ -140,9 +136,7 @@ const Container = styled.div<{ isOpen: boolean }>`
   animation: ${({ isOpen }) => (isOpen ? slideIn : slideOut)} 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out;
   transform: ${({ isOpen }) =>
-    isOpen
-      ? "translateY(0) translateX(-50%)"
-      : "translateY(calc(100vh - 240px)) translateX(-50%)"};
+    isOpen ? "translateY(0) translateX(-50%)" : "translateY(calc(100vh - 240px)) translateX(-50%)"};
 `;
 
 const ContentWrapper = styled.div`

@@ -113,7 +113,7 @@ const event = (name, params) => {
   }
 };
 
-export const measureUser = (params: { user_id: number }) => config(params);
+export const measureUser = (params: { user_id: string }) => config(params);
 
 // page_view 자동 전송이 아닌 메뉴얼로 이벤트 전송
 export const measurePageView = (params: {
