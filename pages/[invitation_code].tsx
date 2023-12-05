@@ -11,13 +11,25 @@ import {
   profileUserDataAtom,
   isMyCalendarAtom,
 } from "../store/globalState";
-import { defaultMemberData } from "../util/type";
 
-export default function OtherCalendarPage({ calendarUser, invitationCode }) {
+export default function OtherCalendarPage({ invitationCode }) {
   const router = useRouter();
   const [storeUserData] = useAtom(loginUserDataAtom);
   const [profileUser, setProfileUser] = useAtom(profileUserDataAtom);
   const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
+
+  const getProfileUser = useCallback(async () => {
+    try {
+      const res = await setGetCurrCalendarUserInfo(invitationCode);
+      if (res.status === 200) {
+        setProfileUser(res.data.data);
+        return;
+      }
+    } catch (e) {
+      console.log(e);
+      router.push("/404");
+    }
+  }, [invitationCode, router, setProfileUser]);
 
   useEffect(() => {
     // 친구 코드가 내 코드일 때는 내 캘린더로 바로 이동한다.
@@ -26,14 +38,13 @@ export default function OtherCalendarPage({ calendarUser, invitationCode }) {
       return;
     }
 
-    setProfileUser(calendarUser);
+    getProfileUser(); // 캘린더 주인 데이터
     setIsMyCalendar(false);
   }, [
-    calendarUser,
+    getProfileUser,
     invitationCode,
     router,
     setIsMyCalendar,
-    setProfileUser,
     storeUserData.invitationLink,
   ]);
 
@@ -52,35 +63,8 @@ export default function OtherCalendarPage({ calendarUser, invitationCode }) {
 
 export async function getServerSideProps(context) {
   const { invitation_code: invitationCode } = context.params;
-
-  if (!invitationCode) {
-    context.res.writeHead(302, { Location: "/error" });
-    context.res.end();
-    return;
-  }
-
-  const pureInvitationCode = invitationCode.split("?")[0];
-
-  try {
-    const res = await setGetCurrCalendarUserInfo(pureInvitationCode);
-    if (res.status === 200) {
-      return {
-        props: {
-          calendarUser: res.data.data,
-          invitationCode,
-        },
-      };
-    }
-  } catch (e) {
-    console.log(e);
-    context.res.writeHead(302, { Location: "/error" });
-    context.res.end();
-    return;
-  }
-
   return {
     props: {
-      calendarUser: defaultMemberData,
       invitationCode,
     },
   };

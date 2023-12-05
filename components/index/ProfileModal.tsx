@@ -36,7 +36,7 @@ const ProfileModal = ({
   const [storeUserData, setStoreUserData] = useAtom(loginUserDataAtom);
   const userName = currUserData.nickname;
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const isLoginUser = storeUserData.id > 0;
+  const isLoginUser = storeUserData.id !== -1;
 
   const getMyPresentCnt = async () => {
     try {

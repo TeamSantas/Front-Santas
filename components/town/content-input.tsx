@@ -11,7 +11,7 @@ const ContentInput = () => {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [input, setInput] = useState("");
   const [storeUserData] = useAtom(loginUserDataAtom);
-  const isLoginUser = storeUserData.id > 0;
+  const isLoginUser = storeUserData.id !== -1;
   const router = useRouter();
   const placeHolderOptions = {
     default: "댓글을 입력해 주세요.",

@@ -6,7 +6,7 @@ import { loginUserDataAtom, modalStateAtom } from "../../store/globalState";
 
 const ShareTriggerButton = () => {
   const [storeUserData] = useAtom(loginUserDataAtom);
-  const isLoginUser = storeUserData.id > 0;
+  const isLoginUser = storeUserData.id !== -1;
   const [, setShowModal] = useAtom(modalStateAtom);
 
   return (

@@ -17,7 +17,7 @@ const OtherCalendar = ({ name }: IOtherCalendar) => {
   const [selectedDay, setSelectedDay] = useState(null);
   const handleClosePresentModal = () => setPresentModalShow(false);
   const [storeUserData] = useAtom(loginUserDataAtom);
-  const isLoginUser = storeUserData.id > 0;
+  const isLoginUser = storeUserData.id !== -1;
   const router = useRouter();
 
   const handleShow = (selectedDay: number) => {
@@ -31,13 +31,13 @@ const OtherCalendar = ({ name }: IOtherCalendar) => {
     setSelectedDay(selectedDay);
 
     let selectedDayToCompare: string = "202312" + selectedDay;
-    selectedDayToCompare =
-      Number(selectedDay) < 10
-        ? "2023120" + selectedDay
-        : "202312" + selectedDay;
+    selectedDayToCompare = Number(selectedDay) < 10
+      ? "2023120" + selectedDay
+      : "202312" + selectedDay;
 
-    const today =
-      Number(today_day) < 10 ? "2023120" + today_day : "202312" + today_day;
+    const today = Number(today_day) < 10
+      ? "2023120" + today_day
+      : "202312" + today_day;
 
     if (Number(selectedDayToCompare) < Number(today)) {
       alert("과거로는 선물을 보낼 수 없어요 ⌛");
