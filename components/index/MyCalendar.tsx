@@ -21,26 +21,25 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   const [canOpenCalendar, setCanOpenCalendar] = useState(false);
 
   const handleShow = (selectedDay: number) => {
-    if (todayPresentCount < 3) {
-      alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
-      return;
-    }
-
     setSelectedDay(selectedDay);
 
-    let selectedDayToCompare: string = "202312" + selectedDay;
-    // if (process.env.NODE_ENV === "development")
-    selectedDayToCompare =
-      Number(selectedDay) < 10
+    let selectedDayToCompare = Number(selectedDay) < 10
         ? "2023120" + selectedDay
         : "202312" + selectedDay;
 
-    let today =
-      Number(today_day) < 10 ? "2023120" + today_day : "202312" + today_day;
-    // if (process.env.NODE_ENV === "development") today = `20231215`;
+    let today = Number(today_day) < 10
+      ? "2023120" + today_day
+      : "202312" + today_day;
 
     // 열기 시도한 날이 오늘보다 앞의 날
-    if (Number(selectedDayToCompare) <= Number(today)) {
+    const isCanOpenTime = Number(selectedDayToCompare) <= Number(today);
+
+    //오늘보다 앞의 날
+    if (isCanOpenTime && todayPresentCount < 3) {
+      alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
+      return;
+    }
+    if (isCanOpenTime) {
       setCanOpenCalendar(true);
       setPresentModalShow(true);
     } else {
