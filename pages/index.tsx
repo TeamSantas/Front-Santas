@@ -10,7 +10,7 @@ import {
   receivedPresentListAtom,
   todayPresentCountAtom,
 } from "../store/globalState";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { setGetNumberOfReceivedPresents } from "../api/hooks/useGetNumberOfReceivedPresents";
 
 const Home = () => {
@@ -19,20 +19,24 @@ const Home = () => {
   const [, setRecivedPresentList] = useAtom(receivedPresentListAtom);
   const [storeUserData] = useAtom(loginUserDataAtom);
 
-  const updateReceivedPresentListData = async (loggedId: number) => {
-    try {
-      const res = await setGetNumberOfReceivedPresents(loggedId);
-      const presentList = res.data.data;
-      setRecivedPresentList(presentList);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const updateReceivedPresentListData = useCallback(
+    async (loggedId: number) => {
+      try {
+        const res = await setGetNumberOfReceivedPresents(loggedId);
+        const presentList = res.data.data;
+        setRecivedPresentList(presentList);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [setRecivedPresentList]
+  );
 
   useEffect(() => {
-    if (storeUserData.id !== -1)
+    if (storeUserData.id > 0) {
       updateReceivedPresentListData(storeUserData.id);
-  }, [storeUserData]);
+    }
+  }, [storeUserData, updateReceivedPresentListData]);
 
   useEffect(() => {
     setIsMyCalendar(true);

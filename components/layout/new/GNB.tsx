@@ -12,7 +12,7 @@ const Gnb = () => {
   const [activePathOption, setActivePathOption] = useAtom(gnbActivePathAtom);
   const [, setShowModal] = useAtom(modalStateAtom);
   const [storeUserData] = useAtom(loginUserDataAtom);
-  const isLoginUser = storeUserData.id !== -1;
+  const isLoginUser = storeUserData.id > 0;
 
   const handleClickOption = (option) => {
     setActivePathOption(option);
