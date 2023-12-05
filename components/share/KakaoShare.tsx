@@ -9,7 +9,7 @@ export const KakaoShare = () => {
 
   const shareKakao = () => {
     if (typeof window !== "undefined") {
-      window.Kakao.Link.sendCustom({
+      window.Kakao.Share.sendCustom({
         templateId: 86453,
         templateArgs: {
           invitationLink,

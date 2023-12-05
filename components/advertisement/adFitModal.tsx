@@ -10,9 +10,9 @@ const AdFitModal = (props) => {
   return (
     <Modal {...props} size="m">
       {props.children}
-      {props.adFitId && (
+      {props.adfitid && (
         <AdWrapper theme={props.theme}>
-          <KakaoAdFit id={props.adFitId} />
+          <KakaoAdFit id={props.adfitid} />
         </AdWrapper>
       )}
     </Modal>

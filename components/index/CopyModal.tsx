@@ -17,7 +17,7 @@ const CopyModal = (props) => {
       size="sm"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      adFitId={copyModalAdID}
+      adfitid={copyModalAdID}
     >
       <CustomHeader>
         <CustomBody id="contained-modal-title-vcenter">{header}</CustomBody>

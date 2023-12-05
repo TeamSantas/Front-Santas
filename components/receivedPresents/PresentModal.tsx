@@ -31,7 +31,7 @@ const PresentModal = ({
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      adFitId={presentDetailModalAdID}
+      adfitid={presentDetailModalAdID}
       theme={isMyCalendar ? "#f9f9f9" : "dark"}
     >
       <BlueBackground isMyCalendar={isMyCalendar ? "true" : "false"}>

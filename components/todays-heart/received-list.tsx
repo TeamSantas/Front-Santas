@@ -16,7 +16,6 @@ const ReceivedFriendsList = () => {
     setIsLoading(true);
     try {
       const friendsList = await getPickedMeFriends();
-      console.log(friendsList);
       setPickedMeFriendsData(friendsList);
     } catch (e) {
       console.log(e);

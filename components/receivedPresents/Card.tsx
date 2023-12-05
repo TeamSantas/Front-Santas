@@ -149,7 +149,7 @@ const Card = (props) => {
         </CardFlex>
       </TabCard>
       <CustomModal
-        adFitId={presentListModalAdID}
+        adfitid={presentListModalAdID}
         haveImage={haveImage}
         color={"#1E344F"}
         show={presentCardShow}
