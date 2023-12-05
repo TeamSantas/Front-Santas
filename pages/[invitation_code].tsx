@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { MainContainer, Flex } from "../styles/styledComponentModule";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import OtherCalendar from "../components/index/OtherCalendar";
@@ -53,39 +53,26 @@ export default function OtherCalendarPage({ calendarUser, invitationCode }) {
 export async function getServerSideProps(context) {
   const { invitation_code: invitationCode } = context.params;
 
-  if (!invitationCode) {
-    context.res.writeHead(302, { Location: "/error" });
-    context.res.end();
-    return {
-      props: {
-        calendarUser: defaultMemberData,
-        invitationCode,
-      },
-    };
-  }
-
-  const pureInvitationCode = invitationCode.split("?")[0];
-
   try {
-    const res = await setGetCurrCalendarUserInfo(pureInvitationCode);
+    const res = await setGetCurrCalendarUserInfo(invitationCode);
     if (res.status === 200) {
       return {
         props: {
           calendarUser: res.data.data,
-          pureInvitationCode,
+          invitationCode,
         },
       };
     }
   } catch (e) {
     console.log(e);
-    context.res.writeHead(302, { Location: "/error" });
+    context.res.writeHead(302, { Location: "/invalid-invitation-link" });
     context.res.end();
   }
 
   return {
     props: {
       calendarUser: defaultMemberData,
-      pureInvitationCode,
+      invitationCode,
     },
   };
 }

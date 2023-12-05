@@ -67,7 +67,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       router.events.off("routeChangeComplete", handleComplete);
       router.events.off("routeChangeError", handleComplete);
     };
-  }, [router.asPath]);
+  }, [router]);
 
   const getLayout =
     (Component as any).getLayout || ((page) => <Layout> {page} </Layout>);

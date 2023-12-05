@@ -64,10 +64,16 @@ class MyDocument extends Document {
             content="ca-pub-3291465451494000"
           />
           {/*모바일 인풋 클릭시 확대방지*/}
-          <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, user-scalable=no"
+          />
+          {/* 카카오 스크립트 */}
           <script
-            defer
-            src="https://developers.kakao.com/sdk/js/kakao.min.js"
+            src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
+            integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4"
+            crossOrigin="anonymous"
+            async
           />
         </Head>
         <body>
