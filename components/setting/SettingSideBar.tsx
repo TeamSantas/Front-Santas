@@ -74,6 +74,10 @@ const SettingSideBar = () => {
               </LinkContent>
             </LinkWrapper>
             {isLoginUser ? <Logout /> : <Login />}
+            <LinkWrapper>
+              <Content>상호명: 머지고래 |</Content>
+              <Content>사업자등록번호: 775-06-01556</Content>
+            </LinkWrapper>
           </Bottom>
         </ContentWrapper>
       </SidebarContainer>
@@ -119,6 +123,16 @@ const SidebarContainer = styled.div`
   padding: 40px 24px;
   transition: all 0.3s ease-in-out;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
+`;
+
+const Content = styled.div`
+  padding-top: 10px;
+  display: flex;
+  font-size: 10px;
+  justify-content: space-between;
+  text-decoration: none;
+  color: #b1b1b1;
+  width: fit-content;
 `;
 
 const LinkContent = styled(Link)`
