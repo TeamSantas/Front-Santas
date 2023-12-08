@@ -1,17 +1,27 @@
 import Image from "next/image";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import styled from "styled-components";
 import InformationModal from "../index/InformationModal";
+import InfoModal from "../modals/InfoModal";
+import {getCookie, setCookie} from "cookies-next";
 
 export const QuestionLink = () => {
   const [informationModalShow, setInformationModalShow] = useState(false);
+  const [isDisplay, setIsDisplay] = useState(true);
   const handleInformationModalClose = () => setInformationModalShow(false);
   const clickInformationIconHandler = () => {
+    setIsDisplay(false);
     setInformationModalShow(true);
+    setCookie("info",true);
   };
-  //TODO: 서비스 소개 Info 보여주는 기능 구현하기
+  useEffect(() => {
+    const isClicked = getCookie("info");
+    if(isClicked) setIsDisplay(false);
+  }, []);
+
   return (
     <>
+      <InfoModal isDisplay={isDisplay}/>
       <ShareBtn
         src={`/asset_ver2/image/btn/question_btn.png`}
         width={44}
