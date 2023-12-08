@@ -34,7 +34,9 @@ export function middleware(req: NextRequest) {
   }
 
   if (oauthRedirect) {
-    url.pathname = "/";
+    const returnUrl = req.cookies.get("returnUrl");
+
+    url.pathname = returnUrl ? `/${returnUrl}` : "/";
     url.searchParams.delete("token"); // parameter masking
 
     // 브라우저 쿠키에 token 세팅

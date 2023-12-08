@@ -12,12 +12,17 @@ import {
   isMyCalendarAtom,
 } from "../store/globalState";
 import { defaultMemberData } from "../util/type";
+import { removeCookie } from "../businesslogics/cookie";
 
 export default function OtherCalendarPage({ calendarUser, invitationCode }) {
   const router = useRouter();
   const [storeUserData] = useAtom(loginUserDataAtom);
   const [profileUser, setProfileUser] = useAtom(profileUserDataAtom);
   const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
+
+  useEffect(() => {
+    removeCookie("returnUrl");
+  }, []);
 
   useEffect(() => {
     // 친구 코드가 내 코드일 때는 내 캘린더로 바로 이동한다.
