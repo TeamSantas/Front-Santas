@@ -38,9 +38,7 @@ const SendPresents = ({ onHide, selectedday }) => {
   const currCalUserId: number = profileUser ? profileUser.id : 0;
 
   // 익명 체크
-  const handleCheckAnonymous = () => {
-    setAnonymous((prev) => !prev);
-  };
+  const handleCheckAnonymous = () => setAnonymous((prev) => !prev);
 
   // 이미지 상대경로 저장
   const handleAddImages = (e) => {
@@ -74,6 +72,15 @@ const SendPresents = ({ onHide, selectedday }) => {
     setFileList((prevFileList) =>
       prevFileList.filter((_, index) => index !== id)
     );
+  };
+
+  const checkValidation = () => {
+    if (ref.current?.value === "") {
+      alert("쪽지를 작성해 주세요.");
+      return false;
+    }
+
+    return true;
   };
 
   const HandleImageSubmit = async () => {
@@ -220,7 +227,13 @@ const SendPresents = ({ onHide, selectedday }) => {
             <div className="inputNickname" />
           )}
         </JustifiedAlignedFlex>
-        <GreenButton onClick={HandleImageSubmit}>
+        <GreenButton
+          onClick={() => {
+            if (checkValidation()) {
+              HandleImageSubmit();
+            }
+          }}
+        >
           쪽지보내기
           <Image
             src={`/asset_ver2/image/send.png`}
