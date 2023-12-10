@@ -81,7 +81,7 @@ const Card = (props) => {
 
   const handleShow = () => {
     if (props.type === "RECEIVED" && todayPresentCount < 3 && !readStatus && !isLastDate) {
-      alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
+      alert("하루에 쪽지를 3개보내거나 / 🎄타운에 글을 1개 적어야 열 수 있어요.");
       return;
     }
     initPresentDetail();
