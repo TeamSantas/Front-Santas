@@ -71,8 +71,16 @@ const Card = (props) => {
   const [todayPresentCount] = useAtom(todayPresentCountAtom);
   const haveImage = presentDetail?.imageURL.length > 0 ? true : false;
 
+  const date = new Date();
+  const today_day = date.getDate();
+  const today = Number(today_day) < 10
+    ? "2023-12-0" + today_day
+    : "2023-12-" + today_day;
+
+  const isLastDate = props.date < today;
+
   const handleShow = () => {
-    if (props.type === "RECEIVED" && todayPresentCount < 3) {
+    if (props.type === "RECEIVED" && todayPresentCount < 3 && !readStatus && !isLastDate) {
       alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
       return;
     }
