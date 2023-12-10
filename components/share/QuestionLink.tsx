@@ -7,21 +7,21 @@ import {getCookie, setCookie} from "cookies-next";
 
 export const QuestionLink = () => {
   const [informationModalShow, setInformationModalShow] = useState(false);
-  const [isDisplay, setIsDisplay] = useState(true);
+  const [isDisplayInfo, setIsDisplayInfo] = useState(false); //사용법 말풍선 노출여부
   const handleInformationModalClose = () => setInformationModalShow(false);
   const clickInformationIconHandler = () => {
-    setIsDisplay(false);
+    setIsDisplayInfo(false);
     setInformationModalShow(true);
     setCookie("info",true);
   };
   useEffect(() => {
     const isClicked = getCookie("info");
-    if(isClicked) setIsDisplay(false);
+    if(!isClicked) setIsDisplayInfo(true);
   }, []);
 
   return (
     <>
-      <InfoModal isDisplay={isDisplay}/>
+      <InfoModal isDisplay={isDisplayInfo} text={"💌 사용법을 알아보세요!"} direction={"down"}/>
       <ShareBtn
         src={`/asset_ver2/image/btn/question_btn.png`}
         width={44}
