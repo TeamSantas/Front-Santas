@@ -1,2 +1,2 @@
-const baseUrl = `https://port-0-back-santas-euegqv2llojq1wch.sel5.cloudtype.app`;
+const baseUrl = `https://welcome-christmas.shop/`;
 export const kakaoLoginUrl = `${baseUrl}/oauth2/authorization/kakao`;
