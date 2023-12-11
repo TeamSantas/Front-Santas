@@ -19,7 +19,7 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
     return (
       <>
         <BackGround
-          src={`/asset_ver2/image/layout/back_house.png`}
+          src={`/asset_ver2/image/layout/house.png`}
           width={`450`}
           height={`1000`}
           alt={"배경"}
