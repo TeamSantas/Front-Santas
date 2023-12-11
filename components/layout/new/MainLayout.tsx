@@ -13,8 +13,8 @@ const Layout = ({ children = null }) => {
       <MainWrapper>
         <Buildings src={"/asset_ver2/image/layout/forest_background.png"} />
         <UpperWrapper>{children}</UpperWrapper>
-        <Ground />
       </MainWrapper>
+      <Ground />
       <SettingSideBar />
       <Snow />
       <QuestionLink />
@@ -64,7 +64,14 @@ const Buildings = styled(AbsoluteImg)`
 const Ground = styled.div`
   position: absolute;
   width: 100%;
-  height: 17vh;
+  height: 30vh;
   bottom: 0;
-  background-color: #d9d9d9;
+  background-color: #d9e2ed;
+
+  @media ((max-width: 768px) and (max-height: 700px)) {
+    height: 35vh;
+  }
+  @media (max-width: 300px) {
+    height: 210px;
+  }
 `;

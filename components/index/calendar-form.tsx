@@ -186,7 +186,7 @@ const BackGround = styled(Image)`
   max-width: 470px;
   height: auto;
   position: fixed;
-  bottom: 90px;
+  bottom: 80px;
   z-index: -1;
   margin: 0 auto;
   left: 0;

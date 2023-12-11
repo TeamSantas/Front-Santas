@@ -120,12 +120,13 @@ const Gnb = () => {
 export default Gnb;
 
 const Wrapper = styled.div`
-  position: relative;
+  position: fixed;
+  bottom: 0;
   width: 100%;
-  height: 90px;
+  height: 80px;
   background-color: #1a2838;
   z-index: 10;
-  padding: 10px 22px 25px;
+  padding: 10px 22px 15px;
 `;
 
 const IconContainer = styled.div`
@@ -158,7 +159,7 @@ const HomeIcon = styled.div`
 const IconWrapper = styled(Flex)`
   flex-direction: column;
   color: white;
-  font-size: 12px;
+  font-size: 10px;
   font-family: NanumSquare Neo OTF;
   font-weight: 400;
   word-wrap: break-word;
