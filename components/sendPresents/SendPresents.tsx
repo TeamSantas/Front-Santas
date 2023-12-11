@@ -18,6 +18,7 @@ import {
   profileUserDataAtom,
 } from "../../store/globalState";
 import { useRouter } from "next/router";
+import { setCookie } from "cookies-next";
 
 const SendPresents = ({ onHide, selectedday }) => {
   const [profileUser] = useAtom(profileUserDataAtom);
@@ -34,6 +35,8 @@ const SendPresents = ({ onHide, selectedday }) => {
   const placeholder = isLoginUser
     ? `여기에 쪽지를 적어주세요.\n(최대 100자)`
     : `이 쪽지는 익명으로 보내져요.\n\n답장을 받고 싶다면\n로그인 후 쪽지를 보내보세요.\n(최대 100자)`;
+  const invitationCode = router.query.invitation_code;
+  if (!isLoginUser) setCookie("returnUrl", invitationCode);
 
   const ref = useRef(null);
   const nicknameRef = useRef(null);
@@ -152,7 +155,7 @@ const SendPresents = ({ onHide, selectedday }) => {
         }
         if (
           !isLoginUser &&
-          confirm("선물 보내기 성공! 🎁\n보낸 쪽지 확인하러 가기🎅")
+          confirm("선물 보내기 성공! 🎁\n나도 캘린더 만들기🎅")
         ) {
           router.push("/login");
         }

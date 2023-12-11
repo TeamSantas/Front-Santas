@@ -53,6 +53,12 @@ export default function OtherCalendarPage({ calendarUser, invitationCode }) {
 export async function getServerSideProps(context) {
   const { invitation_code: invitationCode } = context.params;
 
+  // returnUrl 쿠키 삭제
+  context.res.setHeader(
+    "Set-Cookie",
+    `returnUrl=; Max-Age=0; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`
+  );
+
   try {
     const res = await setGetCurrCalendarUserInfo(invitationCode);
     if (res.status === 200) {

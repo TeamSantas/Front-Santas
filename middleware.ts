@@ -34,7 +34,9 @@ export function middleware(req: NextRequest) {
   }
 
   if (oauthRedirect) {
-    url.pathname = "/";
+    const returnUrl = req.cookies.get("returnUrl");
+
+    url.pathname = returnUrl ? `/${returnUrl}` : "/";
     url.searchParams.delete("token"); // parameter masking
 
     // 브라우저 쿠키에 token 세팅
@@ -50,3 +52,17 @@ export function middleware(req: NextRequest) {
 
   return NextResponse.next(); // 다른 경우에는 원래 요청을 유지
 }
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - assets
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico|assets).*)",
+  ],
+};

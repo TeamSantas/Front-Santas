@@ -2,10 +2,6 @@ import styled from "styled-components";
 import PresentModal from "../receivedPresents/PresentModal";
 import { useState } from "react";
 import CalendarDays from "./calendar-form";
-import { useAtom } from "jotai";
-import { loginUserDataAtom } from "../../store/globalState";
-import { useRouter } from "next/router";
-import { setCookie } from "cookies-next";
 
 interface IOtherCalendar {
   name: string;
