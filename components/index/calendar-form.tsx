@@ -153,16 +153,16 @@ const CalendarWrapper = styled.div`
   position: fixed;
   margin: 0 auto;
   width: 380px;
-  bottom: 160px;
+  bottom: 125px;
   left: 50%;
   transform: translateX(-50%);
   @media (max-width: 500px) {
     width: 270px;
-    bottom: 120px;
+    bottom: 115px;
   }
   @media (max-width: 350px) {
     width: 83%;
-    bottom: 120px;
+    bottom: 110px;
   }
 `;
 
@@ -186,7 +186,7 @@ const BackGround = styled(Image)`
   max-width: 470px;
   height: auto;
   position: fixed;
-  bottom: 60px;
+  bottom: 90px;
   z-index: -1;
   margin: 0 auto;
   left: 0;
