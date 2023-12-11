@@ -138,6 +138,12 @@ const Container = styled.div<{ isOpen: boolean }>`
   transition: transform 0.3s ease-in-out;
   transform: ${({ isOpen }) =>
     isOpen ? "translateY(0)" : "translateY(calc(100vh - 270px))"};
+  max-width: 500px;
+  width: 100vw;
+  margin: 0 auto;
+  @media (max-width: 768px) {
+    max-width: unset;
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -146,8 +152,6 @@ const ContentWrapper = styled.div`
   align-items: center;
   gap: 20px;
   height: calc(100vh - 410px);
-  width: 100vw;
-  max-width: 500px;
   padding: 0 20px 20px;
   background-color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
@@ -223,6 +227,6 @@ const slideOut = keyframes`
     transform: translateY(0);
   }
   to {
-    transform: translateY(calc(100vh - 410px));
+    transform: translateY(calc(100vh - 360px));
   }
 `;

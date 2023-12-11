@@ -45,6 +45,6 @@ const ShareBtn = styled(Image)`
   position: absolute;
   cursor: pointer;
   right: 55px;
-  bottom: calc(env(safe-area-inset-bottom) + 90px);
+  bottom: 90px;
   z-index: 100;
 `;

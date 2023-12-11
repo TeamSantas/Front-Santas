@@ -29,8 +29,6 @@ const Wrapper = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  top: env(safe-area-inset-top);
-  bottom: env(safe-area-inset-bottom);
 `;
 
 const MainWrapper = styled.div`
@@ -48,7 +46,7 @@ const UpperWrapper = styled.div`
 const AbsoluteImg = styled.img`
   position: absolute;
   overflow: hidden;
-  bottom: calc(env(safe-area-inset-bottom) + 17vh);
+  bottom: 17vh;
   left: 50%;
   transform: translateX(-50%);
 `;
@@ -57,7 +55,7 @@ const Logo = styled(AbsoluteImg)`
   width: 220px;
   max-width: 50vw;
   min-width: 200px;
-  top: calc(env(safe-area-inset-top) + 5vh);
+  top: 5vh;
 `;
 
 const Buildings = styled(AbsoluteImg)`
@@ -67,13 +65,13 @@ const Buildings = styled(AbsoluteImg)`
 const Tree = styled(AbsoluteImg)`
   height: 45vh;
   z-index: 1;
-  bottom: calc(env(safe-area-inset-bottom) + 14vh);
+  bottom: 14vh;
 `;
 
 const Ground = styled.div`
   position: absolute;
   width: 100%;
   height: 17vh;
-  bottom: env(safe-area-inset-bottom);
+  bottom: 0;
   background-color: #d9d9d9;
 `;

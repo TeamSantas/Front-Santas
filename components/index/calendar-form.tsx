@@ -153,16 +153,16 @@ const CalendarWrapper = styled.div`
   position: fixed;
   margin: 0 auto;
   width: 380px;
-  bottom: calc(env(safe-area-inset-bottom) + 160px);
+  bottom: 160px;
   left: 50%;
   transform: translateX(-50%);
   @media (max-width: 500px) {
     width: 270px;
-    bottom: calc(env(safe-area-inset-bottom) + 120px);
+    bottom: 120px;
   }
   @media (max-width: 350px) {
     width: 83%;
-    bottom: calc(env(safe-area-inset-bottom) + 120px);
+    bottom: 120px;
   }
 `;
 
