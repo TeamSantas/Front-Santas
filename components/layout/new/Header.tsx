@@ -9,7 +9,7 @@ import {
   sidebarOpenAtom,
 } from "../../../store/globalState";
 import InfoModal from "../../modals/InfoModal";
-import {getCookie, setCookie} from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 
 const Header = () => {
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
@@ -33,14 +33,14 @@ const Header = () => {
   ]);
 
   const handleClickSetting = () => {
-    setIsDisplayAlarm(false)
-    setCookie("info-alarm",true);
+    setIsDisplayAlarm(false);
+    setCookie("info-alarm", true);
     setIsOpen(true);
   };
 
   useEffect(() => {
     const isClicked = getCookie("info-alarm");
-    if(!isClicked) setIsDisplayAlarm(true);
+    if (!isClicked) setIsDisplayAlarm(true);
   }, []);
 
   //프로필이미지
@@ -48,11 +48,13 @@ const Header = () => {
   const handleCloseModal = () => setIsImgModalOpen(false);
   return (
     <Wrapper>
-      {isLoginUser
-      ?<InfoModal isDisplay={isDisplayAlarm}
-                  text={"내게 쪽지가 오면 메일알림 받기"}
-                  direction={"right"}/>
-      : null}
+      {isLoginUser ? (
+        <InfoModal
+          isDisplay={isDisplayAlarm}
+          text={"내게 쪽지가 오면 메일알림 받기"}
+          direction={"right"}
+        />
+      ) : null}
       <Profile
         src={profileImg || "/asset_ver2/image/common/default-profile.png"}
         onClick={handleProfileClick}
@@ -98,6 +100,7 @@ const Profile = styled.img`
   border-radius: 50%;
   overflow: hidden;
   object-fit: cover;
+  cursor: pointer;
   @media (max-width: 768px) {
     width: 40px;
     height: 40px;

@@ -1,9 +1,9 @@
 import Image from "next/image";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import InformationModal from "../index/InformationModal";
 import InfoModal from "../modals/InfoModal";
-import {getCookie, setCookie} from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 
 export const QuestionLink = () => {
   const [informationModalShow, setInformationModalShow] = useState(false);
@@ -12,16 +12,20 @@ export const QuestionLink = () => {
   const clickInformationIconHandler = () => {
     setIsDisplayInfo(false);
     setInformationModalShow(true);
-    setCookie("info",true);
+    setCookie("info", true);
   };
   useEffect(() => {
     const isClicked = getCookie("info");
-    if(!isClicked) setIsDisplayInfo(true);
+    if (!isClicked) setIsDisplayInfo(true);
   }, []);
 
   return (
     <>
-      <InfoModal isDisplay={isDisplayInfo} text={"💌 사용법을 알아보세요!"} direction={"down"}/>
+      <InfoModal
+        isDisplay={isDisplayInfo}
+        text={"💌 사용법을 알아보세요!"}
+        direction={"down"}
+      />
       <ShareBtn
         src={`/asset_ver2/image/btn/question_btn.png`}
         width={44}
@@ -41,6 +45,6 @@ const ShareBtn = styled(Image)`
   position: absolute;
   cursor: pointer;
   right: 55px;
-  bottom: calc(env(safe-area-inset-bottom) + 70px);
+  bottom: calc(env(safe-area-inset-bottom) + 90px);
   z-index: 100;
 `;

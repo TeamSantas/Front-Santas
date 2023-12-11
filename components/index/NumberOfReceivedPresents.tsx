@@ -35,12 +35,18 @@ const StyledNumberOfReceivedPresents = styled.p`
   background-color: #e25320;
   border-radius: 100%;
   background-position: center;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   text-align: center;
   align-items: center;
   display: flex;
   justify-content: center;
   position: absolute;
-  font-size: small;
+  font-size: 15px;
+
+  @media (max-width: 500px) {
+    font-size: small;
+    width: 20px;
+    height: 20px;
+  }
 `;

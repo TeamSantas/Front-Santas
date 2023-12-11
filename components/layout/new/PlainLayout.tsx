@@ -20,7 +20,7 @@ const MainWrapper = styled.div`
   background-color: #1c3249;
   position: relative;
   overflow: hidden;
-  height: 100vh;
+  height: 100%;
 `;
 
 const UpperWrapper = styled.div`

@@ -22,4 +22,5 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
 `;

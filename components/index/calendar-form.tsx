@@ -152,10 +152,14 @@ export default CalendarDays;
 const CalendarWrapper = styled.div`
   position: fixed;
   margin: 0 auto;
-  width: 290px;
-  bottom: calc(env(safe-area-inset-bottom) + 125px);
+  width: 380px;
+  bottom: calc(env(safe-area-inset-bottom) + 160px);
   left: 50%;
   transform: translateX(-50%);
+  @media (max-width: 500px) {
+    width: 270px;
+    bottom: calc(env(safe-area-inset-bottom) + 120px);
+  }
   @media (max-width: 350px) {
     width: 83%;
     bottom: calc(env(safe-area-inset-bottom) + 120px);
@@ -166,16 +170,20 @@ const Title = styled.h1`
   font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
   margin: 0 auto;
   margin-bottom: 20vh;
-  max-width: 260px;
+  max-width: 400px;
   text-align: center;
-  @media (max-width: 700px) {
-    margin-bottom: 140px;
+  @media (max-width: 500px) {
+    max-width: 300px;
+    margin-bottom: 120px;
+  }
+  @media (max-width: 300px) {
+    max-width: 260px;
   }
 `;
 
 const BackGround = styled(Image)`
   width: 100%;
-  max-width: 350px;
+  max-width: 470px;
   height: auto;
   position: fixed;
   bottom: 60px;
@@ -184,7 +192,9 @@ const BackGround = styled(Image)`
   left: 0;
   right: 0;
   overflow: hidden;
-
+  @media (max-width: 500px) {
+    max-width: 330px;
+  }
   @media (max-width: 350px) {
     max-width: unset;
     width: 100%;

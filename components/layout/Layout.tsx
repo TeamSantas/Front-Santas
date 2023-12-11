@@ -7,7 +7,7 @@ import Banner from "../common/Banner";
 const MainWrapper = styled.div`
   background-color: #1e344f;
   padding: 22px;
-  height: 100vh;
+  height: 100%;
   margin: 0 auto;
   overflow: scroll;
   /* box-shadow: 0 5px 20px 5px gray; */

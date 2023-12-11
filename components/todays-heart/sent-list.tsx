@@ -100,6 +100,7 @@ const Container = styled.div`
 const LoadingContainer = styled.div`
   height: 40vh;
   text-align: center;
+  color: #1c3249;
 `;
 const LoadingHeader = styled.div`
   margin: 0;

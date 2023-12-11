@@ -135,13 +135,13 @@ export async function getServerSideProps(context) {
 
 const Container = styled.div<{ isOpen: boolean }>`
   position: absolute;
-  bottom: calc(-100vh + 130px + env(safe-area-inset-bottom));
+  bottom: calc(-100vh + 200px + env(safe-area-inset-bottom));
   left: 50%;
   animation: ${({ isOpen }) => (isOpen ? slideIn : slideOut)} 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out;
   transform: ${({ isOpen }) =>
     isOpen
-      ? "translateY(0) translateX(-50%)"
+      ? "translateY(40px) translateX(-50%)"
       : "translateY(calc(100vh - 240px)) translateX(-50%)"};
 `;
 
@@ -150,7 +150,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  height: calc(100vh - 380px);
+  height: calc(100vh - 420px);
   width: 100vw;
   max-width: 500px;
   padding: 0 20px 20px;
@@ -177,8 +177,6 @@ const ContentWrapper = styled.div`
 `;
 
 const TopWrapper = styled.div`
-  position: sticky;
-  top: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -221,13 +219,13 @@ const slideIn = keyframes`
     transform: translateY(calc(100vh - 380px)) translateX(-50%);
   }
   to {
-    transform: translateY(0) translateX(-50%);
+    transform: translateY(40px) translateX(-50%);
   }
 `;
 
 const slideOut = keyframes`
   from {
-    transform: translateY(0) translateX(-50%);
+    transform: translateY(40px) translateX(-50%);
   }
   to {
     transform: translateY(calc(100vh - 380px)) translateX(-50%);
