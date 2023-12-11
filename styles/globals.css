@@ -32,10 +32,9 @@ ul {
   display: flex;
   width: 100%;
   height: auto;
-  /*overflow-x: auto;*/
   overflow-y: hidden;
   margin: 10px auto;
-  align-items: center;
+  align-items: flex-start;
   justify-content: left;
 }
 .Thumbnail_Wrapper::-webkit-scrollbar {
@@ -50,13 +49,18 @@ ul {
 
 .textarea {
   resize: none;
-  width: 12rem;
+  width: 13rem;
   min-height: 12rem;
   border: none;
   outline-color: #5c7a9f;
   padding: 0;
   background-color: rgba(0, 0, 0, 0);
   text-align: center;
+
+  @media (max-width: 300px) {
+    width: 10rem;
+    min-height: 10rem;
+  }
 }
 
 .inputNickname {
