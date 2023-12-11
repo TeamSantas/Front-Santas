@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PresentModal from "../receivedPresents/PresentModal";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import CustomModal from "../common/CustomModal";
 import Image from "next/image";
 import CalendarDays from "./calendar-form";
@@ -12,8 +12,9 @@ interface IMyCalendar {
 const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   const date = new Date();
   const today_day = date.getDate();
-  const today =
-    Number(today_day) < 10 ? "2023120" + today_day : "202312" + today_day;
+  const today = Number(today_day) < 10
+    ? "2023120" + today_day
+    : "202312" + today_day;
 
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [notYetModalShow, setNotYeModalShow] = useState(false);
@@ -23,20 +24,18 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   const handleShow = (selectedDay: number) => {
     setSelectedDay(selectedDay);
 
-    let selectedDayToCompare = Number(selectedDay) < 10
+    let clickedCalendarDate = Number(selectedDay) < 10
         ? "2023120" + selectedDay
         : "202312" + selectedDay;
 
-    let today = Number(today_day) < 10
-      ? "2023120" + today_day
-      : "202312" + today_day;
-
     // 열기 시도한 날이 오늘보다 앞의 날
-    const isCanOpenTime = Number(selectedDayToCompare) <= Number(today);
+    const isCanOpenTime = Number(clickedCalendarDate) <= Number(today);
+    const isClickToday = Number(clickedCalendarDate) === Number(today);
 
-    //오늘보다 앞의 날
-    if (isCanOpenTime && todayPresentCount < 3) {
-      alert("하루에 쪽지를 3개 이상 보내야 열어볼 수 있어요.");
+
+    //오늘보다 앞의 날, 오늘인데, 메일 보낸 수가 3개 이하면
+    if (isCanOpenTime && isClickToday && todayPresentCount < 3 ) {
+      alert("하루에 쪽지를 3개보내거나 / 🎄타운에 글을 1개 적어야 열 수 있어요.");
       return;
     }
     if (isCanOpenTime) {
@@ -49,11 +48,11 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   };
 
   useEffect(() => {
-    let selectedDayToCompare =
+    let clickedCalendarDate =
       Number(selectedDay) < 10
         ? "2023120" + selectedDay
         : "202312" + selectedDay;
-    if (Number(selectedDayToCompare) <= Number(today)) {
+    if (Number(clickedCalendarDate) <= Number(today)) {
       setCanOpenCalendar(true);
     } else {
       setCanOpenCalendar(false);

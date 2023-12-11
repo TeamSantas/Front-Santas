@@ -8,6 +8,8 @@ import {
   profileUserDataAtom,
   sidebarOpenAtom,
 } from "../../../store/globalState";
+import InfoModal from "../../modals/InfoModal";
+import {getCookie, setCookie} from "cookies-next";
 
 const Header = () => {
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
@@ -16,6 +18,7 @@ const Header = () => {
   const [, setIsOpen] = useAtom(sidebarOpenAtom);
   const [isMyCalendar] = useAtom(isMyCalendarAtom);
   const [profileImg, setProfileImg] = useState("");
+  const [isDisplayAlarm, setIsDisplayAlarm] = useState(false); //알람 말풍선 노출여부
 
   useEffect(() => {
     if (isMyCalendar) {
@@ -30,14 +33,22 @@ const Header = () => {
   ]);
 
   const handleClickSetting = () => {
+    setIsDisplayAlarm(false)
+    setCookie("info-alarm",true);
     setIsOpen(true);
   };
+
+  useEffect(() => {
+    const isClicked = getCookie("info-alarm");
+    if(!isClicked) setIsDisplayAlarm(true);
+  }, []);
 
   //프로필이미지
   const handleProfileClick = () => setIsImgModalOpen(true);
   const handleCloseModal = () => setIsImgModalOpen(false);
   return (
     <Wrapper>
+      <InfoModal isDisplay={isDisplayAlarm} text={"내게 쪽지가 오면 메일알림 받기"} direction={"right"}/>
       <Profile
         src={profileImg || "/asset_ver2/image/common/default-profile.png"}
         onClick={handleProfileClick}
