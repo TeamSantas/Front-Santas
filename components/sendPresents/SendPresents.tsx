@@ -155,7 +155,7 @@ const SendPresents = ({ onHide, selectedday }) => {
         }
         if (
           !isLoginUser &&
-          confirm("선물 보내기 성공! 🎁\n나도 캘린더 만들기🎅")
+          confirm("선물 보내기 성공! 🎁\n나도 캘린더 만들러 가기🎅🔜🔜🔜")
         ) {
           router.push("/login");
         }
