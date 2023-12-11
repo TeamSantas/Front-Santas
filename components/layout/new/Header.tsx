@@ -13,13 +13,13 @@ import {getCookie, setCookie} from "cookies-next";
 
 const Header = () => {
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
-  const [storeUserData] = useAtom(loginUserDataAtom);
   const [profileUserData] = useAtom(profileUserDataAtom);
   const [, setIsOpen] = useAtom(sidebarOpenAtom);
   const [isMyCalendar] = useAtom(isMyCalendarAtom);
   const [profileImg, setProfileImg] = useState("");
   const [isDisplayAlarm, setIsDisplayAlarm] = useState(false); //알람 말풍선 노출여부
-
+  const [storeUserData] = useAtom(loginUserDataAtom);
+  const isLoginUser = storeUserData.id > 0;
   useEffect(() => {
     if (isMyCalendar) {
       setProfileImg(storeUserData.profileImageURL);
@@ -48,7 +48,11 @@ const Header = () => {
   const handleCloseModal = () => setIsImgModalOpen(false);
   return (
     <Wrapper>
-      <InfoModal isDisplay={isDisplayAlarm} text={"내게 쪽지가 오면 메일알림 받기"} direction={"right"}/>
+      {isLoginUser
+      ?<InfoModal isDisplay={isDisplayAlarm}
+                  text={"내게 쪽지가 오면 메일알림 받기"}
+                  direction={"right"}/>
+      : null}
       <Profile
         src={profileImg || "/asset_ver2/image/common/default-profile.png"}
         onClick={handleProfileClick}
