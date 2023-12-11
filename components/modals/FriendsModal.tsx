@@ -51,7 +51,7 @@ const FriendsModal = (props) => {
       console.log(e);
     }
     setIsLoading(false);
-  }, [router, props]);
+  }, [router]);
 
   useEffect(() => {
     if (storeUserData.id > 0) {
