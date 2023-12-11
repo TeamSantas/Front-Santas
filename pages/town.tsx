@@ -137,7 +137,9 @@ const Container = styled.div<{ isOpen: boolean }>`
   animation: ${({ isOpen }) => (isOpen ? slideIn : slideOut)} 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out;
   transform: ${({ isOpen }) =>
-    isOpen ? "translateY(0)" : "translateY(calc(100vh - 270px))"};
+    isOpen
+      ? "translateY(0)"
+      : "translateY(calc(100vh - 270px + env(safe-area-inset-bottom)))"};
   max-width: 500px;
   width: 100vw;
   margin: 0 auto;
@@ -215,7 +217,7 @@ const Arrow = styled.div`
 
 const slideIn = keyframes`
   from {
-    transform: translateY(calc(100vh - 410px));
+    transform: translateY(calc(100vh - 360px + env(safe-area-inset-bottom)));
   }
   to {
     transform: translateY(0);
@@ -227,6 +229,6 @@ const slideOut = keyframes`
     transform: translateY(0);
   }
   to {
-    transform: translateY(calc(100vh - 360px));
+    transform: translateY(calc(100vh - 360px + env(safe-area-inset-bottom)));
   }
 `;
