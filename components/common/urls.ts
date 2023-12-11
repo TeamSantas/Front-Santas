@@ -1,2 +1,1 @@
-const baseUrl = `https://welcome-christmas.shop`;
-export const kakaoLoginUrl = `${baseUrl}/oauth2/authorization/kakao`;
+export const kakaoLoginUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/kakao`;
