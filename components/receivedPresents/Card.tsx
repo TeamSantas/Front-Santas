@@ -10,6 +10,8 @@ import { NewBadge } from "../../styles/styledComponentModule";
 import { presentListModalAdID } from "../advertisement/ad-ids";
 import { useAtom } from "jotai";
 import { todayPresentCountAtom } from "../../store/globalState";
+import { getCookie } from "cookies-next";
+import { isSantaz } from "../common/for-santaz";
 
 const TabCard = styled.div`
   background: white;
@@ -73,15 +75,22 @@ const Card = (props) => {
 
   const date = new Date();
   const today_day = date.getDate();
-  const today = Number(today_day) < 10
-    ? "2023-12-0" + today_day
-    : "2023-12-" + today_day;
+  const today =
+    Number(today_day) < 10 ? "2023-12-0" + today_day : "2023-12-" + today_day;
 
   const isLastDate = props.date < today;
 
   const handleShow = () => {
-    if (props.type === "RECEIVED" && todayPresentCount < 3 && !readStatus && !isLastDate) {
-      alert("하루에 쪽지를 3개보내거나 / 🎄타운에 글을 1개 적어야 열 수 있어요.");
+    if (
+      props.type === "RECEIVED" &&
+      todayPresentCount < 3 &&
+      !readStatus &&
+      !isLastDate &&
+      !isSantaz(getCookie("token"))
+    ) {
+      alert(
+        "하루에 쪽지를 3개보내거나 / 🎄타운에 글을 1개 적어야 열 수 있어요."
+      );
       return;
     }
     initPresentDetail();

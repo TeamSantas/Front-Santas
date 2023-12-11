@@ -18,6 +18,8 @@ import { useAtom } from "jotai";
 import { loginUserDataAtom, modalStateAtom } from "../../store/globalState";
 import { useRouter } from "next/router";
 import ShareTriggerButton from "../share/ShareButton";
+import { getCookie } from "cookies-next";
+import { isSantaz } from "../common/for-santaz";
 
 const CenteredModalFooter = styled.div`
   width: 90%;
@@ -35,6 +37,12 @@ const FriendsModal = (props) => {
   const getFriendsData = useCallback(async () => {
     setIsLoading(true);
     try {
+      if (
+        // 산타즈는 친구 없음
+        isSantaz(getCookie("token"))
+      ) {
+        return;
+      }
       const res = await setGetFriend();
       // 친구 동의 안해서 응답 없을 때
       if (!res) {
