@@ -17,9 +17,10 @@ import {
   sidebarNotificationAtom,
   profileUserDataAtom,
 } from "../../store/globalState";
+import { useRouter } from "next/router";
+import { setCookie } from "cookies-next";
 
 const SendPresents = ({ onHide, selectedday }) => {
-  const [isAnonymous, setAnonymous] = useState(false);
   const [profileUser] = useAtom(profileUserDataAtom);
   const [isLoading, setIsLoading] = useState(false);
   const [fileList, setFileList] = useState<File[]>([]);
@@ -28,6 +29,14 @@ const SendPresents = ({ onHide, selectedday }) => {
   const [, setBgmOn] = useAtom(sidebarBgmAtom);
   const [, setNotificationOn] = useAtom(sidebarNotificationAtom);
   const [showImages, setShowImages] = useState([]);
+  const isLoginUser = storeUserData.id > 0;
+  const router = useRouter();
+  const [isAnonymous, setAnonymous] = useState(!isLoginUser);
+  const placeholder = isLoginUser
+    ? `여기에 쪽지를 적어주세요.\n(최대 100자)`
+    : `이 쪽지는 익명으로 보내져요.\n\n답장을 받고 싶다면\n로그인 후 쪽지를 보내보세요.\n(최대 100자)`;
+  const invitationCode = router.query.invitation_code;
+  if (!isLoginUser) setCookie("returnUrl", invitationCode);
 
   const ref = useRef(null);
   const nicknameRef = useRef(null);
@@ -75,7 +84,7 @@ const SendPresents = ({ onHide, selectedday }) => {
   };
 
   const checkValidation = () => {
-    if (ref.current?.value === "") {
+    if (ref.current?.value?.trim() === "") {
       alert("쪽지를 작성해 주세요.");
       return false;
     }
@@ -83,8 +92,7 @@ const SendPresents = ({ onHide, selectedday }) => {
     return true;
   };
 
-  const HandleImageSubmit = async () => {
-    setIsLoading(true);
+  const getNickname = () => {
     let sendNick = nicknameRef.current?.value;
     if (!isAnonymous) {
       if (storeUserData?.nickname) {
@@ -97,12 +105,17 @@ const SendPresents = ({ onHide, selectedday }) => {
         sendNick = "익명의 산타";
       }
     }
+    return sendNick;
+  };
+
+  const HandleImageSubmit = async () => {
+    setIsLoading(true);
 
     const presentData = new FormData();
 
     // @ts-ignore
     presentData.append("receiverId", currCalUserId);
-    presentData.append("nickname", sendNick);
+    presentData.append("nickname", getNickname());
     presentData.append("title", "Test title"); // title 사용하지 않기로 했습니다
     presentData.append("contents", ref.current?.value);
     presentData.append(
@@ -129,17 +142,23 @@ const SendPresents = ({ onHide, selectedday }) => {
 
     try {
       const res = await usePostPresent(presentData);
-      //TODO: 푸시알림
-      // PushService.postPushAlarm(currCalUserId, `누군가 ${currCalUserName}님에게 선물을 보냈어요! \n누가 보냈을까요? 두어캘에서 확인해보세요!`);
       if (res.status === 200) {
         setIsLoading(false);
-        alert("선물 보내기 성공! 🎁");
-        updateUserData(
-          setStoreUserData,
-          setTodayPresentCount,
-          setBgmOn,
-          setNotificationOn
-        );
+        if (isLoginUser) {
+          alert("선물 보내기 성공! 🎁");
+          updateUserData(
+            setStoreUserData,
+            setTodayPresentCount,
+            setBgmOn,
+            setNotificationOn
+          );
+        }
+        if (
+          !isLoginUser &&
+          confirm("선물 보내기 성공! 🎁\n나도 캘린더 만들러 가기🎅🔜🔜🔜")
+        ) {
+          router.push("/login");
+        }
         onHide();
       }
     } catch (e) {
@@ -148,8 +167,6 @@ const SendPresents = ({ onHide, selectedday }) => {
       alert("선물 보내기에 실패했어요. 잠시 후 다시 시도해 주세요.🥺");
     }
   };
-  const placeholder = `여기에 쪽지를 적어주세요. 
-(최대 100자)`;
   return (
     <SendPresentsWrapper>
       <PresentHeader>
@@ -212,6 +229,7 @@ const SendPresents = ({ onHide, selectedday }) => {
             type="checkbox"
             id={`default-checkbox`}
             label={`익명`}
+            disabled={!isLoginUser}
             onClick={handleCheckAnonymous}
             checked={isAnonymous}
           />
@@ -285,7 +303,7 @@ export const TextArea = styled.div`
   background-position: center;
   margin-top: 1rem;
   height: 17rem;
-  padding: 1rem 4rem;
+  padding: 1rem 3rem;
   @media (min-width: 768px) {
     //태블릿 대응
     padding: 1rem 6rem;

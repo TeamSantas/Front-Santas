@@ -44,7 +44,7 @@ const FriendsModal = (props) => {
           props.onHide();
         }
       }
-      if (res.status === 200) {
+      if (res?.status === 200) {
         setFriendsData(res.data.data);
       }
     } catch (e) {

@@ -78,6 +78,12 @@ export default function Seo({ title = "두근두근 어드벤트 캘린더" }) {
         property="twitter:site"
         content="https://merry-christmas.site/title"
       />
+
+      {/* naver */}
+      <meta
+        name="naver-site-verification"
+        content="b829136ff96e1a3b8e26ad20be908c89d3329a5a"
+      />
     </>
   );
 }
