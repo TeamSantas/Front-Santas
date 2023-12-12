@@ -103,7 +103,7 @@ const Gnb = () => {
             src={getImagePath("message")}
             onClick={() => handleClickOption("message")}
           />
-          편지함
+          쪽지함
         </IconWrapper>
         <IconWrapper>
           <Img

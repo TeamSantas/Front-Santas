@@ -22,7 +22,7 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
         <Title
           color={"#1E344F"}
           textShadow={
-            "0 0 12px #fff, 0 0 2px #fff, 0 0 12px #fff, 0 0 2px #00fff7, 0 0 8px #0251b1, 0 0 22px #62c1db, 0 0 22px #4eccff, 0 0 10px #69ebff"
+            "0 0 8px #fff, 0 0 2px #fff, 0 0 8px #fff, 0 0 2px #00fff7, 0 0 2px #0251b1, 0 0 8px #62c1db, 0 0 8px #4eccff, 0 0 5px #69ebff"
           }
         >
           {title}
