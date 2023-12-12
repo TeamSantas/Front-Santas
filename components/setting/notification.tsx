@@ -10,7 +10,7 @@ const NotificationToggle = () => {
 
   const handleClickNotificationToggle = async () => {
     try {
-      await setPutPush(notificationOn);
+      await setPutPush(!notificationOn);
     } catch (e) {
       console.log(e);
     }
