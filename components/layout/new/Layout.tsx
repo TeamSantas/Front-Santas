@@ -34,7 +34,7 @@ const Wrapper = styled.div`
 `;
 
 const MainWrapper = styled.div`
-  height: calc(100vh - 130px);
+  height: calc(100dvh - 150px);
   background-color: #1c3249;
   position: relative;
   overflow: hidden;

@@ -16,16 +16,24 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
     const dayRow_4 = [14, 15, 16, 17];
     const dayRow_5 = [18, 19, 22, 23, 24];
     const dayRow_6 = [20, 21, 25];
+    const title = `${name} 의 캘린더`;
     return (
       <>
+        <Title
+          color={"#1E344F"}
+          textShadow={
+            "0 0 8px #fff, 0 0 2px #fff, 0 0 8px #fff, 0 0 2px #00fff7, 0 0 2px #0251b1, 0 0 8px #62c1db, 0 0 8px #4eccff, 0 0 5px #69ebff"
+          }
+        >
+          {title}
+        </Title>
         <BackGround
-          src={`/asset_ver2/image/layout/back_house.png`}
+          src={`/asset_ver2/image/layout/snow-house.png`}
           width={`450`}
           height={`1000`}
           alt={"배경"}
         />
         <CalendarWrapper>
-          <Title>{name}의 캘린더</Title>
           <table>
             <tbody>
               <tr>
@@ -153,23 +161,31 @@ const CalendarWrapper = styled.div`
   position: fixed;
   margin: 0 auto;
   width: 290px;
-  bottom: calc(env(safe-area-inset-bottom) + 125px);
+  bottom: calc(env(safe-area-inset-bottom) + 105px);
   left: 50%;
   transform: translateX(-50%);
   @media (max-width: 350px) {
     width: 83%;
-    bottom: calc(env(safe-area-inset-bottom) + 120px);
+    bottom: calc(env(safe-area-inset-bottom) + 100px);
   }
 `;
 
 const Title = styled.h1`
   font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
   margin: 0 auto;
-  margin-bottom: 20vh;
+  margin-top: 25vh;
   max-width: 260px;
   text-align: center;
-  @media (max-width: 700px) {
-    margin-bottom: 140px;
+
+  color: ${(props) => props.color};
+  background-color: ${(props) => props.background};
+  text-shadow: ${(props) => props.textShadow};
+
+  @media (max-height: 600px) {
+    margin-top: 10vh;
+  }
+  @media (max-height: 800px) {
+    margin-top: 13px;
   }
 `;
 
@@ -178,7 +194,7 @@ const BackGround = styled(Image)`
   max-width: 350px;
   height: auto;
   position: fixed;
-  bottom: 60px;
+  bottom: 80px;
   z-index: -1;
   margin: 0 auto;
   left: 0;
