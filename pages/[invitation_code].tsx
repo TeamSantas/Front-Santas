@@ -11,6 +11,7 @@ import {
   isMyCalendarAtom,
 } from "../store/globalState";
 import { defaultMemberData } from "../util/type";
+import MainLayout from "../components/layout/new/MainLayout";
 
 export default function OtherCalendarPage({ calendarUser, invitationCode }) {
   const router = useRouter();
@@ -45,6 +46,10 @@ export default function OtherCalendarPage({ calendarUser, invitationCode }) {
     </div>
   );
 }
+
+OtherCalendarPage.getLayout = (page) => {
+  return <MainLayout>{page}</MainLayout>;
+};
 
 export async function getServerSideProps(context) {
   const { invitation_code: invitationCode } = context.params;

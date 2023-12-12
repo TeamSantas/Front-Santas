@@ -28,7 +28,7 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
           {title}
         </Title>
         <BackGround
-          src={`/asset_ver2/image/layout/house.png`}
+          src={`/asset_ver2/image/layout/snow-house.png`}
           width={`450`}
           height={`1000`}
           alt={"배경"}
