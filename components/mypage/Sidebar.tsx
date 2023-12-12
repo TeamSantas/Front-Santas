@@ -11,7 +11,7 @@ const Container = styled.div`
   background-color: #3c6c54;
   border-radius: 30px 0 0 30px;
   width: 30%;
-  height: 100vh;
+  height: 100dvh;
   position: fixed;
   right: 0;
   top: 0;
