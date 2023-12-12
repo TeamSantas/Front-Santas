@@ -6,7 +6,7 @@ import { upcomingAdID } from "../advertisement/ad-ids";
 
 const PromotionWrapper = styled.div`
   background-color: #1c3249;
-  height: 100dvh;
+  height: 100vh;
   margin: 0 auto;
   overflow: scroll;
   position: relative;

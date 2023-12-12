@@ -6,7 +6,6 @@ import {
   loginUserDataAtom,
   modalStateAtom,
 } from "../../../store/globalState";
-import { Flex } from "../../../styles/styledComponentModule";
 
 const Gnb = () => {
   const router = useRouter();
@@ -78,41 +77,29 @@ const Gnb = () => {
 
   return (
     <Wrapper>
-      <IconContainer>
-        <IconWrapper>
-          <Img
-            src={getImagePath("friends")}
-            onClick={() => handleClickOption("friends")}
-          />
-          친구목록
-        </IconWrapper>
-        <IconWrapper>
-          <Img
-            src={getImagePath("town")}
-            onClick={() => handleClickOption("town")}
-          />
-          게시판
-        </IconWrapper>
-        <IconWrapper>
-          <HomeIcon onClick={() => handleClickOption("home")}>
-            <Img width={"26px"} height={"27px"} src={getImagePath("home")} />
-          </HomeIcon>
-        </IconWrapper>
-        <IconWrapper>
-          <Img
-            src={getImagePath("message")}
-            onClick={() => handleClickOption("message")}
-          />
-          쪽지함
-        </IconWrapper>
-        <IconWrapper>
-          <Img
-            src={getImagePath("todays-heart")}
-            onClick={() => handleClickOption("todays-heart")}
-          />
-          하트보내기
-        </IconWrapper>
-      </IconContainer>
+      <IconWrapper>
+        <Img
+          src={getImagePath("friends")}
+          onClick={() => handleClickOption("friends")}
+        />
+        <Img
+          width={"26px"}
+          height={"27px"}
+          src={getImagePath("town")}
+          onClick={() => handleClickOption("town")}
+        />
+        <HomeIcon onClick={() => handleClickOption("home")}>
+          <Img width={"26px"} height={"27px"} src={getImagePath("home")} />
+        </HomeIcon>
+        <Img
+          src={getImagePath("message")}
+          onClick={() => handleClickOption("message")}
+        />
+        <Img
+          src={getImagePath("todays-heart")}
+          onClick={() => handleClickOption("todays-heart")}
+        />
+      </IconWrapper>
     </Wrapper>
   );
 };
@@ -120,22 +107,24 @@ const Gnb = () => {
 export default Gnb;
 
 const Wrapper = styled.div`
-  position: fixed;
-  bottom: 0;
+  position: absolute;
   width: 100%;
-  height: 80px;
+  height: 60px;
   background-color: #1a2838;
   z-index: 10;
-  padding: 10px 22px 15px;
 `;
 
-const IconContainer = styled.div`
+const IconWrapper = styled.div`
+  position: absolute;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  margin: 0 auto;
+  height: 60px;
   align-items: center;
   justify-content: space-between;
+  padding: 20px 22px;
   background-color: #1a2838;
 `;
 
@@ -154,14 +143,4 @@ const HomeIcon = styled.div`
   width: 50px;
   height: 50px;
   background-color: #f9f9f9;
-`;
-
-const IconWrapper = styled(Flex)`
-  flex-direction: column;
-  color: white;
-  font-size: 10px;
-  font-family: NanumSquare Neo OTF;
-  font-weight: 400;
-  word-wrap: break-word;
-  align-items: center;
 `;

@@ -150,7 +150,7 @@ function ending(props) {
 }
 
 const SnowContainer = styled.div`
-  height: 100dvh;
+  height: 100vh;
   overflow: scroll;
 
   -ms-overflow-style: none; /* Explorer */

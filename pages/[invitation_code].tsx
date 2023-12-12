@@ -1,6 +1,7 @@
+import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { MainContainer } from "../styles/styledComponentModule";
+import { MainContainer, Flex } from "../styles/styledComponentModule";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import OtherCalendar from "../components/index/OtherCalendar";
 import { Modals } from "../components/modals/modals";
@@ -11,7 +12,6 @@ import {
   isMyCalendarAtom,
 } from "../store/globalState";
 import { defaultMemberData } from "../util/type";
-import MainLayout from "../components/layout/new/MainLayout";
 
 export default function OtherCalendarPage({ calendarUser, invitationCode }) {
   const router = useRouter();
@@ -39,17 +39,16 @@ export default function OtherCalendarPage({ calendarUser, invitationCode }) {
 
   return (
     <div id="home">
-      <Modals />
-      <MainContainer>
-        <OtherCalendar name={profileUser.nickname} />
-      </MainContainer>
+      <MainFlex>
+        <Modals />
+        <MainContainer>
+          <br />
+          <OtherCalendar name={profileUser.nickname} />
+        </MainContainer>
+      </MainFlex>
     </div>
   );
 }
-
-OtherCalendarPage.getLayout = (page) => {
-  return <MainLayout>{page}</MainLayout>;
-};
 
 export async function getServerSideProps(context) {
   const { invitation_code: invitationCode } = context.params;
@@ -83,3 +82,7 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+const MainFlex = styled(Flex)`
+  margin-top: -15px;
+`;

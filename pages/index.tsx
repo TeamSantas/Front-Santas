@@ -1,4 +1,5 @@
-import { MainContainer } from "../styles/styledComponentModule";
+import styled from "styled-components";
+import { MainContainer, Flex } from "../styles/styledComponentModule";
 import { Modals } from "../components/modals/modals";
 import MainLayout from "../components/layout/new/MainLayout";
 import MyCalendar from "../components/index/MyCalendar";
@@ -43,10 +44,13 @@ const Home = () => {
 
   return (
     <div id="home">
-      <Modals />
-      <MainContainer>
-        <MyCalendar todayPresentCount={todayPresentCount} />
-      </MainContainer>
+      <MainFlex>
+        <Modals />
+        <MainContainer>
+          <br />
+          <MyCalendar todayPresentCount={todayPresentCount} />
+        </MainContainer>
+      </MainFlex>
     </div>
   );
 };
@@ -70,3 +74,7 @@ export async function getServerSideProps(context) {
     props: {},
   };
 }
+
+const MainFlex = styled(Flex)`
+  margin-top: -15px;
+`;
