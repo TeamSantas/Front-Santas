@@ -23,7 +23,7 @@ const MessageTab = () => {
           tab={(tab === "sent").toString()}
           onClick={() => handleClickTab("sent")}
         >
-          보낸 편지함
+          보낸 쪽지함
         </Tab>
       </Flex>
       <ContentWrapper>

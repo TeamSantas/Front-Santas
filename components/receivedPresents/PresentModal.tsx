@@ -40,7 +40,7 @@ const PresentModal = ({
             {isMyCalendar ? (
               <ModalTitle>
                 12월 {selectedDay}일<br />
-                <ModalSubTitle>받은 편지함</ModalSubTitle>
+                <ModalSubTitle>받은 쪽지함</ModalSubTitle>
               </ModalTitle>
             ) : null}
             <GreenCloseButton onClick={onHide} isMyCalendar={isMyCalendar} />
