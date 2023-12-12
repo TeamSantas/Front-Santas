@@ -16,7 +16,7 @@ const Text = styled.h3`
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
