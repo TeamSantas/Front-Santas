@@ -16,7 +16,7 @@ const MessageTab = () => {
           tab={(tab === "received").toString()}
           onClick={() => handleClickTab("received")}
         >
-          받은 편지함
+          받은 쪽지함
         </Tab>
         <Tab
           color={"#38805B"}
