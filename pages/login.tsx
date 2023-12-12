@@ -7,7 +7,7 @@ const Login = ({ loginButtonText }) => {
   return (
     <Container>
       <Warning>
-        🤍 친구 목록 제공에 동의해 주셔야 서비스 사용이 가능합니다 🤍
+        🤍 친구 목록 제공에 동의하셔야 원활히 이용할 수 있어요. 🤍
       </Warning>
       <KakaoLoginButton href={kakaoLoginUrl}>
         <Image
@@ -49,17 +49,18 @@ export async function getServerSideProps(context) {
 }
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   display: flex;
+  gap: 5px;
   flex-direction: column;
   align-items: center;
-  bottom: -94vh;
   left: 50%;
   transform: translateX(-50%);
+  bottom: 30px;
 `;
 
-const Warning = styled.p`
-  font-size: 0.7rem;
+const Warning = styled.div`
+  font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -46,7 +46,7 @@ const Buildings = styled(AbsoluteImg)`
 `;
 
 const Tree = styled(AbsoluteImg)`
-  height: 55vh;
+  height: 50vh;
   z-index: 1;
   bottom: calc(env(safe-area-inset-bottom) + 14vh);
 `;

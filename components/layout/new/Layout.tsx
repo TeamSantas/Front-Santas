@@ -54,10 +54,15 @@ const AbsoluteImg = styled.img`
 `;
 
 const Logo = styled(AbsoluteImg)`
-  width: 220px;
+  width: 300px;
   max-width: 50vw;
   min-width: 200px;
-  top: calc(env(safe-area-inset-top) + 5vh);
+  top: 8vh;
+
+  @media (max-height: 800px) {
+    width: 220px;
+    top: 10px;
+  }
 `;
 
 const Buildings = styled(AbsoluteImg)`
@@ -65,7 +70,7 @@ const Buildings = styled(AbsoluteImg)`
 `;
 
 const Tree = styled(AbsoluteImg)`
-  height: 45vh;
+  height: 40vh;
   z-index: 1;
   bottom: calc(env(safe-area-inset-bottom) + 14vh);
 `;
