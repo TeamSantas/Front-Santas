@@ -1,7 +1,6 @@
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { MainContainer, Flex } from "../styles/styledComponentModule";
+import { MainContainer } from "../styles/styledComponentModule";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import OtherCalendar from "../components/index/OtherCalendar";
 import { Modals } from "../components/modals/modals";
@@ -39,13 +38,10 @@ export default function OtherCalendarPage({ calendarUser, invitationCode }) {
 
   return (
     <div id="home">
-      <MainFlex>
-        <Modals />
-        <MainContainer>
-          <br />
-          <OtherCalendar name={profileUser.nickname} />
-        </MainContainer>
-      </MainFlex>
+      <Modals />
+      <MainContainer>
+        <OtherCalendar name={profileUser.nickname} />
+      </MainContainer>
     </div>
   );
 }
@@ -82,7 +78,3 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
-const MainFlex = styled(Flex)`
-  margin-top: -15px;
-`;
