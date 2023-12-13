@@ -1,3 +1,5 @@
+export const adFitPaths = ["todays-heart", "town"];
+
 export const friendsModalAdID = "DAN-6BIJLeLkllPU4bcX";
 export const upcomingAdID = "DAN-0tM6LqB1xeL7qG7S";
 export const informationModalAdID = "DAN-Q8XUVcYuooaQGG8h";
