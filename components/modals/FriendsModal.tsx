@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import ShareTriggerButton from "../share/ShareButton";
 import { getCookie } from "cookies-next";
 import { isSantaz } from "../common/for-santaz";
+import { removeCookie } from "../../businesslogics/cookie";
 
 const CenteredModalFooter = styled.div`
   width: 90%;
@@ -41,16 +42,23 @@ const FriendsModal = (props) => {
         // 산타즈는 친구 없음
         isSantaz(getCookie("token"))
       ) {
+        setIsLoading(false);
         return;
       }
       const res = await setGetFriend();
       // 친구 동의 안해서 응답 없을 때
-      if (!res) {
+      if (res?.code === 403) {
         const confirmText = `카카오 친구 목록 제공에 동의하셔야 원활한 이용이 가능합니다.\n다시 동의하러 갈까요?`;
         if (confirm(confirmText)) {
           router.push("/login");
           props.onHide();
         }
+      }
+      // 토큰 만료되었을 때
+      if (!res || res?.code === "J400") {
+        removeCookie("token");
+        router.push("/login");
+        props.onHide();
       }
       if (res?.status === 200) {
         setFriendsData(res.data.data);

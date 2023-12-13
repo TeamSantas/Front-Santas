@@ -5,6 +5,7 @@ export async function setGetFriend() {
     const res = await FriendsService.getFriends();
     return res;
   } catch (e) {
-    console.error(e);
+    const res = e.response.data;
+    return res;
   }
 }
