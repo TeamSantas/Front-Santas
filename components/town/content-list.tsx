@@ -25,12 +25,11 @@ const TownContentList = ({
   // 광고 붙인 pre-render 컨텐츠
   const popularContentsWithAd = getContentsWithAd(popularContents, 0);
   const allContentsWithAd = getContentsWithAd(allContents, 16);
-  const myContentsWithAd = getContentsWithAd(myContents, 17);
 
   return isMyContent ? (
     <>
       {/* 내 게시글 */}
-      <Contents contents={myContentsWithAd} />
+      <Contents contents={myContents} />
       {/* Infinite Scroll */}
       <LoadMore callMyContent={isMyContent} initialContent={myContents} />
     </>

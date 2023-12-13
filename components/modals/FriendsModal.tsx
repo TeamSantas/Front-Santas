@@ -12,7 +12,7 @@ import {
 import FriendsList from "../friends/FriendsList";
 import { setGetFriend } from "../../api/hooks/useGetFriend";
 import AdFitModal from "../advertisement/adFitModal";
-import { friendsModalAdID } from "../advertisement/ad-ids";
+import { adFitPaths, friendsModalAdID } from "../advertisement/ad-ids";
 import { FriendsData } from "../../util/type";
 import { useAtom } from "jotai";
 import { loginUserDataAtom, modalStateAtom } from "../../store/globalState";
@@ -26,7 +26,7 @@ import { getFriendsWithAd } from "../friends/ad-utils";
 const CenteredModalFooter = styled.div`
   width: 90%;
   margin: auto;
-  padding-top: 20px;
+  padding: ${({ isAdFit }) => (isAdFit === "true" ? "20px" : "20px 0 0 0")};
 `;
 
 const FriendsModal = (props) => {
@@ -36,6 +36,7 @@ const FriendsModal = (props) => {
   const [storeUserData] = useAtom(loginUserDataAtom);
   const [modalState] = useAtom(modalStateAtom);
   const isLoginUser = storeUserData.id > 0;
+  const isAdFitPage = adFitPaths.some((path) => router.pathname.includes(path));
 
   const getFriendsData = useCallback(async () => {
     setIsLoading(true);
@@ -84,7 +85,7 @@ const FriendsModal = (props) => {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      adfitid={friendsModalAdID}
+      adfitid={isAdFitPage ? null : friendsModalAdID}
     >
       <CustomHeader>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -101,7 +102,9 @@ const FriendsModal = (props) => {
       <CustomBody>
         {isLoginUser ? (
           <FriendsList
-            friendsData={getFriendsWithAd(friendsData)}
+            friendsData={
+              isAdFitPage ? friendsData : getFriendsWithAd(friendsData, 3)
+            }
             isLoading={isLoading}
           />
         ) : (
@@ -110,7 +113,7 @@ const FriendsModal = (props) => {
           </Text>
         )}
       </CustomBody>
-      <CenteredModalFooter>
+      <CenteredModalFooter isAdFit={isAdFitPage.toString()}>
         <ShareTriggerButton />
       </CenteredModalFooter>
     </AdFitModal>

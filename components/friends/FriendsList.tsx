@@ -119,7 +119,7 @@ const FriendsName = styled.div`
   }
 `;
 
-const FriendCard = styled.div`
+export const FriendCard = styled.div`
   display: flex;
   align-items: center;
   height: 72px;

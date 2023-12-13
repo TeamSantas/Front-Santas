@@ -6,6 +6,7 @@ import { postMemberPick } from "../../api/hooks/useHeart";
 import { FriendsData } from "../../util/type";
 import { useAtom } from "jotai";
 import { loginUserDataAtom } from "../../store/globalState";
+import { FriendCard } from "../friends/FriendsList";
 
 interface ISentFriendsCard {
   isPicked: boolean;
@@ -40,7 +41,7 @@ const SentFriendsCard = ({ isPicked, friend }: ISentFriendsCard) => {
   };
 
   return (
-    <FriendCard>
+    <>
       <AlignedFlex>
         <Img
           src={
@@ -60,7 +61,7 @@ const SentFriendsCard = ({ isPicked, friend }: ISentFriendsCard) => {
           {picked ? "전송 완료 ♥︎" : "하트 보내기"}
         </SendHeartBtn>
       </Flex>
-    </FriendCard>
+    </>
   );
 };
 
@@ -98,25 +99,6 @@ const FriendsName = styled.div`
   }
 `;
 
-const FriendCard = styled.div`
-  display: flex;
-  align-items: center;
-  height: 72px;
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  background: #1c3249;
-  border-radius: 12px;
-  z-index: 5;
-  color: white;
-  padding: 1rem;
-  justify-content: space-between;
-  @media (max-width: 600px) {
-    width: 100%;
-    height: 62px;
-    font-size: 24px;
-  }
-`;
 const Img = styled.img`
   width: 50px;
   height: 50px;

@@ -11,6 +11,9 @@ import { useAtom } from "jotai";
 import { removeCookie } from "../../businesslogics/cookie";
 import { loginUserDataAtom } from "../../store/globalState";
 import { isSantaz } from "../common/for-santaz";
+import { getFriendsWithAd } from "../friends/ad-utils";
+import KakaoAdFit from "../advertisement/KakaoAdFit";
+import { FriendCard } from "../friends/FriendsList";
 
 const SentFriendsList = () => {
   const router = useRouter();
@@ -82,13 +85,17 @@ const SentFriendsList = () => {
           <LoadingHeader>친구들 모으는중</LoadingHeader>
         </LoadingContainer>
       ) : (
-        friendsData?.map((friend, idx) => (
-          <SentFriendsCard
-            key={friend.id + idx}
-            isPicked={friend.isPicked}
-            friend={friend}
-          />
-        ))
+        getFriendsWithAd(friendsData, 4)?.map((friend, idx) => {
+          return friend.nickname === "adFit" ? (
+            <FriendCard key={friend.id + idx} justifyContent={"center"}>
+              <KakaoAdFit id={friend.invitationLink} />
+            </FriendCard>
+          ) : (
+            <FriendCard key={friend.id + idx}>
+              <SentFriendsCard isPicked={friend.isPicked} friend={friend} />
+            </FriendCard>
+          );
+        })
       )}
     </Container>
   );
