@@ -10,7 +10,7 @@ import AuthProvider from "../store/contexts/components/auth-provider";
 import { measurePageView } from "../lib/gtag";
 import ReactHowler from "react-howler";
 import { useAtom } from "jotai";
-import { sidebarBgmAtom } from "../store/globalState";
+import { isMyCalendarAtom, sidebarBgmAtom } from "../store/globalState";
 import { Loading } from "../components/layout/new/loading-cute";
 
 declare global {
@@ -24,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [bgmOn] = useAtom(sidebarBgmAtom);
   const [loading, setLoading] = useState(false);
+  const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
 
   useEffect(() => {
     if (window?.Kakao?.isInitialized()) {
@@ -33,6 +34,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
+    // header profile --------------------------------------
+    if (!router.pathname.includes("invitation_code")) {
+      setIsMyCalendar(true);
+    }
+
     // GA --------------------------------------------------
     if (window.dataLayer) {
       window.dataLayer.push({ event: "optimize.activate" });
@@ -50,7 +56,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     });
     // ------------------------------------------------------
 
-    // 라우터 변경 감지 --------------------------------------------------
+    // 라우터 변경 감지 -----------------------------------------
     // 라우팅 시작 시 로딩 상태를 true로 설정
     const handleStart = () => setLoading(true);
     // 라우팅 완료 시 로딩 상태를 false로 설정

@@ -4,7 +4,6 @@ import MainLayout from "../components/layout/new/MainLayout";
 import MyCalendar from "../components/index/MyCalendar";
 import { useAtom } from "jotai";
 import {
-  isMyCalendarAtom,
   loginUserDataAtom,
   receivedPresentListAtom,
   todayPresentCountAtom,
@@ -13,7 +12,6 @@ import { useCallback, useEffect } from "react";
 import { setGetNumberOfReceivedPresents } from "../api/hooks/useGetNumberOfReceivedPresents";
 
 const Home = () => {
-  const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
   const [todayPresentCount] = useAtom(todayPresentCountAtom);
   const [, setRecivedPresentList] = useAtom(receivedPresentListAtom);
   const [storeUserData] = useAtom(loginUserDataAtom);
@@ -36,10 +34,6 @@ const Home = () => {
       updateReceivedPresentListData(storeUserData.id);
     }
   }, [storeUserData, updateReceivedPresentListData]);
-
-  useEffect(() => {
-    setIsMyCalendar(true);
-  }, [setIsMyCalendar]);
 
   return (
     <div id="home">
