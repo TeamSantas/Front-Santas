@@ -21,6 +21,7 @@ import ShareTriggerButton from "../share/ShareButton";
 import { getCookie } from "cookies-next";
 import { isSantaz } from "../common/for-santaz";
 import { removeCookie } from "../../businesslogics/cookie";
+import { getFriendsWithAd } from "../friends/ad-utils";
 
 const CenteredModalFooter = styled.div`
   width: 90%;
@@ -99,7 +100,10 @@ const FriendsModal = (props) => {
       </CustomHeader>
       <CustomBody>
         {isLoginUser ? (
-          <FriendsList friendsData={friendsData} isLoading={isLoading} />
+          <FriendsList
+            friendsData={getFriendsWithAd(friendsData)}
+            isLoading={isLoading}
+          />
         ) : (
           <Text>
             {`로그인이 필요한 기능이에요.\n\n오른쪽 위 설정(⚙️)창 하단에\n로그인 버튼이 있어요.☃️`}

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { modalStateAtom } from "../../store/globalState";
 import { FriendsData } from "../../util/type";
+import KakaoAdFit from "../advertisement/KakaoAdFit";
 
 interface IFriendsList {
   friendsData: FriendsData[];
@@ -34,7 +35,6 @@ const FriendsList = ({ friendsData, isLoading }: IFriendsList) => {
           <Img src={profileImgUrl || "/assets/image/character/character.svg"} />
           <FriendsName>{name}</FriendsName>
         </AlignedFlex>
-
         <Flex>
           <GoFriendsCalendarBtn onClick={goFriendsCalendar}>
             친구 캘린더로 가기
@@ -66,15 +66,21 @@ const FriendsList = ({ friendsData, isLoading }: IFriendsList) => {
           <LoadingHeader>친구들 모으는중</LoadingHeader>
         </LoadingContainer>
       ) : (
-        friendsData?.map((friend, idx) => (
-          <FriendCard key={friend.id + idx}>
-            <RenderFriendCardContents
-              profileImgUrl={friend.profileImgUrl}
-              name={friend.nickname}
-              invitationLink={friend.invitationLink}
-            />
-          </FriendCard>
-        ))
+        friendsData?.map((friend, idx) => {
+          return friend.nickname === "adFit" ? (
+            <FriendCard key={friend.id + idx} justifyContent={"center"}>
+              <KakaoAdFit id={friend.invitationLink} />
+            </FriendCard>
+          ) : (
+            <FriendCard key={friend.id + idx}>
+              <RenderFriendCardContents
+                profileImgUrl={friend.profileImgUrl}
+                name={friend.nickname}
+                invitationLink={friend.invitationLink}
+              />
+            </FriendCard>
+          );
+        })
       )}
     </Container>
   );
@@ -125,7 +131,7 @@ const FriendCard = styled.div`
   z-index: 5;
   color: white;
   padding: 1rem;
-  justify-content: space-between;
+  justify-content: ${({ justifyContent }) => justifyContent || "space-between"};
   @media (max-width: 600px) {
     width: 100%;
     height: 62px;
