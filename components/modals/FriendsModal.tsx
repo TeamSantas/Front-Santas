@@ -33,6 +33,7 @@ const FriendsModal = (props) => {
   const [friendsData, setFriendsData] = useState<FriendsData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [storeUserData] = useAtom(loginUserDataAtom);
+  const [modalState] = useAtom(modalStateAtom);
   const isLoginUser = storeUserData.id > 0;
 
   const getFriendsData = useCallback(async () => {
@@ -47,16 +48,17 @@ const FriendsModal = (props) => {
       }
       const res = await setGetFriend();
       // 친구 동의 안해서 응답 없을 때
-      if (res?.code === 403) {
-        const confirmText = `카카오 친구 목록 제공에 동의하셔야 원활한 이용이 가능합니다.\n다시 동의하러 갈까요?`;
+      if (res?.code === "M403") {
+        const confirmText = `카카오 친구 목록 제공 동의가 필요한 기능입니다.\n다시 동의하러 갈까요?`;
         if (confirm(confirmText)) {
           router.push("/login");
-          props.onHide();
         }
+        props.onHide();
       }
       // 토큰 만료되었을 때
       if (!res || res?.code === "J400") {
         removeCookie("token");
+        alert("재로그인이 필요합니다.");
         router.push("/login");
         props.onHide();
       }
@@ -70,10 +72,10 @@ const FriendsModal = (props) => {
   }, [router]);
 
   useEffect(() => {
-    if (storeUserData.id > 0) {
+    if (isLoginUser && modalState.show) {
       getFriendsData();
     }
-  }, [storeUserData.id, getFriendsData]);
+  }, [isLoginUser, getFriendsData, modalState]);
 
   return (
     <AdFitModal
