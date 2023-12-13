@@ -5,7 +5,7 @@ const getAdIndex = (idx) => Math.floor((idx + 1) / 7);
 
 export const dummyBoardForAds = (idx) => {
   return {
-    boardId: -1,
+    boardId: idx,
     contents: getTownAdID(idx),
     createdAt: "",
     invitationLink: "",
@@ -13,7 +13,7 @@ export const dummyBoardForAds = (idx) => {
     likeCounts: 0,
     reportCounts: 0,
     profile: "",
-    writerId: -1,
+    writerId: idx,
     writerName: "adFit",
     isBlur: false,
     isLiked: false,

@@ -5,7 +5,7 @@ const getAdIndex = (idx) => Math.floor((idx + 1) / 7);
 
 export const dummyFriendForAds = (idx) => {
   return {
-    id: -1,
+    id: idx,
     nickname: "adFit",
     profileImgUrl: "",
     invitationLink: getTownAdID(idx),
