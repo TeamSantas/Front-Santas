@@ -12,6 +12,7 @@ import ReactHowler from "react-howler";
 import { useAtom } from "jotai";
 import { isMyCalendarAtom, sidebarBgmAtom } from "../store/globalState";
 import { Loading } from "../components/layout/new/loading-cute";
+import PushNotification from "../components/PushNotification";
 
 declare global {
   interface Window {
@@ -80,6 +81,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <CookiesProvider>
+      <PushNotification />
       <ReactHowler src="./bgm.mp3" playing={bgmOn} loop={true} />
       <AuthProvider>
         {getLayout(loading ? <Loading /> : <Component {...pageProps} />)}
