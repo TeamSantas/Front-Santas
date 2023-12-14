@@ -30,6 +30,20 @@ const APIInstance = (baseURL: string) => {
   });
   return apiInstance;
 };
+
+export const APITextInstance = (baseURL: string) => {
+  const apiInstance = axios.create({
+    timeout: 15000,
+    baseURL: baseURL,
+    params: {},
+    headers: {
+      Authorization: `Bearer ${loadAccessToken()}`,
+      "Content-Type": "text/plain",
+    },
+  });
+  return apiInstance;
+};
+
 //파일타입
 const APIFileInstance = (baseURL: string) => {
   const apiInstance = axios.create({
@@ -58,6 +72,7 @@ const AuthInstance = AuthAPIInstance(BASE_URL);
 const AuthAuthInstance = AuthAPIInstance(BASE_URL);
 
 const PushInstance = AuthAPIInstance(BASE_URL);
+const FcmInstance = APITextInstance(BASE_URL);
 
 const TownInstance = APIInstance(BASE_URL);
 const TownAuthInstance = AuthAPIInstance(BASE_URL);
@@ -77,6 +92,7 @@ export {
   AuthInstance,
   AuthAuthInstance,
   PushInstance,
+  FcmInstance,
   TownAuthInstance,
   TownInstance,
   HeartInstance,

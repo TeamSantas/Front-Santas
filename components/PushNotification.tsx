@@ -1,59 +1,57 @@
 import { useEffect } from "react";
-import SettingService from "../api/SettingService";
-import { onMessage, getMessaging, getToken } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
-
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN,
-  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASEURL,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORABEBUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-};
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import SettingService from "../api/SettingService";
 
 const PushNotification = () => {
   const onMessageFCM = async () => {
-    try {
-      const permission = await Notification.requestPermission();
-      if (permission !== "granted") return;
+    const permission = await Notification.requestPermission(); // 버전 체크
+    if (permission !== "granted") return;
 
-      // Initialize Firebase Cloud Messaging and get a reference to the service
-      const firebaseApp = initializeApp(firebaseConfig);
-      const messaging = getMessaging(firebaseApp);
+    const firebaseConfig = {
+      apiKey: "AIzaSyCastD4wzjzV_ABpqjpaPiX1t2d2pkWDiM",
+      authDomain: "ddac-e6757.firebaseapp.com",
+      databaseURL:
+        "https://ddac-e6757-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "ddac-e6757",
+      storageBucket: "ddac-e6757.appspot.com",
+      messagingSenderId: "50350895067",
+      appId: "1:50350895067:web:559369e927aac45508c1fe",
+      measurementId: "G-478S8PF211",
+    };
 
-      getToken(messaging, {
-        vapidKey:
-          "BBPJBtEDFqPTdSaHAPZKnM0JikkLXLIfW9ax7qH3UvTe-RtxNK-6aNQv0N_-zqg1Y9l1IhM7q6Vi2qL9ZoMhEng",
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Initialize Firebase Cloud Messaging and get a reference to the service
+    const messaging = getMessaging(app);
+
+    getToken(messaging, {
+      vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID,
+    })
+      .then((currentToken) => {
+        if (currentToken) {
+          SettingService.setFcmtoken(currentToken);
+        } else {
+          console.log(
+            "No registration token available. Request permission to generate one."
+          );
+        }
       })
-        .then((currentToken) => {
-          if (currentToken) {
-            SettingService.setFcmtoken(currentToken);
-          } else {
-            console.log(
-              "No registration token available. Request permission to generate one."
-            );
-          }
-        })
-        .catch((err) => {
-          console.log("An error occurred while retrieving token. ", err);
-        });
-
-      onMessage(messaging, (payload) => {
-        const title = payload.notification.title;
-        const body = payload.notification.body;
-        const icon =
-          "https://merry-christmas.site/asset_ver2/image/common/title-logo.png";
-        const link = "https://merry-christmas.site/";
-        const options = { body, icon, link };
-
-        new Notification(title, options);
+      .catch((err) => {
+        console.log("An error occurred while retrieving token. ", err);
       });
-    } catch (e) {
-      console.log(e);
-    }
+
+    onMessage(messaging, (payload) => {
+      const title = payload.notification.title;
+      const body = payload.notification.body;
+      const icon =
+        "https://merry-christmas.site/asset_ver2/image/common/title-logo.png";
+      const link = "https://merry-christmas.site/";
+      const options = { body, icon, link };
+
+      new Notification(title, options);
+    });
   };
 
   useEffect(() => {

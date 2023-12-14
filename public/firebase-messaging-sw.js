@@ -1,15 +1,15 @@
 importScripts(
-  "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"
+  "https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"
 );
 importScripts(
-  "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"
+  "https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging-compat.js"
 );
 
-const firebaseConfig = {
+const config = {
   apiKey: "AIzaSyCastD4wzjzV_ABpqjpaPiX1t2d2pkWDiM",
   authDomain: "ddac-e6757.firebaseapp.com",
   databaseURL:
-    "https://ddac-e6757-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "https://ddac-e6757-default-rtdb.asia-southeast1.firebasedatabase.app/",
   projectId: "ddac-e6757",
   storageBucket: "ddac-e6757.appspot.com",
   messagingSenderId: "50350895067",
@@ -17,9 +17,8 @@ const firebaseConfig = {
   measurementId: "G-478S8PF211",
 };
 
-// Initialize Firebase
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-const messaging = firebase.messaging(firebaseApp);
+firebase.initializeApp(config);
+const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
   const title = payload.notification.title;

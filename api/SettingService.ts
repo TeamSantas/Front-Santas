@@ -1,5 +1,5 @@
 // import {ResponseData} from "../util/type";
-import { SettingAuthInstance, SettingAuthPostInstance } from "./APIInstance";
+import { FcmInstance, SettingAuthInstance } from "./APIInstance";
 import { putBGMData, putPushData, ResponseData } from "../util/type";
 
 class SettingService {
@@ -23,7 +23,7 @@ class SettingService {
 
   //FCM토큰 저장🔑
   setFcmtoken = (fcmtoken: string) => {
-    return SettingAuthPostInstance.post<ResponseData<String>>(
+    return FcmInstance.post<ResponseData<String>>(
       `/api/setting/fcmtoken`,
       fcmtoken
     );
