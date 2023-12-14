@@ -22,11 +22,12 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging(firebaseApp);
 
 messaging.onBackgroundMessage((payload) => {
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    link: payload.notification.link,
-    body: payload.notification.body,
-    icon: payload.notification.icon,
-  };
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  const title = payload.notification.title;
+  const body = payload.notification.body;
+  const icon =
+    "https://merry-christmas.site/asset_ver2/image/common/title-logo.png";
+  const link = "https://merry-christmas.site/";
+  const options = { body, icon, link };
+
+  self.registration.showNotification(title, options);
 });
