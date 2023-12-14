@@ -9,7 +9,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCastD4wzjzV_ABpqjpaPiX1t2d2pkWDiM",
   authDomain: "ddac-e6757.firebaseapp.com",
   databaseURL:
-    "https://ddac-e6757-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    "https://ddac-e6757-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "ddac-e6757",
   storageBucket: "ddac-e6757.appspot.com",
   messagingSenderId: "50350895067",

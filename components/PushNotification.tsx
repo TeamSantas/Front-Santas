@@ -25,7 +25,8 @@ const PushNotification = () => {
       const messaging = getMessaging(firebaseApp);
 
       getToken(messaging, {
-        vapidKey: process.env.NEXT_PUBLIC_FIREBASEVAPID,
+        vapidKey:
+          "BBPJBtEDFqPTdSaHAPZKnM0JikkLXLIfW9ax7qH3UvTe-RtxNK-6aNQv0N_-zqg1Y9l1IhM7q6Vi2qL9ZoMhEng",
       })
         .then((currentToken) => {
           if (currentToken) {
