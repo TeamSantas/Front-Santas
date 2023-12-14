@@ -18,7 +18,6 @@ const PushNotification = () => {
   const onMessageFCM = async () => {
     try {
       const permission = await Notification.requestPermission();
-      console.log("permission >>> ", permission);
       if (permission !== "granted") return;
 
       // Initialize Firebase Cloud Messaging and get a reference to the service
@@ -26,11 +25,9 @@ const PushNotification = () => {
       const messaging = getMessaging(firebaseApp);
 
       getToken(messaging, {
-        vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID,
+        vapidKey: process.env.NEXT_PUBLIC_FIREBASEVAPID,
       })
         .then((currentToken) => {
-          console.log("currentToken >>> ", currentToken);
-
           if (currentToken) {
             SettingService.setFcmtoken(currentToken);
           } else {

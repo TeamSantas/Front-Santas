@@ -10,7 +10,7 @@ const nextConfig = {
       displayName: true,
       ssr: true,
     },
-    // removeConsole: production,
+    removeConsole: production,
   },
   publicRuntimeConfig: {
     env: env,
