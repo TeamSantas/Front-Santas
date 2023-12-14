@@ -1,27 +1,33 @@
-importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging-compat.js');
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"
+);
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"
+);
 
-const config = {
+const firebaseConfig = {
   apiKey: "AIzaSyCastD4wzjzV_ABpqjpaPiX1t2d2pkWDiM",
   authDomain: "ddac-e6757.firebaseapp.com",
-  databaseURL: "https://ddac-e6757-default-rtdb.asia-southeast1.firebasedatabase.app",
+  databaseURL:
+    "https://ddac-e6757-default-rtdb.asia-southeast1.firebasedatabase.app/",
   projectId: "ddac-e6757",
   storageBucket: "ddac-e6757.appspot.com",
   messagingSenderId: "50350895067",
   appId: "1:50350895067:web:559369e927aac45508c1fe",
-  measurementId: "G-478S8PF211"
-}
+  measurementId: "G-478S8PF211",
+};
 
-firebase.initializeApp(config);
-const messaging = firebase.messaging();
+// Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const messaging = firebase.messaging(firebaseApp);
 
 messaging.onBackgroundMessage((payload) => {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  // 추후 background notice 커스텀시 사용
-  // const notificationTitle = 'Background Message Title';
-  // const notificationOptions = {
-  //   body: 'Background Message body.',
-  //   icon: '/firebase-logo.png'
-  // };
-  // self.registration.showNotification(notificationTitle, notificationOptions);
+  const title = payload.notification.title;
+  const body = payload.notification.body;
+  const icon =
+    "https://merry-christmas.site/asset_ver2/image/common/title-logo.png";
+  const link = "https://merry-christmas.site/";
+  const options = { body, icon, link };
+
+  self.registration.showNotification(title, options);
 });
