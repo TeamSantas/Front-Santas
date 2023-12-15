@@ -23,6 +23,7 @@ import {
   slide2,
   slide3,
 } from "./informationModaltext";
+import { SquareImage } from "../common/Image";
 
 const InformationModal = (props) => {
   const [index, setIndex] = useState(0);
@@ -43,9 +44,6 @@ const InformationModal = (props) => {
       adfitid={informationModalAdID}
     >
       <Header>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {headers[index]}
-        </Modal.Title>
         <GreenCloseButton onClick={props.onHide} />
       </Header>
       <CustomDescriptionBody>
@@ -62,9 +60,16 @@ const InformationModal = (props) => {
           onSlideChange={(swiper) => handleSlideChange(swiper)}
           loop
         >
-          {infoSlides.map((text, idx) => (
+          {["guide", 1, 2, 3, 4, 5, 6].map((page, idx) => (
             <SwiperSlide key={idx}>
-              <Text>{text}</Text>
+              <SquareImage
+                src={
+                  idx > 0
+                    ? `/asset_ver2/image/guide/feature${page}.png`
+                    : `/asset_ver2/image/guide/guide.png`
+                }
+                alt={`feature${idx}`}
+              />
             </SwiperSlide>
           ))}
         </StyledSwiper>
@@ -90,11 +95,4 @@ const StyledSwiper = styled(Swiper)`
     z-index: 10;
     width: 5px;
   }
-`;
-
-const Text = styled.div`
-  width: 100%;
-  background-color: #fff;
-  padding: 30px 50px;
-  margin: 0 auto;
 `;
