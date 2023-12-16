@@ -7,17 +7,20 @@ const PushNotification = () => {
   const getNotificationGrant = async () => {
     if (!("Notification" in window)) {
       console.log("This browser do not supports notifications");
-      return;
     }
 
-    const currPermission = Notification.permission;
-    if (currPermission === "default") {
-      await Notification.requestPermission();
-      console.log("Not granted");
-    } else if (currPermission === "denied") {
-      console.log("The user said no.");
-    } else if (currPermission === "granted") {
-      console.log("Granted");
+    try {
+      const currPermission = Notification.permission;
+      if (currPermission === "default") {
+        await Notification.requestPermission();
+        console.log("Not granted");
+      } else if (currPermission === "denied") {
+        console.log("The user said no.");
+      } else if (currPermission === "granted") {
+        console.log("Granted");
+      }
+    } catch (e) {
+      console.error(e);
     }
   };
 
