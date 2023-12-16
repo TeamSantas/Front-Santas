@@ -10,9 +10,18 @@ import AuthProvider from "../store/contexts/components/auth-provider";
 import { measurePageView } from "../lib/gtag";
 import ReactHowler from "react-howler";
 import { useAtom } from "jotai";
-import { isMyCalendarAtom, sidebarBgmAtom } from "../store/globalState";
+import {
+  isMyCalendarAtom,
+  modalStateAtom,
+  sidebarBgmAtom,
+} from "../store/globalState";
 import { Loading } from "../components/layout/new/loading-cute";
 import dynamic from "next/dynamic";
+import { getCookie } from "cookies-next";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-fade";
 
 declare global {
   interface Window {
@@ -31,12 +40,21 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [bgmOn] = useAtom(sidebarBgmAtom);
   const [loading, setLoading] = useState(false);
   const [, setIsMyCalendar] = useAtom(isMyCalendarAtom);
+  const [, setModalState] = useAtom(modalStateAtom);
 
   useEffect(() => {
     if (window?.Kakao?.isInitialized()) {
       window.Kakao.cleanup();
     }
     window?.Kakao?.init("3a75ee9ed0b21018376f7d7e2ee8ab40");
+
+    console.log(getCookie("hide-notification-information"));
+    if (!getCookie("hide-notification-information")) {
+      setModalState({
+        label: "notificaiton",
+        show: true,
+      });
+    }
   }, []);
 
   useEffect(() => {

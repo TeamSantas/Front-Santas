@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import {
   CustomDescriptionBody,
   CustomFooter,
@@ -9,32 +8,10 @@ import AdFitModal from "../advertisement/adFitModal";
 import { informationModalAdID } from "../advertisement/ad-ids";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
-import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  header1,
-  header2,
-  header3,
-  slide1,
-  slide2,
-  slide3,
-} from "./informationModaltext";
 import { SquareImage } from "../common/Image";
 
 const InformationModal = (props) => {
-  const [index, setIndex] = useState(0);
-  // info modal
-  const headers = [header1, header2, header3];
-  const infoSlides = [slide1, slide2, slide3];
-  const handleSlideChange = (swiper) => {
-    // 슬라이드가 변경될 때마다 호출되는 함수
-    const currentIndex = swiper.realIndex;
-    setIndex(currentIndex);
-  };
   return (
     <AdFitModal
       {...props}
@@ -57,10 +34,9 @@ const InformationModal = (props) => {
           effect={"fade"}
           slidesPerView={1}
           onClickNext={(swiper) => swiper.next()}
-          onSlideChange={(swiper) => handleSlideChange(swiper)}
           loop
         >
-          {["guide", 1, 2, 3, 4, 5, 6].map((page, idx) => (
+          {["guide", 1, 2, 3, 4, 5, 6, 7].map((page, idx) => (
             <SwiperSlide key={idx}>
               <SquareImage
                 src={
