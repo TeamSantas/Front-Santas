@@ -7,22 +7,28 @@ const PushNotification = () => {
   const getNotificationGrant = async () => {
     if (!("Notification" in window)) {
       console.log("This browser do not supports notifications");
-    }
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      console.log("Not granted");
       return;
-      
-    } else {
-      console.log("Granted!");
     }
-  }
+
+    const currPermission = Notification.permission;
+    if (currPermission === "default") {
+      await Notification.requestPermission();
+      console.log("Not granted");
+    } else if (currPermission === "denied") {
+      console.log("The user said no.");
+    } else if (currPermission === "granted") {
+      console.log("Granted");
+    }
+  };
+
   const onMessageFCM = async () => {
-    if (!('serviceWorker' in navigator)) return;
+    if (!("serviceWorker" in navigator)) return;
 
     let registration = await navigator.serviceWorker.getRegistration();
     if (!registration) {
-      registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+      registration = await navigator.serviceWorker.register(
+        "/firebase-messaging-sw.js"
+      );
     }
 
     const firebaseConfig = {
