@@ -12,7 +12,7 @@ import ReactHowler from "react-howler";
 import { useAtom } from "jotai";
 import { isMyCalendarAtom, sidebarBgmAtom } from "../store/globalState";
 import { Loading } from "../components/layout/new/loading-cute";
-import PushNotification from "../components/PushNotification";
+import dynamic from "next/dynamic";
 
 declare global {
   interface Window {
@@ -20,6 +20,11 @@ declare global {
     dataLayer: Record<string, any>[];
   }
 }
+
+const PushNotification = dynamic(
+  () => import("../components/PushNotification"),
+  { ssr: false }
+);
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
