@@ -1,3 +1,4 @@
+import { Form } from "react-bootstrap";
 import {
   CustomDescriptionBody,
   CustomFooter,
@@ -8,10 +9,21 @@ import AdFitModal from "../advertisement/adFitModal";
 import { informationModalAdID } from "../advertisement/ad-ids";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { SquareImage } from "../common/Image";
+import { setCookie } from "cookies-next";
 
-const InformationModal = (props) => {
+const NotificationInfoModal = (props) => {
+  const [hidePermanent, setHidePermanent] = useState(false);
+  const handleCheckHide = () => setHidePermanent((prev) => !prev);
+  const handleClickClose = () => {
+    if (hidePermanent) {
+      setCookie("hidePermanent-notification-information", true);
+    }
+    props.onHide();
+  };
+
   return (
     <AdFitModal
       {...props}
@@ -21,7 +33,7 @@ const InformationModal = (props) => {
       adfitid={informationModalAdID}
     >
       <Header>
-        <GreenCloseButton onClick={props.onHide} />
+        <GreenCloseButton onClick={handleClickClose} />
       </Header>
       <CustomDescriptionBody>
         <StyledSwiper
@@ -36,13 +48,13 @@ const InformationModal = (props) => {
           onClickNext={(swiper) => swiper.next()}
           loop
         >
-          {["guide", 1, 2, 3, 4, 5, 6, 7].map((page, idx) => (
+          {["new-notification", 7, 8, 9, 10, 11].map((page, idx) => (
             <SwiperSlide key={idx}>
               <SquareImage
                 src={
                   idx > 0
                     ? `/asset_ver2/image/guide/feature${page}.png`
-                    : `/asset_ver2/image/guide/guide.png`
+                    : `/asset_ver2/image/guide/new-notification.png`
                 }
                 alt={`feature${idx}`}
               />
@@ -50,12 +62,20 @@ const InformationModal = (props) => {
           ))}
         </StyledSwiper>
       </CustomDescriptionBody>
-      <CustomFooter />
+      <StyledFooter>
+        <Form.Check
+          type="checkbox"
+          id={`default-checkbox`}
+          label={`다시 보지 않기`}
+          onClick={handleCheckHide}
+          checked={hidePermanent}
+        />
+      </StyledFooter>
     </AdFitModal>
   );
 };
 
-export default InformationModal;
+export default NotificationInfoModal;
 const Header = styled(CustomHeader)`
   margin-top: 25px;
   text-align: center;
@@ -71,4 +91,8 @@ const StyledSwiper = styled(Swiper)`
     z-index: 10;
     width: 5px;
   }
+`;
+
+const StyledFooter = styled(CustomFooter)`
+  padding: 5px 20px;
 `;
