@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { getGnbOptions } from "../utils/getGnbOptions";
 import ShareModal from "./ShareModal";
 import CopyModal from "../index/CopyModal";
+import NotificationInfoModal from "../index/notificationInfoModal";
 
 export const Modals = () => {
   const router = useRouter();
@@ -20,10 +21,15 @@ export const Modals = () => {
     setActivePathOption(getGnbOptions(router.asPath));
     setModalState({ ...modalState, show: false });
   };
+
   return (
     <>
       <FriendsModal show={label === "friends" && show} onHide={closeModal} />
       <ShareModal show={label === "share" && show} onHide={closeModal} />
+      <NotificationInfoModal
+        show={label === "notificaiton" && show}
+        onHide={closeModal}
+      />
       <CopyModal
         link={`https://merry-christmas.site/${storeUserData.invitationLink}`}
         show={label === "copy" && show}
