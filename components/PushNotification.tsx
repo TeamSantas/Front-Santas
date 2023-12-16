@@ -4,26 +4,9 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import SettingService from "../api/SettingService";
 
 const PushNotification = () => {
-  const getNotificationGrant = async () => {
-    if (!("Notification" in window)) {
-      console.log("This browser do not supports notifications");
-    }
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      console.log("Not granted");
-      return;
-      
-    } else {
-      console.log("Granted!");
-    }
-  }
   const onMessageFCM = async () => {
-    if (!('serviceWorker' in navigator)) return;
-
-    let registration = await navigator.serviceWorker.getRegistration();
-    if (!registration) {
-      registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-    }
+    const permission = await Notification.requestPermission(); // 버전 체크
+    if (permission !== "granted") return;
 
     const firebaseConfig = {
       apiKey: "AIzaSyCastD4wzjzV_ABpqjpaPiX1t2d2pkWDiM",
@@ -60,21 +43,19 @@ const PushNotification = () => {
         console.log("An error occurred while retrieving token. ", err);
       });
 
-    // onMessage(messaging, (payload) => {
-    //   const title = payload.notification.title;
-    //   const body = payload.notification.body;
-    //   const icon =
-    //     "https://merry-christmas.site/asset_ver2/image/common/title-logo.png";
-    //   const link = "https://merry-christmas.site/";
-    //   const options = { body, icon, link };
+    onMessage(messaging, (payload) => {
+      const title = payload.notification.title;
+      const body = payload.notification.body;
+      const icon =
+        "https://merry-christmas.site/asset_ver2/image/common/title-logo.png";
+      const link = "https://merry-christmas.site/";
+      const options = { body, icon, link };
 
-    //   // new Notification(title, options);
-    //   registration.showNotification(title, options);
-    // });
+      new Notification(title, options);
+    });
   };
 
   useEffect(() => {
-    getNotificationGrant();
     onMessageFCM();
   }, []);
 

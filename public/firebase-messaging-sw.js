@@ -20,20 +20,7 @@ const config = {
 firebase.initializeApp(config);
 const messaging = firebase.messaging();
 
-// messaging.onBackgroundMessage((payload) => {
-//   const title = payload.notification.title;
-//   const body = payload.notification.body;
-//   const icon =
-//     "https://merry-christmas.site/asset_ver2/image/common/title-logo.png";
-//   const link = "https://merry-christmas.site/";
-//   const options = { body, icon, link };
-
-//   self.registration.showNotification(title, options);
-// });
-
-self.addEventListener('push', (event) => {
-  const payload = event.data?.json();
-
+messaging.onBackgroundMessage((payload) => {
   const title = payload.notification.title;
   const body = payload.notification.body;
   const icon =
@@ -41,10 +28,5 @@ self.addEventListener('push', (event) => {
   const link = "https://merry-christmas.site/";
   const options = { body, icon, link };
 
-  // new Notification(title, options);
-  registration.showNotification(title, options);
-});
-
-self.addEventListener('notificationclick', (event) => {
-  self.clients.openWindow('https://merry-christmas.site/');
+  self.registration.showNotification(title, options);
 });
