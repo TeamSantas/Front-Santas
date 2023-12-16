@@ -1,18 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import SettingService from "../api/SettingService";
 
 const PushNotification = () => {
-  const getNotificationGrant = async () => {
-    if (!("Notification" in window)) {
-      console.log("This browser do not supports notifications");
-    }
+  const [permission, setPermission] = useState("");
 
+  const getNotificationGrant = async () => {
+    const currPermission = Notification.permission;
     try {
-      const currPermission = Notification.permission;
       if (currPermission === "default") {
-        await Notification.requestPermission();
+        const permission = await Notification.requestPermission();
+        setPermission(permission);
         console.log("Not granted");
       } else if (currPermission === "denied") {
         console.log("The user said no.");
@@ -83,9 +82,20 @@ const PushNotification = () => {
   };
 
   useEffect(() => {
-    getNotificationGrant();
-    onMessageFCM();
-  }, []);
+    if ("Notification" in window) {
+      window.addEventListener("click", getNotificationGrant);
+
+      if (permission === "granted") {
+        onMessageFCM();
+      }
+
+      return () => {
+        window.removeEventListener("click", getNotificationGrant);
+      };
+    } else {
+      console.log("This browser do not supports notifications");
+    }
+  }, [permission]);
 
   return <></>;
 };
