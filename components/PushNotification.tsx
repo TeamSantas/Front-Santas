@@ -5,7 +5,7 @@ import SettingService from "../api/SettingService";
 
 const PushNotification = () => {
   const onMessageFCM = async () => {
-    const permission = await Notification.requestPermission(); // 버전 체크
+    const permission = await Notification.requestPermission();
     if (permission !== "granted") return;
 
     const firebaseConfig = {
