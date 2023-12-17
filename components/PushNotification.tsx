@@ -24,21 +24,19 @@ const PushNotification = () => {
   };
 
   const onMessageFCM = async () => {
-    if (!("serviceWorker" in navigator)) return;
+    // if (!("serviceWorker" in navigator)) return;
 
     let registration = await navigator.serviceWorker.getRegistration();
     console.log(registration);
+
     if (!registration) {
-      registration = await navigator.serviceWorker.register(
-        "/firebase-messaging-sw.js"
-      );
+      registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
     }
 
     const firebaseConfig = {
       apiKey: "AIzaSyCastD4wzjzV_ABpqjpaPiX1t2d2pkWDiM",
       authDomain: "ddac-e6757.firebaseapp.com",
-      databaseURL:
-        "https://ddac-e6757-default-rtdb.asia-southeast1.firebasedatabase.app",
+      databaseURL: "https://ddac-e6757-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "ddac-e6757",
       storageBucket: "ddac-e6757.appspot.com",
       messagingSenderId: "50350895067",
@@ -53,16 +51,13 @@ const PushNotification = () => {
     const messaging = getMessaging(app);
 
     getToken(messaging, {
-      vapidKey:
-        "BBPJBtEDFqPTdSaHAPZKnM0JikkLXLIfW9ax7qH3UvTe-RtxNK-6aNQv0N_-zqg1Y9l1IhM7q6Vi2qL9ZoMhEng",
+      vapidKey: "BBPJBtEDFqPTdSaHAPZKnM0JikkLXLIfW9ax7qH3UvTe-RtxNK-6aNQv0N_-zqg1Y9l1IhM7q6Vi2qL9ZoMhEng",
     })
       .then((currentToken) => {
         if (currentToken) {
           SettingService.setFcmtoken(currentToken);
         } else {
-          console.log(
-            "No registration token available. Request permission to generate one."
-          );
+          console.log("No registration token available. Request permission to generate one.");
         }
       })
       .catch((err) => {
