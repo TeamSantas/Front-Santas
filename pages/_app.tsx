@@ -10,11 +10,7 @@ import AuthProvider from "../store/contexts/components/auth-provider";
 import { measurePageView } from "../lib/gtag";
 import ReactHowler from "react-howler";
 import { useAtom } from "jotai";
-import {
-  isMyCalendarAtom,
-  modalStateAtom,
-  sidebarBgmAtom,
-} from "../store/globalState";
+import { isMyCalendarAtom, modalStateAtom, sidebarBgmAtom } from "../store/globalState";
 import { Loading } from "../components/layout/new/loading-cute";
 import dynamic from "next/dynamic";
 import { getCookie } from "cookies-next";
@@ -30,10 +26,7 @@ declare global {
   }
 }
 
-const PushNotification = dynamic(
-  () => import("../components/PushNotification"),
-  { ssr: false }
-);
+const PushNotification = dynamic(() => import("../components/PushNotification"), { ssr: false });
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -50,7 +43,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     const hidePermanent_notification_information = localStorage.getItem("hidePermanent-notification-information");
     console.log("NOTI_INFO_HIDE :", hidePermanent_notification_information);
-    if (hidePermanent_notification_information !== null && !hidePermanent_notification_information) {
+
+    // session 값 등록x or 등록+false일 경우만 모달표시
+    if (
+      hidePermanent_notification_information === null ||
+      (hidePermanent_notification_information !== null && !hidePermanent_notification_information)
+    ) {
       setModalState({
         label: "notificaiton",
         show: true,
@@ -100,16 +98,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
   }, [router]);
 
-  const getLayout =
-    (Component as any).getLayout || ((page) => <Layout> {page} </Layout>);
+  const getLayout = (Component as any).getLayout || ((page) => <Layout> {page} </Layout>);
 
   return (
     <CookiesProvider>
       <PushNotification />
-      <ReactHowler src="./bgm.mp3" playing={bgmOn} loop={true} />
-      <AuthProvider>
-        {getLayout(loading ? <Loading /> : <Component {...pageProps} />)}
-      </AuthProvider>
+      <ReactHowler src='./bgm.mp3' playing={bgmOn} loop={true} />
+      <AuthProvider>{getLayout(loading ? <Loading /> : <Component {...pageProps} />)}</AuthProvider>
     </CookiesProvider>
   );
 }
