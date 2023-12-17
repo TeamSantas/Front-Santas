@@ -54,6 +54,9 @@ const SettingSideBar = () => {
             >
               산타즈 캘린더 바로가기 🎅
             </LinkContent>
+            <LinkContent href={"https://toss.me/teamsantaz"} onClick={handleClickClose}>
+              취약계층 후원하기 🫱🏻‍🫲🏼
+            </LinkContent>
           </div>
           <Bottom>
             <LinkWrapper>
