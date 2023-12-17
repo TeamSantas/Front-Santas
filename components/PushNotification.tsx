@@ -27,6 +27,7 @@ const PushNotification = () => {
     if (!("serviceWorker" in navigator)) return;
 
     let registration = await navigator.serviceWorker.getRegistration();
+    console.log(registration);
     if (!registration) {
       registration = await navigator.serviceWorker.register(
         "/firebase-messaging-sw.js"
