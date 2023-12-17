@@ -13,7 +13,6 @@ import { useAtom } from "jotai";
 import { isMyCalendarAtom, modalStateAtom, sidebarBgmAtom } from "../store/globalState";
 import { Loading } from "../components/layout/new/loading-cute";
 import dynamic from "next/dynamic";
-import { getCookie } from "cookies-next";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -41,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
     window?.Kakao?.init("3a75ee9ed0b21018376f7d7e2ee8ab40");
 
-    const hidePermanent_notification_information = localStorage.getItem("hidePermanent-notification-information");
+    const hidePermanent_notification_information = localStorage.getItem("hidePermanent_notification_information");
     console.log("NOTI_INFO_HIDE :", hidePermanent_notification_information);
 
     // session 값 등록x or 등록+false일 경우만 모달표시
