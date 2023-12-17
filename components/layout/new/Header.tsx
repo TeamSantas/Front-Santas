@@ -50,7 +50,7 @@ const Header = () => {
     <Wrapper>
       {isLoginUser
       ?<InfoModal isDisplay={isDisplayAlarm}
-                  text={"내게 쪽지가 오면 메일알림 받기"}
+                  text={"내게 쪽지가 오면 알림받기"}
                   direction={"right"}/>
       : null}
       <Profile

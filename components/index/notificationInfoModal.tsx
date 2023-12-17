@@ -9,20 +9,26 @@ import AdFitModal from "../advertisement/adFitModal";
 import { informationModalAdID } from "../advertisement/ad-ids";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { SquareImage } from "../common/Image";
-import { setCookie } from "cookies-next";
 
 const NotificationInfoModal = (props) => {
   const [hidePermanent, setHidePermanent] = useState(false);
   const handleCheckHide = () => setHidePermanent((prev) => !prev);
   const handleClickClose = () => {
     if (hidePermanent) {
-      setCookie("hidePermanent-notification-information", true);
+      localStorage.setItem("hidePermanent_notification_information", "true")
     }
     props.onHide();
   };
+
+  useEffect(() => {
+    const hidePermanent_notification_information = localStorage.getItem("hidePermanent_notification_information");
+    if (hidePermanent_notification_information !== null && hidePermanent_notification_information) {
+      setHidePermanent(JSON.parse(hidePermanent_notification_information));
+    }
+  }, []);
 
   return (
     <AdFitModal

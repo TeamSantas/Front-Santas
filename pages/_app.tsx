@@ -48,8 +48,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
     window?.Kakao?.init("3a75ee9ed0b21018376f7d7e2ee8ab40");
 
-    console.log(getCookie("hide-notification-information"));
-    if (!getCookie("hide-notification-information")) {
+    const hidePermanent_notification_information = localStorage.getItem("hidePermanent-notification-information");
+    console.log("NOTI_INFO_HIDE :", hidePermanent_notification_information);
+    if (hidePermanent_notification_information !== null && !hidePermanent_notification_information) {
       setModalState({
         label: "notificaiton",
         show: true,
