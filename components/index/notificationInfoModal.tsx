@@ -18,14 +18,19 @@ const NotificationInfoModal = (props) => {
   const handleCheckHide = () => setHidePermanent((prev) => !prev);
   const handleClickClose = () => {
     if (hidePermanent) {
-      localStorage.setItem("hidePermanent_notification_information", "true")
+      localStorage.setItem("hidePermanent_notification_information", "true");
     }
     props.onHide();
   };
 
   useEffect(() => {
-    const hidePermanent_notification_information = localStorage.getItem("hidePermanent_notification_information");
-    if (hidePermanent_notification_information !== null && hidePermanent_notification_information) {
+    const hidePermanent_notification_information = localStorage.getItem(
+      "hidePermanent_notification_information"
+    );
+    if (
+      hidePermanent_notification_information !== null &&
+      hidePermanent_notification_information
+    ) {
       setHidePermanent(JSON.parse(hidePermanent_notification_information));
     }
   }, []);
@@ -54,16 +59,14 @@ const NotificationInfoModal = (props) => {
           onClickNext={(swiper) => swiper.next()}
           loop
         >
-          {["new-notification", 7, 8, 9, 10, 11].map((page, idx) => (
-            <SwiperSlide key={idx}>
+          {[7, 8, 9, 10, 11, 12].map((page, idx) => (
+            <SwiperSlide key={`feature${page}${idx}`}>
               <SquareImage
-                src={
-                  idx > 0
-                    ? `/asset_ver2/image/guide/feature${page}.png`
-                    : `/asset_ver2/image/guide/new-notification.png`
-                }
+                src={`/asset_ver2/image/guide/feature${page}.png`}
                 alt={`feature${idx}`}
+                loading="lazy"
               />
+              <div className="swiper-lazy-preloader" />
             </SwiperSlide>
           ))}
         </StyledSwiper>

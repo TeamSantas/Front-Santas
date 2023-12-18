@@ -36,16 +36,14 @@ const InformationModal = (props) => {
           onClickNext={(swiper) => swiper.next()}
           loop
         >
-          {["guide", 1, 2, 3, 4, 5, 6, 7].map((page, idx) => (
-            <SwiperSlide key={idx}>
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((page, idx) => (
+            <SwiperSlide key={`feature${page}${idx}`}>
               <SquareImage
-                src={
-                  idx > 0
-                    ? `/asset_ver2/image/guide/feature${page}.png`
-                    : `/asset_ver2/image/guide/guide.png`
-                }
+                src={`/asset_ver2/image/guide/feature${page}.png`}
                 alt={`feature${idx}`}
+                loading="lazy"
               />
+              <div className="swiper-lazy-preloader" />
             </SwiperSlide>
           ))}
         </StyledSwiper>

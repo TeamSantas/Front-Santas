@@ -128,6 +128,11 @@ ul {
 .swiper-pagination-bullet-active {
   background-color: white !important;
 }
+.swiper-lazy-preloader {
+  border: 4px solid #1a2838 !important;
+  border-top-color: transparent !important;
+}
+
 .modal-content {
   border-radius: 20px !important;
 }
