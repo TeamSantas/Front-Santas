@@ -174,7 +174,7 @@ const Title = styled.h1`
   font-family: "LOTTERIACHAB", LOTTERIACHAB, sans-serif;
   margin: 0 auto;
   margin-top: 25vh;
-  max-width: 260px;
+  max-width: 350px;
   text-align: center;
 
   color: ${(props) => props.color};
