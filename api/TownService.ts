@@ -14,7 +14,7 @@ class TownService {
       params,
     });
 
-  // 회원 게시글 조회 (서버 사이드)
+  // 회원 게시글 조회 🔑
   getAuthBoard = (params: { boardId: number }, token) => {
     const TownServerAuthInstance = AuthAPIInstance(
       process.env.NEXT_PUBLIC_BASE_URL,

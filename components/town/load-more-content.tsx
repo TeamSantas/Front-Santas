@@ -6,6 +6,7 @@ import { fetchContents, fetchMyContents } from "./fetch-contents";
 import { getContentsWithAd } from "./ad-utils";
 import Contents from "./contents";
 import styled from "styled-components";
+import { getCookie } from "cookies-next";
 
 const LoadMore = ({ callMyContent, initialContent }) => {
   const [contents, setContents] = useState<BoardData[]>([]);
@@ -18,12 +19,13 @@ const LoadMore = ({ callMyContent, initialContent }) => {
       : -1
   );
   const noInitialContent = initialContent.length === 0;
+  const token = getCookie("token");
   const { ref, inView } = useInView();
 
   const loadMoreContents = useCallback(async () => {
     const newContents = callMyContent
       ? await fetchMyContents(lastBoardId)
-      : await fetchContents(lastBoardId);
+      : await fetchContents(lastBoardId, token);
     if (newContents.length < 12) {
       setEndOfContents(true);
     }
