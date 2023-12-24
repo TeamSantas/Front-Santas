@@ -20,7 +20,7 @@ const areas = [
   { coords: "891,546,1073,713" },
   { coords: "95,731,279,901" },
   { coords: "294,730,478,901" },
-  { coords: "492,730,492,731" },
+  { coords: "675,899,492,731" },
   { coords: "890,727,1074,899" },
   { coords: "96,912,480,1086" },
   { coords: "494,912,674,1085" },
@@ -47,9 +47,9 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
   const christmas = new Date(today.getFullYear(), 11, 25); // 같은 연도의 크리스마스 날짜를 설정 (월은 0부터 시작)
 
   const srcPath =
-    today < christmas // 오늘이 크리스마스 이전이면
-      ? "/asset_ver2/image/layout/d-1.png" // 이 이미지 사용
-      : "/asset_ver2/image/layout/d-0.png"; // 크리스마스 당일 혹은 이후면 이 이미지 사용
+    // today < christmas // 오늘이 크리스마스 이전이면
+    // ? "/asset_ver2/image/layout/d-1.png" // 이 이미지 사용
+    "/asset_ver2/image/layout/d-0.png"; // 크리스마스 당일 혹은 이후면 이 이미지 사용
   const setResizedPosition = () => {
     const newPosition = refs.current.map((ref) => {
       const [left, top, _, __] = ref.current.coords.split(",");
@@ -109,7 +109,11 @@ const CalendarDays = ({ name, handleShow }: CalendarFormProps) => {
                 />
                 <NumberOfReceivedPresents
                   day={index + 1}
-                  position={positions[index]}
+                  position={
+                    index === 11
+                      ? { left: positions[6].left, top: positions[10].top }
+                      : positions[index]
+                  }
                 />
               </React.Fragment>
             );
