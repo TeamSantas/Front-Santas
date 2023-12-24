@@ -3,6 +3,7 @@ import Snow from "../Snow";
 import Header from "./Header";
 import Gnb from "./GNB";
 import SettingSideBar from "../../setting/SettingSideBar";
+import Banner from "../../common/Banner";
 
 const Layout = ({ children, logo = null }) => {
   return (
@@ -12,7 +13,10 @@ const Layout = ({ children, logo = null }) => {
         <Logo src={logo} />
         <Buildings src={"/asset_ver2/image/layout/buildings.png"} />
         <Tree src={"/asset_ver2/image/layout/tree.svg"} />
-        <UpperWrapper>{children}</UpperWrapper>
+        <UpperWrapper>
+          <Banner />
+          {children}
+        </UpperWrapper>
         <Ground />
       </MainWrapper>
       <SettingSideBar />
@@ -61,7 +65,7 @@ const Logo = styled(AbsoluteImg)`
 
   @media (max-height: 800px) {
     width: 220px;
-    top: 10px;
+    top: 60px;
   }
 `;
 
