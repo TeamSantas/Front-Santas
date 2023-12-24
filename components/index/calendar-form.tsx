@@ -141,15 +141,19 @@ const CalendarContainer = styled.div`
   gap: 5px;
   position: absolute;
   width: 100%;
-  height: calc(100dvh - 150px);
+  height: calc(100dvh - 220px);
   left: 50%;
   transform: translateX(-50%);
 `;
 
 const Background = styled.img`
-  width: 350px;
-  height: 461px;
+  width: 100%;
+  max-width: 350px;
+  height: auto;
 
+  @media (max-height: 670px) {
+    max-width: 300px;
+  }
   @media (max-width: 350px) {
     max-width: unset;
     width: 100%;
@@ -167,11 +171,11 @@ const Title = styled.h1`
   background-color: ${(props) => props.background};
   text-shadow: ${(props) => props.textShadow};
 
-  @media (max-height: 600px) {
-    margin-top: 10vh;
-  }
   @media (max-height: 800px) {
-    margin-top: 13px;
+    margin-top: 15vh;
+  }
+  @media (max-height: 900px) {
+    margin-top: 5px;
   }
 `;
 

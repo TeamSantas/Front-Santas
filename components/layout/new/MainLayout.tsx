@@ -5,6 +5,7 @@ import Gnb from "./GNB";
 import { ShareLink } from "../../share/ShareLink";
 import { QuestionLink } from "../../share/QuestionLink";
 import SettingSideBar from "../../setting/SettingSideBar";
+import Banner from "../../common/Banner";
 
 const Layout = ({ children = null }) => {
   return (
@@ -12,7 +13,10 @@ const Layout = ({ children = null }) => {
       <Header />
       <MainWrapper>
         <Buildings src={"/asset_ver2/image/layout/forest_background.png"} />
-        <UpperWrapper>{children}</UpperWrapper>
+        <UpperWrapper>
+          <Banner />
+          {children}
+        </UpperWrapper>
         <Ground />
       </MainWrapper>
       <SettingSideBar />

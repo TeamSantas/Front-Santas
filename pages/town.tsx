@@ -135,13 +135,13 @@ export async function getServerSideProps(context) {
 
 const Container = styled.div<{ isOpen: boolean }>`
   position: absolute;
-  bottom: calc(-100dvh + 150px + env(safe-area-inset-bottom));
+  bottom: calc(-100dvh + 210px + env(safe-area-inset-bottom));
   left: 50%;
   animation: ${({ isOpen }) => (isOpen ? slideIn : slideOut)} 0.5s ease-in-out;
   transform: ${({ isOpen }) =>
     isOpen
       ? "translateY(0) translateX(-50%)"
-      : "translateY(calc(100dvh - 260px)) translateX(-50%)"};
+      : "translateY(calc(100dvh - 320px)) translateX(-50%)"};
 `;
 
 const ContentWrapper = styled.div`
@@ -149,7 +149,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  height: calc(100dvh - 400px);
+  height: calc(100dvh - 460px);
   width: 100vw;
   max-width: 500px;
   padding: 0 20px 20px;
@@ -217,7 +217,7 @@ const Arrow = styled.div`
 
 const slideIn = keyframes`
   from {
-    transform: translateY(calc(100dvh - 260px)) translateX(-50%);
+    transform: translateY(calc(100dvh - 320px)) translateX(-50%);
   }
   to {
     transform: translateY(0) translateX(-50%);
@@ -229,6 +229,6 @@ const slideOut = keyframes`
     transform: translateY(0) translateX(-50%);
   }
   to {
-    transform: translateY(calc(100dvh - 260px)) translateX(-50%);
+    transform: translateY(calc(100dvh - 320px)) translateX(-50%);
   }
 `;

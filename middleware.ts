@@ -21,12 +21,18 @@ const handleAuthRedirect = (url) => {
   return url.pathname.includes("oauth");
 };
 
+const handleEndingRedirect = (req) => {
+  const endingCookie = req.cookies.get("ending");
+  return !endingCookie;
+};
+
 export function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const newToken = url.searchParams.get("token"); // 쿼리에서 가져온 토큰
   const upcomingRedirect = handleUpcomingRedirect(url, req);
   const upcomingToLoginRedirect = handleUpcomingToLoginRedirect(url);
   const oauthRedirect = handleAuthRedirect(url);
+  const endingRedirect = handleEndingRedirect(req);
 
   if (upcomingToLoginRedirect) {
     url.pathname = "/login";
@@ -50,5 +56,24 @@ export function middleware(req: NextRequest) {
     return response;
   }
 
+  if (endingRedirect && !url.pathname.includes("/ending")) {
+    url.pathname = "/ending";
+    return NextResponse.redirect(url);
+  }
+
   return NextResponse.next(); // 다른 경우에는 원래 요청을 유지
 }
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - assets
+     */
+    "/((?!api|_next|static|_next/image|public|favicon.ico|assets|asset_ver2).*)",
+  ],
+};

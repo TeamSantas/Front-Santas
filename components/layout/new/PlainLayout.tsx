@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Snow from "../Snow";
+import Banner from "../../common/Banner";
 
 const Layout = ({ children, logo = null }) => {
   return (
@@ -7,7 +8,10 @@ const Layout = ({ children, logo = null }) => {
       <Logo src={logo} />
       <Buildings src={"/asset_ver2/image/layout/buildings.png"} />
       <Tree src={"/asset_ver2/image/layout/tree.svg"} />
-      <UpperWrapper>{children}</UpperWrapper>
+      <UpperWrapper>
+        <Banner />
+        {children}
+      </UpperWrapper>
       <Ground />
       <Snow />
     </MainWrapper>
