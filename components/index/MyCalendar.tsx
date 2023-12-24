@@ -20,7 +20,6 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
   const [presentModalShow, setPresentModalShow] = useState(false);
   const [notYetModalShow, setNotYeModalShow] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
-  const [canOpenCalendar, setCanOpenCalendar] = useState(false);
 
   const handleShow = (selectedDay: number) => {
     setSelectedDay(selectedDay);
@@ -48,25 +47,11 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
       return;
     }
     if (isCanOpenTime) {
-      setCanOpenCalendar(true);
       setPresentModalShow(true);
     } else {
-      setCanOpenCalendar(false);
       setNotYeModalShow(true);
     }
   };
-
-  useEffect(() => {
-    let clickedCalendarDate =
-      Number(selectedDay) < 10
-        ? "2023120" + selectedDay
-        : "202312" + selectedDay;
-    if (Number(clickedCalendarDate) <= Number(today)) {
-      setCanOpenCalendar(true);
-    } else {
-      setCanOpenCalendar(false);
-    }
-  }, [selectedDay, today]);
 
   const handleClosePresentModal = () => setPresentModalShow(false);
   const handleCloseNotYetModal = () => setNotYeModalShow(false);
@@ -89,7 +74,6 @@ const MyCalendar = ({ todayPresentCount }: IMyCalendar) => {
         onHide={handleCloseNotYetModal}
         header={""}
         body={<DenyAccess />}
-        //TODO: adfit 아이디 추가
       />
     </>
   );
@@ -130,7 +114,4 @@ const CalendarWrapper = styled.div`
   border-radius: 10px;
   margin: 0px auto;
   z-index: 1;
-  @media (max-width: 600px) {
-    margin: 5px auto;
-  }
 `;

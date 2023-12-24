@@ -5,7 +5,7 @@ import {
   receivedPresentListAtom,
 } from "../../store/globalState";
 
-const NumberOfReceivedPresents = ({ day }) => {
+const NumberOfReceivedPresents = ({ day, position }) => {
   const [receivedList] = useAtom(receivedPresentListAtom);
   const [isMyCalendar] = useAtom(isMyCalendarAtom);
   let numberOfReceivedPresents = 0;
@@ -21,7 +21,7 @@ const NumberOfReceivedPresents = ({ day }) => {
     numberOfReceivedPresents > 100 ? "99+" : numberOfReceivedPresents;
 
   return numberOfReceivedPresents > 0 && isMyCalendar ? (
-    <StyledNumberOfReceivedPresents>
+    <StyledNumberOfReceivedPresents alt={`day${day}_count`} position={position}>
       {presentCount}
     </StyledNumberOfReceivedPresents>
   ) : (
@@ -33,6 +33,7 @@ export default NumberOfReceivedPresents;
 
 const StyledNumberOfReceivedPresents = styled.p`
   background-color: #e25320;
+  color: white;
   border-radius: 100%;
   background-position: center;
   width: 20px;
@@ -41,6 +42,8 @@ const StyledNumberOfReceivedPresents = styled.p`
   align-items: center;
   display: flex;
   justify-content: center;
-  position: absolute;
   font-size: small;
+  position: absolute;
+  left: ${({ position }) => `${position.left}px`};
+  top: ${({ position }) => `${position.top}px`};
 `;
