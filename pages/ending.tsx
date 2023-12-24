@@ -18,7 +18,7 @@ const Ending = () => {
     if (!interval) {
       interval = setInterval(() => {
         setShowBridge(false);
-      }, 2000);
+      }, 4000);
     }
 
     return () => (interval ? clearInterval(interval) : null);
