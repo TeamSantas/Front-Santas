@@ -2,17 +2,21 @@ import styled from "styled-components";
 import Snow from "../Snow";
 import Gnb from "./GNB";
 import Header from "./Header";
+import SettingSideBar from "../../setting/SettingSideBar";
 
-const Layout = ({ children, logo = null }) => {
+const Layout = ({ children }) => {
   return (
-    <MainWrapper>
-      <Container>
-        <Header />
-        <UpperWrapper>{children}</UpperWrapper>
-        <Snow />
-        <Gnb />
-      </Container>
-    </MainWrapper>
+    <>
+      <MainWrapper>
+        <Container>
+          <Header />
+          <UpperWrapper>{children}</UpperWrapper>
+          <Snow />
+          <Gnb />
+        </Container>
+      </MainWrapper>
+      <SettingSideBar />
+    </>
   );
 };
 

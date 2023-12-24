@@ -4,6 +4,7 @@ import { Flex } from "../styles/styledComponentModule";
 import { Button } from "react-bootstrap";
 import Layout from "../components/layout/new/EndingLayout";
 import { setCookie } from "cookies-next";
+import { Modals } from "../components/modals/modals";
 
 const Ending = () => {
   const [showBridge, setShowBridge] = useState(true);
@@ -24,22 +25,25 @@ const Ending = () => {
     return () => (interval ? clearInterval(interval) : null);
   }, []);
   return (
-    <SnowContainer>
-      {showBridge ? (
-        <OnboardingContainer>
-          <StyledImage src="/assets/image/ending/endingbridge.gif" />
-        </OnboardingContainer>
-      ) : (
-        <>
-          <EndingImage alt="ending" src={`/asset_ver2/image/ending.png`} />
-          <ButtonFlex>
-            <ServeyButton onClick={handleClickServey}>
-              👉 두어캘 서비스 설문조사 바로가기 👈
-            </ServeyButton>
-          </ButtonFlex>
-        </>
-      )}
-    </SnowContainer>
+    <>
+      <Modals />
+      <SnowContainer>
+        {showBridge ? (
+          <OnboardingContainer>
+            <StyledImage src="/assets/image/ending/endingbridge.gif" />
+          </OnboardingContainer>
+        ) : (
+          <>
+            <EndingImage alt="ending" src={`/asset_ver2/image/ending.png`} />
+            <ButtonFlex>
+              <ServeyButton onClick={handleClickServey}>
+                👉 두어캘 서비스 설문조사 바로가기 👈
+              </ServeyButton>
+            </ButtonFlex>
+          </>
+        )}
+      </SnowContainer>
+    </>
   );
 };
 
