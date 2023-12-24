@@ -10,7 +10,11 @@ import AuthProvider from "../store/contexts/components/auth-provider";
 import { measurePageView } from "../lib/gtag";
 import ReactHowler from "react-howler";
 import { useAtom } from "jotai";
-import { isMyCalendarAtom, modalStateAtom, sidebarBgmAtom } from "../store/globalState";
+import {
+  isMyCalendarAtom,
+  modalStateAtom,
+  sidebarBgmAtom,
+} from "../store/globalState";
 import { Loading } from "../components/layout/new/loading-cute";
 import dynamic from "next/dynamic";
 import "swiper/css";
@@ -25,7 +29,10 @@ declare global {
   }
 }
 
-const PushNotification = dynamic(() => import("../components/PushNotification"), { ssr: false });
+const PushNotification = dynamic(
+  () => import("../components/PushNotification"),
+  { ssr: false }
+);
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -40,18 +47,26 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
     window?.Kakao?.init("3a75ee9ed0b21018376f7d7e2ee8ab40");
 
-    const hidePermanent_notification_information = localStorage.getItem("hidePermanent_notification_information");
-    console.log("NOTI_INFO_HIDE :", hidePermanent_notification_information);
+    const notificationShown = localStorage.getItem(
+      "hidePermanent_notification_information"
+    );
+    const endingShown = localStorage.getItem("ending");
 
-    // session 값 등록x or 등록+false일 경우만 모달표시
-    if (
-      hidePermanent_notification_information === null ||
-      (hidePermanent_notification_information !== null && !hidePermanent_notification_information)
-    ) {
+    if (!notificationShown) {
       setModalState({
         label: "notificaiton",
         show: true,
       });
+    }
+
+    if (
+      !endingShown &&
+      (router.pathname === "/" ||
+        router.pathname === "/town" ||
+        router.pathname === "/message" ||
+        router.pathname === "/todays-heart")
+    ) {
+      router.push("/ending");
     }
   }, []);
 
@@ -97,13 +112,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
   }, [router]);
 
-  const getLayout = (Component as any).getLayout || ((page) => <Layout> {page} </Layout>);
+  const getLayout =
+    (Component as any).getLayout || ((page) => <Layout> {page} </Layout>);
 
   return (
     <CookiesProvider>
       <PushNotification />
-      <ReactHowler src='./bgm.mp3' playing={bgmOn} loop={true} />
-      <AuthProvider>{getLayout(loading ? <Loading /> : <Component {...pageProps} />)}</AuthProvider>
+      <ReactHowler src="./bgm.mp3" playing={bgmOn} loop={true} />
+      <AuthProvider>
+        {getLayout(loading ? <Loading /> : <Component {...pageProps} />)}
+      </AuthProvider>
     </CookiesProvider>
   );
 }

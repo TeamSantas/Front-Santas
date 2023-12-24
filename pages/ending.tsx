@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Flex } from "../styles/styledComponentModule";
 import { Button } from "react-bootstrap";
 import Layout from "../components/layout/new/EndingLayout";
-import { setCookie } from "cookies-next";
 import { Modals } from "../components/modals/modals";
 
 const Ending = () => {
@@ -13,7 +12,7 @@ const Ending = () => {
   };
 
   useEffect(() => {
-    setCookie("ending", true);
+    localStorage.setItem("ending", "true");
 
     let interval;
     if (!interval) {

@@ -21,24 +21,12 @@ const handleAuthRedirect = (url) => {
   return url.pathname.includes("oauth");
 };
 
-const handleEndingRedirect = (url, req) => {
-  const endingCookie = req.cookies.get("ending");
-  return (
-    !endingCookie &&
-    (url.pathname === "/" ||
-      url.pathname === "/town" ||
-      url.pathname === "/message" ||
-      url.pathname === "/todays-heart")
-  );
-};
-
 export function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const newToken = url.searchParams.get("token"); // 쿼리에서 가져온 토큰
   const upcomingRedirect = handleUpcomingRedirect(url, req);
   const upcomingToLoginRedirect = handleUpcomingToLoginRedirect(url);
   const oauthRedirect = handleAuthRedirect(url);
-  const endingRedirect = handleEndingRedirect(url, req);
 
   if (upcomingToLoginRedirect) {
     url.pathname = "/login";
@@ -60,11 +48,6 @@ export function middleware(req: NextRequest) {
       // 다른 옵션들도 필요한 경우 추가할 수 있습니다.
     });
     return response;
-  }
-
-  if (endingRedirect) {
-    url.pathname = "/ending";
-    return NextResponse.redirect(url);
   }
 
   return NextResponse.next(); // 다른 경우에는 원래 요청을 유지
