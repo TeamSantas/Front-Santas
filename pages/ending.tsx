@@ -8,7 +8,7 @@ import { setCookie } from "cookies-next";
 const Ending = () => {
   const [showBridge, setShowBridge] = useState(true);
   const handleClickServey = () => {
-    window.open("https://forms.gle/p5aD6DruCB6cjyo56", "_blank");
+    window.open("https://forms.gle/TWY7qA76noeHtfTY6", "_blank");
   };
 
   useEffect(() => {
