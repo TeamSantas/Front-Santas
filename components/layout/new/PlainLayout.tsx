@@ -42,7 +42,7 @@ const AbsoluteImg = styled.img`
 const Logo = styled(AbsoluteImg)`
   height: 180px;
   max-height: 18vh;
-  top: calc(env(safe-area-inset-top) + 5vh);
+  top: calc(env(safe-area-inset-top) + 12vh);
 `;
 
 const Buildings = styled(AbsoluteImg)`

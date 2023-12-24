@@ -106,7 +106,10 @@ const OnboardingContainer = styled.div`
 `;
 
 const StyledImage = styled.img`
-  padding-top: 2rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
   width: 600px;
   @media (max-width: 600px) {
     width: 100%;
