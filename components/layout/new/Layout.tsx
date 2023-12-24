@@ -80,5 +80,5 @@ const Ground = styled.div`
   width: 100%;
   height: 17vh;
   bottom: env(safe-area-inset-bottom);
-  background-color: #d9d9d9;
+  background-color: #d9e2ed;
 `;

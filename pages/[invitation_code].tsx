@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { MainContainer } from "../styles/styledComponentModule";
 import { setGetCurrCalendarUserInfo } from "../api/hooks/useGetCurrCalendarUserInfo";
 import OtherCalendar from "../components/index/OtherCalendar";
 import { Modals } from "../components/modals/modals";
@@ -40,9 +39,7 @@ export default function OtherCalendarPage({ calendarUser, invitationCode }) {
   return (
     <div id="home">
       <Modals />
-      <MainContainer>
-        <OtherCalendar name={profileUser.nickname} />
-      </MainContainer>
+      <OtherCalendar name={profileUser.nickname} />
     </div>
   );
 }
