@@ -44,7 +44,8 @@ const MainWrapper = styled.div`
   background-color: #1c3249;
   position: relative;
 
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   -ms-overflow-style: none; /* Explorer */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {

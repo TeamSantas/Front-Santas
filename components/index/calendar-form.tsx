@@ -148,7 +148,7 @@ const CalendarContainer = styled.div`
 
 const Background = styled.img`
   width: 100%;
-  max-width: 350px;
+  max-width: 330px;
   height: auto;
 
   @media (max-height: 670px) {

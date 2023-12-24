@@ -21,9 +21,15 @@ const handleAuthRedirect = (url) => {
   return url.pathname.includes("oauth");
 };
 
-const handleEndingRedirect = (req) => {
+const handleEndingRedirect = (url, req) => {
   const endingCookie = req.cookies.get("ending");
-  return !endingCookie;
+  return (
+    !endingCookie &&
+    (url.pathname === "/" ||
+      url.pathname === "/town" ||
+      url.pathname === "/message" ||
+      url.pathname === "/todays-heart")
+  );
 };
 
 export function middleware(req: NextRequest) {
@@ -32,7 +38,7 @@ export function middleware(req: NextRequest) {
   const upcomingRedirect = handleUpcomingRedirect(url, req);
   const upcomingToLoginRedirect = handleUpcomingToLoginRedirect(url);
   const oauthRedirect = handleAuthRedirect(url);
-  const endingRedirect = handleEndingRedirect(req);
+  const endingRedirect = handleEndingRedirect(url, req);
 
   if (upcomingToLoginRedirect) {
     url.pathname = "/login";
@@ -56,7 +62,7 @@ export function middleware(req: NextRequest) {
     return response;
   }
 
-  if (endingRedirect && !url.pathname.includes("/ending")) {
+  if (endingRedirect) {
     url.pathname = "/ending";
     return NextResponse.redirect(url);
   }
