@@ -54,7 +54,4 @@ const CalendarWrapper = styled.div`
   border-radius: 10px;
   margin: 0px auto;
   z-index: 1;
-  @media (max-width: 600px) {
-    margin: 5px auto;
-  }
 `;

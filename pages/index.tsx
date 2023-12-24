@@ -1,4 +1,3 @@
-import { MainContainer } from "../styles/styledComponentModule";
 import { Modals } from "../components/modals/modals";
 import MainLayout from "../components/layout/new/MainLayout";
 import MyCalendar from "../components/index/MyCalendar";
@@ -38,9 +37,7 @@ const Home = () => {
   return (
     <div id="home">
       <Modals />
-      <MainContainer>
-        <MyCalendar todayPresentCount={todayPresentCount} />
-      </MainContainer>
+      <MyCalendar todayPresentCount={todayPresentCount} />
     </div>
   );
 };
