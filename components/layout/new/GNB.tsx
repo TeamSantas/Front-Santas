@@ -54,14 +54,19 @@ const Gnb = () => {
         break;
       case "todays-heart":
         {
-          if (!isLoginUser) {
-            const confirmText = `로그인이 필요한 기능이에요.\n로그인하러 갈까요?`;
-            if (confirm(confirmText)) {
-              router.push("/login");
-            }
-            return;
-          }
-          router.push("/todays-heart");
+          // TODO: 24년에 주석 해지
+          // if (!isLoginUser) {
+          //   const confirmText = `로그인이 필요한 기능이에요.\n로그인하러 갈까요?`;
+          //   if (confirm(confirmText)) {
+          //     router.push("/login");
+          //   }
+          //   return;
+          // }
+          // router.push("/todays-heart");
+
+          // TODO: 24년에 주석처리
+          const confirmText = `올해 하트보내기 기능은 문 닫았어요.\n2024년에 만나요!`;
+          alert(confirmText);
         }
         break;
       default:
